@@ -5,10 +5,7 @@ import remarkHtml from 'remark-html'
 import { Post } from 'src/domains/article/ts'
 
 export default async function generateRssFeed(posts: Post[]): Promise<void> {
-  const isProduction = process.env.NODE_ENV === 'production'
-  const url = isProduction
-    ? process.env.SITE_URL || 'https://rwietterc.xyz'
-    : 'http://localhost:3000'
+  const url = process.env.SITE_URL || 'https://rwietterc.xyz'
 
   const feedOptions = {
     title: 'Maurício Witter | RSS Feed',

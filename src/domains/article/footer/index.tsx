@@ -13,6 +13,7 @@ interface ArticleFooterProps {
   post: {
     category: string
     author: string
+    title: string
   }
 }
 
@@ -20,9 +21,9 @@ const ArticleFooter: FC<ArticleFooterProps> = ({ post }) => {
   const pathname = usePathname()
   const { t } = useTranslation()
 
-  const tweetUrl = `http://twitter.com/share?text=${t(
-    'article.justRead',
-  )} "${name}"&url=https://rwietterc.xyz${pathname}&hashtags=${post.category}`
+  const tweetUrl = `http://twitter.com/share?text=${t('article.justRead')} "${
+    post.title
+  }"&url=https://rwietterc.xyz${pathname}&hashtags=${post.category}`
 
   const linkToSearchOnTwietter = `https://twitter.com/search?q=https://rwietterc.xyz${pathname}`
 

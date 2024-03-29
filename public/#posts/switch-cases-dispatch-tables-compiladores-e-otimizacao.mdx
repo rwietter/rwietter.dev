@@ -1,0 +1,325 @@
+---
+title: Switch Cases, Dispatch Tables, Compiladores e Otimização
+description: dispatch tables
+slug: switch-cases-dispatch-tables-compiladores-e-otimizacao
+image: https://res.cloudinary.com/ddwnioveu/image/upload/v1711596804/large_screensht_23_11_11_09_42_09_0974113a42.png
+alternativeText: 
+publishedAt: 2024-01-31
+updatedAt: 2024-01-31
+category: coding
+author: Maurício Witter
+---
+
+## Dispatch Tables
+
+A otimização de algoritmos, de código e a busca por estruturas de dados eficientes, especialmente, quando se fala de compiladores, é algo primordial para tornar o código que escrevemos em alto nível de forma abstrata e, muitas vezes, não performática, em performática a nível binário. Uma área onde essa otimização é aplicada é na manipulação de seleções condicionais, como as implementadas por meio de statements `switch/case`, `select` ou `match`; é aqui que as Dispatch Tables entram em cena e brilham.
+
+Uma dispatch table, é um forma de mapear valores discretos para funções ou ações correspondentes. Ao invés de depender de extensas instruções condicionais, as dispatch tables proporcionam uma abordagem mais eficiente e modular para associar operações específicas a diferentes casos.
+
+Neste artigo, exploraremos em detalhes o que são dispatch tables, como elas funcionam e por que são valiosas em termos de legibilidade e desempenho. Vamos analisar exemplos práticos de implementação, discutir as vantagens e desvantagens associadas a essa técnica e considerar casos de uso para elas.
+
+---
+
+Vamos logo aos exemplos que nos interessam. Assim, começamos por uma instrução `switch/case` para compreender porque dispatch tables são aplicadas aqui.
+
+No código mais simples possível em C, criamos um `switch/case` normalmente; o `scanf` permite ler o *prompt* e atribuir o valor por referência para a variável `choice`. A seguir, nosso `switch` vai, dentre os casos, condicionalmente verificar qual `case` é igual a variável `choice` e executar o bloco de código que for verdadeiro e parar por causa do `break`; em último caso se não corresponder a nenhum `case`, irá bater no `default` e executar as instruções e parar.
+
+```c
+int main() {
+  int choice;
+  printf("Enter a choice (1-3): ");
+  scanf("%d", &choice);
+
+  switch (choice) {
+        case 1:
+        printf("Executing Case 1");
+        break;
+      case 2:
+        printf("Executing Case 2");
+        break;
+      case 3:
+        printf("Executing Case 3");
+        break;
+      default:
+        printf("Invalid choice");
+        break;
+    }
+  return 0;
+}
+```
+
+Ai você pode estar se perguntando: 
+1. Porque isso tem problemas de desempenho ?
+2. Não é algo constante ?
+
+De fato, é uma operação constante que depende do número de `cases`, que é conhecido em tempo de compilação. Mas o problema entra quando temos muitos `cases` — perceba que cada condição do `switch` vai ser avaliada — até encontrar um `break`. Não é algo que produziria um estrangulamento de desempenho, mas conseguimos salvar algum [quantum de CPU](https://www.geeksforgeeks.org/time-slicing-in-cpu-scheduling/).
+
+Suponha que, **hipoteticamente**, alguém faça um `switch` com $15$ `cases` e ele é executado **dentro de um loop**. Na notação assintótica do $BigO$, temos o loop como sendo $O(n)$ e $O(15n)$ `cases` que nos dá $O(n*15)$ **no pior caso**; normalmente descartaríamos o 15 pois é um termo constante, mas para esse exemplo precisamos dele, então vamos contabilizar.
+
+```c
+int main() {
+  for (int i = 0; i < 3; i++) {
+      switch (i) {
+        case 0:
+          printf("Executing Case 1");
+          break;
+        case 1:
+          printf("Executing Case 2");
+          break;
+        //...
+    }
+  }
+  return 0;
+}
+```
+
+Mas e se pudêssemos tornar isso $O(n*1)$ não seria melhor ? Imagine que esse loop fosse até $200$, então teríamos $O(200*15)$ o que nos daria complexidade de $O(3000)$ operações **no pior caso**, ou seja, onde **todos os 15 cases são condicionados**.
+
+Agora, se conseguíssemos otimizar o código de tal forma que a quantidade de `cases` seja reduzida para $1$, a complexidade se torna $O(n * 1)$, o que é efetivamente $O(n)$; aí que entra a dispatch table.
+
+## Dispatch Tables
+
+Dispatch tables, também conhecidas e citadas por autores como **indexed table lookup**, é uma forma de, como o nome sugere, pesquisa por tabela indexada eficiente, que utiliza o valor dos dados ou uma derivada calculada como o índice de um array. Essa técnica pode ser mais eficiente do que usar uma instruções switch, pois evita ramificações e reduz a sobrecarga.
+
+---
+
+Eu não quero entrar muito em detalhes neste artigo para não ficar muito grande, mas em suma, as CPUs modernas ainda não são tão eficientes em lidar com ramificações (branchs), falarei mais sobre isso [conceitos similares](#conceitos-similares). Mas acontece que, as CPUs modernas processam instruções em pipelines e quanto mais cheio esse pipeline fica, mas eficiente é o uso da CPU.
+
+Ocorre que, o desvio condicional torna-se um desafio para manter o pipeline cheio, uma que vez que, quando uma instrução de branch é encontrada, a CPU não sabe antecipadamente qual caminho seguir. Dependendo da condição associada ao branch, a CPU deve decidir se deve continuar com as instruções subsequentes no fluxo atual ou se deve pular para um novo fluxo de instruções. Atualmente existem algoritmos de **Branch Predictor** para pré-buscar essas instruções e colocar antecipadamente no pipeline, mas ainda assim não é obtido a melhor eficiência.
+
+---
+
+Então! De que forma podemos tornar uma sequência de condicionais em um acesso direto ? Precisamos de uma estrutura de dados que nos de acesso direto ao valor ou endereço; para isso temos os *arrays* e as *dictionaries*, podemos acessar o *array* pelo *index* ou em um *dictionary* por sua *key*.
+
+> Array: um conjunto de itens acessíveis aleatoriamente por números inteiros, o índice.
+
+> Dictionary: um tipo de dados abstrato que armazena itens ou valores. Um valor é acessado por uma chave associada. As operações básicas são new, insert, find e delete.
+
+Você encontrará exemplos na internet de dispatch tables com *dicionaries*, mas usualmente é implementada por compiladores por meio de arrays.
+
+Algumas restrições sobre dispatch tables
+- Conceitualmente é feito com Array, então o acesso é por índices;
+- O tamanho precisa ser conhecido em tempo de compilação;
+- As funções normalmente precisam ser do mesmo tipo e possuir a mesma assinatura.
+
+Tendo isso em mente, vamos ver como trocar um `switch-case` por uma dispatch table.
+
+Inicialmente temos um exemplo clássico de um `switch-case` que todo mundo faz quando está aprendendo a programar, uma simples forma de calcular aritmética básica entre dois números, onde cada `case` possui um operador aritmético ou uma opção para um menu.
+
+```c
+int main() {
+  int operation, num1, num2;
+
+  printf("Enter an operation \n1) sum\n2) multiply\n3) subtract\n4) divide\n");
+  
+  printf("Choose an operation: ");
+  scanf("%d", &operation);
+
+  printf("Enter two numbers: ");
+  scanf("%d %d", &num1, &num2);
+
+  switch (operation) {
+    case 1:
+      printf("%d + %d = %d", num1, num2, num1 + num2);
+      break;
+
+    case 2:
+      printf("%d * %d = %d", num1, num2, num1 * num2);
+      break;
+
+    case 3:
+      printf("%d - %d = %d", num1, num2, num1 - num2);
+      break;
+
+    case 4:
+      printf("%d / %d = %d", num1, num2, num1 / num2);
+      break;
+
+    default:
+      printf("Invalid operation");
+      break;
+  }
+ return 0;
+}
+```
+
+A primeira coisa é separar nossas operações em funções, pois usaremos elas como índices da nossa tabela de dispatch para acesso direto.
+
+```c
+void sum(int a, int b);
+void subtract(int a, int b);
+void multiply(int a, int b);
+void divide(int a, int b);
+
+int main() {
+  int operation, num1, num2;
+
+  printf("Enter an operation \n1) sum\n2) multiply\n3) subtract\n4) divide\n");
+  
+  printf("Choose an operation: ");
+  scanf("%d", &operation);
+
+  printf("Enter two numbers: ");
+  scanf("%d %d", &num1, &num2);
+
+  switch (operation) {
+    case 1:
+      sum(num1, num2);
+      break;
+
+    case 2:
+      multiply(num1, num2);
+      break;
+
+    case 3:
+      subtract(num1, num2);
+      break;
+
+    case 4:
+      divide(num1, num2);
+      break;
+
+    default:
+      printf("Invalid operation");
+      break;
+  }
+  return 0;
+}
+```
+
+Feito isso, agora definitivamente vem a parte mais legal, vamos criar a dispatch table. Definimos um array de ponteiros porque queremos armazenar endereços de funções. Nossas funções são do tipo `void` e a assinatura possui dois parâmetros do tipo `int`, ou seja, `void (*dispatchTable[])(int, int)`.
+
+Atribuímos à dispatch table um array estático com cada função que criamos e em seguida acessamos o endereço da função no array pelo index, então só precisamos invocar a essa referência passando os argumentos `dispatchTable[operation](num1, num2)` e, magicamente, a função será executada no melhor e pior caso com apenas uma operação $O(1)$.
+
+```c
+void sum(int a, int b);
+void subtract(int a, int b);
+void multiply(int a, int b);
+void divide(int a, int b);
+
+void sum(int a, int b) {
+  printf("%d + %d = %d", a, b, a + b);
+}
+
+void subtract(int a, int b) {
+  printf("%d - %d = %d", a, b, a - b);
+}
+
+void multiply(int a, int b) {
+    printf("%d * %d = %d", a, b, a * b);
+}
+
+void divide(int a, int b) {
+    printf("%d / %d = %d", a, b, a / b);
+}
+
+int main() {
+  int operation, num1, num2;
+
+  printf("Enter an operation \n1) sum\n2) multiply\n3) subtract\n4) divide\n");
+
+  printf("Choose an operation: ");
+  scanf("%d", &operation);
+
+  printf("Enter two numbers: ");
+  scanf("%d %d", &num1, &num2);
+
+  void (*dispatchTable[])(int, int) = {sum, multiply, subtract, divide};
+  dispatchTable[operation](num1, num2);
+
+  return 0;
+}
+```
+
+## Compiladores
+
++ Escrever sobre como os compiladores otimizam códigos em dispatch tables.
+
+## Conceitos similares
+
+Existem alguns conceitos similares ao dispatch table, como o Jump Table também conhecido como Branch Table, que são bem similares, mas usam instruções `goto` para saltar para uma parte de código específica. Usa-se uma extensão do compilador GCC chamada \"**Labels as Values**\", um forma eficiente de multi-way branching.
+
+> A multiway branching é uma técnica de programação importante que é frequentemente substituída por uma sequência ineficiente de testes if. Peter Naur escreveu-me recentemente que considera o uso de tabelas para controlar o fluxo do programa como uma ideia básica da ciência da computação que foi quase esquecida; mas ele espera que esteja pronto para ser redescoberto a qualquer momento. É a chave para a eficiência de todos os melhores compiladores que estudei.
+> 
+> — Donald Knuth, Structured Programming with go to Statements
+
+Multiway branching é um construto da programação que permite que o **fluxo de controle de um programa seja direcionado para um dos vários resultados possíveis**, com base no valor de uma expressão, aquilo que conhecemos como **selection statements** — `switch`, `if`, `match` — mas que podemos substituir por técnicas mais eficientes como dispatch table.
+
+```js
+if(expression) {
+  compound statement
+} else if(expression) {
+  compound statement
+} else {
+  compound statement
+}
+```
+
+```rust
+fn main() {
+  let x = 2;
+
+  match x {
+    1 => println!("One"),
+    2 => println!("Two"),
+    3 => println!("Three"),
+    _ => println!("Other"),
+  }
+}
+```
+
+No exemplo abaixo de um Assembly de um Microcontroller de 8-bit PIC, temos uma dessas instruções `goto` de um desvio incondicional (unconditional branch).
+
+```assembly
+ table
+    goto    index_zero
+    goto    index_one
+    goto    index_two
+    goto    index_three
+```
+
+Adicionalmente, nesse outro exemplo temos uma jump table que é bem similar ao dispatch table. Mas como você pode notar, temos alguns operadores diferentes; a expressão toda declara um array de ponteiros para **labels**; as labels `Case1`, `Case2` e `Case3` são endereços de pontos específicos no código (**labels**) e o operador `&&` é uma extensão do GCC que permite **obter o endereço de uma label**.
+
+A expressão `goto *jumpTable[index]` tem algumas particularidades que vem da extensão \"**Computed Goto**\". A primeira é que pode-se **colocar endereços de labels em void**, essencialmente, `void* label_address = &&Somelabel`. A segunda é **invocar goto em uma expressão variável** em vez de uma label conhecida em tempo de compilação, ou seja, `goto *jumpTable[index]`; isso então irá saltar para esta label.
+
+```c
+void func3(void) {
+  printf("three");
+}
+void func2(void) {
+  printf("two");
+}
+void func1(void) {
+  printf("one");
+}
+
+int main() {
+  int index = 2;
+  void (*jumpTable[])(void) = {&&Case1, &&Case2, &&Case3};
+  goto *jumpTable[index];
+
+Case1:
+    func1();
+    return 0;
+
+Case2:
+    func2();
+    return 0;
+
+Case3:
+    func3();
+    return 0;
+}
+```
+
+Use o seguinte comando para compilar caso queria.
+
+```bash
+gcc -std=c11 -o dispatch dispatch.c
+```
+
+## Referências
+
+- [GNU GCC - Dispatch-Tables](https://gcc.gnu.org/onlinedocs/gcc-13.2.0/gccint/Dispatch-Tables.html)
+- [Function Dispatch Tables in C](https://blog.alicegoldfuss.com/function-dispatch-tables/)
+- [Multiway branch](https://www.wikiwand.com/en/Multiway_branch)
