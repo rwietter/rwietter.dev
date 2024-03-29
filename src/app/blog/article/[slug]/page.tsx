@@ -106,7 +106,6 @@ const Page = async ({ params }: { params: { slug: string } }) => {
     url: `https://rwietterc.xyz/blog/article/${slug}`,
     text: frontmatter.description,
     keywords: 'article, blog, rwietter, web development, programming, tech',
-    // genre: article?.attributes?.category?.data?.attributes?.name,
     image: frontmatter.image,
     datePublished: frontmatter.publishedAt,
     dateModified: frontmatter.updatedAt,
