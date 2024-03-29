@@ -7,35 +7,49 @@
 #  auth_endpoint: api/auth/ ## Endpoint para autenticação com git
 #  use_graphql: true
 backend:
- name: git-gateway
- branch: main
-
-site_url: https://rwietterc.xyz/
+  name: git-gateway
+  branch: main
+  repo: rwietter/rwietter.dev
+  site_domain: https://rwietter.netlify.app
+  auth_endpoint: api/auth/
+  base_url: https://rwietter.netlify.app
 
 media_folder: public/assets/img
 public_folder: /assets/img
 publish_mode: editorial_workflow # Isso permite ter aquele workflow com drafts e tudo
 
 slug:
-  encoding: 'ascii'
+  encoding: "ascii"
   clean_accents: true
 
 collections:
-  - name: posts 
-    label: posts 
-    folder: posts # A pasta onde ficarão os posts
-    create: true # Permite criar um post novo
-    slug: '{{slug}}' # Estrutura do nome arquivo, exemplo: title.md
-    fields: # Os campos do seu frontmatter
-      - { label: 'Layout', name: 'layout', widget: 'hidden', default: 'post' }
+  - name: posts
+    label: posts
+    folder: public/posts
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "post" }
+      - { label: "Slug", name: "slug", widget: "string", required: true }
       - {
-          label: 'Date',
-          name: 'date',
-          widget: 'datetime',
-          format: 'YYYY-MM-DD hh:mm:ss'
+          label: "Category",
+          name: "category",
+          widget: "string",
+          required: true,
         }
-      - { label: 'Post Image', name: 'image', widget: 'image', required: false }
-      - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Description', name: 'description', widget: 'string' }
-
-      - { label: 'Body', name: 'body', widget: 'markdown' }
+      - {
+          label: "Date",
+          name: "publishedAt",
+          widget: "datetime",
+          format: "YYYY-MM-DD hh:mm:ss",
+        }
+      - { label: "Post Image", name: "image", widget: "image", required: true }
+      - {
+          label: "Alternative Text",
+          name: "alternativeText",
+          widget: "string",
+          required: true,
+        }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }
