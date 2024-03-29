@@ -3,10 +3,24 @@ import { TfiPencil } from 'react-icons/tfi'
 import { getLocaleDate } from 'utils/get-locale-date'
 import styles from './styles.module.css'
 
-const ArticleCard = ({ article }: any) => {
-  const { slug, title, publishedAt } = article.attributes
+type Post = {
+  frontmatter: {
+    title: string
+    description: string
+    date: string
+    image: string
+    publishedAt: string
+  }
+  slug: string
+  content: string
+}
 
-  const { localeDate } = getLocaleDate(publishedAt, 'pt-BR')
+type PostCard = {
+  post: Post
+}
+
+const ArticleCard = ({ post }: PostCard) => {
+  const { localeDate } = getLocaleDate(post.frontmatter.publishedAt, 'pt-BR')
 
   return (
     <li className={styles.cardContainer}>
@@ -14,8 +28,12 @@ const ArticleCard = ({ article }: any) => {
         <TfiPencil size={17} />
         {localeDate}
       </p>
-      <Link href={`/blog/article/${slug}`} passHref suppressHydrationWarning>
-        <p className={styles.postTitle}>{title}</p>
+      <Link
+        href={`/blog/article/${post.slug}`}
+        passHref
+        suppressHydrationWarning
+      >
+        <p className={styles.postTitle}>{post.frontmatter.title}</p>
       </Link>
     </li>
   )

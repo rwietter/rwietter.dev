@@ -1,7 +1,7 @@
+import bundleAnalyzer from '@next/bundle-analyzer'
+import { withPlaiceholder } from '@plaiceholder/next'
 // @type {import('next').NextConfig}
 import withImages from 'next-images'
-import { withPlaiceholder } from '@plaiceholder/next'
-import bundleAnalyzer from '@next/bundle-analyzer'
 import pwa from 'next-pwa'
 
 const withBundleAnalyzer = bundleAnalyzer({

@@ -1,47 +1,49 @@
+import matter from 'gray-matter'
 import { Metadata } from 'next'
-import { ARTICLES_QUERY } from 'queries/articles/articles'
+import fs from 'node:fs'
+import path from 'node:path'
 import { makeSeo } from 'src/components/SEO/makeSeo'
+import { PostFrontMatter } from 'src/domains/article/ts'
 import { BlogPosts } from 'src/domains/blog'
-import { IArticles } from 'src/domains/blog/ts'
-import apolloClient from 'utils/apollo-client'
-import { blurImage } from 'utils/blur-image'
 import generateRssFeed from 'utils/feed-rss'
 
-export const revalidate = 60 // 1 minute
-
 const getData = async () => {
-  const { data } = await apolloClient.query({
-    query: ARTICLES_QUERY,
-    fetchPolicy: 'no-cache',
-  })
+  try {
+    const files = fs.readdirSync(path.join(process.cwd(), 'public', 'posts'))
+    const mdxFiles = files.filter((file) => path.extname(file) === '.mdx')
 
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  const articles: IArticles[] = data.articles.data.map(async (article: any) => {
-    const image = await blurImage(
-      article?.attributes?.image?.data?.attributes?.url,
+    const posts = await Promise.all(
+      mdxFiles.map(async (file) => {
+        const source = fs.readFileSync(
+          path.join(process.cwd(), 'public', 'posts', file),
+          'utf8',
+        )
+
+        const { data, content } = matter(source)
+
+        return {
+          frontmatter: data as PostFrontMatter,
+          slug: file.replace('.mdx', ''),
+          content,
+        }
+      }),
     )
 
+    const sortedByDatePosts = posts.sort(
+      (a, b) =>
+        -new Date(a.frontmatter.publishedAt) -
+        -new Date(b.frontmatter.publishedAt),
+    )
+
+    await generateRssFeed(sortedByDatePosts)
+
     return {
-      ...article,
-      attributes: {
-        ...article.attributes,
-      },
-      blurDataURL: image,
+      posts: sortedByDatePosts,
     }
-  })
-
-  const articlesData: IArticles[] = await Promise.all(articles)
-
-  const sortedArticles = [...articlesData].sort((a, b) => {
-    const articleA: number = new Date(a.attributes.publishedAt).getTime()
-    const articleB: number = new Date(b.attributes.publishedAt).getTime()
-    return articleB - articleA
-  })
-
-  await generateRssFeed(sortedArticles)
-
-  return {
-    articles: sortedArticles,
+  } catch (error) {
+    return {
+      posts: [],
+    }
   }
 }
 
@@ -76,9 +78,10 @@ const Page = async () => {
     <>
       <script
         type='application/ld+json'
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <BlogPosts articles={data.articles} />
+      <BlogPosts posts={data.posts} />
     </>
   )
 }

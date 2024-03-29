@@ -1,6 +1,4 @@
 import { Metadata } from 'next'
-import JSONLD from 'src/components/JSON-LD'
-import { NextSEO } from 'src/components/SEO'
 import { makeSeo } from 'src/components/SEO/makeSeo'
 import Setup from 'src/domains/setup'
 
@@ -34,6 +32,7 @@ const Page = () => {
     <>
       <script
         type='application/ld+json'
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className={styles.main}>

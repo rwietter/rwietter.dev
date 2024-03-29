@@ -1,20 +1,21 @@
-import {
-  ApolloClient,
-  InMemoryCache,
-  type NormalizedCacheObject,
-} from '@apollo/client'
+export {}
+// import {
+//   ApolloClient,
+//   InMemoryCache,
+//   type NormalizedCacheObject,
+// } from '@apollo/client'
 
-const cache = new InMemoryCache()
+// const cache = new InMemoryCache()
 
-const apolloClient: ApolloClient<NormalizedCacheObject> = new ApolloClient({
-  uri: `${process.env.REACT_APP_BACKEND_URL}/graphql`,
-  defaultOptions: {
-    query: {
-      fetchPolicy: 'cache-first',
-    },
-  },
-  ssrMode: true,
-  cache,
-})
+// const apolloClient: ApolloClient<NormalizedCacheObject> = new ApolloClient({
+//   uri: `${process.env.REACT_APP_BACKEND_URL}/graphql`,
+//   defaultOptions: {
+//     query: {
+//       fetchPolicy: 'cache-first',
+//     },
+//   },
+//   ssrMode: true,
+//   cache,
+// })
 
-export default apolloClient
+// export default apolloClient

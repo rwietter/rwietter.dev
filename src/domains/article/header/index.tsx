@@ -1,17 +1,26 @@
 'use client'
 import Link from 'next/link'
 import React, { memo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { AiOutlineArrowLeft, AiOutlineCalendar } from 'react-icons/ai'
 import { RiTimer2Line } from 'react-icons/ri'
-import { useTranslation } from 'react-i18next'
 
 import { getLocaleDate } from 'utils/get-locale-date'
 import { getReadingTime } from 'utils/getTimeReading'
-import { Attributes } from '../ts'
 import styles from './styles.module.css'
 
 interface ArticleHeaderData {
-  article: Attributes
+  frontmatter: {
+    title: string
+    description: string
+    date: string
+    caption: string
+    image: string
+    alternativeText: string
+    publishedAt: string
+    updatedAt: string
+  }
+  content: string
 }
 
 type Langs = {
@@ -24,11 +33,11 @@ const langs: Langs = {
 }
 
 const ArticleHeader: React.FC<ArticleHeaderData> = (props) => {
-  const { readTime } = getReadingTime(props.article?.attributes?.content)
+  const { readTime } = getReadingTime(props.content)
   const { t, i18n } = useTranslation()
 
   const { localeDate: publishedAt } = getLocaleDate(
-    props.article?.attributes?.publishedAt,
+    props.frontmatter.publishedAt,
     langs[i18n.language],
   )
 
@@ -58,11 +67,9 @@ const ArticleHeader: React.FC<ArticleHeaderData> = (props) => {
         </div>
       </div>
 
-      <h1 className={styles.articleTitle}>
-        {props.article?.attributes?.title}
-      </h1>
+      <h1 className={styles.articleTitle}>{props.frontmatter?.title}</h1>
       <p className={styles.articleDescription}>
-        {props.article?.attributes?.description}
+        {props.frontmatter?.description}
       </p>
     </section>
   )

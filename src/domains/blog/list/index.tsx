@@ -1,10 +1,26 @@
 import { ArticleCard } from '../posts'
 import styles from './styles.module.css'
 
-const BlogPosts = ({ articles }: any) => (
+type Post = {
+  frontmatter: {
+    title: string
+    description: string
+    date: string
+    image: string
+    publishedAt: string
+  }
+  slug: string
+  content: string
+}
+
+type Posts = {
+  posts: Post[]
+}
+
+const BlogPosts = ({ posts }: Posts) => (
   <ul className={styles.articlesContainer}>
-    {articles?.map((article: any) => (
-      <ArticleCard article={article} key={article.attributes.slug} />
+    {posts?.map((post: Post) => (
+      <ArticleCard post={post} key={post.slug} />
     ))}
   </ul>
 )

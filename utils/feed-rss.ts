@@ -2,11 +2,9 @@ import { Feed } from 'feed'
 import fs from 'fs'
 import { remark } from 'remark'
 import remarkHtml from 'remark-html'
-import { IArticles } from 'src/domains/blog/ts'
+import { Post } from 'src/domains/article/ts'
 
-export default async function generateRssFeed(
-  posts: IArticles[],
-): Promise<void> {
+export default async function generateRssFeed(posts: Post[]): Promise<void> {
   const isProduction = process.env.NODE_ENV === 'production'
   const url = isProduction
     ? process.env.SITE_URL || 'https://rwietterc.xyz'
@@ -44,18 +42,15 @@ export default async function generateRssFeed(
 
   for (const post of posts) {
     feed.addItem({
-      title: post.attributes.title,
-      description: post.attributes.description,
-      link: `${url}/blog/article/${post.attributes.slug}`,
-      guid: post.attributes.slug,
-      published: new Date(post.attributes.publishedAt),
-      id: `${url}/blog/article/${post.attributes.slug}`,
-      content: remark()
-        .use(remarkHtml)
-        .processSync(post.attributes.content)
-        .toString(),
+      title: post.frontmatter.title,
+      description: post.frontmatter.description,
+      link: `${url}/blog/article/${post.slug}`,
+      guid: post.slug,
+      published: new Date(post.frontmatter.publishedAt),
+      id: `${url}/blog/article/${post.slug}`,
+      content: remark().use(remarkHtml).processSync(post.content).toString(),
       copyright: feedOptions.copyright,
-      date: new Date(post.attributes.publishedAt),
+      date: new Date(post.frontmatter.publishedAt),
       author: [
         {
           email: 'mauriciobw17@gmail.com',

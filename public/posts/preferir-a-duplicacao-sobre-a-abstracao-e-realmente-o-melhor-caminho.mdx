@@ -1,0 +1,112 @@
+---
+title: Preferir a duplicação sobre a abstração é realmente o melhor caminho ?
+description: A duplicação de código é algo muito ruim, uma abstração confusa é tão ruim quanto. Então qual seria a melhor abordagem para isso ?
+date: 2023-05-29
+image: https://res.cloudinary.com/ddwnioveu/image/upload/v1711596804/large_screensht_23_11_11_09_42_09_0974113a42.png
+publishedAt: 2023-05-29
+updatedAt: 2020-07-06
+slug: preferir-a-duplicacao-sobre-a-abstracao-e-realmente-o-melhor-caminho
+category: coding
+author: Maurício Witter
+---
+
+Hoje vamos falar um pouco do princípio do desenvolvimento de software DRY (Don't Repeat Yourself) e suas implicações. O DRY é um princípio relacionado duplicação de código e abstrações. Falaremos sobre o conceito de Rule of Three proposto por [Martin Fowler](https://martinfowler.com/) no seu livro Refactoring, falaremos sobre o conceito AHA (Avoid Hasty Abstractions) proposto por [Kent C. Dodds](https://kentcdodds.com/) e, também, sobre conceito [WET](https://dev.to/wuz/stop-trying-to-be-so-dry-instead-write-everything-twice-wet-5g33) (Write Everything Twice) proposto por [Conlin Durbin](https://dev.to/wuz).
+
+Antes de tudo, vamos ver um exemplo do que seria duplicação de código para entender a existência desses conceitos.
+
+A duplicação de código (a.k.a copiar/colar), nada mais é do que **repetir o mesmo código em dois ou mais locais da base de código**, essa duplicação traz consigo uma **série de problemas**, entre eles, a **redundância de código, bugs no código repetido em diferentes componentes e a criação de bugs ao dar manutenção em uma das duplicações e esquecer a outra**.
+
+Em Ciência da Computação, **a abstração é a simplificação de conceitos complexos e gerais em uma interface simples**, tornando-os mais fáceis de entender e manipular em diferentes contextos.
+
+## O problema da duplicação
+
+Suponha que temos 4 botões com CSS repetido em cada um deles, aí chega um requisito para mudar o background do botão e quem vai dar manutenção é outro desenvolvedor que não sabe se o código está repetido, onde está repetido e quantas vezes está repetido, já viu o problema não é ? Teremos botões de cor `#XXX` e botões de cor `#YYY`.
+
+Agora, **imagine se o cenário não for um simples botão, mas algo crítico para o software** como a geração de JSON Web Token no login. Se esse código estiver repetido e alterarmos algo em um local em outro não, podemos ter problemas de vulnerabilidades ou diversos outros bugs que dependem do token.
+
+A abstração errada, na realidade não passa de um código confuso e mal escrito. A abstração errada é uma abstração que não deveria existir. Então, seria melhor deixar o código repetido ao invés de fazer uma abstração complexa ? Talvez! Mas na maioria das vezes é apenas um erro de implementação ao definir várias responsabilidades a ela ou abstrair conhecimentos distintos.
+
+## Princípios gerais
+
+Então, quando devemos duplicar código e quando devemos abstrair ? Essas perguntas tem muitas respostas, mas nenhuma é realmente um padrão convencional que todos os desenvolvedores adotam.
+
+### Don't Repeat Yourself
+
+O DRY foi um princípio formulado por Andy Hunt e Dave Thomas, no livro [The Pragmatic Programmer](https://www.amazon.com.br/Pragmatic-Programmer-Journeyman-Master/dp/020161622X). Conforme os autores, o DRY surgiu para tentar resolver Os Males da Duplicação (The Evils of Duplication). Se você tem código duplicado, você precisa lembrar-se onde duplicou, mas não é uma questão de saber se você vai se lembrar: é uma questão de quando você vai esquecer, e a surpresa não será nada agradável quando acontecer.
+
+Em outras palavras, quando você precisa alterar alguma coisa e o código está repetido por N vezes na sua base de código, então você terá que alterar em N lugares e isso nos leva ao problema descrito na seção 1.
+
+\n> “Cada fragmento de conhecimento deve ter uma representação única, inequívoca e autoritária dentro de um sistema.” (The Pragmatic Programmer).
+
+Conforme Hunt e Thomas, **um código que representa um conhecimento deve ter uma representação única, inequívoca e autoritária dentro de um sistema**. Isso significa que DRY não é apenas sobre não duplicar código, mas é, sobretudo, conhecimento.
+
+Bem, mas o que isso significa ? Significa que dois códigos duplicados podem ser iguais no momento, mas que podem crescer com seus próprios requisitos e de forma diferente, ou seja, temos dois fragmentos com representações únicas de conhecimento, nesse caso não faz sentido criar uma abstração pois não viola o principio DRY e você pode acabar tendo uma abstração que representa instâncias de conhecimentos diferentes.
+
+O DRY não específica quando é a hora de abstrair uma duplicação ou quando não abstrair, você simplesmente não deve repetir o mesmo conhecimento. Muitos desenvolvedores fazem abstrações precipitadas e acabam tendo uma abstração complexa que tem muitas responsabilidades, tornando o código pouco legível, manutenível e testável.
+
+_Isso nos leva ao Rule of Three…_
+
+### Rule of Three
+
+Esse conceito foi proposto por Martin Fowler em seu livro Refactoring.
+
+Você deve estar se perguntando o porquê de **três** ser especial. Geralmente você acaba tendo duas duplicações com uma ou outra leve particularidade e pode ser mantida assim caso você não saiba os requisitos futuros, mas quando há três duplicação é muito comum ter mais duplicações.
+
+\n> “A primeira vez que você faz algo, você simplesmente faz. Na segunda vez que você faz algo semelhante, você pode ter calafrios com a duplicação, mas faz a duplicação de qualquer maneira. Na terceira vez que você fizer algo semelhante, você refatorará” (Martin Fowler - Refactoring).
+
+Rule of Three diz que você pode duplicar o código por duas vezes, mas se você tiver que repetir pela terceira vez, então é hora de refatorar.
+
+### Write Everything Twice
+
+WET se assemelha ao conceito Rule of Three, WET tenta se afastar de otimizações prematuras e permite que você possa repetir código duas vezes mas não três. No entanto, aqui o sistema pode ser entendido como algo mais abstrato e a abstração depende do contexto.
+
+Por exemplo, se você tem botões que se repetem em diferentes páginas, faz sentido você abstrair em um único componente. No entanto, se você tem duas páginas como /blog e /listas que recebem um conjunto de dados e renderizam o título e descrição, não há essa necessidade pois são componentes de conhecimento distintos.
+
+Conlin Durbin enfatiza que em caso de duplicação, você deve comentar sobre elas, para quando ocorrer um problema ou tiver que fazer uma abstração, seja mais fácil encontrá-las.
+
+### Avoid Hasty Abstractions
+
+Enfim, chegamos ao AHA que se pronúncia “Aha!” e pode se entendido como “Evite abstrações precipitadas”. Esse conceito foi proposto por Kent C. Dodds em um [artigo](https://kentcdodds.com/blog/aha-programming) no ano de 2020. Na mesma linha, Dodds sugere que **devemos evitar abstrações precipitadas pois não sabemos todos os requisitos de um sistema de antemão**, tanto que pode mudar e evoluir e você acaba com uma [abstração errada](https://sandimetz.com/blog/2016/1/20/the-wrong-abstraction), conforme cita Sandi Metz.
+
+> “Otimize primeiro, faça a mudança depois.” (Kent C. Dodds - AHA).
+
+AHA da mais flexibilidade e não impõe regras de duplicações para refatorar e abstrair, mas ressalta que a importância do DRY para não virar um caos absoluto. Primeiramente, diante de duplicações, deve-se **otimizá-las antes de mudar no sentido de abstrair com clareza**. Quanto a questão de quando mudar, **você pode mudar quando sentir-se confiante com os casos de uso**.
+
+## Adaptação
+
+A duplicação de código incorre em um custo muito alto na maioria das vezes, mesmo que seja no máximo duas duplicações. Talvez, se o problema é abstração mal feita, então o problema é de implementação. Algo que deve resolver isso é entender como DRY trata conhecimento, para não criarmos abstrações com diversas responsabilidades. Ou seja, se você tem uma abstração que está tomando rumos diferentes, caia fora dessa abstração e faça outra que atende aos requisitos do novo recurso.
+
+Por exemplo, temos o **ComponenteA** e o **ComponenteB**, eles são uma duplicação de código com um padrão em comum e mesmo conhecimento, então criamos a AbstraçãoX de forma simples e flexível por padrão (Imagem 1). Digamos que o ComponenteB precisa mudar e é preciso modificar a AbstraçãoX, de tal modo que adicionamos mais responsabilidade e que não é usada no ComponenteA, ou seja, isso já **deixou de ter o mesmo conhecimento** e possivelmente trará problemas futuros. Para resolver isso, vamos separar a AbstraçãoX em AbstraçãoX e AbstraçãoY ou desfazer as abstrações e retornar aos Componentes A e B.
+
+![b55d6170-0684-4f19-9f93-480f96b242b3_1344x1306.webp](https://res.cloudinary.com/ddwnioveu/image/upload/v1685323229/b55d6170_0684_4f19_9f93_480f96b242b3_1344x1306_a053b70020.webp)\n.
+
+Dessa forma, podemos resolver a questão de abstrair sem ter que lidar duplicações. Particularmente, as duplicações em uma base de código grande são bem custosas. Assim, para lidarmos com abstrações erradas, analisamos o contexto e o conhecimento, quando não faz mais sentido essa abstração, removemos a abstração. Não precisamos ter que duplicar código uma, duas ou três vezes a espera de abstrair e evitar dores de cabeça.
+
+**Essa é só outra visão, portanto, fica a sua escolha testar e verificar qual se sai melhor pra você.**
+
+### Além disso…
+
+**Evite abstrações excessivamente genéricas**, as abstrações podem ser tão genéricas que perdem sua utilidade. Por exemplo, criar uma abstração de \"Animal\" para um sistema que só tem um tipo de objeto “Cachorro” pode ser excessivamente genérico e não agregar valor. As abstrações devem ser específicas e relevantes para o problema que se está tentando resolver.
+
+**Evite a duplicação de código em testes**, seus testes devem ser tão DRY quanto possível e evite duplicar código em vários testes.
+
+Para a evolução do software, **as abstrações devem ser flexíveis o suficiente para lidar com mudanças no sistema** e permitir que o software evolua sem muita dor.
+
+No que tange a legibilidade do código, **as abstrações devem tornar o código mais legível e não o contrário**.
+
+## Para concluir
+
+Criar abstrações é complicado e requer um bom entendimento do problema a ser resolvido. Se uma abstração não for bem projetada, ela pode acabar sendo mais difícil de entender e manter do que o próprio código duplicado.
+
+No entanto, isso não significa que a duplicação de código seja a melhor alternativa. A duplicação pode levar a problemas de manutenção, como correções duplicadas ou código obsoleto, além de dificultar a leitura e a compreensão do código. A duplicação aumenta o risco de erros, pois, se uma correção é feita em um lugar, pode ser esquecido de ser feito em outro lugar onde o código é duplicado.
+
+A solução para evitar a duplicação de código e ainda assim criar abstrações úteis é encontrar o equilíbrio certo entre abstração e detalhes de implementação. É importante pensar em como a abstração pode ser útil no longo prazo e se ela pode ser adaptada facilmente para futuras mudanças no sistema. É importante também criar abstrações que sejam simples, claras e facilmente compreensíveis.
+
+## Referências
+
+- [The Pragmatic Programmer](https://www.amazon.com.br/Pragmatic-Programmer-Journeyman-Master/dp/020161622X)
+- [Refactoring](https://www.amazon.com.br/Refactoring-Improving-Design-Existing-Code/dp/0134757599/ref=pd_lpo_1?pd_rd_w=y2LPp&content-id=amzn1.sym.036a9a17-ef5c-4c87-bb2c-81a28b5a8e68&pf_rd_p=036a9a17-ef5c-4c87-bb2c-81a28b5a8e68&pf_rd_r=T1Z6DP66YJS241C8ZYSX&pd_rd_wg=NXa55&pd_rd_r=4883151e-42e5-403c-981f-c973bb258c03&pd_rd_i=0134757599&psc=1)
+- [AHA Programming](https://kentcdodds.com/blog/aha-programming)
+- [Stop trying to be so DRY, instead Write Everything Twice (WET)](https://dev.to/wuz/stop-trying-to-be-so-dry-instead-write-everything-twice-wet-5g33)
+- [The Wrong Abstraction](https://sandimetz.com/blog/2016/1/20/the-wrong-abstraction)
+

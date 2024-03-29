@@ -64,3 +64,26 @@ export type ArticleData = {
   articles: Attributes[]
   blurDataURL: ImageBlurData
 }
+
+/**
+ * MDX Version
+ */
+
+export type Post = {
+  frontmatter: PostFrontMatter
+  slug: string
+  content: string
+}
+
+export type PostFrontMatter = {
+  title: string
+  description: string
+  date: string
+  caption: string
+  image: string
+  alternativeText: string
+  publishedAt: string
+  updatedAt: string
+  category: string
+  author: string
+}
