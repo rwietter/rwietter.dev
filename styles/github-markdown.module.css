@@ -360,14 +360,17 @@
 }
 
 .markdown-body blockquote {
-  margin: 1.5em 0 !important;
+  margin: 1.2em 0 !important;
   text-align: left;
-  padding: 2em;
+  padding: 1.5em 0 1.5em 1.5em;
+  text-align: right;
   color: var(--text-color);
-  background: var(--bg-alt-color);
-  border-left: 4px solid var(--select);
+  filter: invert(40%);
+  background: transparent;
+  border-left: 4px solid var(--bg-alt-color);
   transition: var(--transition-primary);
   border-radius: 4px;
+  --fluid-type-max: 0.9rem;
 }
 
 .markdown-body blockquote p {
@@ -910,6 +913,7 @@
 .markdown-body pre code span {
   font-family: var(--font-code), monospace, sans-serif;
   font-variant-ligatures: common-ligatures;
+  font-weight: 400;
   font-feature-settings:
     "ss01" on,
     "ss02" on,
@@ -1083,6 +1087,23 @@
   filter: invert(50%);
 }
 
+.markdown-body ul {
+  padding-left: 0;
+}
+
 .markdown-body ul li {
-  list-style: disc;
+  list-style: none;
+  padding: 0;
+}
+
+.markdown-body ul li {
+  position: relative;
+  padding-left: 28px;
+}
+
+.markdown-body ul li::before {
+  content: "—";
+  filter: invert(50%);
+  position: absolute;
+  left: 0;
 }

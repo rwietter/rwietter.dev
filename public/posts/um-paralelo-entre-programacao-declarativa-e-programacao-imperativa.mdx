@@ -18,7 +18,9 @@ Entender o que são os paradigmas de programação, suas características vai aj
 
 O Paradigma Imperativo foi o primeiro estilo de codificação que surgiu, com as primeiras linguagens de estudo short code. Já o estilo declarativo começou com a linguagem LISP (1958), com o Prolog (1972), e funcionais como o Haskell (1990).
 
-No lado das linguagens imperativas temos, por exemplo, FORTRAN, ALGOL, Pascal, Ada e C entre outras, já no lado da linguagens declarativas temos, por exemplo: HTML, CSS, YAML e SQL. As linguagens JavaScript, Java, PHP e Rust, por exemplo, são multiparadigma e o estilo depende de como você escreve, mas nenhuma delas é puramente declarativa.\n\n## Estilo de Programação Imperativo
+No lado das linguagens imperativas temos, por exemplo, FORTRAN, ALGOL, Pascal, Ada e C entre outras, já no lado da linguagens declarativas temos, por exemplo: HTML, CSS, YAML e SQL. As linguagens JavaScript, Java, PHP e Rust, por exemplo, são multiparadigma e o estilo depende de como você escreve, mas nenhuma delas é puramente declarativa.
+
+## Estilo de Programação Imperativo
 
 O estilo imperativo concentra-se em como executar o código detalhe a detalhe e define o fluxo de controle de como instruções alteram o estado de um programa. Para ficar mais claro, o código imperativo ordena comandos ao computador, diz exatamente o que precisa fazer, como precisa fazer e em que ordem exata precisa executar.
 
@@ -91,7 +93,11 @@ O valor de uma aplicação de função independe do contexto em que ocorre, isto
 A função `add` não é referencialmente transparente pois dado o mesmo argumento, ela produz resultados diferentes:
 
 ```js
-let total = 0\n\nconst add = a => total += a\n\nconst r1  = add(1) // 1
+let total = 0
+
+const add = a => total += a
+
+const r1  = add(1) // 1
 const r2  = add(1) // 2
 ```
 
@@ -143,7 +149,9 @@ const doSomething = (arg) => {
 
 ## Use Cases
 
-Você como Engenheiro de Software precisa conhecer bem as diversas classificações de linguagens e suas tecnologias para fazer boas escolhas e evitar tempo e dinheiro perdido. Não existe bala de prata, portanto é necessário conhecer as caraterísticas em geral. Aqui estão alguns casos de uso para cada estilo, embora existem muitos outros cenários.\n\n### Paradigma Imperativo
+Você como Engenheiro de Software precisa conhecer bem as diversas classificações de linguagens e suas tecnologias para fazer boas escolhas e evitar tempo e dinheiro perdido. Não existe bala de prata, portanto é necessário conhecer as caraterísticas em geral. Aqui estão alguns casos de uso para cada estilo, embora existem muitos outros cenários.
+
+### Paradigma Imperativo
 
 - Sistemas de baixo nível: programação de sistemas de baixo nível, como drivers de dispositivo, sistemas operacionais e firmware. Essas tarefas requerem manipulação direta de locais de memória e registros de hardware, sendo melhor realizado usando um estilo imperativo.
 - Jogos e simulações: jogos e simulações geralmente envolvem algoritmos complexos e atualizações em tempo real, sendo mais fáceis de expressar usando um estilo imperativo. A programação imperativa fornece controle explícito sobre o fluxo do programa, tornando mais fácil escrever mecanismos de jogo eficientes e simulações físicas.

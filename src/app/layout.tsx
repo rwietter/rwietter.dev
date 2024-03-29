@@ -5,11 +5,12 @@ import { Analytics } from '@vercel/analytics/react'
 
 import Providers from './providers'
 
-import '../../styles/shadow-icon.css'
 import '../../styles/fonts.css'
+import '../../styles/shadow-icon.css'
 import '../../styles/styles.css'
 import '../../styles/theme.css'
 
+import shadow from '../../styles/shadow.module.css'
 import styles from './styles.module.css'
 
 export default function RootLayout({
@@ -24,6 +25,7 @@ export default function RootLayout({
       </head>
       <body>
         <div className={`${styles.main} fade-in-layout`}>
+          <div className={shadow.bgshadow} />
           <Providers>
             <Header />
             <Analytics />
