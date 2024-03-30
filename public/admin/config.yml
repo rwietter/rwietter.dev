@@ -1,3 +1,5 @@
+# example config.yml: https://github.com/decaporg/decap-cms/blob/main/dev-test/config.yml
+
 backend:
   name: git-gateway
   branch: main
