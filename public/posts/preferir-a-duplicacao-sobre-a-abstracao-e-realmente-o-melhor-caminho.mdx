@@ -36,7 +36,7 @@ O DRY foi um princípio formulado por Andy Hunt e Dave Thomas, no livro [The Pra
 
 Em outras palavras, quando você precisa alterar alguma coisa e o código está repetido por N vezes na sua base de código, então você terá que alterar em N lugares e isso nos leva ao problema descrito na seção 1.
 
-\n> “Cada fragmento de conhecimento deve ter uma representação única, inequívoca e autoritária dentro de um sistema.” (The Pragmatic Programmer).
+> “Cada fragmento de conhecimento deve ter uma representação única, inequívoca e autoritária dentro de um sistema.” (The Pragmatic Programmer).
 
 Conforme Hunt e Thomas, **um código que representa um conhecimento deve ter uma representação única, inequívoca e autoritária dentro de um sistema**. Isso significa que DRY não é apenas sobre não duplicar código, mas é, sobretudo, conhecimento.
 
@@ -52,7 +52,7 @@ Esse conceito foi proposto por Martin Fowler em seu livro Refactoring.
 
 Você deve estar se perguntando o porquê de **três** ser especial. Geralmente você acaba tendo duas duplicações com uma ou outra leve particularidade e pode ser mantida assim caso você não saiba os requisitos futuros, mas quando há três duplicação é muito comum ter mais duplicações.
 
-\n> “A primeira vez que você faz algo, você simplesmente faz. Na segunda vez que você faz algo semelhante, você pode ter calafrios com a duplicação, mas faz a duplicação de qualquer maneira. Na terceira vez que você fizer algo semelhante, você refatorará” (Martin Fowler - Refactoring).
+> “A primeira vez que você faz algo, você simplesmente faz. Na segunda vez que você faz algo semelhante, você pode ter calafrios com a duplicação, mas faz a duplicação de qualquer maneira. Na terceira vez que você fizer algo semelhante, você refatorará” (Martin Fowler - Refactoring).
 
 Rule of Three diz que você pode duplicar o código por duas vezes, mas se você tiver que repetir pela terceira vez, então é hora de refatorar.
 
@@ -78,7 +78,7 @@ A duplicação de código incorre em um custo muito alto na maioria das vezes, m
 
 Por exemplo, temos o **ComponenteA** e o **ComponenteB**, eles são uma duplicação de código com um padrão em comum e mesmo conhecimento, então criamos a AbstraçãoX de forma simples e flexível por padrão (Imagem 1). Digamos que o ComponenteB precisa mudar e é preciso modificar a AbstraçãoX, de tal modo que adicionamos mais responsabilidade e que não é usada no ComponenteA, ou seja, isso já **deixou de ter o mesmo conhecimento** e possivelmente trará problemas futuros. Para resolver isso, vamos separar a AbstraçãoX em AbstraçãoX e AbstraçãoY ou desfazer as abstrações e retornar aos Componentes A e B.
 
-![b55d6170-0684-4f19-9f93-480f96b242b3_1344x1306.webp](https://res.cloudinary.com/ddwnioveu/image/upload/v1685323229/b55d6170_0684_4f19_9f93_480f96b242b3_1344x1306_a053b70020.webp)\n.
+![b55d6170-0684-4f19-9f93-480f96b242b3_1344x1306.webp](https://res.cloudinary.com/ddwnioveu/image/upload/v1685323229/b55d6170_0684_4f19_9f93_480f96b242b3_1344x1306_a053b70020.webp).
 
 Dessa forma, podemos resolver a questão de abstrair sem ter que lidar duplicações. Particularmente, as duplicações em uma base de código grande são bem custosas. Assim, para lidarmos com abstrações erradas, analisamos o contexto e o conhecimento, quando não faz mais sentido essa abstração, removemos a abstração. Não precisamos ter que duplicar código uma, duas ou três vezes a espera de abstrair e evitar dores de cabeça.
 
@@ -86,7 +86,7 @@ Dessa forma, podemos resolver a questão de abstrair sem ter que lidar duplicaç
 
 ### Além disso…
 
-**Evite abstrações excessivamente genéricas**, as abstrações podem ser tão genéricas que perdem sua utilidade. Por exemplo, criar uma abstração de \"Animal\" para um sistema que só tem um tipo de objeto “Cachorro” pode ser excessivamente genérico e não agregar valor. As abstrações devem ser específicas e relevantes para o problema que se está tentando resolver.
+**Evite abstrações excessivamente genéricas**, as abstrações podem ser tão genéricas que perdem sua utilidade. Por exemplo, criar uma abstração de "Animal" para um sistema que só tem um tipo de objeto “Cachorro” pode ser excessivamente genérico e não agregar valor. As abstrações devem ser específicas e relevantes para o problema que se está tentando resolver.
 
 **Evite a duplicação de código em testes**, seus testes devem ser tão DRY quanto possível e evite duplicar código em vários testes.
 
