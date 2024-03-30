@@ -54,22 +54,35 @@ export const revalidate = 60
 
 async function getData(slug: string) {
   try {
-    const file = fs.readFileSync(
-      path.join(process.cwd(), 'public', 'posts', `${slug}.mdx`),
-      'utf8',
-    )
+    const extensions = ['.mdx', '.md']
+
+    let file = ''
+    for (const extension of extensions) {
+      const filepath = path.join(
+        process.cwd(),
+        'public',
+        'posts',
+        `${slug}${extension}`,
+      )
+      if (fs.existsSync(filepath)) {
+        file = fs.readFileSync(filepath, 'utf8')
+        break
+      }
+    }
 
     const { content, data } = matter(file)
 
     return {
       data: {
         frontmatter: data as PostFrontMatter,
-        slug: file.replace('.mdx', ''),
+        slug: data?.slug,
         blurDataURL: await blurImage(data.image),
         content,
       },
     }
   } catch (error) {
+    console.log(error)
+
     return {
       data: {
         frontmatter: null,

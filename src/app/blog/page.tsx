@@ -10,7 +10,9 @@ import generateRssFeed from 'utils/feed-rss'
 const getData = async () => {
   try {
     const files = fs.readdirSync(path.join(process.cwd(), 'public', 'posts'))
-    const mdxFiles = files.filter((file) => path.extname(file) === '.mdx')
+    const mdxFiles = files.filter((file) =>
+      ['.mdx', '.md'].includes(path.extname(file)),
+    )
 
     const posts = await Promise.all(
       mdxFiles.map(async (file) => {
@@ -23,7 +25,7 @@ const getData = async () => {
 
         return {
           frontmatter: data as PostFrontMatter,
-          slug: file.replace('.mdx', ''),
+          slug: data?.slug,
           content,
         }
       }),
@@ -31,8 +33,8 @@ const getData = async () => {
 
     const sortedByDatePosts = posts.sort(
       (a, b) =>
-        -new Date(a.frontmatter.publishedAt) -
-        -new Date(b.frontmatter.publishedAt),
+        -new Date(a.frontmatter?.publishedAt) -
+        -new Date(b.frontmatter?.publishedAt),
     )
 
     await generateRssFeed(sortedByDatePosts)

@@ -1,11 +1,3 @@
-# backend:
-#  name: github
-#  repo: rwietter/rwietter.dev
-#  branch: main
-#  squash_merges: true ## Estrategia de juntar todos commits em um quando publicar
-#  base_url: https://rwietterc.xyz/
-#  auth_endpoint: api/auth/ ## Endpoint para autenticação com git
-#  use_graphql: true
 backend:
   name: git-gateway
   branch: main
@@ -16,7 +8,7 @@ backend:
 
 media_folder: public/assets/img
 public_folder: /assets/img
-publish_mode: editorial_workflow # Isso permite ter aquele workflow com drafts e tudo
+publish_mode: editorial_workflow
 
 slug:
   encoding: "ascii"
