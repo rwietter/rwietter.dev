@@ -77,8 +77,8 @@ blockquote,
 li,
 tt {
   font-size: clamp(var(--fluid-type-min, 1rem),
-      calc(1rem + var(--fluid-type-target, 5vw)),
-      var(--fluid-type-max, 1.4rem)) !important;
+      calc(1rem + var(--fluid-type-target, 4vw)),
+      var(--fluid-type-max, 1.3rem)) !important;
   text-rendering: optimizeLegibility;
 }
 
