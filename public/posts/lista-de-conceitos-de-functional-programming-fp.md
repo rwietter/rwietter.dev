@@ -3,7 +3,8 @@ layout: post
 slug: lista-de-conceitos-de-functional-programming-fp
 category: coding
 publishedAt: 2023-03-26 09:49:00
-image: /assets/img/feature.png
+image:
+  - https://res.cloudinary.com/ddwnioveu/image/upload/v1711764099/feature_ybbj2b.png
 alternativeText: Um logotipo preto e branco com a letra K representando
   programação funcional, lambda e conceitos relacionados.
 title: Lista de conceitos de Functional Programming (FP)
