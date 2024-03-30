@@ -9,6 +9,14 @@ backend:
 media_folder: public/assets/img
 public_folder: /assets/img
 publish_mode: editorial_workflow
+display_url: https://rwietter.netlify.app
+show_preview_links: true
+media_library:
+  name: cloudinary
+  config:
+    cloud_name: ddwnioveu
+    api_key: 452859833286493
+    multiple: true
 
 slug:
   encoding: "ascii"
@@ -35,7 +43,22 @@ collections:
           widget: "datetime",
           format: "YYYY-MM-DD hh:mm:ss",
         }
-      - { label: "Post Image", name: "image", widget: "image", required: true }
+      - {
+          label: "Post Image",
+          name: "image",
+          widget: "image",
+          required: true,
+          media_library:
+            {
+              name: "cloudinary",
+              config:
+                {
+                  multiple: true,
+                  cloud_name: "ddwnioveu",
+                  api_key: "452859833286493",
+                },
+            },
+        }
       - {
           label: "Alternative Text",
           name: "alternativeText",
