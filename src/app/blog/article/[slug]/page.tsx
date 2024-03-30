@@ -14,12 +14,14 @@ import { blurImage } from 'utils/blur-image'
 
 const ArticleFooter = dynamic(() => import('src/domains/article/footer'))
 
-type Props = {
+type PageProps = {
   params: { slug: string }
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const slug = params.slug
   const { data } = await getData(slug)
 
@@ -94,8 +96,8 @@ async function getData(slug: string) {
   }
 }
 
-const Page = async ({ params }: { params: { slug: string } }) => {
-  const { slug } = params
+const Page = async (props: PageProps) => {
+  const { slug } = props.params
   const { data } = await getData(slug)
 
   if (!data.frontmatter) {
