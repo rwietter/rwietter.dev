@@ -1,0 +1,93 @@
+---
+title: Sign Your Commits with a GPG Key
+description: How to set up a GPG key and sign your commits so GitHub can add a verified badge to your commits.
+slug: sign-your-commits-with-gpg-key
+image: https://res.cloudinary.com/ddwnioveu/image/upload/v1711596804/large_screensht_23_11_11_09_42_09_0974113a42.png
+alternativeText: A futuristic urban landscape with silhouettes of people walking in the fog.
+publishedAt: 2023-12-11
+updatedAt: 2023-12-11
+category: coding
+author: Maurício Witter
+---
+
+GPG stands for "GNU Privacy Guard," an implementation of PGP (Pretty Good Privacy). GPG is an open-source encryption tool that ensures privacy and authenticity in digital communications. Its primary purpose is to guarantee the confidentiality of messages, the authenticity of senders, and the integrity of transmitted data.
+
+GPG uses an asymmetric key system, where each user has a pair of keys: a private key and a public key. The public key is used to encrypt messages, while the private key is necessary to decrypt and digitally sign messages. This system allows parties to communicate securely, ensuring that only authorized recipients can access the message content.
+
+Additionally, GPG is widely used to verify the authenticity of files and software through the creation and verification of digital signatures. These signatures help ensure the origin and integrity of data, a common practice in environments where authenticity verification is crucial, such as software development.
+
+We can use this mechanism to sign our commits, ensuring that the commit is indeed yours. GitHub allows you to register a public key, so when you make a commit, you sign it with your private key. GitHub then verifies the commit using your public key.
+
+So, how do you do this? First, we need to create our key. Open your terminal, download GNU GPG, and then execute the following command:
+
+```bash
+gpg --full-generate-key
+
+# or
+gpg --default-new-key-algo rsa4096 --gen-key
+```
+
+Once finished, you will receive an ID, but you can also obtain it by executing the following command:
+
+```bash
+gpg --list-secret-keys --keyid-format=long
+```
+
+The **ID** looks something like `6YSSE8K57DCE479894D4AD3B33F4A8C59535F3EDA`. Its abbreviation is just above where it says `sec rsa4096/<id>`.
+
+Next, we need to register our public key on GitHub. First, obtain your public key by executing the following command in the terminal, replacing `<id>` with your key ID from the previous command:
+
+```bash
+gpg --armor --export <id>
+```
+
+You will see a block of values, similar to the example below. These random values correspond to your public key, which you should copy from start to finish.
+
+```bash
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+........
+........
+........
+-----END PGP PUBLIC KEY BLOCK-----
+```
+
+Now, go to your GitHub account, access the settings, and navigate to **[SSH and GPG Keys](https://github.com/settings/gpg/new)**. Click the button to create a new GPG key, give it a name, paste your public key, and save it.
+
+Almost there!
+
+Now you can sign your commits with the command `git commit -S -m "message"`. However, instead of using the `-S` flag every time, you can configure your `.gitconfig` to make this the default behavior. To do this, enter the following commands in the terminal:
+
+```bash
+git config --global commit.gpgSign true # to sign commits
+git config --global tag.gpgSign true # to sign tags
+```
+
+Or, you can add the following to your `.gitconfig` file:
+
+```bash
+[user]
+  signingkey = <id>
+[commit]
+  gpgSign = true
+[tag]
+  gpgSign = true
+```
+
+Now, just make your commits and sign with your password, and GitHub will verify the signature using your public key. To have GitHub display a **verified signature badge** next to your commit, go to your `profile > settings > SSH and GPG > Vigilant mode` and activate the **checkbox** that says "**Flag unsigned commits as unverified**".
+
+After doing this, your commits will show the following **verified by GPG key** badge:
+
+![commits](https://i.imgur.com/jWVpFf0.png)
+
+By clicking on the **badge**, you can see the verified author of the commit as authenticated by GitHub using your public key.
+
+![commits](https://i.imgur.com/49TllSk.png)
+
+Oh! And to verify a commit locally, just run the command:
+
+```bash
+git verify-commit <commit-hash>
+```
+
+This process ensures that your commits are securely signed and verifiable, adding an extra layer of security and authenticity to your code contributions.
