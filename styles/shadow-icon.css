@@ -30,3 +30,7 @@
 .social a:nth-child(4) svg {
   --shadow-color: #329cff;
 }
+
+.social a:nth-child(5) svg {
+  --shadow-color: #96BA34;
+}
