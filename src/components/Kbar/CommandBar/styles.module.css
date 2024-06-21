@@ -24,8 +24,6 @@
   font-family: var(--font-secondary);
   background: var(--sub-alt-color);
   color: var(--text-color);
-
-
 }
 
 @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {

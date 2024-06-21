@@ -45,13 +45,11 @@ const SwitchTheme: FC<Props> = ({ visible }) => {
     <button
       className={`${styles.theme} theme`}
       type='button'
-      aria-label='toggle change theme'
-      title='toggle change theme'
       onClick={handleSwitchTheme}
       ref={buttonRef}
       data-visible={visible}
     >
-      <MdSunny aria-hidden='true' title='light' />
+      <MdSunny aria-hidden='true' />
     </button>
   )
 }

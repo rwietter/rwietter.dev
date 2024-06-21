@@ -4,12 +4,13 @@ import { useKBar } from 'kbar'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 import { AiOutlineArrowUp } from 'react-icons/ai'
-import { BsCommand } from 'react-icons/bs'
+import { BsCommand, BsShadows } from 'react-icons/bs'
 import { FiList } from 'react-icons/fi'
 import { IoLanguageOutline } from 'react-icons/io5'
 import { VscHome } from 'react-icons/vsc'
 import styles from './styles.module.css'
 
+import { useEffect } from 'react'
 import SwitchTheme from 'src/components/SwitchTheme'
 
 const StickyBar = () => {
@@ -28,6 +29,33 @@ const StickyBar = () => {
 
   const handleOpenCommandBar = () => query.toggle()
 
+  const handleUserChangeShadows = () => {
+    const shadows = document.getElementById('dynamic-shadows')
+    if (shadows) {
+      if (shadows.classList.contains('shadows')) {
+        shadows.classList.remove('shadows')
+        localStorage.setItem('shadows', 'false')
+        return
+      }
+      shadows.classList.add('shadows')
+      localStorage.setItem('shadows', 'true')
+    }
+  }
+
+  const userLoadShadowsState = () => {
+    const shadows = document.getElementById('dynamic-shadows')
+    if (shadows) {
+      if (localStorage.getItem('shadows') === 'true') {
+        shadows.classList.add('shadows')
+      }
+    }
+  }
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    userLoadShadowsState()
+  }, [])
+
   return (
     <footer className={styles.manuBar}>
       <div className={styles.menuBarGroup} role='menubar'>
@@ -37,33 +65,35 @@ const StickyBar = () => {
           title='go to home page'
           role='menuitem'
         >
-          <div
+          <button
+            type='button'
             className={styles.menuBarItem}
-            aria-label='go to home page'
-            role='button'
+            aria-label='Go to home'
+            title='Go to home'
           >
             <VscHome size={20} aria-hidden='true' />
-          </div>
+          </button>
         </Link>
         <Link
           className={styles.menuBarLink}
           href='/blog'
-          title='go to blog'
+          title='Go to blog'
           role='menuitem'
         >
-          <div
+          <button
+            type='button'
             className={styles.menuBarItem}
-            aria-label='go to blog'
-            role='button'
+            aria-label='Go to blog'
           >
             <FiList size={20} aria-hidden='true' />
-          </div>
+          </button>
         </Link>
-        <div
+        <button
+          type='button'
           className={styles.menuBarItem}
           role='menuitem'
-          title='open command bar'
-          aria-label='open command bar'
+          title='Open command bar'
+          aria-label='Open command bar'
         >
           <BsCommand
             size={20}
@@ -71,12 +101,22 @@ const StickyBar = () => {
             aria-hidden='true'
             role='button'
           />
-        </div>
+        </button>
       </div>
 
       <div className={styles.menuBarGroup} role='menubar'>
-        {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
-        <div
+        <button
+          className={styles.menuBarItem}
+          type='button'
+          aria-label='Enable/Disable Shadows'
+          title='Enable/Disable Shadows'
+          role='menuitem'
+          onClick={handleUserChangeShadows}
+        >
+          <BsShadows size={18} />
+        </button>
+        <button
+          type='button'
           className={styles.menuBarItem}
           aria-label='Switch language'
           title='Switch language'
@@ -86,23 +126,25 @@ const StickyBar = () => {
           }
         >
           <IoLanguageOutline size={20} />
-        </div>
-        <div
+        </button>
+        <button
+          type='button'
           className={styles.menuBarItem}
           title='Toggle Dark Mode'
           role='menuitem'
-          aria-label='toggle change theme'
+          aria-label='Toggle change theme'
         >
           <SwitchTheme visible='sticky' />
-        </div>
-        <div
+        </button>
+        <button
+          type='button'
           className={styles.menuBarItem}
-          aria-label='go to top'
-          title='go to top'
+          aria-label='Navigate to top'
+          title='Navigate to top'
           role='menuitem'
         >
           <AiOutlineArrowUp onClick={handleToTop} size={20} />
-        </div>
+        </button>
       </div>
     </footer>
   )
