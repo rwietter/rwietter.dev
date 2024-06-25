@@ -20,7 +20,6 @@ public/sw.js
 public/sw.js.map
 public/*.js
 public/*.js.map
-pnpm-lock.yaml
 
 # testing
 /coverage
