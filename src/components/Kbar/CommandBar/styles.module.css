@@ -21,7 +21,7 @@
   outline: none;
   border: none;
   margin: 0;
-  font-family: var(--font-secondary);
+  font-family: var(--font-primary);
   background: var(--sub-alt-color);
   color: var(--text-color);
 }
@@ -41,9 +41,7 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   background: var(--sub-alt-color);
-  font-family: var(--font-secondary);
-
-
+  font-family: var(--font-primary);
 }
 
 @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
@@ -74,9 +72,9 @@
   display: flex;
   gap: 8px;
   align-items: center;
-  font-family: var(--font-secondary);
-  --fluid-type-min: .8rem;
-  --fluid-type-max: .9rem;
+  font-family: var(--font-primary);
+  --fluid-type-min: 0.8rem;
+  --fluid-type-max: 0.9rem;
   --fluid-type-target: 2vw;
 }
 
@@ -91,7 +89,7 @@
   align-items: center;
 }
 
-.actionrow>span:first-child {
+.actionrow > span:first-child {
   padding-right: 8px;
 }
 
@@ -104,8 +102,6 @@
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0px 10px 20px 8px rgba(0, 0, 0, 0.2);
-
-
 }
 
 @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
@@ -116,11 +112,11 @@
   }
 }
 
-.animator>div>div::-webkit-scrollbar {
+.animator > div > div::-webkit-scrollbar {
   width: 3px;
 }
 
-.animator>div>div {
+.animator > div > div {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }

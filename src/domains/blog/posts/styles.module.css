@@ -11,7 +11,7 @@
 .dateTimeRead {
   align-items: center;
   font-weight: 200;
-  font-family: var(--font-secondary), monospace;
+  font-family: var(--font-primary);
   color: var(--text-gray-color);
   transition: var(--transitonTheme);
 }
@@ -28,11 +28,12 @@
 .postTitle {
   justify-self: flex-start;
   line-height: 1.6;
+  padding-top: 0.3em;
+  display: inline-block;
   font-weight: 500;
   max-width: fit-content;
   border-bottom: 1px dotted var(--text-gray-color);
   transition: var(--transitonTheme);
-  display: inline;
   font-family: var(--font-secondary), monospace;
   color: var(--text-color);
   overflow-wrap: anywhere;

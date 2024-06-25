@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  font-family: var(--font-secondary), monospace;
+  font-family: var(--font-primary);
   line-height: 1.5;
 }
 
