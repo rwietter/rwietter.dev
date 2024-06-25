@@ -1,6 +1,6 @@
-# [context.production]
-#   command = "yarn build"
-#   publish = ".next"
+[context.production]
+  command = "pnpm run build"
+  publish = ".next"
 #
 # [context.staging]
 #   command = "yarn build"
