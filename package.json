@@ -1,5 +1,5 @@
 {
-	"name": "rwietterc.xyz",
+	"name": "rwietter.dev",
 	"version": "1.0.0",
 	"main": "pages/index.js",
 	"license": "MIT",
@@ -7,7 +7,7 @@
 	"engines": {
 		"node": ">=16.8.0"
 	},
-	"packageManager": "yarn@1.22.21",
+	"packageManager": "pnpm@9.4.0",
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
@@ -33,16 +33,16 @@
 		"i18next": "^23.8.2",
 		"kbar": "0.1.0-beta.45",
 		"markdown-to-jsx": "^7.4.1",
-		"next": "^15.0.0-canary.43",
+		"next": "^14.1.0",
 		"next-images": "^1.8.5",
 		"next-pwa": "5.6.0",
 		"next-seo": "^5.15.0",
 		"next-sitemap": "^3.1.55",
 		"plaiceholder": "^2.5.0",
 		"prismjs": "^1.29.0",
-		"react": "^19.0.0",
+		"react": "^18.2.0",
 		"react-apollo": "^3.1.5",
-		"react-dom": "^19.0.0",
+		"react-dom": "^18.2.0",
 		"react-i18next": "^14.0.1",
 		"react-icons": "^5.0.1",
 		"react-markdown": "^9.0.1",
