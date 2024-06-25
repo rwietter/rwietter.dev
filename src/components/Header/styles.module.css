@@ -31,7 +31,7 @@
   text-decoration: none;
   font-weight: 400;
   position: relative;
-  font-family: var(--font-secondary), monospace;
+  font-family: var(--font-primary), sans-serif;
   transition: var(--transition-primary);
   --fluid-type-min: 1rem;
   --fluid-type-max: 1.3rem;

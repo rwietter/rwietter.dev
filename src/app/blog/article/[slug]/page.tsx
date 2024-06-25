@@ -1,5 +1,5 @@
 import matter from 'gray-matter'
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import fs from 'node:fs'
@@ -9,7 +9,7 @@ import { makeSeo } from 'src/components/SEO/makeSeo'
 import ArticleContent from 'src/domains/article/content'
 import ArticleHeader from 'src/domains/article/header'
 import styles from 'src/domains/article/styles.module.css'
-import { Post, PostFrontMatter } from 'src/domains/article/ts'
+import type { Post, PostFrontMatter } from 'src/domains/article/ts'
 import { blurImage } from 'utils/blur-image'
 
 const ArticleFooter = dynamic(() => import('src/domains/article/footer'))

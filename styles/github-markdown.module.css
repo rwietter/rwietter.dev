@@ -360,24 +360,34 @@
 }
 
 .markdown-body blockquote {
-  margin: 1.2em 0 !important;
-  text-align: left;
-  padding: 1.5em 0 1.5em 1.5em;
-  text-align: right;
+  margin: 3em;
+  padding: 2em;
   color: var(--text-gray-color);
   background: transparent;
-  border-left: 6px solid var(--bg-alt-color);
+  text-align: left;
   transition: var(--transition-primary);
   border-radius: 4px;
+  position: relative;
   --fluid-type-max: 0.9rem;
 }
 
 .markdown-body blockquote p {
-  font-family: var(--font-primary);
-  font-weight: 200;
+  font-family: var(--font-secondary);
+  font-weight: 400;
   font-style: italic;
-  --fluid-type-max: 1.1rem;
+  --fluid-type-max: 1.3rem;
   --fluid-type-target: 2vw;
+}
+
+.markdown-body blockquote p::before {
+  content: "“";
+  font-size: 8em;
+  position: absolute;
+  left: -25px;
+  top: 60px;
+  line-height: 0.1em;
+  vertical-align: -0.4em;
+  color: rgba(77, 80, 95, 0.3);
 }
 
 .markdown-body blockquote p code {
@@ -901,7 +911,8 @@
 }
 
 .markdown-body p code {
-  background: var(--neutral);
+  background: var(--highlight);
+  color: var(--highlight-text);
   font-style: normal;
   font-family: var(--font-secondary);
   padding: 0.01em 0.3em;
@@ -969,14 +980,16 @@
   padding: 0;
   margin: 0;
   overflow: visible;
-  line-height: 1.5;
-  letter-spacing: 0.8px;
+  line-height: 1.8;
+  font-weight: 300;
+  letter-spacing: 0;
   word-wrap: normal;
   background: transparent;
   display: block;
   border: 0;
-  --fluid-type-min: 0.9rem;
-  --fluid-type-max: 1.1rem;
+  font-family: var(--font-code);
+  --fluid-type-min: 0.8rem;
+  --fluid-type-max: 1rem;
   --fluid-type-target: 2vw;
 }
 
