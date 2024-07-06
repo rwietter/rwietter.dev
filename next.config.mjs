@@ -1,6 +1,5 @@
 import bundleAnalyzer from '@next/bundle-analyzer'
 import { withPlaiceholder } from '@plaiceholder/next'
-// @type {import('next').NextConfig}
 import withImages from 'next-images'
 import pwa from 'next-pwa'
 
@@ -17,7 +16,6 @@ const nextConfig = withImages({
   productionBrowserSourceMaps: false,
   env: {
     REACT_APP_BACKEND_URL: process.env.REACT_APP_BACKEND_URL,
-    // SPOTIFY_OAUTH_TOKEN: process.env.SPOTIFY_OAUTH_TOKEN,
     ACCUWEATHER_CURRENT_CONDITIONS: process.env.ACCUWEATHER_CURRENT_CONDITIONS,
     ACCUWEATHER_API_KEY: process.env.ACCUWEATHER_API_KEY,
     ACCUWEATHER_CITY_ID: process.env.ACCUWEATHER_CITY_ID,
@@ -38,7 +36,6 @@ const nextConfig = withImages({
       'picsum.photos',
     ],
     formats: ['image/webp'],
-    disableStaticImages: true,
   },
 })
 
