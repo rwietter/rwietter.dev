@@ -1,8 +1,12 @@
 'use client'
 
 import Prism from 'prismjs'
-import React, { FC, memo, useEffect } from 'react'
+import React, { type FC, memo, useEffect } from 'react'
 import Markdown from 'react-markdown'
+import rehypeKatex from 'rehype-katex'
+import remarkGfm from 'remark-gfm'
+import remarkMath from 'remark-math'
+import remarkHighlight from '../remarkHighlight/remarkHighlight'
 
 import md from 'styles/github-markdown.module.css'
 import 'utils/highlights'
@@ -34,7 +38,12 @@ const MdRenderer: FC<ArticleData> = ({ article }) => {
   }, [])
 
   return (
-    <Markdown className={md['markdown-body']} components={components}>
+    <Markdown
+      className={md['markdown-body']}
+      components={components}
+      remarkPlugins={[remarkGfm, remarkMath, remarkHighlight]}
+      rehypePlugins={[rehypeKatex]}
+    >
       {article}
     </Markdown>
   )

@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import type { FC } from 'react'
 import MdRenderer from './md'
 import styles from './styles.module.css'
 

@@ -17,7 +17,7 @@
 .markdown-body h5,
 .markdown-body h6 {
   font-weight: 800 !important;
-  font-family: var(--font-secondary), monospace !important;
+  font-family: var(--font-secondary);
 }
 
 .markdown-body p,
@@ -28,14 +28,14 @@
 .markdown-body pre,
 .markdown-body img,
 .markdown-body table {
-  font-family: var(--font-primary), sans-serif;
+  font-family: var(--font-primary);
   font-weight: 300;
 }
 
 .markdown-body code,
 .markdown-body kbd,
 .markdown-body samp {
-  font-family: var(--font-code), monospace;
+  font-family: var(--font-code);
 }
 
 .markdown-body p:has(img) {
@@ -360,8 +360,8 @@
 }
 
 .markdown-body blockquote {
-  margin: 3em;
-  padding: 2em;
+  margin: 2em 0;
+  padding: 1em;
   color: var(--text-gray-color);
   background: transparent;
   text-align: left;
@@ -371,10 +371,18 @@
   --fluid-type-max: 0.9rem;
 }
 
+@media (min-width: 768px) {
+  .markdown-body blockquote {
+    margin: 3em;
+    padding: 2em;
+  }
+}
+
 .markdown-body blockquote p {
   font-family: var(--font-secondary);
   font-weight: 400;
   font-style: italic;
+  text-align: justify;
   --fluid-type-max: 1.3rem;
   --fluid-type-target: 2vw;
 }
@@ -387,7 +395,7 @@
   top: 60px;
   line-height: 0.1em;
   vertical-align: -0.4em;
-  color: rgba(77, 80, 95, 0.3);
+  color: rgba(77, 80, 95, 0.1);
 }
 
 .markdown-body blockquote p code {
@@ -914,10 +922,13 @@
   background: var(--highlight);
   color: var(--highlight-text);
   font-style: normal;
-  font-family: var(--font-secondary);
+  font-family: var(--font-code);
   padding: 0.01em 0.3em;
   font-weight: 400;
-  transition: background 200ms ease;
+  transition: var(--transition-primary);
+  --fluid-type-min: 0.7em !important;
+  --fluid-type-max: 0.9em !important;
+  --fluid-type-target: 4vw !important;
 }
 
 .markdown-body pre code span {
