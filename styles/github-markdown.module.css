@@ -5,7 +5,7 @@
   color: var(--text-color);
   background: var(--bg-color);
   line-height: 2em;
-  font-weight: 300;
+  font-weight: 400;
   word-wrap: break-word;
   transition: var(--transition-primary);
 }
@@ -29,7 +29,7 @@
 .markdown-body img,
 .markdown-body table {
   font-family: var(--font-primary);
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .markdown-body code,
@@ -114,7 +114,7 @@
 
 .markdown-body b,
 .markdown-body strong {
-  font-weight: 700 !important;
+  font-weight: 800 !important;
   font-family: var(--font-primary);
 }
 
@@ -132,8 +132,10 @@
   margin: 0.67em 0;
   font-weight: 600;
   padding-bottom: 0.3em;
-  font-size: 2em;
   border-bottom: 1px solid var(--text-color);
+  --fluid-type-min: 1.4rem;
+  --fluid-type-max: 2.4rem;
+  --fluid-type-target: 4vw;
 }
 
 .markdown-body mark {
@@ -324,34 +326,39 @@
 .markdown-body h2 {
   font-weight: 400;
   padding-bottom: 0.3em;
-  font-size: 1.5em;
   border-bottom: 1px solid hsla(210, 18%, 87%, 1);
-  --fluid-type-min: 1.4rem;
-  --fluid-type-max: 2.3rem;
+  --fluid-type-min: 1.2rem;
+  --fluid-type-max: 2.1rem;
   --fluid-type-target: 4vw;
 }
 
 .markdown-body h3 {
   font-weight: 600;
-  --fluid-type-min: 1.2rem;
-  --fluid-type-max: 1.7rem;
+  --fluid-type-min: 1.1rem;
+  --fluid-type-max: 1.8rem;
   --fluid-type-target: 4vw;
 }
 
 .markdown-body h4 {
   font-weight: 600;
-  font-size: 1em;
+  --fluid-type-min: 1rem;
+  --fluid-type-max: 1.5rem;
+  --fluid-type-target: 4vw;
 }
 
 .markdown-body h5 {
   font-weight: 600;
-  font-size: 0.875em;
+  --fluid-type-min: 0.9rem;
+  --fluid-type-max: 1.3rem;
+  --fluid-type-target: 4vw;
 }
 
 .markdown-body h6 {
   font-weight: 600;
-  font-size: 0.85em;
   color: #57606a;
+  --fluid-type-min: 0.8rem;
+  --fluid-type-max: 1.1rem;
+  --fluid-type-target: 4vw;
 }
 
 .markdown-body p {
@@ -391,11 +398,11 @@
   content: "“";
   font-size: 8em;
   position: absolute;
-  left: -25px;
+  left: -50px;
   top: 60px;
   line-height: 0.1em;
   vertical-align: -0.4em;
-  color: rgba(77, 80, 95, 0.1);
+  color: rgba(77, 80, 95, 0.5);
 }
 
 .markdown-body blockquote p code {
@@ -992,7 +999,7 @@
   margin: 0;
   overflow: visible;
   line-height: 1.8;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0;
   word-wrap: normal;
   background: transparent;

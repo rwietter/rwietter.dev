@@ -1,7 +1,7 @@
 ---
 layout: post
 slug: lista-de-conceitos-de-functional-programming-fp
-category: coding
+category: theory
 publishedAt: 2023-03-26 09:49:00
 image: https://res.cloudinary.com/ddwnioveu/image/upload/v1711764099/feature_ybbj2b.png
 alternativeText: Um logotipo preto e branco com a letra K representando

@@ -1,5 +1,5 @@
 :root {
-  --bg-color: #FFF8EC;
+  --bg-color: #FFFFFF;
   --bg-alt-color: #f2f3f7;
   --text-color: #0c0d11;
   --text-gray-color: #555969;
@@ -29,7 +29,7 @@
 .dark:root {
   --bg-color: #000000;
   --bg-alt-color: #121212;
-  --text-color: #f6f5f5;
+  --text-color: #b2b2b2;
   --text-gray-color: #adadad;
   --text-alt-color: #ffffff;
   --caret-color: #0f0f11;

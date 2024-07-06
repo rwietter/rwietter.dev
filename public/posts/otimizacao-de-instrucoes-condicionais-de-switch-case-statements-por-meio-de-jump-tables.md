@@ -6,11 +6,11 @@ image: https://res.cloudinary.com/ddwnioveu/image/upload/v1707422678/large_joshu
 alternativeText: A icônica Ponte Golden Gate envolta em neblina, criando uma cena mística e atmosférica.
 publishedAt: 2024-07-05
 updatedAt: 2024-07-05
-category: computer-science
+category: coding
 author: Maurício Witter
 ---
 
-## Introdução
+# Introdução
 
 A otimização de algoritmos e a busca por estruturas de dados eficientes, especialmente, quando se fala de compiladores, é algo primordial para tornar o código que escrevemos em alto nível de forma abstrata e, muitas vezes não performática, em performática a nível binário ou *bytecode*. Uma dessas otimizações é a manipulação de seleções condicionais, como as implementadas por meio de statements `switch/case`, `select` ou `match`; é aqui que jump tables entram em cena e brilham.
 
@@ -75,36 +75,53 @@ Mas e se pudêssemos tornar isso $O(n*1)$ não seria melhor ? Imagine que esse l
 
 Agora, se conseguíssemos otimizar o código de tal forma que a quantidade de `cases` seja reduzida para $1$, a complexidade se torna $O(n * 1)$, o que é efetivamente $O(n)$ ? Pois bem, é aí que entra a jump table.
 
-## Jump Tables
+# Jump Tables
 
 Jump tables utilizam o valor dos dados ou uma derivada calculada como o índice de um array. Essa técnica pode ser mais eficiente do que usar uma instruções `switch`, pois evita ramificações (branches).
 
 ---
 
-Não vou entrar muito em detalhes neste artigo para não ficar extenso, mas em suma, as CPUs modernas ainda não são tão eficientes em lidar com branchs. Acontece que, as CPUs modernas processam instruções em pipelines e quanto mais cheio esse pipeline fica, mas eficiente é o uso da CPU.
+Não quero entrar muito em detalhes neste artigo para não ficar extenso, mas em suma, as CPUs modernas ainda não são tão eficientes em lidar com desvios condicionais. Acontece que, as CPUs processam instruções em pipelines e quanto mais cheio esse pipeline fica, mais eficiente é o uso da CPU.
 
-Ocorre que, =red=o desvio condicional torna-se um desafio para manter o pipeline cheio, uma que vez que, quando uma instrução de branch é encontrada, a CPU não sabe antecipadamente qual caminho seguir==. Dependendo da condição associada ao branch, a CPU deve decidir se deve continuar com as instruções subsequentes no fluxo atual ou se deve pular para um novo fluxo de instruções. Atualmente existem algoritmos de **Branch Predictor** para pré-buscar essas instruções e colocar antecipadamente no pipeline, mas ainda assim não é obtido a melhor eficiência.
+Ocorre que, =red=o desvio condicional torna-se um desafio para manter o pipeline cheio, uma que vez que, quando uma instrução de branch é encontrada, a CPU não sabe antecipadamente qual caminho seguir==. Dependendo da condição associada ao branch, a CPU deve decidir se deve continuar com as instruções subsequentes no fluxo atual ou se deve pular para um novo fluxo de instruções. Atualmente existem algoritmos de **Branch Predictor** para pré-buscar essas instruções e colocar antecipadamente no pipeline, mas ainda assim não é obtido a melhor eficiência. E isso piora quando você tem branchs aninhadas, pois as branchs internas sequer são conhecidas para que se possa pré-buscar as instruções.
 
-E isso piora quando você tem branchs aninhadas, pois as branchs internas sequer são conhecidas para que se possa pré-buscar as instruções. E além disso, as ==branchs costumam resultar em cache miss. Em suma, você acaba perdendo alguns ciclos de CPU por conta dessa ineficiência que as branchs criam.==
+E além disso, se o algoritmo faz uma predição incorreta sobre qual caminho um desvio condicional (branch) tomará, será necssário descartar as instruções especulativas que foram carregadas no pipeline (**branch misprediction**). Então, a CPU deve buscar as instruções corretas e reiniciar a execução a partir do ponto do branch, causando uma penalidade de desempenho devido ao pipeline ter que ser "limpo" (flush).
+
+Outro problema das branchs é que elas podem causar **cache misses**. O cache miss ocorre quando os dados ou instruções requisitados não estão presentes nos caches L1, L2, L3 e afim, forçando o sistema a buscar os dados na memória principal, que é mais lenta a adiciona maior latência. 
+
+Por exemplo, a condicional no código abaixo normalmente é mais lento do que simplesmente `value = new_val` — não porque o código é maior — mas porque a variável poderia estar no cache e o desvio condicional pode gerar um branch misprediction.
+
+```js
+if (value !== new_val) {
+  value = new_val
+}
+```
+
+Em suma, você acaba perdendo alguns ciclos de CPU por conta dessa ineficiência que as branchs criam. Por isso, os compiladores dão tanta enfasê em otimizar essas instruções condicionais.
 
 ---
 
-Então! De que forma podemos tornar uma sequência de condicionais em um acesso O(1) ? Precisamos de uma estrutura de dados que nos de acesso direto ao valor ou endereço; para isso temos os *arrays* e as *dictionaries*, podemos acessar o *array* pelo *index* ou em um *dictionary* por sua *key*.
+Voltando ao tópico principal, de que forma podemos tornar uma sequência de condicionais em um acesso direto ? Precisamos de uma estrutura de dados que nos de acesso direto ao valor ou endereço; para isso temos os *arrays* e as *dictionaries*, podemos acessar o *array* pelo *index* ou em um *dictionary* por sua *key*.
 
 > Array: um conjunto de itens acessíveis aleatoriamente por números inteiros, o índice.
 
 > Dictionary: um tipo de dados abstrato que armazena itens ou valores. Um valor é acessado por uma chave associada. As operações básicas são new, insert, find e delete.
 
-Os dicionários utilizam funções hash, que em casos de colisão de hash tem-se uma complexidade $O(n)$. Você encontrará exemplos na internet de jump tables com *dicionaries*, mas usualmente é implementada por compiladores por meio de arrays.
+Os dicionários utilizam funções hash, que em casos de colisão de hash vem a ter uma complexidade $O(n)$. Você encontrará exemplos na internet de jump tables com *dicionaries*, mas usualmente é implementada por compiladores por meio de arrays.
 
-Algumas restrições sobre jump tables
-- Conceitualmente é feito com Array, então o acesso é por índices;
-- O tamanho precisa ser conhecido em tempo de compilação;
-- =red=O intervalo de cases do switch precisa ser contável.==
+## Condições para uso de Jump Table (gcc)
+
+O Intervalo Contíguo de Casos: se os valores dos ==casos são contíguos ou próximos==, é mais eficiente usar uma jump table.
+
+O Número de Casos: se o número de casos é suficiente para justificar a tabela, normalmente ==5 ou mais casos contíguos==.
+
+Case labels: os rótulos dos casos devem ser constantes — não variáveis ou strings — ==(1..n, a..z, Enum)==.
 
 ## Indexed Table Lookup
 
-Podemos implementar um switch-case por meio do código, mas isso não exatamente como o compilador faz para criar a jump table, mas é igualmente eficiente.
+Há muita confusão em relação a nomeclaturas e definições. Eu prefiro entender por **jump table como uma otimização de branchs por compiladores** e **indexed table lookup como uma estrutura de dados**. Mas, em geral, são usados de forma intercambiável. E ainda há quem chame de **dispatch table** ou **branch table**.
+
+Se o compilador da sua linguagem não faz tal otimização, você mesmo pode implementar um "switch-case por indexação", mas isso não é exatamente como o compilador faz para criar a jump table, mas também é eficiente.
 
 Inicialmente temos um exemplo clássico de um `switch-case` que todo mundo faz quando está aprendendo a programar, uma simples forma de calcular aritmética básica entre dois números, onde cada `case` possui um operador aritmético ou uma opção para um menu.
 
@@ -180,6 +197,10 @@ int main() {
     divide(num1, num2);
     break;
 
+  case 5:
+    // ...
+    break;
+
   default:
     printf("Invalid operation\n");
     break;
@@ -236,16 +257,17 @@ Caso queira compilar este código, bem como obter o assembly dele, use as seguin
 
 ```bash
 gcc -O2 -S -o main.s main.c # assembly
+gcc source.c -O2  -S -o/dev/stdout # assembly
 gcc -O2 -o main main.c # bin
 ```
 
-## Compiladores
+# Compiladores (gcc)
 
-O que os compiladores fazem para otimizar um `switch statement` é usar, basicamente, matemática. Primeiramente, ele precisa saber onde fica localizado cada caso, ele precisa do valor mínimo e máximo dos `cases`. Por exemplo, num `switch` cujos `cases` vão de 10 a 15, o valor mínimo é o 10 e o máximo é o 15.
+O que os compiladores fazem para otimizar um `switch statement` é usar, basicamente, matemática. Primeiramente, ele precisa saber onde fica localizado cada `case`, ele precisa do valor mínimo e máximo dos `cases`. Por exemplo, num `switch` cujos `cases` vão de 10 a 15, o valor mínimo é o 10 e o máximo é o 15.
 
-No código assembly abaixo, a instrução `subl` vai subtrair o valor mínimo do argumento (min_case - argument), uma vez que os valores do case serão normalizados.
+No código assembly abaixo, a instrução `subl` vai subtrair o valor mínimo do argumento $(min\_case - argument)$, uma vez que os valores do case serão normalizados.
 
-```assembly
+```nasm
 .LFB18:
 	subl	$10, %edi
 ```
@@ -267,15 +289,11 @@ E teremos os índices dispostos da seguinte maneira
 0 = 10-10
 ```
 
-Para garantir que o valor ajustado está dentro dos limites, uma comparação é feita. Se a comparação falhar, o fluxo é direcionado para o caso padrão (default).
-
-$$
-index \leq (max\_case - min\_case)
-$$
+Para garantir que o valor normalizado está dentro dos limites, uma comparação é feita. Se a comparação falhar, o fluxo é direcionado para o caso padrão (default). Por exemplo $index \leq (max\_case - min\_case)$.
 
 A instrução `cmpl` faz essa verificação e a instrução `ja` salta para o `default` se tal verificação estiver fora do intervalo.
 
-```assembly
+```nasm
 .LFB18:
 	subl	$10, %edi
 	cmpl	$5, %edi
@@ -284,7 +302,7 @@ A instrução `cmpl` faz essa verificação e a instrução `ja` salta para o `d
 
 O rótulo `.L12` define a jump table, que é um array onde cada entrada contém o deslocamento (offset) relativo ao início da tabela.
 
-```assembly
+```nasm
 .L12:
   .long .L17-.L12  # Offset para case10
   .long .L16-.L12  # Offset para case11
@@ -294,11 +312,7 @@ O rótulo `.L12` define a jump table, que é um array onde cada entrada contém 
   .long .L11-.L12  # Offset para case15
 ```
 
-Para calcular o endereço final do código do caso correspondente, somamos o deslocamento com o endereço base da tabela.
-
-$$
-jump\_address = base\_address + offsets[index]
-$$
+Para calcular o endereço final do código do caso correspondente, somamos o deslocamento com o endereço base da tabela. Por exemplo $jump\_address = base\_address + offsets[index]$.
 
 A instrução `leaq` (**Load Effective Address (Quad)**), carrega o endereço efetivo do rótulo `.L12` (jump table) no registrador `%rdx`.
 
@@ -308,15 +322,14 @@ A instrução `addq` (**Add Quadword**), adiciona o deslocamento carregado ao en
 
 Po fim, a instrução `jmp` (**Jump**) desvia incondicionalmente para o endereço contido em `%rax`, que agora é o endereço do código do caso correspondente do `switch`. O $(*)$, indica que o jump deve ser feito para o endereço armazenado no registrador `%rax`.
 
-```assembly
+```nasm
 .LFB18:
-	% ...
+	# ...
 	leaq	.L12(%rip), %rdx
 	movslq	(%rdx,%rdi,4), %rax
 	addq	%rdx, %rax       
 	jmp	*%rax
 ```
-
 
 ## Conceitos similares
 
@@ -352,7 +365,7 @@ fn main() {
 
 No exemplo abaixo de um Assembly de um Microcontroller de 8-bit PIC, temos uma dessas instruções `goto` de um desvio incondicional (unconditional branch).
 
-```assembly
+```nasm
  table
      goto    index_zero
      goto    index_one
@@ -394,7 +407,17 @@ Case3:
 gcc -std=c11 -o jump jump.c
 ```
 
-## Referências
+# Conclusão
+
+Jump table é uma técnica normalmente eficiente para otimizar instruções condicionais. Elas substituem instruções `switch/case` por uma tabela de índices que mapeia valores discretos para funções ou ações correspondentes. Isso permite que o compilador evite ramificações condicionais e, em vez disso, acesse diretamente o código associado a um valor específico.
+
+Embora jump tables sejam uma técnica poderosa para otimizar instruções condicionais, elas têm algumas limitações. Por exemplo, os valores dos `cases` devem ser constantes, isto é, de $1-n$, de $a-z$. Não é possível fazer jump tables com strings ou funções, por exemplo. Mas você pode usar Indexed Table Lookup e Dispatch Tables para contornar. Além disso, há casos que jump tables podem ser ineficientes, como o caso de uso de [retpolines](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=86952) ou `cases` não contíguos.
+
+O mais interessante disso, é entender como que as estruturas condicionais podem ser prejudiciais para o desempenho de um programa e como os compiladores modernos são capazes de otimizar essas instruções para melhorar a eficiência do código gerado.
+
+Se você encontrar algum erro ou tiver alguma dúvida, sinta-se à vontade para me mandar uma mensagem no [Twitter](https://twitter.com/rwietter) ou abrir uma issue no [GitHub](https://github.com/rwietter/rwietter.dev/issues).
+
+# Referências
 
 - [GNU GCC - Dispatch-Tables](https://gcc.gnu.org/onlinedocs/gcc-13.2.0/gccint/Dispatch-Tables.html)
 - [Function Dispatch Tables in C](https://blog.alicegoldfuss.com/function-dispatch-tables/)

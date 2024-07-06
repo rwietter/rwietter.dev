@@ -33,7 +33,7 @@ export const WeatherConditions: FC<WeatherConditionsProps> = ({ weather }) => {
     <div>
       {data?.Temperature && (
         <p className={styles.weather}>
-          <span>
+          <span className={styles.temperature}>
             <RiSunCloudyLine size={18} />
             <strong>
               &nbsp;

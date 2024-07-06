@@ -1,7 +1,7 @@
 import type { FC, PropsWithChildren } from 'react'
 
 import 'katex/dist/katex.min.css'
-import '../../../../styles/dracula-prism.css'
+import '../../../../styles/prism-theme.css'
 
 type Props = PropsWithChildren
 

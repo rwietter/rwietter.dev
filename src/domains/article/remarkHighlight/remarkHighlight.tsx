@@ -41,12 +41,6 @@ const escapeEl = (marker: string) =>
 const remarkHighlight: Plugin<[TextDecorationOptions?], Root> = (options) => {
   const opts = { ...DEFAULT_SETTINGS, ...options }
 
-  if (
-    typeof opts.marker === 'undefined' ||
-    typeof opts.markerWithOptions === 'undefined'
-  ) {
-    return
-  }
 
   const marker = escapeEl(opts.marker)
   const markerWithOptions = escapeEl(opts.markerWithOptions)
