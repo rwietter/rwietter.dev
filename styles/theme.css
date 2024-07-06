@@ -1,5 +1,5 @@
 :root {
-  --bg-color: #ffffff;
+  --bg-color: #FFFFFF;
   --bg-alt-color: #f2f3f7;
   --text-color: #0c0d11;
   --text-gray-color: #555969;
@@ -9,7 +9,7 @@
   --sub-color: #c9c9cf;
   --sub-alt-color: #f4f4f6;
   --select: #4433ff;
-  --highlight: rgb(255, 212, 101);
+  --highlight: #afb8c133;
   --highlight-text: #000000;
   --cb-bg-color: rgba(255, 255, 255, 0.6);
   --cb-box-alt-color: rgba(0, 0, 0, 0.1);
@@ -17,17 +17,19 @@
 
   --transition-primary: color 200ms ease, background 200ms ease;
 
+  --system-ui: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --font-primary: Inter, sans-serif;
+  --font-tex: KaTeX_Math;
   --font-secondary: "Noto Serif", serif;
   --font-title: var(--font-secondary), Inter, sans-serif;
-  --font-code: monospace;
+  --font-code: 'monospace';
   --font-bolder: Inter, sans-serif;
 }
 
 .dark:root {
   --bg-color: #000000;
   --bg-alt-color: #121212;
-  --text-color: #f6f5f5;
+  --text-color: #b2b2b2;
   --text-gray-color: #adadad;
   --text-alt-color: #ffffff;
   --caret-color: #0f0f11;
@@ -35,8 +37,8 @@
   --sub-color: #0f0f11;
   --sub-alt-color: #0f0f11;
   --error-color: #ff4754;
-  --highlight: rgb(255, 212, 101);
-  --highlight-text: #000000;
+  --highlight: #afb8c133;
+  --highlight-text: #f6f5f5;
   --select: #617bff;
   --cb-bg-color: rgba(0, 0, 0, 0.6);
   --cb-box-alt-color: rgba(255, 255, 255, 0.1);
@@ -47,7 +49,7 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
   transition: var(--transition-primary);
-  font-family: Inter, sans-serif;
+  font-family: var(--font-primary);
   font-optical-sizing: auto;
   font-style: normal;
   font-display: swap;

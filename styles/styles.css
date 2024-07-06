@@ -32,7 +32,10 @@
 }
 
 body {
-  text-rendering: optimizeLegibility;
+  line-height: 1.5;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 @supports (-webkit-font-smoothing: antialiased) {
@@ -77,8 +80,8 @@ blockquote,
 li,
 tt {
   font-size: clamp(var(--fluid-type-min, 1rem),
-      calc(1rem + var(--fluid-type-target, 4vw)),
-      var(--fluid-type-max, 1.3rem)) !important;
+      calc(1rem + var(--fluid-type-target, 3vw)),
+      var(--fluid-type-max, 1.1rem));
   text-rendering: optimizeLegibility;
 }
 
@@ -123,4 +126,61 @@ tt {
       hsla(0, 0%, 100%, 0) 60%,
       hsla(0, 0%, 100%, 0) 80%,
       var(--bg-alt-color));
+}
+
+p,
+li,
+h1,
+h2,
+h3,
+h4 {
+  overflow-wrap: break-word;
+  hyphens: auto;
+  
+  font-size-adjust: ex-height 0.5;
+  font-feature-settings: 'ss03', 'ss01', 'calt', 'cv01', 'cv09', 'cv02', 'cv03', 'cv04', 'ss02', 'zero', 'cv05', 'cv08' 'cv12', 'cv13', 'cv10', 'cv06', 'cv11';
+  font-variant-ligatures: common-ligatures;
+}
+
+/* 
+  Custom markdown elements
+*/
+
+[class*="text-highlight"] {
+  background-color: rgba(255, 212, 101, 1);
+  color: var(--caret-color);
+  padding: 0.1em 0.2em;
+  border-radius: 0.3em;
+  font-weight: 500 !important;
+}
+
+.text-highlight-blue {
+  background-color: rgba(207, 214, 223, 1);
+}
+
+.text-highlight-red {
+  background-color: rgba(243, 209, 206, 1);
+}
+
+.katex span {
+  font-family: var(--font-tex) !important;
+  --fluid-type-target: 1.5vw;
+  --fluid-type-max: 1.3rem;
+  --fluid-type-min: 1.1rem;
+}
+
+.katex {
+  font-family: var(--font-tex) !important;
+}
+
+.katex-display {
+  font-family: var(--font-tex) !important;
+  margin: 2em 0 !important;
+  padding: 1em;
+}
+
+.katex-display span {
+  --fluid-type-target: 1.5vw;
+  --fluid-type-max: 1.5rem;
+  --fluid-type-min: 1.3rem;
 }
