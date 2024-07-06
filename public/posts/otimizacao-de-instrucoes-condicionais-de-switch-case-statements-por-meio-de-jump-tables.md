@@ -14,7 +14,7 @@ keywords: jump table, branch table, indexed table lookup, dispatch table, multiw
 
 # Introdução
 
-A otimização de algoritmos e a busca por estruturas de dados eficientes, especialmente, quando se fala de compiladores, é algo primordial para tornar o código que escrevemos em alto nível de forma abstrata e, muitas vezes não performática, em performática a nível binário ou *bytecode*. Uma dessas otimizações é a manipulação de seleções condicionais, como as implementadas por meio de statements `switch/case`, `select` ou `match`; é aqui que jump tables entram em cena e brilham.
+A otimização de algoritmos e a busca por estruturas de dados eficientes, especialmente, quando se fala de compiladores, é algo primordial para tornar o código que escrevemos em alto nível de forma abstrata e, muitas vezes não performática, em performática a nível binário ou *bytecode*. Uma dessas otimizações envolve a manipulação de seleções condicionais, como as implementadas por meio de statements `switch/case`, `select` ou `match`; é aqui que jump tables entram em cena e brilham.
 
 Uma jump table — ou também conhecida como dispatch table e por indexed table lookup —, é um forma de mapear valores discretos para funções ou ações correspondentes. Ao invés de depender de instruções condicionais, as jump tables proporcionam uma abordagem mais eficiente e modular para associar operações específicas a diferentes casos.
 
@@ -91,7 +91,7 @@ E além disso, se o algoritmo faz uma predição incorreta sobre qual caminho um
 
 Outro problema das branchs é que elas podem causar **cache misses**. O cache miss ocorre quando os dados ou instruções requisitados não estão presentes nos caches L1, L2, L3 e afim, forçando o sistema a buscar os dados na memória principal, que é mais lenta a adiciona maior latência. 
 
-Por exemplo, a condicional no código abaixo normalmente é mais lento do que simplesmente `value = new_val` — não porque o código é maior — mas porque a variável poderia estar no cache e o desvio condicional pode gerar um branch misprediction.
+Por exemplo, a condicional no código abaixo, essa abordagem geralmente é mais lenta do que simplesmente `value = new_val` — não porque o código é maior — mas porque a variável poderia estar no cache e o desvio condicional pode gerar um branch misprediction.
 
 ```js
 if (value !== new_val) {
@@ -322,7 +322,7 @@ A instrução `movslq` (**Move and Sign-Extend Long to Quadword**), calcula o en
 
 A instrução `addq` (**Add Quadword**), adiciona o deslocamento carregado ao endereço base de `.L12` da jump talbe, resultando no endereço final do código do caso específico. Os registradores, `%rdx` contém o endereço base da jump table e `%rax` contém o deslocamento carregado da jump table.
 
-Po fim, a instrução `jmp` (**Jump**) desvia incondicionalmente para o endereço contido em `%rax`, que agora é o endereço do código do caso correspondente do `switch`. O $(*)$, indica que o jump deve ser feito para o endereço armazenado no registrador `%rax`.
+Por fim, a instrução `jmp` (**Jump**) desvia incondicionalmente para o endereço contido em `%rax`, que agora é o endereço do código do caso correspondente do `switch`. O $(*)$, indica que o jump deve ser feito para o endereço armazenado no registrador `%rax`.
 
 ```nasm
 .LFB18:
