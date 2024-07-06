@@ -1,13 +1,15 @@
 ---
 title: Otimização de instruções condicionais Switch-Case Statements por meio de Jump Tables
-description: Análise detalhada e implementação de jump tables para otimização de instruções condicionais em switch-case statements em compiladores modernos.
+description: Este artigo examina aspectos teóricos e empíricos, destacando casos de uso e desafios encontrados na aplicação de jump tables e branchs em diferentes contextos para otimização de instruções condicionais em switch-case statements e compiladores.
 slug: otimizacao-de-instrucoes-condicionais-de-switch-case-statements-por-meio-de-jump-tables
-image: https://res.cloudinary.com/ddwnioveu/image/upload/v1707422678/large_joshua_sortino_71v_Ab1_FXB_6g_unsplash_46a1453603.jpg
-alternativeText: A icônica Ponte Golden Gate envolta em neblina, criando uma cena mística e atmosférica.
+image: https://res.cloudinary.com/ddwnioveu/image/upload/v1720299096/fgqw1b2j7dncrztplfbn.jpg
+alternativeText: galhos e branchs de árvores caídos submersos em um corpo de água calmo e escuro com folhagem verde exuberante ao fundo criam uma cena serena e pitoresca.
+caption: Michael Held / Unsplash
 publishedAt: 2024-07-05
-updatedAt: 2024-07-05
+updatedAt: 2024-07-06
 category: coding
 author: Maurício Witter
+keywords: jump table, branch table, indexed table lookup, dispatch table, multiway branch, switch-case, select, match, optimization, compilers, gcc, assembly, c, rust, go, python, javascript, programming, computer science
 ---
 
 # Introdução
@@ -117,9 +119,9 @@ O Número de Casos: se o número de casos é suficiente para justificar a tabela
 
 Case labels: os rótulos dos casos devem ser constantes — não variáveis ou strings — ==(1..n, a..z, Enum)==.
 
-## Indexed Table Lookup
+## Multiway branch
 
-Há muita confusão em relação a nomeclaturas e definições. Eu prefiro entender por **jump table como uma otimização de branchs por compiladores** e **indexed table lookup como uma estrutura de dados**. Mas, em geral, são usados de forma intercambiável. E ainda há quem chame de **dispatch table** ou **branch table**.
+Há muita confusão em relação a nomeclaturas e definições. Eu prefiro entender por **jump table como uma otimização de branchs por compiladores** e **indexed table lookup como uma estrutura de dados**. Mas, em geral, são usados de forma intercambiável. E ainda há quem chame de **dispatch table**, **branch table** ou ainda **multiway branch**.
 
 Se o compilador da sua linguagem não faz tal otimização, você mesmo pode implementar um "switch-case por indexação", mas isso não é exatamente como o compilador faz para criar a jump table, mas também é eficiente.
 
@@ -162,7 +164,7 @@ int main() {
 }
 ```
 
-A primeira coisa a se fazer é separar nossas expressões em funções, pois usaremos elas como índices da nossa tabela de jump para acesso direto.
+A primeira coisa a se fazer é separar nossas expressões em funções, pois usaremos elas como índices da nossa tabela para acesso direto.
 
 ```c
 void sum(int a, int b);
@@ -210,9 +212,9 @@ int main() {
 }
 ```
 
-Feito isso, agora definitivamente vamos criar a jump table. Definimos um array de ponteiros porque queremos armazenar endereços dessas funções. Nossas funções são do tipo `void` e a assinatura possui dois parâmetros do tipo `int`, ou seja, `void (*jumpTable[])(int, int)`.
+Feito isso, agora definitivamente vamos criar a tabela. Definimos um array de ponteiros porque queremos armazenar endereços dessas funções. Nossas funções são do tipo `void` e a assinatura possui dois parâmetros do tipo `int`, ou seja, `void (*table[])(int, int)`.
 
-Atribuímos a jump table um array estático com cada função que criamos e em seguida acessamos o endereço da função no array pelo `index`, então só precisamos invocar essa referência passando os argumentos `jumpTable[operation](num1, num2)`. Dessa forma, a função será executada no melhor e pior caso com apenas uma operação $O(1)$.
+Atribuímos tabela um array estático com cada função que criamos e em seguida acessamos o endereço da função no array pelo `index`, então só precisamos invocar essa referência passando os argumentos `table[operation](num1, num2)`. Dessa forma, a função será executada no melhor e pior caso com apenas uma operação $O(1)$.
 
 ```c
 void sum(int a, int b);
@@ -246,14 +248,14 @@ int main() {
   printf("Enter two numbers: ");
   scanf("%d %d", &num1, &num2);
 
-  void (*jumpTable[])(int, int) = {sum, multiply, subtract, divide};
-  jumpTable[operation](num1, num2);
+  void (*table[])(int, int) = {sum, multiply, subtract, divide};
+  table[operation](num1, num2);
 
   return 0;
 }
 ```
 
-Caso queira compilar este código, bem como obter o assembly dele, use as seguintes flags
+Caso queira compilar o código, bem como obter o assembly dele, use as seguintes flags.
 
 ```bash
 gcc -O2 -S -o main.s main.c # assembly

@@ -43,7 +43,7 @@ export async function generateMetadata({
     description: frontmatter.description,
     image: frontmatter.image,
     ogText: frontmatter.description,
-    keywords: 'article, blog, rwietter, web development, programming, tech',
+    keywords: `${frontmatter?.keywords} article, blog, rwietter, web development, programming, tech`,
     author: frontmatter.author,
     slug: `/blog/article/${slug}`,
     abstract: frontmatter.description,
@@ -83,8 +83,6 @@ async function getData(slug: string) {
       },
     }
   } catch (error) {
-    console.log(error)
-
     return {
       data: {
         frontmatter: null,
@@ -151,7 +149,7 @@ const Page = async (props: PageProps) => {
                 blurDataURL={data.blurDataURL.blurDataURL}
               />
             </div>
-            <p className={styles.imageCredit}>{frontmatter.caption}</p>
+            <p className={styles.imageCredit}>{frontmatter?.caption}</p>
           </div>
           <ArticleContent content={content} />
         </div>

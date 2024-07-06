@@ -82,6 +82,7 @@ export type PostFrontMatter = {
   caption: string
   image: string
   alternativeText: string
+  keywords?: string
   publishedAt: string
   updatedAt: string
   category: string
