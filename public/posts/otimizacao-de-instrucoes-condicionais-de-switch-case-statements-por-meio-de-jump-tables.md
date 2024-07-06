@@ -14,15 +14,15 @@ keywords: jump table, branch table, indexed table lookup, dispatch table, multiw
 
 # Introdução
 
-A otimização de algoritmos e a busca por estruturas de dados eficientes, especialmente, quando se fala de compiladores, é algo primordial para tornar o código que escrevemos em alto nível de forma abstrata e, muitas vezes não performática, em performática a nível binário ou *bytecode*. Uma dessas otimizações envolve a manipulação de seleções condicionais, como as implementadas por meio de statements `switch/case`, `select` ou `match`; é aqui que jump tables entram em cena e brilham.
+A otimização de algoritmos e a busca por estruturas de dados eficientes, especialmente, quando se fala de compiladores, é algo primordial para tornar o código que escrevemos em alto nível de forma abstrata e, muitas vezes não performática, em performática a nível binário ou [bytecode](https://en.wikipedia.org/wiki/Java_bytecode). Uma dessas otimizações envolve a manipulação de seleções condicionais, como as implementadas por meio de statements `switch/case`, `select` ou `match`; é aqui que jump tables entram em cena e brilham.
 
-Uma jump table — ou também conhecida como dispatch table e por indexed table lookup —, é um forma de mapear valores discretos para funções ou ações correspondentes. Ao invés de depender de instruções condicionais, as jump tables proporcionam uma abordagem mais eficiente e modular para associar operações específicas a diferentes casos.
+Uma [jump table](https://www.cs.umd.edu/~waa/311-F09/jumptable.pdf), é um forma de mapear valores discretos para funções ou ações correspondentes. Ao invés de depender de instruções condicionais, as jump tables proporcionam uma abordagem mais eficiente e modular para associar operações específicas a diferentes casos.
 
 Neste artigo, exploraremos o que são jump tables, como elas funcionam e por que são valiosas para a otimização de algoritmos. Vamos analisar exemplos práticos de implementação, discutir as vantagens e desvantagens associadas a essa técnica e considerar casos de uso para elas.
 
 ---
 
-Direto ao ponto, vamos começar por uma instrução `switch/case` para compreender porquê jump tables são aplicadas.
+Vamos começar por uma instrução `switch/case` para compreender porquê jump tables são aplicadas.
 
 No código mais simples possível em **C**, criamos um `switch/case`; o `scanf` permite ler o *prompt* e atribuir o valor por referência para a variável `choice`. A seguir, nosso `switch` vai, dentre os casos, condicionalmente verificar qual `case` é igual a variável `choice` e executar o bloco de código que for verdadeiro e parar por conta do `break`; em último caso se não corresponder a nenhum `case`, irá bater no `default` e executar as instruções e parar.
 
@@ -54,7 +54,7 @@ Então você pode estar se perguntando, porque isso tem problemas de desempenho 
 
 De fato, é uma operação constante mas que depende do número de `cases`, que é conhecido em tempo de compilação. Mas o problema entra quando temos muitos `cases` — perceba que cada condição do `switch` vai ser avaliada — até encontrar um `break`. Não é algo que produziria um estrangulamento de desempenho, mas pode tomar alguns ciclos de CPU dependendo do contexto.
 
-Suponha que, **hipoteticamente**, que exista um `switch` com $15$ `cases` e ele é executado **dentro de um loop**. Na notação assintótica do $BigO$, temos o *loop* como sendo $O(n)$ e $O(15)$ `cases` que nos dá $O(n*15)$ **no pior caso**; normalmente descartaríamos o 15 pois é um termo constante, mas para esse exemplo vamos considerar.
+Suponha que, **hipoteticamente**, que exista um `switch` com $15$ `cases` e ele é executado **dentro de um loop**. Na [notação assintótica](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) do $BigO$, temos um *loop* como sendo $O(n)$ e $O(15)$ `cases` que nos dá $O(n*15)$ **no pior caso**; normalmente descartaríamos o 15 pois é um termo constante, mas para esse exemplo vamos considerar.
 
 ```c
 int main() {
@@ -87,7 +87,7 @@ Não quero entrar muito em detalhes neste artigo para não ficar extenso, mas em
 
 Ocorre que, =red=o desvio condicional torna-se um desafio para manter o pipeline cheio, uma que vez que, quando uma instrução de branch é encontrada, a CPU não sabe antecipadamente qual caminho seguir==. Dependendo da condição associada ao branch, a CPU deve decidir se deve continuar com as instruções subsequentes no fluxo atual ou se deve pular para um novo fluxo de instruções. Atualmente existem algoritmos de **Branch Predictor** para pré-buscar essas instruções e colocar antecipadamente no pipeline, mas ainda assim não é obtido a melhor eficiência. E isso piora quando você tem branchs aninhadas, pois as branchs internas sequer são conhecidas para que se possa pré-buscar as instruções.
 
-E além disso, se o algoritmo faz uma predição incorreta sobre qual caminho um desvio condicional (branch) tomará, será necssário descartar as instruções especulativas que foram carregadas no pipeline (**branch misprediction**). Então, a CPU deve buscar as instruções corretas e reiniciar a execução a partir do ponto do branch, causando uma penalidade de desempenho devido ao pipeline ter que ser "limpo" (flush).
+E além disso, se o algoritmo faz uma predição incorreta sobre qual caminho um desvio condicional (branch) tomará, será necessário descartar as instruções especulativas que foram carregadas no pipeline (**branch misprediction**). Então, a CPU deve buscar as instruções corretas e reiniciar a execução a partir do ponto do branch, causando uma penalidade de desempenho devido ao pipeline ter que ser "limpo" (flush).
 
 Outro problema das branchs é que elas podem causar **cache misses**. O cache miss ocorre quando os dados ou instruções requisitados não estão presentes nos caches L1, L2, L3 e afim, forçando o sistema a buscar os dados na memória principal, que é mais lenta a adiciona maior latência. 
 
@@ -99,7 +99,7 @@ if (value !== new_val) {
 }
 ```
 
-Em suma, você acaba perdendo alguns ciclos de CPU por conta dessa ineficiência que as branchs criam. Por isso, os compiladores dão tanta enfasê em otimizar essas instruções condicionais.
+Em suma, isso resulta em [ciclos de clock](https://en.wikipedia.org/wiki/Clock_rate) desperdiçados e diminuição do [throughput](https://en.wikipedia.org/wiki/Instruction_pipelining). Por isso, os compiladores dão tanta enfasê em otimizar essas instruções condicionais.
 
 ---
 
@@ -214,7 +214,7 @@ int main() {
 
 Feito isso, agora definitivamente vamos criar a tabela. Definimos um array de ponteiros porque queremos armazenar endereços dessas funções. Nossas funções são do tipo `void` e a assinatura possui dois parâmetros do tipo `int`, ou seja, `void (*table[])(int, int)`.
 
-Atribuímos tabela um array estático com cada função que criamos e em seguida acessamos o endereço da função no array pelo `index`, então só precisamos invocar essa referência passando os argumentos `table[operation](num1, num2)`. Dessa forma, a função será executada no melhor e pior caso com apenas uma operação $O(1)$.
+Atribuímos a tabela um array estático com cada função que criamos e em seguida acessamos o endereço da função no array pelo `index`, então só precisamos invocar essa referência passando os argumentos `table[operation](num1, num2)`. Dessa forma, a função será executada no melhor e pior caso com apenas uma operação $O(1)$.
 
 ```c
 void sum(int a, int b);
@@ -320,7 +320,7 @@ A instrução `leaq` (**Load Effective Address (Quad)**), carrega o endereço ef
 
 A instrução `movslq` (**Move and Sign-Extend Long to Quadword**), calcula o endereço do deslocamento correspondente na jump table e carrega esse deslocamento, com extensão de sinal, no registrador `%rax`. Aqui, o `rdx` contém o endereço base da `.L12`, `rdi` contém o índice do case normalizado ou seja $value - min\_case$ e o 4 é o tamanho de cada deslocamento na tabela (4 bytes).
 
-A instrução `addq` (**Add Quadword**), adiciona o deslocamento carregado ao endereço base de `.L12` da jump talbe, resultando no endereço final do código do caso específico. Os registradores, `%rdx` contém o endereço base da jump table e `%rax` contém o deslocamento carregado da jump table.
+A instrução `addq` (**Add Quadword**), adiciona o deslocamento carregado ao endereço base de `.L12` da jump table, resultando no endereço final do código do caso específico. Os registradores, `%rdx` contém o endereço base da jump table e `%rax` contém o deslocamento carregado da jump table.
 
 Por fim, a instrução `jmp` (**Jump**) desvia incondicionalmente para o endereço contido em `%rax`, que agora é o endereço do código do caso correspondente do `switch`. O $(*)$, indica que o jump deve ser feito para o endereço armazenado no registrador `%rax`.
 
@@ -424,3 +424,4 @@ Se você encontrar algum erro ou tiver alguma dúvida, sinta-se à vontade para 
 - [GNU GCC - Dispatch-Tables](https://gcc.gnu.org/onlinedocs/gcc-13.2.0/gccint/Dispatch-Tables.html)
 - [Function Dispatch Tables in C](https://blog.alicegoldfuss.com/function-dispatch-tables/)
 - [Multiway branch](https://www.wikiwand.com/en/Multiway_branch)
+- [Optimizing large jump tables for switch statements](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=11823)
