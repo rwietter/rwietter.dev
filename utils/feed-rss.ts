@@ -5,7 +5,7 @@ import remarkHtml from 'remark-html'
 import { Post } from 'src/domains/article/ts'
 
 export default async function generateRssFeed(posts: Post[]): Promise<void> {
-  const url = process.env.SITE_URL || 'https://rwietterc.xyz'
+  const url = process.env.SITE_URL || 'https://rwietter.dev'
 
   const feedOptions = {
     title: 'Maurício Witter | RSS Feed',
@@ -32,7 +32,7 @@ export default async function generateRssFeed(posts: Post[]): Promise<void> {
     image: `${url}/icons/mstile-310x310.png`,
     updated: new Date(),
     language: 'pt-BR',
-    feed: 'https://rwietterc.xyz/rss.xml',
+    feed: 'https://rwietter.dev/rss.xml',
   }
 
   const feed = new Feed(feedOptions)

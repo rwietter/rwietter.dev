@@ -64,7 +64,7 @@ export const projects: Projects = {
       title: 'Personal Site-Blog',
       description:
         'Static website that uses TS/Next.js and ISR (Incremental Static Regeneration) and GraphQL.',
-      github: 'https://github.com/rwietter/rwietter.xyz',
+      github: 'https://github.com/rwietter/rwietter.dev',
     },
     {
       title: 'Astro Picture Bot',

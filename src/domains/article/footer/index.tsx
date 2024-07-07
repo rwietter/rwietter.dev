@@ -23,9 +23,9 @@ const ArticleFooter: FC<ArticleFooterProps> = ({ post }) => {
 
   const tweetUrl = `http://twitter.com/share?text=${t('article.justRead')} "${
     post.title
-  }"&url=https://rwietterc.xyz${pathname}&hashtags=${post.category}`
+  }"&url=https://rwietter.dev${pathname}&hashtags=${post.category}`
 
-  const linkToSearchOnTwietter = `https://twitter.com/search?q=https://rwietterc.xyz${pathname}`
+  const linkToSearchOnTwietter = `https://twitter.com/search?q=https://rwietter.dev${pathname}`
 
   return (
     <div className={styles.articleFooterContainer}>
@@ -52,7 +52,7 @@ const ArticleFooter: FC<ArticleFooterProps> = ({ post }) => {
         <SidebarSocialIcons />
         <a
           className={styles.license}
-          href='https://github.com/rwietter/rwietter.xyz#CC-BY-SA-4.0-2'
+          href='https://github.com/rwietter/rwietter.dev#CC-BY-SA-4.0-2'
           target='_blank'
           rel='noreferrer'
         >

@@ -22,7 +22,7 @@ const JSONLD: React.FC<JSONLDProps> = (props) => (
     authorName={[
       {
         name: props.authorName,
-        url: 'https://rwietterc.xyz',
+        url: 'https://rwietter.dev',
       },
     ]}
     publisherName={props.authorName}

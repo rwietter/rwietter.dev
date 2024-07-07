@@ -18,7 +18,7 @@ export const Page = () => <div>Category</div>
 //       <NextSEO
 //         title='Blog | Maurício W. | Software Developer'
 //         content='blog'
-//         url='https://rwietterc.xyz/blog'
+//         url='https://rwietter.dev/blog'
 //         description='The category page of the blog. Here, you can find all the articles of the category. :)'
 //         image='https://res.cloudinary.com/ddwnioveu/image/upload/v1707422678/large_joshua_sortino_71v_Ab1_FXB_6g_unsplash_46a1453603.jpg'
 //       />
