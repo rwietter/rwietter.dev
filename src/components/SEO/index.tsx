@@ -17,13 +17,13 @@ import { FC } from 'react'
 //     postalCode: '9968000',
 //     streetAddress: '',
 //   },
-//   social: ['https://twitter.com/rwietter', 'https://rwietterc.xyz'],
+//   social: ['https://twitter.com/rwietter', 'https://rwietter.dev'],
 //   email: 'mailto:mauriciobw17@gmail.com',
 //   image:
 //     'https://avatars.githubusercontent.com/u/46854467?s=400&u=16a52bab3d6dbcbda716ed7d6bab84b3b307bd22&v=4',
 //   jobTitle: 'Software Developer',
 //   telephone: '(54) 99671-1324',
-//   url: 'https://rwietterc.xyz/',
+//   url: 'https://rwietter.dev/',
 // }
 
 interface SEOProps {
@@ -51,7 +51,7 @@ export const NextSEO: FC<SEOProps> = (props) => {
     <NextSeo
       title={title}
       description={description}
-      canonical={canonical || 'https://rwietterc.xyz/blog'}
+      canonical={canonical || 'https://rwietter.dev/blog'}
       openGraph={{
         url: `${url}`,
         title,
@@ -96,7 +96,7 @@ export const NextSEO: FC<SEOProps> = (props) => {
       ]}
       twitter={{
         handle: '@rwietter',
-        site: 'https://rwietterc.xyz',
+        site: 'https://rwietter.dev',
         cardType: 'summary_large_image',
       }}
     />
