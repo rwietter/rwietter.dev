@@ -1,6 +1,6 @@
 'use client'
 
-import { Action as KBarAction } from 'kbar'
+import type { Action as KBarAction } from 'kbar'
 import { useRouter } from 'next/navigation'
 import { BiCodeCurly } from 'react-icons/bi'
 import { CiLink } from 'react-icons/ci'
@@ -10,6 +10,7 @@ import { RxPerson } from 'react-icons/rx'
 import { SiSubstack } from 'react-icons/si'
 import { SlHeart, SlSocialGithub, SlSocialTwitter } from 'react-icons/sl'
 import { TbBrandTelegram } from 'react-icons/tb'
+import { FaFontAwesomeFlag } from 'react-icons/fa'
 
 const Actions = () => {
   const router = useRouter()
@@ -41,8 +42,8 @@ const Actions = () => {
       id: 'Home',
       name: 'Home',
       shortcut: ['h'],
-      keywords: 'go-home',
-      section: 'Go To',
+      keywords: 'page-home',
+      section: 'Pages',
       perform: () => router.push('/'),
       icon: <RiHome3Line size={18} color='var(--colors-gray50)' />,
     },
@@ -51,16 +52,25 @@ const Actions = () => {
       name: 'Blog',
       shortcut: ['b'],
       keywords: 'go-blog',
-      section: 'Go To',
+      section: 'Pages',
       perform: () => router.push('/blog'),
       icon: <SlHeart size={18} color='var(--colors-gray50)' />,
     },
     {
+      id: 'Awesome',
+      name: 'Awesome',
+      shortcut: ['a'],
+      keywords: 'page-awesome',
+      section: 'Pages',
+      perform: () => router.push('/awesome'),
+      icon: <FaFontAwesomeFlag size={16} color='var(--colors-gray50)' />,
+    },
+    {
       id: 'About',
       name: 'About',
-      shortcut: ['a'],
-      keywords: 'go-about',
-      section: 'Go To',
+      shortcut: ['t'],
+      keywords: 'page-about',
+      section: 'Pages',
       perform: () => router.push('/about'),
       icon: <RxPerson size={18} color='var(--colors-gray50)' />,
     },
@@ -68,8 +78,8 @@ const Actions = () => {
       id: 'Projects',
       name: 'Projects',
       shortcut: ['p'],
-      keywords: 'go-projects',
-      section: 'Go To',
+      keywords: 'page-projects',
+      section: 'Pages',
       perform: () => router.push('/projects'),
       icon: <BiCodeCurly size={18} color='var(--colors-gray50)' />,
     },

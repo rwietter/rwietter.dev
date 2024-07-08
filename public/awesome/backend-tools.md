@@ -1,0 +1,18 @@
+---
+slug: backend-tools
+title: Backend Tools
+tags: [backend, tools]
+publishedAt: 2024-07-09
+---
+
+# Backend Tools
+
+This is a list of tools that are useful for backend development.
+
+## Database
+
+- [PostgreSQL](https://www.postgresql.org/)
+- [MySQL](https://www.mysql.com/)
+- [SQLite](https://www.sqlite.org/)
+- [MongoDB](https://www.mongodb.com/)
+- [Redis](https://redis.io/)

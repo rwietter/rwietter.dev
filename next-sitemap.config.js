@@ -1,6 +1,13 @@
 const fs = require('node:fs');
 const path = require('node:path');
 
+const pth = (target) => path.join(__dirname, target)
+const readDir = (path) => fs.readdirSync(path)
+
+const partial = (fn, ...args) => {
+  return (...rest) =>  fn(...args, ...rest)
+}
+
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: 'https://rwietter.dev/',
@@ -22,8 +29,10 @@ module.exports = {
     ],
   },
   additionalPaths: async (config) => {
-    const blogPath = path.join(__dirname, 'public/posts');
-    const blogFiles = fs.readdirSync(blogPath);
+    const blogPath = pth('public/posts');
+    const awesomePath = pth('public/awesome');
+    const blogFiles = readDir(blogPath);
+    const awesomeFiles = readDir(awesomePath);
 
     const blogPaths = blogFiles.map((file) => {
       const mdmdx = /\.mdx?$/;
@@ -31,11 +40,19 @@ module.exports = {
       
       return {
         loc: `${config.siteUrl}/blog/article/${slug}`,
-        changefreq: 'hourly',
+        changefreq: 'daily',
         priority: 1,
       };
     });
 
-    return blogPaths;
+    const awesomePaths = awesomeFiles.map((file) => ({
+      loc: `${config.siteUrl}/awesome/${file.replace(/\.mdx?$/, '')}`,
+      changefreq: 'weekly',
+      priority: 1,
+    }))
+
+    const allPaths = [...blogPaths, ...awesomePaths];
+
+    return allPaths;
   },
 };

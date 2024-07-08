@@ -1,50 +1,44 @@
 import matter from 'gray-matter'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import fs from 'node:fs'
 import path from 'node:path'
 import { makeSeo } from 'src/components/SEO/makeSeo'
-import type { PostFrontMatter } from 'src/domains/article/ts'
-import { BlogPosts } from 'src/domains/blog'
-import generateRssFeed from 'utils/feed-rss'
+import styles from 'src/domains/awesome/styles.module.css'
 
 const getData = async () => {
   try {
-    const files = fs.readdirSync(path.join(process.cwd(), 'public', 'posts'))
-    const mdxFiles = files.filter((file) =>
-      ['.mdx', '.md'].includes(path.extname(file)),
-    )
+    const files = fs.readdirSync(path.join(process.cwd(), 'public', 'awesome'))
 
     const posts = await Promise.all(
-      mdxFiles.map(async (file) => {
+      files.map(async (file) => {
         const source = fs.readFileSync(
-          path.join(process.cwd(), 'public', 'posts', file),
+          path.join(process.cwd(), 'public', 'awesome', file),
           'utf8',
         )
 
         const { data, content } = matter(source)
 
         return {
-          frontmatter: data as PostFrontMatter,
+          frontmatter: data,
           slug: data?.slug,
           content,
         }
       }),
     )
 
-    const sortedByDatePosts = posts.sort(
+    const awesomeListsByPublishedDate = posts.sort(
       (a, b) =>
         -new Date(a.frontmatter?.publishedAt) -
         -new Date(b.frontmatter?.publishedAt),
     )
 
-    await generateRssFeed(sortedByDatePosts)
-
     return {
-      posts: sortedByDatePosts,
+      awesome: awesomeListsByPublishedDate,
     }
   } catch (error) {
     return {
-      posts: [],
+      awesome: [],
     }
   }
 }
@@ -83,7 +77,20 @@ const Page = async () => {
         // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <BlogPosts posts={data.posts} />
+      <section className={styles.container}>
+        <h1 className={styles.title}>Awesome Lists</h1>
+        <ul className={styles.list}>
+          {data.awesome.map((list) => (
+            <Link
+              href={`/awesome/${list.slug}`}
+              key={list.slug}
+              className={styles.item}
+            >
+              {list.frontmatter.title}
+            </Link>
+          ))}
+        </ul>
+      </section>
     </>
   )
 }
