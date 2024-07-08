@@ -1,5 +1,5 @@
 :root {
-  --bg-color: #FFFFFF;
+  --bg-color: #ffffff;
   --bg-alt-color: #f2f3f7;
   --text-color: #0c0d11;
   --text-gray-color: #555969;
@@ -17,12 +17,13 @@
 
   --transition-primary: color 200ms ease, background 200ms ease;
 
-  --system-ui: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --system-ui: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --font-primary: Inter, sans-serif;
   --font-tex: KaTeX_Math;
   --font-secondary: "Noto Serif", serif;
   --font-title: var(--font-secondary), Inter, sans-serif;
-  --font-code: 'monospace';
+  --font-code: "monospace";
   --font-bolder: Inter, sans-serif;
 }
 

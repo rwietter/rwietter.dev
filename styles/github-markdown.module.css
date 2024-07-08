@@ -319,7 +319,7 @@
 .markdown-body h6 {
   margin-top: 40px;
   margin-bottom: 16px;
-  line-height: 1.25;
+  line-height: 1.3;
   border: none !important;
 }
 
@@ -364,7 +364,12 @@
 .markdown-body p {
   margin-top: 0;
   margin-bottom: 10px;
-  hyphens: auto;
+}
+
+@media (min-width: 1200px) {
+  .markdown-body p {
+    text-align: justify;
+  }
 }
 
 .markdown-body blockquote {
