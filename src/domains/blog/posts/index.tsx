@@ -30,10 +30,13 @@ const ArticleCard = ({ post }: PostCard) => {
       </p>
       <Link
         href={`/blog/article/${post.slug}`}
-        passHref
+        scroll={false}
+        shallow={true}
+        prefetch={true}
+        className={styles.postTitle}
         suppressHydrationWarning
       >
-        <p className={styles.postTitle}>{post.frontmatter.title}</p>
+        {post.frontmatter.title}
       </Link>
     </li>
   )

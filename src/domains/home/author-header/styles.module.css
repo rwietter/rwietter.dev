@@ -11,8 +11,9 @@
 
 .name {
   font-weight: 900;
+  line-height: 1.2;
   color: var(--text-color);
-  font-family: var(--font-secondary), monospace;
+  font-family: var(--font-secondary);
   transition: var(--transition-primary);
   --fluid-type-min: 1.2rem;
   --fluid-type-max: 4.5rem;
@@ -23,17 +24,24 @@
   color: var(--text-color);
   line-height: 1.5;
   padding-top: 0.4rem;
-  font-family: var(--font-primary), monospace;
+  font-family: var(--font-primary);
   font-weight: 300;
+  hyphens: auto;
+  text-align: justify;
   transition: var(--transition-primary);
   --fluid-type-min: 0.8rem;
-  --fluid-type-target: 2vw;
   --fluid-type-max: 1.2rem;
+}
+
+@media (min-width: 768px) {
+  .biography {
+    text-align: start;
+  }
 }
 
 .username {
   color: var(--text-color);
-  font-family: var(--font-primary), monospace;
+  font-family: var(--font-primary);
   font-weight: 200;
   padding: 0.2rem 0;
   transition: var(--transition-primary);

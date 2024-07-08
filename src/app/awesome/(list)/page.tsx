@@ -44,26 +44,27 @@ const getData = async () => {
 }
 
 export const metadata: Metadata = makeSeo({
-  title: 'Blog | Maurício Witter | Software Developer',
+  title: 'Awesome | Maurício Witter | Software Developer',
   description:
-    'My blog, where I write about my experiences, my projects, and my life. :)',
+    'Awesome lists about programming, software development, and other cool stuff.',
   image:
     'https://res.cloudinary.com/ddwnioveu/image/upload/v1707422678/large_joshua_sortino_71v_Ab1_FXB_6g_unsplash_46a1453603.jpg',
-  slug: '/blog',
+  slug: '/awesome',
   ogText:
-    'My blog, where I write about my experiences, my projects, and my life. :)',
+    'Awesome lists about programming, software development, and other cool stuff.',
   abstract:
-    'My blog, where I write about my experiences, my projects, and my life.',
-  keywords: 'blog, experiences, projects, life',
+    'Awesome lists are curated lists of awesome things, such as programming languages, libraries, frameworks, and other cool stuff.',
+  keywords:
+    'awesome, lists, programming, software development, computer science',
 })
 
 const jsonLd = {
   type: 'Blog',
   authorName: 'Maurício Witter',
-  url: 'https://rwietter.dev/blog',
-  title: 'Blog | Maurício Witter | Software Developer',
+  url: 'https://rwietter.dev/awesome',
+  title: 'Awesome | Maurício Witter | Software Developer',
   description:
-    'My blog, where I write about my experiences, my projects, and my life. :)',
+    'Awesome lists about programming, software development, and other cool stuff.',
   image:
     'https://res.cloudinary.com/ddwnioveu/image/upload/v1707422678/large_joshua_sortino_71v_Ab1_FXB_6g_unsplash_46a1453603.jpg',
 }
@@ -84,6 +85,9 @@ const Page = async () => {
             <Link
               href={`/awesome/${list.slug}`}
               key={list.slug}
+              scroll={false}
+              shallow={true}
+              prefetch={true}
               className={styles.item}
             >
               {list.frontmatter.title}

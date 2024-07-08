@@ -1,18 +1,8 @@
 import { Metadata } from 'next'
-import dynamic from 'next/dynamic'
-import { Suspense } from 'react'
 import { makeSeo } from 'src/components/SEO/makeSeo'
 import AuthorHeader from 'src/domains/home/author-header'
-
-const KbarInit = dynamic(() =>
-  import('src/components/Kbar/KbarInit').then((mod) => ({
-    default: mod.KbarInit,
-  })),
-)
-
-const AuthorContent = dynamic(() => import('src/domains/home/author-content'))
-
-export const revalidate = 60
+import AuthorContent from 'src/domains/home/author-content'
+import { KbarInit } from 'src/components/Kbar/KbarInit'
 
 export const metadata: Metadata = makeSeo({
   title: 'Mauricio Witter | Software Developer',
@@ -44,12 +34,8 @@ const Page = () => (
       dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
     />
     <AuthorHeader />
-    <Suspense fallback={<span>...</span>}>
-      <AuthorContent />
-    </Suspense>
-    <Suspense fallback={<span>...</span>}>
-      <KbarInit />
-    </Suspense>
+    <AuthorContent />
+    <KbarInit />
   </>
 )
 

@@ -1,8 +1,6 @@
 import Header from 'src/components/Header'
 import { StickyBar } from 'src/components/StickyBar'
 
-import { Analytics } from '@vercel/analytics/react'
-
 import Providers from './providers'
 
 import '../../styles/fonts.css'
@@ -18,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='en'>
+    <html lang='pt-BR'>
       <head>
         <DocumentStuff />
       </head>
@@ -27,7 +25,6 @@ export default function RootLayout({
           <div id='dynamic-shadows' />
           <Providers>
             <Header />
-            <Analytics />
             <main className={styles.layout}>{children}</main>
             <StickyBar />
           </Providers>

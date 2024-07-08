@@ -6,6 +6,7 @@ import Markdown from 'react-markdown'
 import { makeSeo } from 'src/components/SEO/makeSeo'
 import styles from 'src/domains/awesome/list/styles.module.css'
 import md from 'styles/github-markdown.module.css'
+import rehypeExternalLinks from 'rehype-external-links'
 
 type PageProps = {
   params: { slug: string }
@@ -113,7 +114,12 @@ const Page = async (props: PageProps) => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <section className={styles.container}>
-        <Markdown className={md['markdown-body']}>{content}</Markdown>
+        <Markdown
+          className={md['markdown-body']}
+          rehypePlugins={[[rehypeExternalLinks, { target: '_blank' }]]}
+        >
+          {content}
+        </Markdown>
       </section>
     </>
   )

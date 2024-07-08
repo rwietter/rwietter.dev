@@ -4,17 +4,15 @@ const path = require('node:path');
 const pth = (target) => path.join(__dirname, target)
 const readDir = (path) => fs.readdirSync(path)
 
-const partial = (fn, ...args) => {
-  return (...rest) =>  fn(...args, ...rest)
-}
-
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: 'https://rwietter.dev/',
   generateRobotsTxt: true,
   changefreq: 'daily',
+  autoLastmod: true,
+  generateIndexSitemap: true,
   priority: 1,
-  exclude: ['/admin/**'], // Se houver páginas a serem excluídas
+  exclude: ['/admin/**'],
   robotsTxtOptions: {
     additionalSitemaps: [
       'https://rwietter.dev/sitemap-0.xml',

@@ -364,6 +364,9 @@
 .markdown-body p {
   margin-top: 0;
   margin-bottom: 10px;
+  text-align: justify;
+  text-wrap: stable;
+  hyphens: auto;
 }
 
 .markdown-body blockquote {
@@ -402,7 +405,7 @@
   top: 60px;
   line-height: 0.1em;
   vertical-align: -0.4em;
-  color: rgba(77, 80, 95, 0.5);
+  color: rgba(77, 80, 95, 0.2);
 }
 
 .markdown-body blockquote p code {

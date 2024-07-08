@@ -6,6 +6,7 @@ import Markdown from 'react-markdown'
 import rehypeKatex from 'rehype-katex'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
+import rehypeExternalLinks from 'rehype-external-links'
 import remarkHighlight from '../remarkHighlight/remarkHighlight'
 
 import md from 'styles/github-markdown.module.css'
@@ -42,7 +43,7 @@ const MdRenderer: FC<ArticleData> = ({ article }) => {
       className={md['markdown-body']}
       components={components}
       remarkPlugins={[remarkGfm, remarkMath, remarkHighlight]}
-      rehypePlugins={[rehypeKatex]}
+      rehypePlugins={[rehypeKatex, [rehypeExternalLinks, { target: '_blank' }]]}
     >
       {article}
     </Markdown>

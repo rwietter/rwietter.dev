@@ -59,6 +59,7 @@ span img {
 
 a {
   text-decoration: none;
+  text-underline-position: under;
 }
 
 h1,
@@ -79,13 +80,16 @@ samp,
 blockquote,
 li,
 tt {
-  font-size: clamp(var(--fluid-type-min, 1rem),
-      calc(1rem + var(--fluid-type-target, 3vw)),
-      var(--fluid-type-max, 1.1rem));
-  text-rendering: optimizeLegibility;
+  font-size: clamp(
+    var(--fluid-type-min, 1rem),
+    calc(1rem + var(--fluid-type-target, 3vw)),
+    var(--fluid-type-max, 1.1rem)
+  );
+  text-rendering: geometricPrecision;
 }
 
-@supports (-webkit-text-size-adjust: 100%) or (-moz-text-size-adjust: 100%) or (-ms-text-size-adjust: 100%) or (text-size-adjust: 100%) {
+@supports (-webkit-text-size-adjust: 100%) or (-moz-text-size-adjust: 100%) or
+  (-ms-text-size-adjust: 100%) or (text-size-adjust: 100%) {
   p {
     -webkit-text-size-adjust: 100%;
     -moz-text-size-adjust: 100%;
@@ -96,7 +100,7 @@ tt {
 
 .fade-in-layout {
   opacity: 0;
-  animation: fadeIn 200ms ease-in forwards;
+  animation: fadeIn 250ms ease-in forwards;
 }
 
 @keyframes fadeIn {
@@ -120,12 +124,14 @@ tt {
   transition:
     var(--transition-primary),
     background-image 200ms ease;
-  background-image: linear-gradient(180deg,
-      var(--bg-alt-color),
-      hsla(0, 0%, 100%, 0) 20%,
-      hsla(0, 0%, 100%, 0) 60%,
-      hsla(0, 0%, 100%, 0) 80%,
-      var(--bg-alt-color));
+  background-image: linear-gradient(
+    180deg,
+    var(--bg-alt-color),
+    hsla(0, 0%, 100%, 0) 20%,
+    hsla(0, 0%, 100%, 0) 60%,
+    hsla(0, 0%, 100%, 0) 80%,
+    var(--bg-alt-color)
+  );
 }
 
 p,
@@ -134,11 +140,25 @@ h1,
 h2,
 h3,
 h4 {
-  overflow-wrap: break-word;
   hyphens: auto;
-  
-  font-size-adjust: ex-height 0.5;
-  font-feature-settings: 'ss03', 'ss01', 'calt', 'cv01', 'cv09', 'cv02', 'cv03', 'cv04', 'ss02', 'zero', 'cv05', 'cv08' 'cv12', 'cv13', 'cv10', 'cv06', 'cv11';
+  font-feature-settings:
+    "liga" 1,
+    "ss03",
+    "ss01",
+    "calt",
+    "cv01",
+    "cv09",
+    "cv02",
+    "cv03",
+    "cv04",
+    "ss02",
+    "zero",
+    "cv05",
+    "cv08" "cv12",
+    "cv13",
+    "cv10",
+    "cv06",
+    "cv11";
   font-variant-ligatures: common-ligatures;
 }
 
