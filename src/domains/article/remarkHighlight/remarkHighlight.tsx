@@ -27,6 +27,7 @@ type TextDecorationOptions = {
 const DEFAULT_SETTINGS: TextDecorationOptions = {
   marker: '==',
   markerWithOptions: '=',
+  markerTag: 'span',
   markedAcceptedOptionsPattern: '[A-Za-z0-9]+',
   markerClassNames(options) {
     return options ? `text-highlight-${options}` : 'text-highlight'
@@ -53,10 +54,8 @@ const remarkHighlight: Plugin<[TextDecorationOptions?], Root> = (options) => {
 
   const matcher = new RegExp(
     `(${marker}\s*(.*[^ ])\s*${marker}|${markerWithOptions}(${opts.markedAcceptedOptionsPattern})${markerWithOptions}\s*([^${markerWithOptions}]*[^ ])\s*${marker})`,
-    'gi',
+    'gs',
   )
-
-  console.log(matcher)
 
   const visitor: Visitor<Text> = (node, index, parent): VisitorResult => {
     const { value } = node
@@ -103,6 +102,8 @@ const remarkHighlight: Plugin<[TextDecorationOptions?], Root> = (options) => {
       }
 
       children.push(node)
+
+      console.log('node', node)
 
       cursor += i + len
     }

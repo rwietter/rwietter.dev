@@ -42,7 +42,7 @@ const MdRenderer: FC<ArticleData> = ({ article }) => {
     <Markdown
       className={md['markdown-body']}
       components={components}
-      remarkPlugins={[remarkGfm, remarkMath, remarkHighlight]}
+      remarkPlugins={[remarkHighlight, remarkGfm, remarkMath]}
       rehypePlugins={[rehypeKatex, [rehypeExternalLinks, { target: '_blank' }]]}
     >
       {article}

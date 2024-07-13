@@ -44,7 +44,7 @@ $$
 \forall p \in P, \exists e \in E \text{ such that } e \text{ solves } p \text{ efficiently}
 $$
 
-==Please don't place excessive importance on this notation, as it serves merely as an example. It is evident that some problems require solutions through data structures and algorithms not encompassed within $E$.==
+==Please don't place excessive importance on this notation, as it serves merely as an example==. It is evident that **some problems require solutions through data structures and algorithms not encompassed within $E$**.
 
 I will define what I mean by "efficiently" in this context. The efficiency is measured by the time $ T $ and space $ S $ needed to solve $ p $ using $ e $. We define that $ e $ is efficient if:
 
@@ -53,6 +53,8 @@ T(e, p) = \mathcal{O}(log \ n) \text{ or } T(e, p) = \mathcal{O}(n) \quad \text{
 $$
 
 Where $ n $ denotes the input size.
+
+Note that $\mathcal{O}(n)$ is the worst-case time complexity, what is acceptable for most problems, since the average cases are better. This definition is not strict, but it provides a general idea of what I mean by "efficiently".
 
 Typically, $E$ includes structures and algorithms efficient for common problems. For example, in the best and average cases, these structures and algorithms have a time complexity of $ \mathcal{O}(log \ n) $ and a space complexity of $ \mathcal{O}(n) $. In the worst case, they have a time complexity of $\mathcal{O}(n) $ and a space complexity of $ \mathcal{O}(n) $.
 
@@ -66,8 +68,6 @@ Typically, $E$ includes structures and algorithms efficient for common problems.
 | Hash Table | $ \mathcal{O}(1) \quad / \quad \mathcal{O}(n) $                | $ \mathcal{O}(1) \quad / \quad \mathcal{O}(n) $                | $ \mathcal{O}(1) \quad / \quad \mathcal{O}(n) $                | $ \mathcal{O}(n) $     |
 
 Therefore, focusing on the essential subset $ E $ provides enough coverage to solve most common problems efficiently, eliminating the need to know all data structures and algorithms in $ S $.
-
----
 
 ## References
 
