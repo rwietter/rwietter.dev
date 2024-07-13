@@ -43,6 +43,11 @@ const getData = async () => {
       posts: sortedByDatePosts,
     }
   } catch (error) {
+    if (error instanceof Error) {
+      console.error(
+        `[ERROR]: ${error.name}\n[MESSAGE]: ${error.message}\n[STACK]: ${error.stack}`,
+      )
+    }
     return {
       posts: [],
     }

@@ -1,0 +1,74 @@
+---
+title: Essential Data Structures and Algorithms for Efficient Problem Solving
+description: A formal discussion on the importance of deep knowledge in select data structures and algorithms.
+slug: essential-data-structures-and-algorithms-for-efficient-problem-solving
+image: https://res.cloudinary.com/ddwnioveu/image/upload/v1720896025/lupj3nt5rxkjhrfvwxnq.jpg
+alternativeText: A tree with leaves in shades of red, orange, and yellow in full bloom.
+caption: u/Grashopha
+publishedAt: 2024-07-13
+updatedAt: 2024-07-13
+category: theory
+author: Maurício Witter
+keywords: data structures, algorithms, computer science, software engineering, AVL tree, BST, DAG, BFS, DFS, hash table, efficient problem solving
+---
+
+In my view, it's unnecessary to know every algorithm and data structure, contrary to common belief. Instead, deep understanding of a select few is crucial. The rest you can learn when you need them.
+
+So, what are the most important algorithms and data structures to know? I would say that the most important ones in a set $ S $ are the ones that are essential to solve the most common problems in computer science and software engineering. Let's formalize this idea.
+
+$$
+Let \ S = \{ \text{Data Structures and Algorithms} \} 
+$$
+
+You can think of $ S $ as a set containing all data structures and algorithms. Now, we need to define a subset $ E $ containing the essential structures and algorithms.
+
+$$
+Let \ E = \{ \text{Essential Data Structures and Algorithms} \} 
+$$
+
+For example, an essential subset of $ S $ could be $ E $ containing the following structures and algorithms:
+
+$$
+E = \{ \text{AVL Tree}, \text{BST}, \text{DAG}, \text{BFS}, \text{DFS}, \text{Hash Table} \} 
+$$
+
+And, to use this subset, we need to define a set $ P $ containing common problems in computer science and software engineering.
+
+$$
+Let \ P = \{ \text{Common Problems} \} 
+$$
+
+For each problem $ p \in P $, there exists a data structure or algorithm $ e \in E $ that solves $ p $ efficiently.
+
+$$
+\forall p \in P, \exists e \in E \text{ such that } e \text{ solves } p \text{ efficiently}
+$$
+
+==Please don't place excessive importance on this notation, as it serves merely as an example. It is evident that some problems require solutions through data structures and algorithms not encompassed within $E$.==
+
+I will define what I mean by "efficiently" in this context. The efficiency is measured by the time $ T $ and space $ S $ needed to solve $ p $ using $ e $. We define that $ e $ is efficient if:
+
+$$
+T(e, p) = \mathcal{O}(log \ n) \text{ or } T(e, p) = \mathcal{O}(n) \quad \text{and} \quad S(e, p) = \mathcal{O}(n)
+$$
+
+Where $ n $ denotes the input size.
+
+Typically, $E$ includes structures and algorithms efficient for common problems. For example, in the best and average cases, these structures and algorithms have a time complexity of $ \mathcal{O}(log \ n) $ and a space complexity of $ \mathcal{O}(n) $. In the worst case, they have a time complexity of $\mathcal{O}(n) $ and a space complexity of $ \mathcal{O}(n) $.
+
+| DS / A     | Insertion                                                    | Searching                                                    | Deletion                                                     | Traversal            |
+| ---------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | -------------------- |
+| AVL Tree   | $ \mathcal{\Theta}(log \ n) \quad / \quad \mathcal{O}(log \ n) $ | $ \mathcal{\Theta}(log \ n) \quad / \quad \mathcal{O}(log \ n) $ | $ \mathcal{\Theta}(log \ n) \quad / \quad \mathcal{O}(log \ n) $ | $ \mathcal{O}(n) $     |
+| BST        | $ \mathcal{\Theta}(log \ n) \quad / \quad \mathcal{O}(n) $      | $ \mathcal{\Theta}(log \ n) \quad / \quad \mathcal{O}(n) $      | $ \mathcal{\Theta}(log \ n) \quad / \quad \mathcal{O}(n) $      | $ \mathcal{O}(n) $     |
+| DAG        | $ \mathcal{O}(1) $                                             | $ \mathcal{O}(V + E) $                                         | $ \mathcal{O}(V + E) $                                         | $ \mathcal{O}(V + E) $ |
+| BFS        | -                                                            | $ \mathcal{O}(V + E) $                                         | -                                                            | $ \mathcal{O}(V + E) $ |
+| DFS        | -                                                            | $ \mathcal{O}(V + E) $                                         | -                                                            | $ \mathcal{O}(V + E) $ |
+| Hash Table | $ \mathcal{O}(1) \quad / \quad \mathcal{O}(n) $                | $ \mathcal{O}(1) \quad / \quad \mathcal{O}(n) $                | $ \mathcal{O}(1) \quad / \quad \mathcal{O}(n) $                | $ \mathcal{O}(n) $     |
+
+Therefore, focusing on the essential subset $ E $ provides enough coverage to solve most common problems efficiently, eliminating the need to know all data structures and algorithms in $ S $.
+
+---
+
+## References
+
+- Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2009). Introduction to Algorithms (3rd ed.). MIT Press.

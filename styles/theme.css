@@ -15,7 +15,8 @@
   --cb-box-alt-color: rgba(0, 0, 0, 0.1);
   --neutral: #ebf0f5;
 
-  --transition-primary: color 200ms ease, background 200ms ease;
+  --transition-primary: color 200ms ease, background 200ms ease, border-color 200ms ease,
+    box-shadow 200ms ease, fill 200ms ease, stroke 200ms ease;
 
   --system-ui: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";

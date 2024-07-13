@@ -1,8 +1,8 @@
 import { Feed } from 'feed'
-import fs from 'fs'
+import fs from 'node:fs'
 import { remark } from 'remark'
 import remarkHtml from 'remark-html'
-import { Post } from 'src/domains/article/ts'
+import type { Post } from 'src/domains/article/ts'
 
 export default async function generateRssFeed(posts: Post[]): Promise<void> {
   const url = process.env.SITE_URL || 'https://rwietter.dev'

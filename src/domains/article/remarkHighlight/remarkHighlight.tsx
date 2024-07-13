@@ -53,8 +53,10 @@ const remarkHighlight: Plugin<[TextDecorationOptions?], Root> = (options) => {
 
   const matcher = new RegExp(
     `(${marker}\s*(.*[^ ])\s*${marker}|${markerWithOptions}(${opts.markedAcceptedOptionsPattern})${markerWithOptions}\s*([^${markerWithOptions}]*[^ ])\s*${marker})`,
-    'g',
+    'gi',
   )
+
+  console.log(matcher)
 
   const visitor: Visitor<Text> = (node, index, parent): VisitorResult => {
     const { value } = node
