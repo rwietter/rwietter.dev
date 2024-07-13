@@ -58,14 +58,14 @@ Note that $\mathcal{O}(n)$ is the worst-case time complexity, what is acceptable
 
 Typically, $E$ includes structures and algorithms efficient for common problems. For example, in the best and average cases, these structures and algorithms have a time complexity of $ \mathcal{O}(log \ n) $ and a space complexity of $ \mathcal{O}(n) $. In the worst case, they have a time complexity of $\mathcal{O}(n) $ and a space complexity of $ \mathcal{O}(n) $.
 
-| DS / A     | Insertion                                                    | Searching                                                    | Deletion                                                     | Traversal            |
-| ---------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | -------------------- |
+| DS / A     | Insertion                                                        | Searching                                                        | Deletion                                                         | Traversal              |
+| ---------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------- |
 | AVL Tree   | $ \mathcal{\Theta}(log \ n) \quad / \quad \mathcal{O}(log \ n) $ | $ \mathcal{\Theta}(log \ n) \quad / \quad \mathcal{O}(log \ n) $ | $ \mathcal{\Theta}(log \ n) \quad / \quad \mathcal{O}(log \ n) $ | $ \mathcal{O}(n) $     |
-| BST        | $ \mathcal{\Theta}(log \ n) \quad / \quad \mathcal{O}(n) $      | $ \mathcal{\Theta}(log \ n) \quad / \quad \mathcal{O}(n) $      | $ \mathcal{\Theta}(log \ n) \quad / \quad \mathcal{O}(n) $      | $ \mathcal{O}(n) $     |
-| DAG        | $ \mathcal{O}(1) $                                             | $ \mathcal{O}(V + E) $                                         | $ \mathcal{O}(V + E) $                                         | $ \mathcal{O}(V + E) $ |
-| BFS        | -                                                            | $ \mathcal{O}(V + E) $                                         | -                                                            | $ \mathcal{O}(V + E) $ |
-| DFS        | -                                                            | $ \mathcal{O}(V + E) $                                         | -                                                            | $ \mathcal{O}(V + E) $ |
-| Hash Table | $ \mathcal{O}(1) \quad / \quad \mathcal{O}(n) $                | $ \mathcal{O}(1) \quad / \quad \mathcal{O}(n) $                | $ \mathcal{O}(1) \quad / \quad \mathcal{O}(n) $                | $ \mathcal{O}(n) $     |
+| BST        | $ \mathcal{\Theta}(log \ n) \quad / \quad \mathcal{O}(n) $       | $ \mathcal{\Theta}(log \ n) \quad / \quad \mathcal{O}(n) $       | $ \mathcal{\Theta}(log \ n) \quad / \quad \mathcal{O}(n) $       | $ \mathcal{O}(n) $     |
+| DAG        | $ \mathcal{O}(1) $                                               | $ \mathcal{O}(V + E) $                                           | $ \mathcal{O}(V + E) $                                           | $ \mathcal{O}(V + E) $ |
+| BFS        | -                                                                | $ \mathcal{O}(V + E) $                                           | -                                                                | $ \mathcal{O}(V + E) $ |
+| DFS        | -                                                                | $ \mathcal{O}(V + E) $                                           | -                                                                | $ \mathcal{O}(V + E) $ |
+| Hash Table | $ \mathcal{O}(1) \quad / \quad \mathcal{O}(n) $                  | $ \mathcal{O}(1) \quad / \quad \mathcal{O}(n) $                  | $ \mathcal{O}(1) \quad / \quad \mathcal{O}(n) $                  | -                      |
 
 Therefore, focusing on the essential subset $ E $ provides enough coverage to solve most common problems efficiently, eliminating the need to know all data structures and algorithms in $ S $.
 
