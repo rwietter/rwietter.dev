@@ -49,10 +49,6 @@ function DocumentStuff() {
         src='https://cloud.umami.is/script.js'
         data-website-id='99c64e87-1dbd-4e1c-b45b-ada2e802dcc1'
       />
-      <link
-        href='https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wdth,wght@0,62.5..100,300..700;1,62.5..100,100..900&display=swap'
-        rel='stylesheet'
-      />
       <meta name='application-name' content='Maurício Witter' />
       <meta name='apple-mobile-web-app-capable' content='yes' />
       <meta name='apple-mobile-web-app-status-bar-style' content='default' />

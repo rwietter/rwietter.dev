@@ -1,7 +1,5 @@
-'use client'
-
-import { PropsWithChildren, Suspense } from 'react'
 import dynamic from 'next/dynamic'
+import { type PropsWithChildren, Suspense } from 'react'
 
 const CommandBar = dynamic(() => import('src/components/Kbar/CommandBar'), {
   ssr: false,

@@ -7,7 +7,7 @@ import {
   KBarProvider,
   KBarSearch,
 } from 'kbar'
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import Actions from './Actions'
 import { RenderResults } from './RenderResults'
 import styles from './styles.module.css'

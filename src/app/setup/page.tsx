@@ -1,4 +1,4 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 import { makeSeo } from 'src/components/SEO/makeSeo'
 import Setup from 'src/domains/setup'
 

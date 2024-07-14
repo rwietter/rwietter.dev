@@ -1,8 +1,8 @@
-import { Metadata } from 'next'
-import { makeSeo } from 'src/components/SEO/makeSeo'
-import AuthorHeader from 'src/domains/home/author-header'
-import AuthorContent from 'src/domains/home/author-content'
+import type { Metadata } from 'next'
 import { KbarInit } from 'src/components/Kbar/KbarInit'
+import { makeSeo } from 'src/components/SEO/makeSeo'
+import AuthorContent from 'src/domains/home/author-content'
+import AuthorHeader from 'src/domains/home/author-header'
 
 export const metadata: Metadata = makeSeo({
   title: 'Mauricio Witter | Software Developer',
