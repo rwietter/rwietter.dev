@@ -288,7 +288,7 @@
   cursor: pointer;
 }
 
-.markdown-body details:not([open]) > *:not(summary) {
+.markdown-body details:not([open])>*:not(summary) {
   display: none !important;
 }
 
@@ -375,42 +375,52 @@
 }
 
 .markdown-body blockquote {
-  margin: 2em 0;
-  padding: 1em;
+  margin: 2em 0 !important;
+  padding: 0 2em;
   color: var(--text-gray-color);
   background: transparent;
-  text-align: left;
   transition: var(--transition-primary);
   border-radius: 4px;
   position: relative;
   --fluid-type-max: 0.9rem;
 }
 
-@media (min-width: 768px) {
-  .markdown-body blockquote {
-    margin: 3em;
-    padding: 2em;
-  }
-}
-
 .markdown-body blockquote p {
   font-family: var(--font-secondary);
   font-weight: 400;
   font-style: italic;
-  text-align: justify;
+  padding: 1em;
+  text-align: center;
+  line-height: 1.3;
   --fluid-type-max: 1.3rem;
-  --fluid-type-target: 2vw;
+  --fluid-type-target: 5vw;
 }
 
-.markdown-body blockquote p::before {
-  content: "“";
-  font-size: 8em;
+.markdown-body blockquote::before {
+  content: "";
   position: absolute;
-  left: -50px;
-  top: 60px;
+  width: 3px;
+  border-radius: 3em;
+  background: var(--main-color);
+  height: 100%;
+  left: 0;
   line-height: 0.1em;
   vertical-align: -0.4em;
-  color: rgba(77, 80, 95, 0.2);
+  color: var(--text-color);
+}
+
+.markdown-body blockquote::after {
+  content: "";
+  position: absolute;
+  width: 3px;
+  border-radius: 3em;
+  background: var(--main-color);
+  height: 100%;
+  top: 0;
+  right: 0;
+  line-height: 0.1em;
+  vertical-align: -0.4em;
+  color: var(--text-color);
 }
 
 .markdown-body blockquote p code {
@@ -627,11 +637,11 @@
   content: "";
 }
 
-.markdown-body > *:first-child {
+.markdown-body>*:first-child {
   margin-top: 0 !important;
 }
 
-.markdown-body > *:last-child {
+.markdown-body>*:last-child {
   margin-bottom: 0 !important;
 }
 
@@ -671,11 +681,11 @@
   font-style: italic;
 }
 
-.markdown-body blockquote > :first-child {
+.markdown-body blockquote> :first-child {
   margin-top: 0;
 }
 
-.markdown-body blockquote > :last-child {
+.markdown-body blockquote> :last-child {
   margin-bottom: 0;
 }
 
@@ -757,7 +767,7 @@
   list-style-type: lower-roman;
 }
 
-.markdown-body div > ol:not([type]) {
+.markdown-body div>ol:not([type]) {
   list-style-type: decimal;
 }
 
@@ -769,11 +779,11 @@
   margin-bottom: 0;
 }
 
-.markdown-body li > p {
+.markdown-body li>p {
   margin-top: 16px;
 }
 
-.markdown-body li + li {
+.markdown-body li+li {
   margin-top: 0.25em;
 }
 
@@ -839,7 +849,7 @@
   overflow: hidden;
 }
 
-.markdown-body span.frame > span {
+.markdown-body span.frame>span {
   display: block;
   float: left;
   width: auto;
@@ -867,7 +877,7 @@
   clear: both;
 }
 
-.markdown-body span.align-center > span {
+.markdown-body span.align-center>span {
   display: block;
   margin: 13px auto 0;
   overflow: hidden;
@@ -885,7 +895,7 @@
   clear: both;
 }
 
-.markdown-body span.align-right > span {
+.markdown-body span.align-right>span {
   display: block;
   margin: 13px 0 0;
   overflow: hidden;
@@ -915,7 +925,7 @@
   overflow: hidden;
 }
 
-.markdown-body span.float-right > span {
+.markdown-body span.float-right>span {
   display: block;
   margin: 13px auto 0;
   overflow: hidden;
@@ -976,7 +986,7 @@
   font-size: 100%;
 }
 
-.markdown-body pre > code {
+.markdown-body pre>code {
   padding: 0;
   margin: 0;
   word-break: normal;
@@ -1107,7 +1117,7 @@
   cursor: pointer;
 }
 
-.markdown-body .task-list-item + .task-list-item {
+.markdown-body .task-list-item+.task-list-item {
   margin-top: 4px;
 }
 

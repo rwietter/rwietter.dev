@@ -1,4 +1,4 @@
-import { ReactNode, memo } from 'react'
+import { type ReactNode, memo } from 'react'
 import { Kbar } from './Kbar'
 
 type Props = {
