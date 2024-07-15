@@ -15,7 +15,6 @@ const useDeferredTasks = (tasks = []) => {
       }
     }
     document.addEventListener('visibilitychange', handleVisibilityChange)
-    console.log('taskQueue', taskQueue)
 
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange)

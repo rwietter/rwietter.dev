@@ -9,12 +9,17 @@ const withPWA = pwa({
   dest: 'public',
 })
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
   productionBrowserSourceMaps: false,
-  webpackBuildWorker: true,
   experimental: {
     nextScriptWorkers: true,
+    workerThreads: false,
+    optimizeCss: true,
+    swcMinify: true,
+    parallelServerCompiles: false,
+    cssChunking: 'loose',
   },
   env: {
     REACT_APP_BACKEND_URL: process.env.REACT_APP_BACKEND_URL,
@@ -39,18 +44,6 @@ const nextConfig = {
     ],
     formats: ['image/webp'],
   },
-  // webpack: (
-  //   config,
-  //   { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
-  // ) => {
-  //   if (cfg.cache && !dev) {
-  //     cfg.cache = Object.freeze({
-  //       type: 'memory',
-  //     })
-  //     cfg.cache.maxMemoryGenerations = 0
-  //   }
-  //   return config
-  // },
 }
 
 export default withBundleAnalyzer(withPWA(nextConfig))

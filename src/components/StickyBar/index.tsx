@@ -32,21 +32,21 @@ const StickyBar = () => {
   const handleUserChangeShadows = () => {
     const shadows = document.getElementById('dynamic-shadows')
     if (shadows) {
-      if (shadows.classList.contains('shadows')) {
-        shadows.classList.remove('shadows')
-        localStorage.setItem('shadows', 'false')
+      if (shadows.classList.contains('page-shadow')) {
+        shadows.classList.remove('page-shadow')
+        localStorage.setItem('page-shadow', 'false')
         return
       }
-      shadows.classList.add('shadows')
-      localStorage.setItem('shadows', 'true')
+      shadows.classList.add('page-shadow')
+      localStorage.setItem('page-shadow', 'true')
     }
   }
 
   const userLoadShadowsState = () => {
     const shadows = document.getElementById('dynamic-shadows')
     if (shadows) {
-      if (localStorage.getItem('shadows') === 'true') {
-        shadows.classList.add('shadows')
+      if (localStorage.getItem('page-shadow') === 'true') {
+        shadows.classList.add('page-shadow')
       }
     }
   }
