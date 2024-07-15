@@ -9,8 +9,10 @@ const Kbar = dynamic(() => import('src/components/Kbar/CommandBar'), {
 })
 
 import 'languages/i18n'
-import { useIdleQueue } from 'src/hooks/useIdleQueue/useIdleQueue'
-import { loadStylesheet } from 'utils/loadStylesheet'
+import { loadStylesheet } from '../../utils/loadStylesheet'
+import { useIdleQueue } from '../hooks/useIdleQueue/useIdleQueue'
+
+// import '../../styles/global.css'
 
 type Props = PropsWithChildren
 
@@ -18,12 +20,21 @@ export default function Providers({ children }: Props) {
   const { addTask } = useIdleQueue()
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
+    if (!(process.env.ENV === 'production')) {
+      addTask(() => {
+        require('styles/global.css')
+      })
+      return
+    }
     addTask(() => {
       loadStylesheet(
         'https://cdn.jsdelivr.net/gh/rwietter/rwietter.dev@main/styles/fonts.css',
       )
       loadStylesheet(
         'https://cdn.jsdelivr.net/gh/rwietter/rwietter.dev@main/styles/shadow-icon.css',
+      )
+      loadStylesheet(
+        'https://cdn.jsdelivr.net/gh/rwietter/rwietter.dev@main/styles/page-shadow.css',
       )
     })
   }, [])

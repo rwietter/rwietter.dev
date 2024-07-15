@@ -28,7 +28,6 @@ const useIdleQueue = (timeout = 2000) => {
         taskQueue.current.length > 0
       ) {
         const task = taskQueue.current.shift() as Task
-        console.log('running task', task)
         task()
       }
 

@@ -24,7 +24,7 @@
   --font-tex: KaTeX_Math;
   --font-secondary: "Noto Serif", serif;
   --font-title: var(--font-secondary), Inter, sans-serif;
-  --font-code: "monospace";
+  --font-code: PT Mono, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   --font-bolder: Inter, sans-serif;
 }
 
