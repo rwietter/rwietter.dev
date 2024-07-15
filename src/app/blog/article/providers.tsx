@@ -1,8 +1,8 @@
 'use client'
 
 import { type PropsWithChildren, useEffect } from 'react'
-import { useIdleQueue } from 'src/hooks/useIdleQueue/useIdleQueue'
-import { loadStylesheet } from 'utils/loadStylesheet'
+import { loadStylesheet } from '../../../../utils/loadStylesheet'
+import { useIdleQueue } from '../../../hooks/useIdleQueue/useIdleQueue'
 
 // import '../../../../styles/highlight.css'
 // import '../../../../styles/prism-theme.css'

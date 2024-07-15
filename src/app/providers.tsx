@@ -9,8 +9,8 @@ const Kbar = dynamic(() => import('src/components/Kbar/CommandBar'), {
 })
 
 import 'languages/i18n'
-import { useIdleQueue } from 'src/hooks/useIdleQueue/useIdleQueue'
-import { loadStylesheet } from 'utils/loadStylesheet'
+import { loadStylesheet } from '../../utils/loadStylesheet'
+import { useIdleQueue } from '../hooks/useIdleQueue/useIdleQueue'
 
 // import '../../styles/global.css'
 
