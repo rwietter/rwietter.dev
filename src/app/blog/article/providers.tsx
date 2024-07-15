@@ -16,7 +16,7 @@ export default function Providers({ children }: Props) {
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.ENV === 'production') {
       addTask(() => {
         loadStylesheet(
           'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css',

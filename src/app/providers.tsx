@@ -20,7 +20,7 @@ export default function Providers({ children }: Props) {
   const { addTask } = useIdleQueue()
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
-    if (!(process.env.NODE_ENV === 'production')) {
+    if (!(process.env.ENV === 'production')) {
       addTask(() => {
         require('styles/global.css')
       })
