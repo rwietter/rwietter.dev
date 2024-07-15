@@ -19,7 +19,7 @@ export default function RootLayout({
       <head>
         <DocumentStuff />
       </head>
-      <body>
+      <body style={{ display: 'inherit' }} suppressHydrationWarning>
         <div className={styles.main}>
           <div id='dynamic-shadows' />
           <Providers>

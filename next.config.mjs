@@ -12,7 +12,7 @@ const withPWA = pwa({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
-  productionBrowserSourceMaps: false,
+  productionBrowserSourceMaps: true,
   experimental: {
     nextScriptWorkers: true,
     workerThreads: false,

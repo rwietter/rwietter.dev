@@ -1,5 +1,5 @@
 [class*="text-highlight"] {
-  background-color: rgba(255, 212, 101, 1);
+  background-color: #ffe6c3;
   color: var(--caret-color);
   padding: 0.1em 0.2em;
   border-radius: 0.3em;
@@ -7,9 +7,9 @@
 }
 
 .text-highlight-blue {
-  background-color: rgba(207, 214, 223, 1);
+  background-color: rgb(194, 221, 255);
 }
 
 .text-highlight-red {
-  background-color: rgba(243, 209, 206, 1);
+  background-color: rgb(255, 206, 206);
 }

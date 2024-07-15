@@ -269,7 +269,7 @@ O que os compiladores fazem para otimizar um `switch statement` é usar, basicam
 
 No código assembly abaixo, a instrução `subl` vai subtrair o valor mínimo do argumento $(min\_case - argument)$, uma vez que os valores do case serão normalizados.
 
-```nasm
+```bash
 .LFB18:
 	subl	$10, %edi
 ```
@@ -295,7 +295,7 @@ Para garantir que o valor normalizado está dentro dos limites, uma comparação
 
 A instrução `cmpl` faz essa verificação e a instrução `ja` salta para o `default` se tal verificação estiver fora do intervalo.
 
-```nasm
+```bash
 .LFB18:
 	subl	$10, %edi
 	cmpl	$5, %edi
@@ -304,7 +304,7 @@ A instrução `cmpl` faz essa verificação e a instrução `ja` salta para o `d
 
 O rótulo `.L12` define a jump table, que é um array onde cada entrada contém o deslocamento (offset) relativo ao início da tabela.
 
-```nasm
+```bash
 .L12:
   .long .L17-.L12  # Offset para case10
   .long .L16-.L12  # Offset para case11
@@ -324,7 +324,7 @@ A instrução `addq` (**Add Quadword**), adiciona o deslocamento carregado ao en
 
 Por fim, a instrução `jmp` (**Jump**) desvia incondicionalmente para o endereço contido em `%rax`, que agora é o endereço do código do caso correspondente do `switch`. O $(*)$, indica que o jump deve ser feito para o endereço armazenado no registrador `%rax`.
 
-```nasm
+```bash
 .LFB18:
 	# ...
 	leaq	.L12(%rip), %rdx
@@ -367,7 +367,7 @@ fn main() {
 
 No exemplo abaixo de um Assembly de um Microcontroller de 8-bit PIC, temos uma dessas instruções `goto` de um desvio incondicional (unconditional branch).
 
-```nasm
+```bash
  table
      goto    index_zero
      goto    index_one

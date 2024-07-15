@@ -4,8 +4,6 @@ IN PRODUCTION MODE, STYLES WILL BE IMPORTED WITH IDLE REQUESTS.
 */
 
 @import './fonts.css';
-@import './theme.css';
-@import './styles.css';
 @import './prism-theme.css';
 @import './highlight.css';
 @import './katex-override.css';
