@@ -95,12 +95,12 @@ tt {
   }
 }
 
-.fade-in-layout {
+/* .fade-in-layout {
   opacity: 0;
   animation: fadeIn 250ms ease-in forwards;
-}
+} */
 
-@keyframes fadeIn {
+/* @keyframes fadeIn {
   from {
     opacity: 0;
   }
@@ -108,7 +108,7 @@ tt {
   to {
     opacity: 1;
   }
-}
+} */
 
 .shadows {
   position: fixed;
@@ -148,7 +148,7 @@ h4 {
     "ss02" 1,
     "zero" 1,
     "cv05" 1,
-    "cv08" 1, 
+    "cv08" 1,
     "cv12" 1,
     "cv13" 1,
     "cv10" 1,

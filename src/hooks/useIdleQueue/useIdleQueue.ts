@@ -1,4 +1,6 @@
-import { useCallback, useEffect, useRef } from 'react'
+'use client'
+
+import { useCallback, useRef } from 'react'
 
 type Deadline = {
   didTimeout: boolean
@@ -9,7 +11,15 @@ type Task = () => void
 
 const useIdleQueue = (timeout = 2000) => {
   const taskQueue = useRef<Task[]>([])
-  const idleCallbackId = useRef(0)
+  const idleCallbackId = useRef<number | null>(null)
+
+  // useEffect(() => {
+  //   return () => {
+  //     if (idleCallbackId.current) {
+  //       window.cancelIdleCallback(idleCallbackId.current)
+  //     }
+  //   }
+  // }, [])
 
   const runTasks = useCallback(
     (deadline: Deadline) => {
@@ -18,6 +28,7 @@ const useIdleQueue = (timeout = 2000) => {
         taskQueue.current.length > 0
       ) {
         const task = taskQueue.current.shift() as Task
+        console.log('running task', task)
         task()
       }
 
@@ -31,7 +42,8 @@ const useIdleQueue = (timeout = 2000) => {
   )
 
   const addTask = useCallback(
-    (task: () => void) => {
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    (task: any) => {
       taskQueue.current.push(task)
       if (!idleCallbackId.current) {
         idleCallbackId.current = window.requestIdleCallback(runTasks, {
@@ -42,15 +54,7 @@ const useIdleQueue = (timeout = 2000) => {
     [runTasks, timeout],
   )
 
-  useEffect(() => {
-    return () => {
-      if (idleCallbackId.current) {
-        window.cancelIdleCallback(idleCallbackId.current)
-      }
-    }
-  }, [])
-
-  return addTask
+  return { addTask }
 }
 
-export default useIdleQueue
+export { useIdleQueue }

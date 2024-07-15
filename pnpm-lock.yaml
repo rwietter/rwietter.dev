@@ -158,6 +158,9 @@ importers:
       '@biomejs/biome':
         specifier: 1.8.2
         version: 1.8.2
+      '@builder.io/partytown':
+        specifier: ^0.10.2
+        version: 0.10.2
       '@types/mdast':
         specifier: ^4.0.4
         version: 4.0.4
@@ -878,6 +881,11 @@ packages:
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [win32]
+
+  '@builder.io/partytown@0.10.2':
+    resolution: {integrity: sha512-A9U+4PREWcS+CCYzKGIPovtGB/PBgnH/8oQyCE6Nr9drDJk6cMPpLQIEajpGPmG9tYF7N3FkRvhXm/AS9+0iKg==}
+    engines: {node: '>=18.0.0'}
+    hasBin: true
 
   '@code-hike/lighter@0.8.1':
     resolution: {integrity: sha512-St4rPmB7C2EWmAK1sAbvD3lZeM7UDInVDMjQDzEDsu4Q3B3AqF25vXedQK51U0UO0MCOASgBBdTiNwvJAfIqMQ==}
@@ -4903,6 +4911,8 @@ snapshots:
 
   '@biomejs/cli-win32-x64@1.8.2':
     optional: true
+
+  '@builder.io/partytown@0.10.2': {}
 
   '@code-hike/lighter@0.8.1': {}
 

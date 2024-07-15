@@ -1,18 +1,22 @@
 import matter from 'gray-matter'
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
-import Image from 'next/image'
 import fs from 'node:fs'
 import path from 'node:path'
-import { Suspense } from 'react'
 import { makeSeo } from 'src/components/SEO/makeSeo'
-import ArticleContent from 'src/domains/article/content'
 import ArticleHeader from 'src/domains/article/header'
 import styles from 'src/domains/article/styles.module.css'
 import type { Post, PostFrontMatter } from 'src/domains/article/ts'
-import { blurImage } from 'utils/blur-image'
 
-const ArticleFooter = dynamic(() => import('src/domains/article/footer'))
+const ArticleFooter = dynamic(() => import('src/domains/article/footer'), {
+  loading: () => <span />,
+  ssr: false,
+})
+
+const ArticleContent = dynamic(() => import('src/domains/article/content'), {
+  loading: () => <span />,
+  ssr: false,
+})
 
 type PageProps = {
   params: { slug: string }
@@ -78,7 +82,6 @@ async function getData(slug: string) {
       data: {
         frontmatter: data as PostFrontMatter,
         slug: data?.slug,
-        blurDataURL: await blurImage(data.image),
         content,
       },
     }
@@ -87,7 +90,6 @@ async function getData(slug: string) {
       data: {
         frontmatter: null,
         slug: '',
-        blurDataURL: '',
         content: '',
       },
     }
@@ -134,31 +136,32 @@ const Page = async (props: PageProps) => {
       <section className={styles.articleContainer}>
         <div className={styles.articleMarkdownContainer}>
           <ArticleHeader content={content} frontmatter={frontmatter} />
-          <div className={styles.imageContainer}>
-            <div className={styles.articleImage}>
-              <Image
-                fill
-                quality={50}
-                alt={frontmatter.alternativeText}
-                loading='lazy'
-                fetchPriority='high'
-                rel='preload'
-                placeholder='blur'
-                style={{ objectFit: 'cover' }}
-                src={data.blurDataURL.src}
-                blurDataURL={data.blurDataURL.blurDataURL}
-              />
-            </div>
-            <p className={styles.imageCredit}>{frontmatter?.caption}</p>
-          </div>
           <ArticleContent content={content} />
         </div>
-        <Suspense fallback={<div>...</div>}>
-          <ArticleFooter post={frontmatter} />
-        </Suspense>
+        <ArticleFooter post={frontmatter} />
       </section>
     </>
   )
 }
 
 export default Page
+
+// const ImageComponent = ({ data, frontmatter }) => (
+//   <div className={styles.imageContainer}>
+//     <div className={styles.articleImage}>
+//       <Image
+//         fill
+//         quality={50}
+//         alt={frontmatter.alternativeText}
+//         loading='lazy'
+//         fetchPriority='high'
+//         rel='preload'
+//         placeholder='blur'
+//         style={{ objectFit: 'cover' }}
+//         src={data.blurDataURL.src}
+//         blurDataURL={data.blurDataURL.blurDataURL}
+//       />
+//     </div>
+//     <p className={styles.imageCredit}>{frontmatter?.caption}</p>
+//   </div>
+// )

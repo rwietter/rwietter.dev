@@ -1,6 +1,11 @@
+import dynamic from 'next/dynamic'
 import type { FC } from 'react'
-import MdRenderer from './md'
 import styles from './styles.module.css'
+
+const Mark = dynamic(() => import('src/domains/article/content/mark'), {
+  loading: () => <span />,
+  ssr: false,
+})
 
 interface ArticleData {
   content: string
@@ -10,7 +15,7 @@ const ArticleContent: FC<ArticleData> = async ({ content }) => {
   return (
     <div className={styles.articleContainer}>
       <article className={styles.articleMarkdown}>
-        <MdRenderer article={content} />
+        <Mark article={content} />
       </article>
     </div>
   )
