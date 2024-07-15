@@ -67,6 +67,7 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.8.2",
+		"@builder.io/partytown": "^0.10.2",
 		"@types/mdast": "^4.0.4",
 		"@types/prismjs": "^1.26.3",
 		"@types/react": "^18.2.51",

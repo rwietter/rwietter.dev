@@ -1,10 +1,9 @@
+import Script from 'next/script'
 import Header from 'src/components/Header'
 import { StickyBar } from 'src/components/StickyBar'
 
 import Providers from './providers'
 
-import '../../styles/fonts.css'
-import '../../styles/shadow-icon.css'
 import '../../styles/styles.css'
 import '../../styles/theme.css'
 
@@ -21,7 +20,7 @@ export default function RootLayout({
         <DocumentStuff />
       </head>
       <body>
-        <div className={`${styles.main} fade-in-layout`}>
+        <div className={styles.main}>
           <div id='dynamic-shadows' />
           <Providers>
             <Header />
@@ -37,17 +36,11 @@ export default function RootLayout({
 function DocumentStuff() {
   return (
     <>
-      <link rel='preconnect' href='https://res.cloudinary.com/' />
-      <link rel='preconnect' href='https://fonts.googleapis.com' />
-      <link
-        rel='preconnect'
-        href='https://fonts.gstatic.com'
-        crossOrigin='anonymous'
-      />
-      <script
+      <Script
         defer
         src='https://cloud.umami.is/script.js'
         data-website-id='99c64e87-1dbd-4e1c-b45b-ada2e802dcc1'
+        strategy='worker'
       />
       <meta name='application-name' content='Maurício Witter' />
       <meta name='apple-mobile-web-app-capable' content='yes' />

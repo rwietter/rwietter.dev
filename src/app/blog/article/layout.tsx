@@ -1,12 +1,10 @@
 import type { FC, PropsWithChildren } from 'react'
-
-import 'katex/dist/katex.min.css'
-import '../../../../styles/prism-theme.css'
+import Providers from './providers'
 
 type Props = PropsWithChildren
 
 const ArticleLayout: FC<Props> = ({ children }) => {
-  return <div>{children}</div>
+  return <Providers>{children}</Providers>
 }
 
 export default ArticleLayout

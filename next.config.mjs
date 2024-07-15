@@ -1,6 +1,4 @@
 import bundleAnalyzer from '@next/bundle-analyzer'
-import { withPlaiceholder } from '@plaiceholder/next'
-import withImages from 'next-images'
 import pwa from 'next-pwa'
 
 const withBundleAnalyzer = bundleAnalyzer({
@@ -11,9 +9,13 @@ const withPWA = pwa({
   dest: 'public',
 })
 
-const nextConfig = withImages({
-  reactStrictMode: true,
+const nextConfig = {
+  reactStrictMode: false,
   productionBrowserSourceMaps: false,
+  webpackBuildWorker: true,
+  experimental: {
+    nextScriptWorkers: true,
+  },
   env: {
     REACT_APP_BACKEND_URL: process.env.REACT_APP_BACKEND_URL,
     ACCUWEATHER_CURRENT_CONDITIONS: process.env.ACCUWEATHER_CURRENT_CONDITIONS,
@@ -37,6 +39,18 @@ const nextConfig = withImages({
     ],
     formats: ['image/webp'],
   },
-})
+  // webpack: (
+  //   config,
+  //   { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
+  // ) => {
+  //   if (cfg.cache && !dev) {
+  //     cfg.cache = Object.freeze({
+  //       type: 'memory',
+  //     })
+  //     cfg.cache.maxMemoryGenerations = 0
+  //   }
+  //   return config
+  // },
+}
 
-export default withBundleAnalyzer(withPWA(withPlaiceholder(nextConfig)))
+export default withBundleAnalyzer(withPWA(nextConfig))

@@ -5,7 +5,7 @@
 import { u } from 'unist-builder'
 import { visit } from 'unist-util-visit'
 
-import type { Root, Text, Node } from 'mdast'
+import type { Node, Root, Text } from 'mdast'
 import type { Plugin, Transformer } from 'unified'
 import type { Visitor, VisitorResult } from 'unist-util-visit'
 
@@ -102,8 +102,6 @@ const remarkHighlight: Plugin<[TextDecorationOptions?], Root> = (options) => {
       }
 
       children.push(node)
-
-      console.log('node', node)
 
       cursor += i + len
     }
