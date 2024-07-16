@@ -54,7 +54,7 @@ blockquote,
 li,
 tt {
   font-size: clamp(var(--fluid-type-min, 1rem),
-      calc(1rem + var(--fluid-type-target, 3vw)),
+      calc(0.5rem + var(--fluid-type-target, 3vw)),
       var(--fluid-type-max, 1.1rem));
   text-rendering: geometricPrecision;
 }

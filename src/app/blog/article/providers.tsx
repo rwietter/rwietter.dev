@@ -1,8 +1,8 @@
 'use client'
 
+import { useIdleQueue } from '@/hooks/useIdleQueue/useIdleQueue'
 import { type PropsWithChildren, useEffect } from 'react'
 import { loadStylesheet } from '../../../../utils/loadStylesheet'
-import { useIdleQueue } from '../../../hooks/useIdleQueue/useIdleQueue'
 
 type Props = PropsWithChildren
 

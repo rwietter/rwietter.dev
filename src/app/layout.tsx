@@ -1,13 +1,14 @@
+import Header from '@/components/Header'
+import { StickyBar } from '@/components/StickyBar'
 import Script from 'next/script'
-import Header from 'src/components/Header'
-import { StickyBar } from 'src/components/StickyBar'
 
 import Providers from './providers'
+
+import styles from './styles.module.css'
 
 import '../../styles/styles.css'
 import '../../styles/theme.css'
 
-import styles from './styles.module.css'
 
 export default function RootLayout({
   children,

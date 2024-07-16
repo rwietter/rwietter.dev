@@ -1,25 +1,15 @@
+import type { Post } from '@/types/Post'
 import Link from 'next/link'
+import type { FC } from 'react'
 import { TfiPencil } from 'react-icons/tfi'
 import { getLocaleDate } from 'utils/get-locale-date'
 import styles from './styles.module.css'
 
-type Post = {
-  frontmatter: {
-    title: string
-    description: string
-    date: string
-    image: string
-    publishedAt: string
-  }
-  slug: string
-  content: string
-}
-
-type PostCard = {
+type PostsPropTypes = {
   post: Post
 }
 
-const ArticleCard = ({ post }: PostCard) => {
+const Posts: FC<PostsPropTypes> = ({ post }) => {
   const { localeDate } = getLocaleDate(post.frontmatter.publishedAt, 'pt-BR')
 
   return (
@@ -33,6 +23,7 @@ const ArticleCard = ({ post }: PostCard) => {
         scroll={false}
         shallow={true}
         prefetch={true}
+        aria-label={post.frontmatter.title}
         className={styles.postTitle}
         suppressHydrationWarning
       >
@@ -42,4 +33,4 @@ const ArticleCard = ({ post }: PostCard) => {
   )
 }
 
-export { ArticleCard }
+export { Posts }

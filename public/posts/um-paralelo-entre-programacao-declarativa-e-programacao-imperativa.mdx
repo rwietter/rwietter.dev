@@ -67,11 +67,28 @@ Assim, a programação declarativa é como escrever um mapa detalhado para chega
 
 Muitas linguagens que aplicam esse estilo tentam eliminar os efeitos colaterais descrevendo o que o programa deve realizar em termos do domínio do problema, em vez de descrever como realizá-lo como uma sequência das primitivas da linguagem de programação.
 
-Conforme R. Kowalski em Communications of the ACM, Volume 22, Issue 7, July 1979, _um algoritmo é composto pela lógica e pelo fluxo de controle. Na programação declarativa, a linguagem tende a abstrair a fluxo de controle e deixar para o programador desenvolver a lógica_.
+Conforme R. Kowalski em Communications of the ACM, Volume 22, Issue 7, July 1979, <TextHighlight>um algoritmo é composto pela lógica e pelo fluxo de controle. Na programação declarativa, a linguagem tende a abstrair a fluxo de controle e deixar para o programador desenvolver a lógica</TextHighlight>. Formalmente, podemos definir:
 
-![algorithm](https://substackcdn.com/image/fetch/w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F649d082d-40e8-4567-b23f-3779291ec802_452x59.png)
+1. $\mathcal{A}$ como o conjunto de todos os algoritmos possíveis.
+2. $\mathcal{L}$ como o conjunto de todos os componentes lógicos possíveis.
+3. $\mathcal{C}$ como o conjunto de todos os fluxos de controle possíveis.
 
-Lloyd, JW. no artigo Practical advantages of declarative programming, explica que a programação declarativa pode ser entendida como “Forte” e “Fraca”. Isto é, no sentido “Forte”, o programador só fornece a lógica do que precisa e no sentido “Fraco”, o programador precisa fornecer a lógica e estender o fluxo de controle para computar o resultado esperado.
+Tal que um algoritmo $a \in \mathcal{A}$ como a combinação de um componente lógico $l \in \mathcal{L}$ e um componente de fluxo de controle $c \in \mathcal{C}$:
+
+$$
+a = (l, c)
+$$
+
+Podemos representar a combinação como a soma dos dois componentes em um espaço abstrato que denota a construção do algoritmo:
+
+$$
+\begin{aligned}
+&\mathcal{A} = \{ (l, c) \mid l \in \mathcal{L}, c \in \mathcal{C} \} \\
+&\mathcal{A} = \mathcal{L} \times \mathcal{C}
+\end{aligned}
+$$
+
+_Lloyd, JW._ no artigo [_Practical advantages of declarative programming_](https://www.cse.chalmers.se/~oloft/Papers/wm96.pdf), explica que <TextHighlight>a programação declarativa pode ser entendida como “**Forte**” e "**Fraca**"</TextHighlight>. Isto é, <TextHighlight color="blue">no sentido “Forte”, o programador só fornece a lógica do que precisa</TextHighlight>. <TextHighlight color="red">No sentido “Fraco”, o programador precisa fornecer a lógica e estender o fluxo de controle para computar o resultado esperado</TextHighlight>.
 
 ### Princípios da Programação Declarativa
 

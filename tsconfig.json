@@ -16,21 +16,24 @@
     "jsx": "preserve",
     "isolatedModules": true,
     "incremental": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
+    "paths": {
+      "@/app/*": ["src/app/*"],
+      "@/components/*": ["src/components/*"],
+      "@/domains/*": ["src/domains/*"],
+      "@/hooks/*": ["src/hooks/*"],
+      "@/lib/*": ["lib/*"],
+      "@/base/*": ["base/*"],
+      "@/services/*": ["services/*"],
+      "@/types/*": ["types/*"],
+      "@/api/*": ["src/app/api/*"]
+    },
     "plugins": [
       {
         "name": "next"
       }
-    ]
-  },
-  "paths": {
-    "@/styles/*": ["styles/*"],
-    "@/services/*": ["services/*"],
-    "@/api/*": ["pages/api/*"],
-    "@/components/*": ["components/*"],
-    "@/helpers/*": ["helpers/*"],
-    "@/layouts/*": ["layouts/*"],
-    "@/blog/*": ["pages/blog/*"]
+    ],
+    "typeRoots": ["./node_modules/@types", "./types"]
   },
   "include": [
     "next-env.d.ts",

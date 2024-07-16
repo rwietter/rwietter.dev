@@ -1,6 +1,6 @@
+import type { SocialLink } from '@/types/Social'
 import Link from 'next/link'
-import { SocialLink, links } from './social-links'
-// import { Link, SocialContainer } from './styles'
+import { links } from './social-links'
 import styles from './styles.module.css'
 
 const SidebarSocialIcons = () => (

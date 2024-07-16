@@ -1,8 +1,7 @@
+import { makeSeo } from '@/components/SEO/makeSeo'
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import Script from 'next/script'
-import { Suspense } from 'react'
-import { makeSeo } from 'src/components/SEO/makeSeo'
 
 const YearProjects = dynamic(() =>
   import('src/domains/projects/YearProjects').then((mod) => ({
@@ -25,10 +24,8 @@ const Page = () => (
       strategy='worker'
       defer
     />
-    <Suspense>
-      <TopProjects />
-      <YearProjects />
-    </Suspense>
+    <TopProjects />
+    <YearProjects />
   </>
 )
 

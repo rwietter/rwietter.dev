@@ -1,9 +1,9 @@
+import { KbarInit } from '@/components/Kbar/KbarInit'
+import { makeSeo } from '@/components/SEO/makeSeo'
+import AuthorContent from '@/domains/home/author-content'
+import AuthorHeader from '@/domains/home/author-header'
 import type { Metadata } from 'next'
-import { KbarInit } from 'src/components/Kbar/KbarInit'
-import { makeSeo } from 'src/components/SEO/makeSeo'
 
-import AuthorContent from 'src/domains/home/author-content'
-import AuthorHeader from 'src/domains/home/author-header'
 
 const Page = () => (
   <>

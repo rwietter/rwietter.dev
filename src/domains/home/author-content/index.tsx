@@ -1,7 +1,7 @@
+import type { RecentTrackProps } from '@/types/Track'
 import { fetcherLastFm, fetcherWeather } from 'services'
 import CurrentDate from 'src/components/CurrentDate'
 import { LastFMTrack } from 'src/components/Lastfm'
-import type { RecentTrackProps } from 'src/components/Lastfm/types'
 import { WeatherConditions } from 'src/components/Weather'
 import styles from './styles.module.css'
 
@@ -10,8 +10,6 @@ export interface AuthorContentProps {
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   weather: any
 }
-
-export const revalidate = 60
 
 async function getData() {
   const [weather, lastfm] = await Promise.all([

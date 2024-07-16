@@ -1,26 +1,16 @@
-import { ArticleCard } from '../posts'
+import type { Post } from '@/types/Post'
+import type { FC } from 'react'
+import { Posts } from '../posts'
 import styles from './styles.module.css'
 
-type Post = {
-  frontmatter: {
-    title: string
-    description: string
-    date: string
-    image: string
-    publishedAt: string
-  }
-  slug: string
-  content: string
-}
-
-type Posts = {
+type BlogPropTypes = {
   posts: Post[]
 }
 
-const BlogPosts = ({ posts }: Posts) => (
+const BlogPosts: FC<BlogPropTypes> = ({ posts }) => (
   <ul className={styles.articlesContainer}>
     {posts?.map((post: Post) => (
-      <ArticleCard post={post} key={post.slug} />
+      <Posts post={post} key={post.slug} />
     ))}
   </ul>
 )

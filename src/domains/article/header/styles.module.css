@@ -2,14 +2,13 @@
 .section {
   margin: 0 auto;
   max-width: 60rem;
-  padding-bottom: 2rem;
   color: var(--text-color);
   transition: var(--transition-primary);
 }
 
 @media (min-width: 720px) {
   .section {
-    padding: 2rem 0;
+    padding-top: 1em;
   }
 }
 
@@ -20,13 +19,9 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  font-family: var(--font-primary), monospace;
+  font-family: var(--font-primary);
   width: 100%;
   transition: var(--transition-primary);
-}
-
-.infoHeader > div {
-  padding-top: 0.8rem;
 }
 
 @media (min-width: 480px) {
@@ -35,19 +30,15 @@
     justify-content: space-between;
     align-items: center;
   }
-
-  .infoHeader > .infoHeader {
-    padding-top: 0;
-  }
 }
 
 /* backToOverview */
 .backToOverview {
+  all: unset;
   display: flex;
+  align-items: center;
+  padding: 0.1em;
   font-family: var(--font-primary), monospace;
-  width: fit-content;
-  margin: 0;
-  background: none;
   color: var(--text-gray-color);
   border: none;
   outline: none;
@@ -76,9 +67,10 @@
 /* dateTimeRead */
 .dateTimeRead {
   --fluid-type-max: 1rem;
-  display: inline-flex;
+  display: flex;
+  padding: 0.1em;
   align-items: center;
-  font-family: var(--font-primary), monospace;
+  font-family: var(--font-primary);
   color: var(--text-gray-color);
   transition: var(--transition-primary);
 }
@@ -92,8 +84,7 @@
   --fluid-type-max: 3rem;
   --fluid-type-min: 1.3rem;
   font-family: var(--font-secondary);
-  padding: 0;
-  padding-top: 0.8rem;
+  padding-top: 0.5em;
   font-weight: 800;
   margin: 0;
   line-height: 1.3;

@@ -1,8 +1,8 @@
 'use client'
 
+import TextHighlight from 'base/components/TextHighlight/TextHighlight'
 import { MDXRemote, type MDXRemoteSerializeResult } from 'next-mdx-remote'
-import { type FC, memo } from 'react'
-import TextHighlight from 'src/@base/components/TextHighlight/TextHighlight'
+import type { FC } from 'react'
 
 interface ArticleData {
   mdxSource: MDXRemoteSerializeResult
@@ -12,8 +12,8 @@ const components = {
   TextHighlight,
 }
 
-const Mark: FC<ArticleData> = ({ mdxSource }) => {
+const MDX: FC<ArticleData> = ({ mdxSource }) => {
   return <MDXRemote {...mdxSource} components={components} />
 }
 
-export default memo(Mark)
+export { MDX }

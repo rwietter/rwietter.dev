@@ -1,5 +1,4 @@
 import { ArticleJsonLd } from 'next-seo'
-import React from 'react'
 
 interface JSONLDProps {
   title: string

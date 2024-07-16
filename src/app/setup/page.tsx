@@ -1,6 +1,6 @@
+import { makeSeo } from '@/components/SEO/makeSeo'
+import Setup from '@/domains/setup'
 import type { Metadata } from 'next'
-import { makeSeo } from 'src/components/SEO/makeSeo'
-import Setup from 'src/domains/setup'
 
 import styles from 'src/domains/setup/styles.module.css'
 

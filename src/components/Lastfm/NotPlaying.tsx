@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import type { FC } from 'react'
 import { BsSpotify } from 'react-icons/bs'
 import { MdMusicOff } from 'react-icons/md'
 import styles from './styles.module.css'

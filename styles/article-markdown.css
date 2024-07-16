@@ -14,7 +14,7 @@ article :where(table, tr, th, td, tbody, thead) {
 article a {
   background: transparent;
   color: var(--main-color);
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 article :where(b, strong) {
@@ -24,44 +24,17 @@ article :where(b, strong) {
 article img {
   border-style: none;
   max-width: 100%;
+  margin: 1em 0;
   box-sizing: content-box;
   background: var(--bg-color);
 }
 
 article hr {
-  box-sizing: content-box;
-  overflow: hidden;
   height: 0.2em;
   margin: 24px 0;
-  transition:
-    var(--transition-primary),
-    background 300ms ease;
+  transition: var(--transition-primary);
   background: var(--neutral);
   border: 0;
-}
-
-article a {
-  text-decoration: underline;
-}
-
-article table {
-  border-collapse: collapse;
-  max-width: 100%;
-  table-layout: fixed;
-  display: block;
-  overflow: auto;
-  color: var(--text-color);
-  background: var(--bg-color);
-}
-
-article table thead {
-  display: table;
-  position: relative;
-}
-
-article tbody {
-  display: table;
-  position: relative;
 }
 
 article h1 {
@@ -112,8 +85,11 @@ article p {
 }
 
 @media (min-width: 1200px) {
-  article p {
+
+  article p,
+  article li {
     text-align: justify;
+    hyphens: auto;
   }
 }
 
@@ -132,11 +108,17 @@ article blockquote p {
   font-family: var(--font-secondary);
   font-weight: 400;
   font-style: italic;
-  padding: 1em;
+  padding: 0.2em;
   text-align: center;
-  line-height: 1.3;
+  line-height: 1.5;
   --fluid-type-max: 1.3rem;
   --fluid-type-target: 5vw;
+}
+
+@media (min-width: 768px) {
+  article blockquote p {
+    padding: 1em;
+  }
 }
 
 article blockquote::before {
@@ -163,6 +145,7 @@ article p em,
 article p i {
   font-family: var(--font-secondary);
   font-style: italic;
+  text-decoration: underline;
   text-decoration-line: underline;
   font-weight: 500;
 }
@@ -176,8 +159,7 @@ article blockquote p code {
 
 article pre {
   margin-top: 0;
-  margin: 1em 0;
-  padding: 1em;
+  margin: 1.5em 0;
   font-family: var(--font-code);
   word-wrap: normal;
   font-size: 12px;
@@ -187,9 +169,34 @@ article li+li {
   margin-top: 0.25em;
 }
 
+article table {
+  border-collapse: collapse;
+  max-width: 100%;
+  width: 100%;
+  table-layout: fixed;
+  display: block;
+  overflow: auto;
+  padding: 1em 0;
+  color: var(--text-color);
+  background: var(--bg-color);
+}
+
+article table thead {
+  display: table;
+  position: relative;
+  width: 100%;
+}
+
+article tbody {
+  display: table;
+  position: relative;
+  width: 100%;
+}
+
 article table th,
 article table td {
   padding: 6px 13px;
+  font-family: var(--font-secondary);
   color: var(--text-color);
   transition: var(--transition-primary);
   border: 1px solid var(--sub-alt-color);
@@ -206,14 +213,18 @@ article table tr:nth-child(2n) {
 }
 
 article pre code {
-  padding: 1em;
+  padding: 1em 0;
   --fluid-type-max: 1rem;
+  --fluid-type-min: 0.8rem;
+  --fluid-type-target: 1vw;
 }
 
-article pre code span {
+article figure pre code span {
   font-family: var(--font-code);
   line-height: 1.8;
   font-weight: 400;
+  text-wrap: wrap;
+  word-wrap: break-word;
 }
 
 /*
@@ -240,6 +251,17 @@ article ul li::before {
   filter: invert(50%);
   position: absolute;
   left: 0;
+}
+
+article ol {
+  margin-left: 28px;
+  padding: 1.8em 0;
+}
+
+article ol li::marker {
+  color: var(--main-color);
+  font-weight: 800;
+  font-family: var(--font-secondary);
 }
 
 /*

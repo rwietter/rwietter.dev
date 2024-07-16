@@ -1,10 +1,10 @@
+import type { PostFrontMatter } from '@/types/Post'
 import matter from 'gray-matter'
 import type { Metadata } from 'next'
 import Script from 'next/script'
 import fs from 'node:fs'
 import path from 'node:path'
 import { makeSeo } from 'src/components/SEO/makeSeo'
-import type { PostFrontMatter } from 'src/domains/article/ts'
 import { BlogPosts } from 'src/domains/blog'
 import generateRssFeed from 'utils/feed-rss'
 

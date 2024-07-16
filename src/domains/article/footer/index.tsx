@@ -9,7 +9,7 @@ import { GoCommentDiscussion } from 'react-icons/go'
 import { SidebarSocialIcons } from 'src/components/StickyBar/Social'
 import styles from './styles.module.css'
 
-interface ArticleFooterProps {
+interface ArticleFooterPropsTypes {
   post: {
     category: string
     author: string
@@ -17,13 +17,12 @@ interface ArticleFooterProps {
   }
 }
 
-const ArticleFooter: FC<ArticleFooterProps> = ({ post }) => {
+const ArticleFooter: FC<ArticleFooterPropsTypes> = ({ post }) => {
   const pathname = usePathname()
   const { t } = useTranslation()
 
-  const tweetUrl = `http://twitter.com/share?text=${t('article.justRead')} "${
-    post.title
-  }"&url=https://rwietter.dev${pathname}&hashtags=${post.category}`
+  const tweetUrl = `http://twitter.com/share?text=${t('article.justRead')} "${post.title
+    }"&url=https://rwietter.dev${pathname}&hashtags=${post.category}`
 
   const linkToSearchOnTwietter = `https://twitter.com/search?q=https://rwietter.dev${pathname}`
 

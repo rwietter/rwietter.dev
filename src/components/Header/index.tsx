@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation'
 
 import { useTranslation } from 'react-i18next'
 import SwitchTheme from 'src/components/SwitchTheme'
-// import * as S from './styles'
 import styles from './styles.module.css'
 
 const activePath = (pathname: string) => (href: string, entry?: string) => {

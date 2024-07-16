@@ -1,5 +1,5 @@
 .katex span {
-  --fluid-type-target: 1.5vw;
+  --fluid-type-target: 2.5vw;
   --fluid-type-max: 1.3rem;
   --fluid-type-min: 1rem;
 }
@@ -9,7 +9,7 @@
 }
 
 .katex-display {
-  margin: 2em 0 !important;
+  margin: 1.3em 0 !important;
   padding: 1em;
 }
 
@@ -18,7 +18,7 @@
 }
 
 .katex-display span {
-  --fluid-type-target: 1.5vw;
+  --fluid-type-target: 2.5vw;
   --fluid-type-max: 1.3rem;
   --fluid-type-min: 1rem;
 }

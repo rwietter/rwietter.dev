@@ -1,7 +1,7 @@
 'use client'
 
 import { NextSeo } from 'next-seo'
-import { FC } from 'react'
+import type { FC } from 'react'
 
 // export const JSONLD = {
 //   '@context': 'http://schema.org',

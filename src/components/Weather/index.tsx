@@ -1,36 +1,19 @@
-import { FC } from 'react'
+import type { Weather } from '@/types/Weather'
+import type { FC } from 'react'
 import { RiSunCloudyLine } from 'react-icons/ri'
 import styles from './styles.module.css'
 
-export interface WeatherProps {
-  HasPrecipitation: boolean
-  WeatherIcon: number
-  WeatherText: string
-  Temperature: {
-    Imperial: {
-      Unit: 'F'
-      UnitType: number
-      Value: number
-    }
-    Metric: {
-      Unit: 'C'
-      UnitType: number
-      Value: number
-    }
-  }
+interface WeatherPropsTypes {
+  weather: Weather[]
 }
 
-interface WeatherConditionsProps {
-  weather: WeatherProps[]
-}
-
-export const WeatherConditions: FC<WeatherConditionsProps> = ({ weather }) => {
+export const WeatherConditions: FC<WeatherPropsTypes> = ({ weather }) => {
   if (weather === null) return <span />
 
   const data = weather[0]
 
   return (
-    <div>
+    <>
       {data?.Temperature && (
         <p className={styles.weather}>
           <span className={styles.temperature}>
@@ -47,6 +30,6 @@ export const WeatherConditions: FC<WeatherConditionsProps> = ({ weather }) => {
           </span>
         </p>
       )}
-    </div>
+    </>
   )
 }
