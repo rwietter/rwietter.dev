@@ -71,7 +71,7 @@ export type ArticleData = {
 
 export type Post = {
   frontmatter: PostFrontMatter
-  slug: string
+  slug?: string
   content: string
   mdxSource?: MDXSerialized
 }
