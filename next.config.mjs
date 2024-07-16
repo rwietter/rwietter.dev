@@ -13,6 +13,7 @@ const withPWA = pwa({
 const nextConfig = {
   reactStrictMode: false,
   productionBrowserSourceMaps: true,
+  transpilePackages: ['next-mdx-remote'],
   experimental: {
     nextScriptWorkers: true,
     workerThreads: false,

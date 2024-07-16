@@ -1,6 +1,6 @@
 'use client'
 
-import { ChangeEvent, useState } from 'react'
+import { type ChangeEvent, useState } from 'react'
 
 interface UseRealTimeSearchResult<T> {
   handleInputChange: (event: ChangeEvent<HTMLInputElement>) => void

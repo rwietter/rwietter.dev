@@ -1,5 +1,6 @@
 import matter from 'gray-matter'
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import fs from 'node:fs'
 import path from 'node:path'
 import { makeSeo } from 'src/components/SEO/makeSeo'
@@ -83,10 +84,12 @@ const Page = async () => {
   const data = await getData()
   return (
     <>
-      <script
+      <Script
         type='application/ld+json'
         // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        strategy='worker'
+        defer
       />
       <BlogPosts posts={data.posts} />
     </>

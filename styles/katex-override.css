@@ -1,7 +1,11 @@
 .katex span {
   --fluid-type-target: 1.5vw;
   --fluid-type-max: 1.3rem;
-  --fluid-type-min: 1.1rem;
+  --fluid-type-min: 1rem;
+}
+
+.katex-html .base {
+  line-height: 1.5 !important;
 }
 
 .katex-display {
@@ -15,6 +19,6 @@
 
 .katex-display span {
   --fluid-type-target: 1.5vw;
-  --fluid-type-max: 1.5rem;
-  --fluid-type-min: 1.3rem;
+  --fluid-type-max: 1.3rem;
+  --fluid-type-min: 1rem;
 }

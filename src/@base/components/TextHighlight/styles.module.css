@@ -1,4 +1,4 @@
-[class*="text-highlight"] {
+.text {
   background-color: #ffe6c3;
   color: var(--caret-color);
   padding: 0.1em 0.2em;
@@ -6,10 +6,14 @@
   font-weight: 500 !important;
 }
 
-.text-highlight-blue {
+.text[data-color="yellow"] {
+  background-color: #ffe6c3;
+}
+
+.text[data-color="blue"] {
   background-color: rgb(194, 221, 255);
 }
 
-.text-highlight-red {
+.text[data-color="red"] {
   background-color: rgb(255, 206, 206);
 }

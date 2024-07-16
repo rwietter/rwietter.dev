@@ -1,12 +1,12 @@
 import matter from 'gray-matter'
 import type { Metadata } from 'next'
+import { serialize } from 'next-mdx-remote/serialize'
 import fs from 'node:fs'
 import path from 'node:path'
-import Markdown from 'react-markdown'
+import rehypeExternalLinks from 'rehype-external-links'
 import { makeSeo } from 'src/components/SEO/makeSeo'
 import styles from 'src/domains/awesome/list/styles.module.css'
-import md from 'styles/github-markdown.module.css'
-import rehypeExternalLinks from 'rehype-external-links'
+import Mdx from './Mdx'
 
 type PageProps = {
   params: { slug: string }
@@ -86,6 +86,12 @@ const Page = async (props: PageProps) => {
 
   const { content, frontmatter } = data
 
+  const mdxSource = await serialize(content, {
+    mdxOptions: {
+      rehypePlugins: [[rehypeExternalLinks, { target: '_blank' }]]
+    },
+  })
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -114,12 +120,7 @@ const Page = async (props: PageProps) => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <section className={styles.container}>
-        <Markdown
-          className={md['markdown-body']}
-          rehypePlugins={[[rehypeExternalLinks, { target: '_blank' }]]}
-        >
-          {content}
-        </Markdown>
+        <Mdx mdxSource={mdxSource} />
       </section>
     </>
   )

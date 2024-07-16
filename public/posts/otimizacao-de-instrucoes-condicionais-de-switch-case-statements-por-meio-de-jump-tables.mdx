@@ -54,7 +54,7 @@ Então você pode estar se perguntando, porque isso tem problemas de desempenho 
 
 De fato, é uma operação constante mas que depende do número de `cases`, que é conhecido em tempo de compilação. Mas o problema entra quando temos muitos `cases` — perceba que cada condição do `switch` vai ser avaliada — até encontrar um `break`. Não é algo que produziria um estrangulamento de desempenho, mas pode tomar alguns ciclos de CPU dependendo do contexto.
 
-Suponha que, **hipoteticamente**, que exista um `switch` com $15$ `cases` e ele é executado **dentro de um loop**. Na [notação assintótica](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) do $BigO$, temos um *loop* como sendo $O(n)$ e $O(15)$ `cases` que nos dá $O(n*15)$ **no pior caso**; normalmente descartaríamos o 15 pois é um termo constante, mas para esse exemplo vamos considerar.
+Suponha que, **hipoteticamente**, que exista um `switch` com $15$ `cases` e ele é executado **dentro de um loop**. Na [notação assintótica](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) do $Big\mathcal{O}$, temos um *loop* como sendo $\mathcal{O}(n)$ e $\mathcal{O}(15)$ `cases` que nos dá $\mathcal{O}(n*15)$ **no pior caso**; normalmente descartaríamos o 15 pois é um termo constante, mas para esse exemplo vamos considerar.
 
 ```c
 int main() {
@@ -73,9 +73,9 @@ int main() {
 }
 ```
 
-Mas e se pudêssemos tornar isso $O(n*1)$ não seria melhor ? Imagine que esse loop fosse até $200$, então teríamos $O(200*15)$ o que nos daria complexidade de $O(3000)$ operações **no pior caso**, ou seja, onde **todos os 15 cases são condicionados**.
+Mas e se pudêssemos tornar isso $\mathcal{O}(n*1)$ não seria melhor ? Imagine que esse loop fosse até $200$, então teríamos $\mathcal{O}(200*15)$ o que nos daria complexidade de $\mathcal{O}(3000)$ operações **no pior caso**, ou seja, onde **todos os 15 cases são condicionados**.
 
-Agora, se conseguíssemos otimizar o código de tal forma que a quantidade de `cases` seja reduzida para $1$, a complexidade se torna $O(n * 1)$, o que é efetivamente $O(n)$ ? Pois bem, é aí que entra a jump table.
+Agora, se conseguíssemos otimizar o código de tal forma que a quantidade de `cases` seja reduzida para $1$, a complexidade se torna $\mathcal{O}(n * 1)$, o que é efetivamente $\mathcal{O}(n)$ ? Pois bem, é aí que entra a jump table.
 
 # Jump Tables
 
@@ -85,7 +85,7 @@ Jump tables utilizam o valor dos dados ou uma derivada calculada como o índice 
 
 Não quero entrar muito em detalhes neste artigo para não ficar extenso, mas em suma, as CPUs modernas ainda não são tão eficientes em lidar com desvios condicionais. Acontece que, as CPUs processam instruções em pipelines e quanto mais cheio esse pipeline fica, mais eficiente é o uso da CPU.
 
-Ocorre que, =red=o desvio condicional torna-se um desafio para manter o pipeline cheio, uma que vez que, quando uma instrução de branch é encontrada, a CPU não sabe antecipadamente qual caminho seguir==. Dependendo da condição associada ao branch, a CPU deve decidir se deve continuar com as instruções subsequentes no fluxo atual ou se deve pular para um novo fluxo de instruções. Atualmente existem algoritmos de **Branch Predictor** para pré-buscar essas instruções e colocar antecipadamente no pipeline, mas ainda assim não é obtido a melhor eficiência. E isso piora quando você tem branchs aninhadas, pois as branchs internas sequer são conhecidas para que se possa pré-buscar as instruções.
+Ocorre que, <TextHighlight color="red">o desvio condicional torna-se um desafio para manter o pipeline cheio, uma que vez que, quando uma instrução de branch é encontrada, a CPU não sabe antecipadamente qual caminho seguir</TextHighlight>**. **Dependendo da condição associada ao branch, a CPU deve decidir se deve continuar com as instruções subsequentes no fluxo atual ou se deve pular para um novo fluxo de instruções. Atualmente existem algoritmos de **Branch Predictor** para pré-buscar essas instruções e colocar antecipadamente no pipeline, mas ainda assim não é obtido a melhor eficiência. E isso piora quando você tem branchs aninhadas, pois as branchs internas sequer são conhecidas para que se possa pré-buscar as instruções.
 
 E além disso, se o algoritmo faz uma predição incorreta sobre qual caminho um desvio condicional (branch) tomará, será necessário descartar as instruções especulativas que foram carregadas no pipeline (**branch misprediction**). Então, a CPU deve buscar as instruções corretas e reiniciar a execução a partir do ponto do branch, causando uma penalidade de desempenho devido ao pipeline ter que ser "limpo" (flush).
 
@@ -109,15 +109,15 @@ Voltando ao tópico principal, de que forma podemos tornar uma sequência de con
 
 > Dictionary: um tipo de dados abstrato que armazena itens ou valores. Um valor é acessado por uma chave associada. As operações básicas são new, insert, find e delete.
 
-Os dicionários utilizam funções hash, que em casos de colisão de hash vem a ter uma complexidade $O(n)$. Você encontrará exemplos na internet de jump tables com *dicionaries*, mas usualmente é implementada por compiladores por meio de arrays.
+Os dicionários utilizam funções hash, que em casos de colisão de hash vem a ter uma complexidade $\mathcal{O}(n)$. Você encontrará exemplos na internet de jump tables com *dicionaries*, mas usualmente é implementada por compiladores por meio de arrays.
 
 ## Condições para uso de Jump Table (gcc)
 
-O Intervalo Contíguo de Casos: se os valores dos ==casos são contíguos ou próximos==, é mais eficiente usar uma jump table.
+O Intervalo Contíguo de Casos: se os valores dos <TextHighlight>casos são contíguos ou próximos</TextHighlight>, é mais eficiente usar uma jump table.
 
-O Número de Casos: se o número de casos é suficiente para justificar a tabela, normalmente ==5 ou mais casos contíguos==.
+O Número de Casos: se o número de casos é suficiente para justificar a tabela, normalmente <TextHighlight>5 ou mais casos contíguos</TextHighlight>.
 
-Case labels: os rótulos dos casos devem ser constantes — não variáveis ou strings — ==(1..n, a..z, Enum)==.
+Case labels: os rótulos dos casos devem ser constantes — não variáveis ou strings — <TextHighlight>(1..n, a..z, Enum)</TextHighlight>.
 
 ## Multiway branch
 
@@ -214,7 +214,7 @@ int main() {
 
 Feito isso, agora definitivamente vamos criar a tabela. Definimos um array de ponteiros porque queremos armazenar endereços dessas funções. Nossas funções são do tipo `void` e a assinatura possui dois parâmetros do tipo `int`, ou seja, `void (*table[])(int, int)`.
 
-Atribuímos a tabela um array estático com cada função que criamos e em seguida acessamos o endereço da função no array pelo `index`, então só precisamos invocar essa referência passando os argumentos `table[operation](num1, num2)`. Dessa forma, a função será executada no melhor e pior caso com apenas uma operação $O(1)$.
+Atribuímos a tabela um array estático com cada função que criamos e em seguida acessamos o endereço da função no array pelo `index`, então só precisamos invocar essa referência passando os argumentos `table[operation](num1, num2)`. Dessa forma, a função será executada no melhor e pior caso com apenas uma operação $\mathcal{O}(1)$.
 
 ```c
 void sum(int a, int b);
