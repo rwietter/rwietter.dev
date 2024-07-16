@@ -5,19 +5,18 @@ import dynamic from 'next/dynamic'
 import Script from 'next/script'
 import fs from 'node:fs'
 import path from 'node:path'
-import { Suspense } from 'react'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypeKatex from 'rehype-katex'
 import rehypePrettyCode from 'rehype-pretty-code'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 import { makeSeo } from 'src/components/SEO/makeSeo'
+import ArticleContent from 'src/domains/article/content'
 import ArticleHeader from 'src/domains/article/header'
 import styles from 'src/domains/article/styles.module.css'
 import type { Post, PostFrontMatter } from 'src/domains/article/ts'
 
 const ArticleFooter = dynamic(() => import('src/domains/article/footer'))
-const ArticleContent = dynamic(() => import('src/domains/article/content'))
 
 type PageProps = {
   params: { slug: string }
@@ -165,10 +164,8 @@ const Page = async (props: PageProps) => {
         defer
       />
       <section className={styles.articleMarkdownContainer}>
-        <Suspense>
-          <ArticleHeader content={content} frontmatter={frontmatter} />
-          <ArticleContent mdxSource={mdxSource} />
-        </Suspense>
+        <ArticleHeader content={content} frontmatter={frontmatter} />
+        <ArticleContent mdxSource={mdxSource} />
       </section>
       <ArticleFooter post={frontmatter} />
     </>
