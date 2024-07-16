@@ -23,13 +23,13 @@ $$
 You can think of $ S $ as a set containing all data structures and algorithms. Now, we need to define a subset $ E $ containing the essential structures and algorithms.
 
 $$
-Let \ E = \{ \text{Essential Data Structures and Algorithms} \} 
+Let \ E = \{ \text{Essential DS and Algorithms} \} 
 $$
 
 For example, an essential subset of $ S $ could be $ E $ containing the following structures and algorithms:
 
 $$
-E = \{ \text{AVL Tree}, \text{BST}, \text{DAG}, \text{BFS}, \text{DFS}, \text{Hash Table} \} 
+E = \{ \text{AVL}, \text{BST}, \text{DAG}, \text{BFS}, \text{DFS}, \text{HT} \} 
 $$
 
 And, to use this subset, we need to define a set $ P $ containing common problems in computer science and software engineering.
@@ -41,7 +41,7 @@ $$
 For each problem $ p \in P $, there exists a data structure or algorithm $ e \in E $ that solves $ p $ efficiently.
 
 $$
-\forall p \in P, \exists e \in E \text{ such that } e \text{ solves } p \text{ efficiently}
+\forall p \in P, \exists e \in E \vert  e \text{ solves } p \text{ efficiently}
 $$
 
 ==Please don't place excessive importance on this notation, as it serves merely as an example==. It is evident that **some problems require solutions through data structures and algorithms not encompassed within $E$**.
@@ -49,7 +49,12 @@ $$
 I will define what I mean by "efficiently" in this context. The efficiency is measured by the time $ T $ and space $ S $ needed to solve $ p $ using $ e $. We define that $ e $ is efficient if:
 
 $$
-T(e, p) = \mathcal{O}(log \ n) \text{ or } T(e, p) = \mathcal{O}(n) \quad \text{and} \quad S(e, p) = \mathcal{O}(n)
+\begin{aligned}
+&T(e, p) = \mathcal{O}(log \ n) \text{ or } T(e, p) = \mathcal{O}(n) \\
+&S(e, p) = \mathcal{O}(n)
+\end{aligned}
+
+
 $$
 
 Where $ n $ denotes the input size.

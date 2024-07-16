@@ -35,7 +35,7 @@ module.exports = {
     const blogPaths = blogFiles.map((file) => {
       const mdmdx = /\.mdx?$/;
       const slug = file.replace(mdmdx, '');
-      
+
       return {
         loc: `${config.siteUrl}/blog/article/${slug}`,
         changefreq: 'daily',

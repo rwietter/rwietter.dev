@@ -1,3 +1,5 @@
+import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
+
 export interface Name {
   name: string
 }
@@ -73,6 +75,7 @@ export type Post = {
   frontmatter: PostFrontMatter
   slug: string
   content: string
+  mdxSource?: MDXRemoteSerializeResult
 }
 
 export type PostFrontMatter = {

@@ -1,21 +1,22 @@
+import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import dynamic from 'next/dynamic'
 import type { FC } from 'react'
 import styles from './styles.module.css'
 
 const Mark = dynamic(() => import('src/domains/article/content/mark'), {
   loading: () => <span />,
-  ssr: false,
+  ssr: true,
 })
 
 interface ArticleData {
-  content: string
+  mdxSource: MDXRemoteSerializeResult
 }
 
-const ArticleContent: FC<ArticleData> = async ({ content }) => {
+const ArticleContent: FC<ArticleData> = async ({ mdxSource }) => {
   return (
     <div className={styles.articleContainer}>
       <article className={styles.articleMarkdown}>
-        <Mark article={content} />
+        <Mark mdxSource={mdxSource} />
       </article>
     </div>
   )

@@ -1,12 +1,17 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
+    "outDir": "./public",
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -23,14 +28,37 @@
     ]
   },
   "paths": {
-    "@/styles/*": ["styles/*"],
-    "@/services/*": ["services/*"],
-    "@/api/*": ["pages/api/*"],
-    "@/components/*": ["components/*"],
-    "@/helpers/*": ["helpers/*"],
-    "@/layouts/*": ["layouts/*"],
-    "@/blog/*": ["pages/blog/*"]
+    "@/styles/*": [
+      "styles/*"
+    ],
+    "@/services/*": [
+      "services/*"
+    ],
+    "@/api/*": [
+      "pages/api/*"
+    ],
+    "@/components/*": [
+      "components/*"
+    ],
+    "@/helpers/*": [
+      "helpers/*"
+    ],
+    "@/layouts/*": [
+      "layouts/*"
+    ],
+    "@/blog/*": [
+      "pages/blog/*"
+    ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "public/workers/*.js",
+    "public/worker.js"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

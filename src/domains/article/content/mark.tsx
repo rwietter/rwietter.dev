@@ -1,37 +1,19 @@
 'use client'
 
-import Prism from 'prismjs'
-import { type FC, memo, useEffect } from 'react'
-import Markdown from 'react-markdown'
-import rehypeExternalLinks from 'rehype-external-links'
-import rehypeKatex from 'rehype-katex'
-import remarkGfm from 'remark-gfm'
-import remarkMath from 'remark-math'
-import remarkHighlight from '../remarkHighlight/remarkHighlight'
-
-import md from 'styles/github-markdown.module.css'
-import 'utils/highlights'
-import { components } from './headingId'
+import { MDXRemote, type MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { type FC, memo } from 'react'
+import TextHighlight from 'src/@base/components/TextHighlight/TextHighlight'
 
 interface ArticleData {
-  article: string
+  mdxSource: MDXRemoteSerializeResult
 }
 
-const Mark: FC<ArticleData> = ({ article }) => {
-  useEffect(() => {
-    Prism.highlightAll()
-  }, [])
+const components = {
+  TextHighlight,
+}
 
-  return (
-    <Markdown
-      className={md['markdown-body']}
-      components={components}
-      remarkPlugins={[remarkHighlight, remarkGfm, remarkMath]}
-      rehypePlugins={[rehypeKatex, [rehypeExternalLinks, { target: '_blank' }]]}
-    >
-      {article}
-    </Markdown>
-  )
+const Mark: FC<ArticleData> = ({ mdxSource }) => {
+  return <MDXRemote {...mdxSource} components={components} />
 }
 
 export default memo(Mark)
