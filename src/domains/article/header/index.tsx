@@ -1,12 +1,11 @@
 'use client'
 import Link from 'next/link'
-import { memo } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AiOutlineArrowLeft, AiOutlineCalendar } from 'react-icons/ai'
 import { RiTimer2Line } from 'react-icons/ri'
 
 import { getLocaleDate } from 'utils/get-locale-date'
-import { getReadingTime } from 'utils/getTimeReading'
 import styles from './styles.module.css'
 
 interface ArticleHeaderData {
@@ -32,9 +31,36 @@ const langs: Langs = {
   pt: 'pt-BR',
 }
 
+import { wrap } from 'comlink'
+
+type WorkerAPI = {
+  getReadingTime: (content: string) => { readTime: string }
+}
+
 const ArticleHeader: React.FC<ArticleHeaderData> = (props) => {
-  const { readTime } = getReadingTime(props.content)
+  const workerRef = useRef<Worker>()
+  const [readTime, setReadTime] = useState<string>('')
+  // const { readTime } = getReadingTime(props.content)
   const { t, i18n } = useTranslation()
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    if (typeof Worker !== 'undefined') {
+      workerRef.current = new Worker(new URL('../../../../public/workers/readingTime.js', import.meta.url));
+      const api = wrap<WorkerAPI>(workerRef.current)
+
+      const getReadingTime = async () => {
+        const readingTime = await api.getReadingTime(props.content)
+        setReadTime(readingTime.readTime)
+      }
+
+      getReadingTime()
+
+      return () => {
+        workerRef.current?.terminate()
+      }
+    }
+  }, [])
 
   const { localeDate: publishedAt } = getLocaleDate(
     props.frontmatter.publishedAt,
@@ -61,7 +87,7 @@ const ArticleHeader: React.FC<ArticleHeaderData> = (props) => {
               {publishedAt}
               &nbsp;|&nbsp;
               <RiTimer2Line size={17} />
-              {readTime}
+              {readTime ? readTime : ''}
             </p>
           </div>
         </div>

@@ -12,7 +12,7 @@ const withPWA = pwa({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
-  productionBrowserSourceMaps: true,
+  productionBrowserSourceMaps: false,
   transpilePackages: ['next-mdx-remote'],
   experimental: {
     nextScriptWorkers: true,
@@ -20,7 +20,7 @@ const nextConfig = {
     optimizeCss: true,
     swcMinify: true,
     parallelServerCompiles: false,
-    cssChunking: 'loose',
+    cssChunking: 'strict',
   },
   env: {
     REACT_APP_BACKEND_URL: process.env.REACT_APP_BACKEND_URL,

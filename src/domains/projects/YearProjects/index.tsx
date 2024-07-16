@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ProjectItem, projects } from './data'
+import { type ProjectItem, projects } from './data'
 import styles from './styles.module.css'
 
 export const YearProjects = () => {

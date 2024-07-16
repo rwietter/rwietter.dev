@@ -22,23 +22,3 @@
   margin: 0 auto;
   padding: 1rem 0rem 8rem 0rem;
 }
-
-.layout[layout="small"] {
-  max-width: 60rem;
-}
-
-.layout[layout="medium"] {
-  max-width: 70rem;
-}
-
-.layout[layout="large"] {
-  max-width: 80rem;
-}
-
-.layout[layout="full"] {
-  max-width: 100%;
-}
-
-.layout[layout="default"] {
-  max-width: 60rem;
-}

@@ -2,10 +2,7 @@
 import dynamic from 'next/dynamic'
 import type { PropsWithChildren } from 'react'
 
-const Kbar = dynamic(() => import('src/components/Kbar/CommandBar'), {
-  ssr: false,
-  loading: () => <span />,
-})
+const Kbar = dynamic(() => import('src/components/Kbar/CommandBar'))
 
 import 'languages/i18n'
 

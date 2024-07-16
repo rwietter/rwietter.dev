@@ -1,14 +1,38 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
+import Script from 'next/script'
 import { Suspense } from 'react'
 import { makeSeo } from 'src/components/SEO/makeSeo'
-import { TopProjects } from 'src/domains/projects'
 
 const YearProjects = dynamic(() =>
   import('src/domains/projects/YearProjects').then((mod) => ({
     default: mod.YearProjects,
-  })),
+  }))
 )
+
+const TopProjects = dynamic(() =>
+  import('src/domains/projects/TopProjects').then((mod) => ({
+    default: mod.TopProjects,
+  }))
+)
+
+const Page = () => (
+  <>
+    <Script
+      type='application/ld+json'
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      strategy='worker'
+      defer
+    />
+    <Suspense>
+      <TopProjects />
+      <YearProjects />
+    </Suspense>
+  </>
+)
+
+export default Page
 
 export const metadata: Metadata = makeSeo({
   title: 'Projects | Maurício W. | Software Developer',
@@ -31,19 +55,3 @@ const jsonLd = {
   description:
     'Here, in this page, you can find some of my favorite projects. I hope you enjoy it. :)',
 }
-
-const Page = () => (
-  <>
-    <script
-      type='application/ld+json'
-      // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-    />
-    <TopProjects />
-    <Suspense fallback={<div>Loading...</div>}>
-      <YearProjects />
-    </Suspense>
-  </>
-)
-
-export default Page

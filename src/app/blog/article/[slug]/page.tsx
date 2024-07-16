@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 import Script from 'next/script'
 import fs from 'node:fs'
 import path from 'node:path'
+import { Suspense } from 'react'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypeKatex from 'rehype-katex'
 import rehypePrettyCode from 'rehype-pretty-code'
@@ -15,15 +16,8 @@ import ArticleHeader from 'src/domains/article/header'
 import styles from 'src/domains/article/styles.module.css'
 import type { Post, PostFrontMatter } from 'src/domains/article/ts'
 
-const ArticleFooter = dynamic(() => import('src/domains/article/footer'), {
-  loading: () => <span />,
-  ssr: true,
-})
-
-const ArticleContent = dynamic(() => import('src/domains/article/content'), {
-  loading: () => <span />,
-  ssr: true,
-})
+const ArticleFooter = dynamic(() => import('src/domains/article/footer'))
+const ArticleContent = dynamic(() => import('src/domains/article/content'))
 
 type PageProps = {
   params: { slug: string }
@@ -171,8 +165,10 @@ const Page = async (props: PageProps) => {
         defer
       />
       <section className={styles.articleMarkdownContainer}>
-        <ArticleHeader content={content} frontmatter={frontmatter} />
-        <ArticleContent mdxSource={mdxSource} />
+        <Suspense>
+          <ArticleHeader content={content} frontmatter={frontmatter} />
+          <ArticleContent mdxSource={mdxSource} />
+        </Suspense>
       </section>
       <ArticleFooter post={frontmatter} />
     </>

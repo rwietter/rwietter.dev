@@ -1,11 +1,11 @@
-const fs = require('node:fs');
-const path = require('node:path');
+import fs from 'node:fs';
+import path from 'node:path';
 
-const pth = (target) => path.join(__dirname, target)
+const pth = (target) => path.join(path.resolve(), target)
 const readDir = (path) => fs.readdirSync(path)
 
 /** @type {import('next-sitemap').IConfig} */
-module.exports = {
+const options = {
   siteUrl: 'https://rwietter.dev/',
   generateRobotsTxt: true,
   changefreq: 'daily',
@@ -54,3 +54,6 @@ module.exports = {
     return allPaths;
   },
 };
+
+
+export default options;
