@@ -213,7 +213,12 @@ article table tr:nth-child(2n) {
 }
 
 article pre code {
-  padding: 1em 0;
+  padding: 2em;
+  white-space: pre;
+  border-radius: 8px;
+  -moz-tab-size: 2;
+  -o-tab-size: 2;
+  tab-size: 2;
   --fluid-type-max: 1rem;
   --fluid-type-min: 0.8rem;
   --fluid-type-target: 1vw;
