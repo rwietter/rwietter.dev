@@ -1,7 +1,6 @@
 import { makeSeo } from '@/components/SEO/makeSeo'
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
-import Script from 'next/script'
 
 const YearProjects = dynamic(() =>
   import('src/domains/projects/YearProjects').then((mod) => ({
@@ -17,12 +16,10 @@ const TopProjects = dynamic(() =>
 
 const Page = () => (
   <>
-    <Script
+    <script
       type='application/ld+json'
       // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
       dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      strategy='worker'
-      defer
     />
     <TopProjects />
     <YearProjects />

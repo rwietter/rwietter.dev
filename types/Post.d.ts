@@ -74,6 +74,7 @@ export type Post = {
   slug?: string
   content: string
   mdxSource?: MDXSerialized
+  readonly readingTime?: string
 }
 
 export type PostFrontMatter = {

@@ -7,7 +7,6 @@ import matter from 'gray-matter'
 import type { Metadata } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
 import dynamic from 'next/dynamic'
-import Script from 'next/script'
 import fs from 'node:fs'
 import path from 'node:path'
 import rehypeExternalLinks from 'rehype-external-links'
@@ -15,6 +14,7 @@ import rehypeKatex from 'rehype-katex'
 import rehypePrettyCode from 'rehype-pretty-code'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
+import { getReadingTime } from 'utils/getTimeReading'
 
 const ArticleFooter = dynamic(() => import('@/domains/article/footer'))
 
@@ -29,9 +29,9 @@ const Page = async (props: PagePropTypes) => {
   const { slug } = props.params
   const { data } = await getData(slug)
 
-  if (!data.frontmatter) return <p>Page not found</p>
+  if (!data) return <p>Page not found</p>
 
-  const { content, frontmatter, mdxSource }: Post = data
+  const { content, frontmatter, mdxSource, readingTime }: Post = data
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -55,15 +55,13 @@ const Page = async (props: PagePropTypes) => {
 
   return (
     <>
-      <Script
+      <script
         type='application/ld+json'
         // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        strategy='worker'
-        defer
       />
       <section className={styles.articleMarkdownContainer}>
-        <ArticleHeader content={content} frontmatter={frontmatter} />
+        <ArticleHeader content={content} readingTime={readingTime} frontmatter={frontmatter} />
         <ArticleContent mdxSource={mdxSource} />
       </section>
       <ArticleFooter post={frontmatter} />
@@ -73,7 +71,7 @@ const Page = async (props: PagePropTypes) => {
 
 export default Page
 
-async function getData(slug: string) {
+async function getData(slug: string): Promise<{ data: Post | null }> {
   try {
     const extensions = ['.mdx', '.md']
 
@@ -92,6 +90,7 @@ async function getData(slug: string) {
     }
 
     const { content, data } = matter(file)
+    const readingTime = getReadingTime(content)
     const mdxSource = await getMdxSource(content)
 
     return {
@@ -100,16 +99,12 @@ async function getData(slug: string) {
         slug: data?.slug,
         content,
         mdxSource,
+        readingTime: readingTime.readTime,
       },
     }
   } catch (error) {
     return {
-      data: {
-        frontmatter: null,
-        slug: '',
-        content: '',
-        mdxSource: null,
-      },
+      data: null
     }
   }
 }
@@ -145,7 +140,7 @@ export async function generateMetadata({
   const slug = params.slug
   const { data } = await getData(slug)
 
-  if (!data.frontmatter) {
+  if (!data) {
     return makeSeo({
       title: 'Page not found',
       description: 'Page not found',

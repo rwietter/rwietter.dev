@@ -1,15 +1,13 @@
 'use client'
-import { wrap } from 'comlink'
 import Link from 'next/link'
-import { memo, useEffect, useRef, useState } from 'react'
+import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AiOutlineArrowLeft, AiOutlineCalendar } from 'react-icons/ai'
 import { RiTimer2Line } from 'react-icons/ri'
-// import { getReadingTime } from 'utils/getTimeReading'
+import { getLocaleDate } from 'utils/get-locale-date'
 
 import type { Post } from '@/types/Post'
 
-import { getLocaleDate } from 'utils/get-locale-date'
 import styles from './styles.module.css'
 
 interface ArticleHeaderPropTypes extends Post { }
@@ -23,34 +21,8 @@ const langs: Langs = {
   pt: 'pt-BR',
 }
 
-type WorkerAPI = {
-  getReadingTime: (content: string) => { readTime: string }
-}
-
 const ArticleHeader: React.FC<ArticleHeaderPropTypes> = (props) => {
-  const workerRef = useRef<Worker>()
-  const [readTime, setReadTime] = useState<string | null>(null)
-  // const { readTime } = getReadingTime(props.content)
   const { t, i18n } = useTranslation()
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-  useEffect(() => {
-    if (typeof Worker !== 'undefined') {
-      workerRef.current = new Worker(new URL('../../../../public/workers/readingTime.js', import.meta.url));
-      const api = wrap<WorkerAPI>(workerRef.current)
-
-      const getReadingTime = async () => {
-        const readingTime = await api.getReadingTime(props.content)
-        setReadTime(readingTime.readTime)
-      }
-
-      getReadingTime()
-
-      return () => {
-        workerRef.current?.terminate()
-      }
-    }
-  }, [])
 
   const { localeDate: publishedAt } = getLocaleDate(
     props.frontmatter.publishedAt,
@@ -74,13 +46,9 @@ const ArticleHeader: React.FC<ArticleHeaderPropTypes> = (props) => {
           <p className={styles.dateTimeRead}>
             <AiOutlineCalendar size={17} />
             {publishedAt}
-            {readTime ? (
-              <>
-                &nbsp;|&nbsp;
-                <RiTimer2Line size={17} />
-                {readTime}
-              </>
-            ) : <span />}
+            &nbsp;|&nbsp;
+            <RiTimer2Line size={17} />
+            {props.readingTime}
           </p>
         </div>
       </div>
