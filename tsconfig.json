@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -28,37 +24,20 @@
     ]
   },
   "paths": {
-    "@/styles/*": [
-      "styles/*"
-    ],
-    "@/services/*": [
-      "services/*"
-    ],
-    "@/api/*": [
-      "pages/api/*"
-    ],
-    "@/components/*": [
-      "components/*"
-    ],
-    "@/helpers/*": [
-      "helpers/*"
-    ],
-    "@/layouts/*": [
-      "layouts/*"
-    ],
-    "@/blog/*": [
-      "pages/blog/*"
-    ]
+    "@/styles/*": ["styles/*"],
+    "@/services/*": ["services/*"],
+    "@/api/*": ["pages/api/*"],
+    "@/components/*": ["components/*"],
+    "@/helpers/*": ["helpers/*"],
+    "@/layouts/*": ["layouts/*"],
+    "@/blog/*": ["pages/blog/*"]
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "public/workers/*.js",
-    "public/worker.js"
+    "public/workers/readingTime.js"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
