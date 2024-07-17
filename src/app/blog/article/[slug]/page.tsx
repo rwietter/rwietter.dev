@@ -9,14 +9,25 @@ import { serialize } from 'next-mdx-remote/serialize'
 import dynamic from 'next/dynamic'
 import fs from 'node:fs'
 import path from 'node:path'
+import { PerformanceObserver, performance } from 'node:perf_hooks'
 import { Worker } from 'node:worker_threads'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypeKatex from 'rehype-katex'
 import rehypePrettyCode from 'rehype-pretty-code'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
+import { getReadingTime } from 'utils/getTimeReading'
 
 const ArticleFooter = dynamic(() => import('@/domains/article/footer'))
+
+const obs = new PerformanceObserver((items) => {
+  // biome-ignore lint/complexity/noForEach: <explanation>
+  items.getEntries().forEach((entry) => {
+    console.log(`${entry.name}: ${entry.duration}ms`)
+  })
+  performance.clearMarks()
+})
+obs.observe({ entryTypes: ['measure'] })
 
 type PagePropTypes = {
   params: { slug: string }
@@ -85,7 +96,7 @@ async function getData(slug: string): Promise<{ data: Post | null }> {
 
     const file = await runWorker(workerPath('fileReaderWorker.js'), filepath)
     const { content, data } = matter(file)
-    const readingTime = await runWorker(workerPath('readingTime.js'), content)
+    const { readTime } = getReadingTime(content)
     const mdxSource = await getMdxSource(content)
 
     return {
@@ -94,7 +105,7 @@ async function getData(slug: string): Promise<{ data: Post | null }> {
         slug: data?.slug,
         content,
         mdxSource,
-        readingTime: readingTime,
+        readingTime: readTime,
       },
     }
   } catch (error) {
