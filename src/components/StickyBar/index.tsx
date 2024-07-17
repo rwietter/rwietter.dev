@@ -60,4 +60,4 @@ const StickyBar = () => {
   )
 }
 
-export { StickyBar }
+export default StickyBar

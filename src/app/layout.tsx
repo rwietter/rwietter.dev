@@ -1,6 +1,8 @@
-import Header from '@/components/Header'
-import { StickyBar } from '@/components/StickyBar'
+import dynamic from 'next/dynamic'
 import Script from 'next/script'
+
+const Header = dynamic(() => import('@/components/Header'))
+const StickyBar = dynamic(() => import('@/components/StickyBar'))
 
 import Providers from './providers'
 
