@@ -1,11 +1,11 @@
-import { expose } from 'comlink'
-import useReadingTime from 'reading-time'
+import useReadingTime from 'reading-time';
 
-const workerAPI = {
-  getReadingTime(content) {
-    const { text } = useReadingTime(content)
-    return { readTime: text }
-  },
+import { parentPort, workerData } from 'node:worker_threads';
+
+function getReadingTime(content) {
+  const { text } = useReadingTime(content)
+  return text
 }
 
-expose(workerAPI)
+const readingTime = getReadingTime(workerData);
+parentPort.postMessage(readingTime);

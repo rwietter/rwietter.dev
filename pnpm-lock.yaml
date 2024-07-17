@@ -13,6 +13,9 @@ importers:
 
   .:
     dependencies:
+      '@mdx-js/mdx':
+        specifier: ^3.0.1
+        version: 3.0.1
       '@next/bundle-analyzer':
         specifier: ^14.1.0
         version: 14.2.4

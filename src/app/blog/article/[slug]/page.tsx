@@ -5,11 +5,16 @@ import styles from '@/domains/article/styles.module.css'
 import type { Post, PostFrontMatter } from '@/types/Post'
 import matter from 'gray-matter'
 import type { Metadata } from 'next'
+import { serialize } from 'next-mdx-remote/serialize'
 import dynamic from 'next/dynamic'
 import fs from 'node:fs'
 import path from 'node:path'
 import { Worker } from 'node:worker_threads'
-import { getReadingTime } from 'utils/getTimeReading'
+import rehypeExternalLinks from 'rehype-external-links'
+import rehypeKatex from 'rehype-katex'
+import rehypePrettyCode from 'rehype-pretty-code'
+import remarkGfm from 'remark-gfm'
+import remarkMath from 'remark-math'
 
 const ArticleFooter = dynamic(() => import('@/domains/article/footer'))
 
@@ -70,23 +75,6 @@ const Page = async (props: PagePropTypes) => {
 
 export default Page
 
-function runWorker(workerPath: string, workerData: string): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const worker = new Worker(workerPath, {
-      workerData,
-    })
-    worker.on('message', resolve)
-    worker.on('error', (error) => {
-      console.error('Worker error:', error)
-      reject(error)
-    })
-    worker.on('messageerror', reject)
-    worker.on('exit', (code) => {
-      if (code !== 0) reject(new Error(`Worker stopped with exit code ${code}`))
-    })
-  })
-}
-
 async function getData(slug: string): Promise<{ data: Post | null }> {
   try {
     const filepath = path.join(process.cwd(), 'public', 'posts', `${slug}.mdx`)
@@ -95,26 +83,10 @@ async function getData(slug: string): Promise<{ data: Post | null }> {
       return { data: null }
     }
 
-    const fileReaderWorkerPath = path.join(
-      process.cwd(),
-      'public',
-      'workers',
-      'fileReaderWorker.js',
-    )
-
-    const file = await runWorker(fileReaderWorkerPath, filepath)
-
+    const file = await runWorker(workerPath('fileReaderWorker.js'), filepath)
     const { content, data } = matter(file)
-    const readingTime = getReadingTime(content)
-
-    const mdxSourceWorkerPath = path.join(
-      process.cwd(),
-      'public',
-      'workers',
-      'serializeWorker.js',
-    )
-    const mdxSource = await runWorker(mdxSourceWorkerPath, content)
-    // const mdxSource = await getMdxSource(content)
+    const readingTime = await runWorker(workerPath('readingTime.js'), content)
+    const mdxSource = await getMdxSource(content)
 
     return {
       data: {
@@ -122,7 +94,7 @@ async function getData(slug: string): Promise<{ data: Post | null }> {
         slug: data?.slug,
         content,
         mdxSource,
-        readingTime: readingTime.readTime,
+        readingTime: readingTime,
       },
     }
   } catch (error) {
@@ -133,30 +105,30 @@ async function getData(slug: string): Promise<{ data: Post | null }> {
   }
 }
 
-// async function getMdxSource(article: string) {
-//   const source = await serialize(article, {
-//     mdxOptions: {
-//       rehypePlugins: [
-//         rehypeKatex,
-//         [
-//           rehypePrettyCode,
-//           {
-//             highlight: true,
-//             lineNumbers: true,
-//             theme: {
-//               dark: 'github-dark-default',
-//               light: 'github-light-default',
-//             },
-//           },
-//         ],
-//         [rehypeExternalLinks, { target: '_blank' }],
-//       ],
-//       remarkPlugins: [remarkGfm, remarkMath],
-//       useDynamicImport: true,
-//     },
-//   })
-//   return source
-// }
+async function getMdxSource(article: string) {
+  const source = await serialize(article, {
+    mdxOptions: {
+      rehypePlugins: [
+        rehypeKatex,
+        [
+          rehypePrettyCode,
+          {
+            highlight: true,
+            lineNumbers: true,
+            theme: {
+              dark: 'github-dark-default',
+              light: 'github-light-default',
+            },
+          },
+        ],
+        [rehypeExternalLinks, { target: '_blank' }],
+      ],
+      remarkPlugins: [remarkGfm, remarkMath],
+      useDynamicImport: true,
+    },
+  })
+  return source
+}
 
 export async function generateMetadata({
   params,
@@ -189,4 +161,25 @@ export async function generateMetadata({
   })
 
   return seo
+}
+
+function runWorker(workerPath: string, workerData: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const worker = new Worker(workerPath, {
+      workerData,
+    })
+    worker.on('message', resolve)
+    worker.on('error', (error) => {
+      console.error('Worker error:', error)
+      reject(error)
+    })
+    worker.on('messageerror', reject)
+    worker.on('exit', (code) => {
+      if (code !== 0) reject(new Error(`Worker stopped with exit code ${code}`))
+    })
+  })
+}
+
+function workerPath(workerName: string) {
+  return path.join(process.cwd(), 'public', 'workers', `${workerName}`)
 }

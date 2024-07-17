@@ -1,10 +1,10 @@
-import { serialize } from 'next-mdx-remote/serialize';
-import { parentPort, workerData } from 'node:worker_threads';
-import rehypeExternalLinks from 'rehype-external-links';
-import rehypeKatex from 'rehype-katex';
-import rehypePrettyCode from 'rehype-pretty-code';
-import remarkGfm from 'remark-gfm';
-import remarkMath from 'remark-math';
+import { serialize } from 'next-mdx-remote/serialize'
+import { parentPort, workerData } from 'node:worker_threads'
+import rehypeExternalLinks from 'rehype-external-links'
+import rehypeKatex from 'rehype-katex'
+import rehypePrettyCode from 'rehype-pretty-code'
+import remarkGfm from 'remark-gfm'
+import remarkMath from 'remark-math'
 
 async function serializeMDX(content) {
   const source = await serialize(content, {
@@ -32,5 +32,7 @@ async function serializeMDX(content) {
 }
 
 serializeMDX(workerData).then((result) => {
-  parentPort.postMessage(result);
-});
+  parentPort?.postMessage(result)
+}).catch((error) => {
+  parentPort?.postMessage(error)
+})
