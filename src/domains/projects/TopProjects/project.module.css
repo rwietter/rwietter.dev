@@ -2,11 +2,17 @@
   position: relative;
   display: flex;
   height: 100%;
+  border-radius: 0.2em;
+  transition: var(--transition-primary);
+  background: var(--bg-color);
   font-family: var(--font-primary);
 }
 
+.wrapper:hover {
+  background: var(--sub-alt-color);
+}
+
 .container {
-  transition: var(--transition-primary);
   padding: 1em;
   position: relative;
   z-index: 1;
@@ -16,19 +22,10 @@
   --fluid-type-max: 1.1rem;
 }
 
-.container:hover p {
-  color: var(--text-color);
-}
-
 .container svg {
   fill: var(--text-color);
   color: var(--text-color);
   transition: var(--transition-primary);
-}
-
-.container:hover svg {
-  fill: var(--select);
-  color: var(--select);
 }
 
 .title {
@@ -43,17 +40,4 @@
   padding-top: 0.8rem;
   line-height: 1.5;
   text-align: start;
-}
-
-.hoverBackground {
-  background: var(--sub-alt-color);
-  transition: var(--transition-primary);
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  border-radius: 8px;
 }

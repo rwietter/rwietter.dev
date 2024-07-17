@@ -61,7 +61,11 @@ const Page = async (props: PagePropTypes) => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <section className={styles.articleMarkdownContainer}>
-        <ArticleHeader content={content} readingTime={readingTime} frontmatter={frontmatter} />
+        <ArticleHeader
+          content={content}
+          readingTime={readingTime}
+          frontmatter={frontmatter}
+        />
         <ArticleContent mdxSource={mdxSource} />
       </section>
       <ArticleFooter post={frontmatter} />
@@ -104,13 +108,13 @@ async function getData(slug: string): Promise<{ data: Post | null }> {
     }
   } catch (error) {
     return {
-      data: null
+      data: null,
     }
   }
 }
 
-async function getMdxSource(article: string) {
-  const source = await serialize(article, {
+function getMdxSource(article: string) {
+  const source = serialize(article, {
     mdxOptions: {
       rehypePlugins: [
         rehypeKatex,

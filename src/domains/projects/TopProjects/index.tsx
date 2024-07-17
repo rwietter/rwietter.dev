@@ -1,7 +1,6 @@
-import React from 'react'
+import { ProjectItem } from './ProjectItem'
 import { topProjects } from './data'
 import styles from './styles.module.css'
-import { ProjectItem } from './ProjectItem'
 
 const TopProjects: React.FC = () => (
   <section className={styles.grid}>

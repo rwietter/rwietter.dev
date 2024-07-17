@@ -1,17 +1,15 @@
 .container {
   color: var(--text-color);
-  transition: var(--transition-primary);
   width: 100%;
   max-width: 60rem;
   padding-top: 2rem;
-  margin: 0 auto;
-  font-family: var(--font-primary), monospace;
+  font-family: var(--font-primary);
 }
 
 .title {
-  font-weight: 800;
+  font-weight: 600;
   padding: 1rem 0;
-  font-family: var(--font-secondary), monospace;
+  font-family: var(--font-secondary);
   color: var(--text-color);
   transition: var(--transition-primary);
 
@@ -26,7 +24,7 @@
 }
 
 .year {
-  font-weight: 400;
+  font-weight: 800;
 }
 
 .list {
@@ -35,10 +33,16 @@
 
 .listItem {
   font-weight: 200;
-  padding: 0.4rem 0;
+  padding: 0.4em 0.6em;
+  border-radius: 0.2em;
   position: relative;
   z-index: 2;
-  background: transparent;
+  transition: var(--transition-primary);
+  background: var(--bg-color);
+}
+
+.listItem:hover {
+  background: var(--sub-alt-color);
 }
 
 .listItemName {
@@ -52,7 +56,6 @@
 
 .listItemName strong {
   font-weight: 800;
-  font-family: var(--font-primary), monospace;
   color: var(--text-color);
 }
 
@@ -61,16 +64,4 @@
   font-weight: 300;
   color: var(--text-alt-color);
   line-height: 1.7;
-}
-
-.hoverBackground {
-  background: var(--sub-alt-color);
-  transition: var(--transition-primary);
-  position: absolute;
-  top: 2px;
-  right: 5px;
-  width: 100%;
-  height: 90%;
-  z-index: -1;
-  border-radius: 0.5rem;
 }

@@ -1,16 +1,16 @@
-'use client'
-
-import { motion } from 'framer-motion'
-import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { type ProjectItem, projects } from './data'
 import styles from './styles.module.css'
 
+type Project = {
+  title: string
+  description: string
+  github: string
+}
+
 export const YearProjects = () => {
-  const { t } = useTranslation()
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>{t('projects.title')}</h1>
+      <h1 className={styles.title}>More projects</h1>
       {Object.keys(projects)
         .sort((a, b) => Number(b) - Number(a))
         .map((year) => (
@@ -27,35 +27,17 @@ export const YearProjects = () => {
   )
 }
 
-const ProjectItemComponent = ({ project }: any) => {
-  const [isBeingHovered, setIsBeingHovered] = useState(false)
-  const { t } = useTranslation()
-
+const ProjectItemComponent = ({ project }: { project: Project }) => {
   return (
-    <motion.section
-      className={styles.listItem}
-      key={project.title}
-      onHoverStart={() => setIsBeingHovered(true)}
-      onHoverEnd={() => setIsBeingHovered(false)}
-    >
-      {isBeingHovered && (
-        <motion.div
-          className={styles.hoverBackground}
-          layoutId='background'
-          layout
-        />
-      )}
+    <section className={styles.listItem} key={project.title}>
       <a
         className={styles.listItemName}
         href={project.github}
         target='_blank'
         rel='noopener noreferrer'
       >
-        <strong>{project.title}</strong>:
-        <span>
-          {t(`projects.${project.title.toLowerCase().replace(/ /g, '-')}`)}
-        </span>
+        <strong>{project.title}</strong>:<span>{project.description}</span>
       </a>
-    </motion.section>
+    </section>
   )
 }

@@ -13,7 +13,11 @@
   --highlight-text: #000000;
   --cb-bg-color: rgba(255, 255, 255, 0.6);
   --cb-box-alt-color: rgba(0, 0, 0, 0.1);
-  --neutral: #ebf0f5;
+  --neutral: #dfe3e6;
+  --success: #98ffc3;
+  --error: #f78890;
+  --warning: #f7d794;
+  --info: #81ecec;
 
   --transition-primary: color 200ms ease, background 200ms ease, border-color 200ms ease,
     box-shadow 200ms ease, fill 200ms ease, stroke 200ms ease;

@@ -1,11 +1,7 @@
-'use client'
-
-import { motion } from 'framer-motion'
-import { type FC, type ReactNode, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import type { FC, ReactNode } from 'react'
 import styles from './project.module.css'
 
-interface IProject {
+interface Project {
   project: {
     title: string
     description: string
@@ -17,37 +13,24 @@ interface IProject {
   }
 }
 
-export const ProjectItem: FC<IProject> = ({ project }) => {
-  const [isBeingHovered, setIsBeingHovered] = useState(false)
-  const { t } = useTranslation()
-
+export const ProjectItem: FC<Project> = ({ project }) => {
   return (
-    <motion.a
+    <a
       className={styles.wrapper}
-      onHoverStart={() => setIsBeingHovered(true)}
-      onHoverEnd={() => setIsBeingHovered(false)}
       href={project.link}
       target='_blank'
       rel='noopener noreferrer'
     >
-      {isBeingHovered && (
-        <motion.div
-          className={styles.hoverBackground}
-          layoutId='background'
-          layout
-        />
-      )}
+      <section className={styles.hoverBackground} />
       <div className={styles.container}>
         <span>
           {project.icon}
           <div>
             <h2 className={styles.title}>{project.title}</h2>
-            <p className={styles.description}>
-              {t(`projects.${project.title.replace(/ /g, '-').toLowerCase()}`)}
-            </p>
+            <p className={styles.description}>{project.description}</p>
           </div>
         </span>
       </div>
-    </motion.a>
+    </a>
   )
 }

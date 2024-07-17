@@ -23,9 +23,6 @@ body {
   }
 }
 
-/**
- * Cover article images where image is wider than container
- */
 span img {
   object-fit: cover !important;
 }
@@ -59,21 +56,7 @@ tt {
   text-rendering: geometricPrecision;
 }
 
-@supports (-webkit-text-size-adjust: 100%) or (-moz-text-size-adjust: 100%) or (-ms-text-size-adjust: 100%) or (text-size-adjust: 100%) {
-  p {
-    -webkit-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-  }
-}
-
-p,
-li,
-h1,
-h2,
-h3,
-h4 {
+p {
   font-feature-settings:
     "liga" 1,
     "ss03" 1,
