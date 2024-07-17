@@ -113,8 +113,8 @@ async function getData(slug: string): Promise<{ data: Post | null }> {
   }
 }
 
-function getMdxSource(article: string) {
-  const source = serialize(article, {
+async function getMdxSource(article: string) {
+  const source = await serialize(article, {
     mdxOptions: {
       rehypePlugins: [
         rehypeKatex,

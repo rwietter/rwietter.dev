@@ -49,7 +49,7 @@ int main() {
     return 0;
 }
 ```
-
+<Chunk>
 Então você pode estar se perguntando, porque isso tem problemas de desempenho ? Não é algo constante ?
 
 De fato, é uma operação constante mas que depende do número de `cases`, que é conhecido em tempo de compilação. Mas o problema entra quando temos muitos `cases` — perceba que cada condição do `switch` vai ser avaliada — até encontrar um `break`. Não é algo que produziria um estrangulamento de desempenho, mas pode tomar alguns ciclos de CPU dependendo do contexto.
@@ -58,7 +58,7 @@ Suponha que, **hipoteticamente**, que exista um `switch` com $15$ `cases` e ele 
 
 ```c
 int main() {
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i <Chunk 3; i++) {
         switch (i) {
         case 0:
             printf("Executing Case 1\n");
@@ -89,7 +89,7 @@ Ocorre que, <TextHighlight color="red">o desvio condicional torna-se um desafio 
 
 E além disso, se o algoritmo faz uma predição incorreta sobre qual caminho um desvio condicional (branch) tomará, será necessário descartar as instruções especulativas que foram carregadas no pipeline (**branch misprediction**). Então, a CPU deve buscar as instruções corretas e reiniciar a execução a partir do ponto do branch, causando uma penalidade de desempenho devido ao pipeline ter que ser "limpo" (flush).
 
-Outro problema das branchs é que elas podem causar **cache misses**. O cache miss ocorre quando os dados ou instruções requisitados não estão presentes nos caches L1, L2, L3 e afim, forçando o sistema a buscar os dados na memória principal, que é mais lenta a adiciona maior latência. 
+Outro problema das branchs é que elas podem causar **cache misses**. O cache miss ocorre quando os dados ou instruções requisitados não estão presentes nos caches L1, L2, L3 e afim, forçando o sistema a buscar os dados na memória principal, que é mais lenta a adiciona maior latência.
 
 Por exemplo, a condicional no código abaixo, essa abordagem geralmente é mais lenta do que simplesmente `value = new_val` — não porque o código é maior — mas porque a variável poderia estar no cache e o desvio condicional pode gerar um branch misprediction.
 
@@ -329,7 +329,7 @@ Por fim, a instrução `jmp` (**Jump**) desvia incondicionalmente para o endere�
 	# ...
 	leaq	.L12(%rip), %rdx
 	movslq	(%rdx,%rdi,4), %rax
-	addq	%rdx, %rax       
+	addq	%rdx, %rax
 	jmp	*%rax
 ```
 
@@ -338,7 +338,7 @@ Por fim, a instrução `jmp` (**Jump**) desvia incondicionalmente para o endere�
 Existem alguns conceitos similares ao jump table, conhecidos como **Branch Table**. São similares, mas usam instruções `goto` para saltar para uma parte de código específica. Usa-se uma extensão do compilador GCC chamada "**Labels as Values**", um forma eficiente de *multi-way branching*.
 
 > A multiway branching é uma técnica de programação importante que é frequentemente substituída por uma sequência ineficiente de testes if. Peter Naur escreveu-me recentemente que considera o uso de tabelas para controlar o fluxo do programa como uma ideia básica da ciência da computação que foi quase esquecida; mas ele espera que esteja pronto para ser redescoberto a qualquer momento. É a chave para a eficiência de todos os melhores compiladores que estudei.
-> 
+>
 > — Donald Knuth, Structured Programming with go to Statements
 
 Multiway branching é um construto da programação que permite que o **fluxo de controle de um programa seja direcionado para um dos vários resultados possíveis**, com base no valor de uma expressão, aquilo que conhecemos como **selection statements** — `switch`, `if`, `match` — mas que podemos substituir por técnicas mais eficientes como jump table.
@@ -369,10 +369,10 @@ No exemplo abaixo de um Assembly de um Microcontroller de 8-bit PIC, temos uma d
 
 ```bash
  table
-     goto    index_zero
-     goto    index_one
-     goto    index_two
-     goto    index_three
+    goto    index_zero
+    goto    index_one
+    goto    index_two
+    goto    index_three
 ```
 
 Adicionalmente, nesse outro exemplo temos uma jump table com `goto`. Mas como você pode notar, temos alguns operadores diferentes; a expressão toda declara um array de ponteiros para **labels**; as labels `Case1`, `Case2` e `Case3` são endereços de pontos específicos no código (**labels**) e o operador `&&` é uma extensão do GCC que permite **obter o endereço de uma label**.
@@ -385,21 +385,21 @@ void func2(void) { printf("two\n"); }
 void func1(void) { printf("one\n"); }
 
 int main() {
-    int index = 2;
-    void (*branchTable[])(void) = {&&Case1, &&Case2, &&Case3};
-    goto *branchTable[index];
+  int index = 2;
+  void (*branchTable[])(void) = {&&Case1, &&Case2, &&Case3};
+  goto *branchTable[index];
 
 Case1:
-    func1();
-    return 0;
+  func1();
+  return 0;
 
 Case2:
-    func2();
-    return 0;
+  func2();
+  return 0;
 
 Case3:
-    func3();
-    return 0;
+  func3();
+  return 0;
 }
 ```
 
@@ -425,3 +425,4 @@ Se você encontrar algum erro ou tiver alguma dúvida, sinta-se à vontade para 
 - [Function Dispatch Tables in C](https://blog.alicegoldfuss.com/function-dispatch-tables/)
 - [Multiway branch](https://www.wikiwand.com/en/Multiway_branch)
 - [Optimizing large jump tables for switch statements](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=11823)
+</Chunk>

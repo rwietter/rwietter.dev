@@ -6,9 +6,9 @@ import Providers from './providers'
 
 import styles from './styles.module.css'
 
+import '../../styles/page-shadow.css'
 import '../../styles/styles.css'
 import '../../styles/theme.css'
-
 
 export default function RootLayout({
   children,
@@ -22,7 +22,7 @@ export default function RootLayout({
       </head>
       <body>
         <div className={styles.main}>
-          <div id='dynamic-shadows' />
+          <div id='over-shadow' />
           <Providers>
             <Header />
             <main className={styles.layout}>{children}</main>
