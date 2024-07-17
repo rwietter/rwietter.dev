@@ -9,7 +9,6 @@ import { serialize } from 'next-mdx-remote/serialize'
 import dynamic from 'next/dynamic'
 import fs from 'node:fs'
 import path from 'node:path'
-import { PerformanceObserver, performance } from 'node:perf_hooks'
 import { Worker } from 'node:worker_threads'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypeKatex from 'rehype-katex'
@@ -19,15 +18,6 @@ import remarkMath from 'remark-math'
 import { getReadingTime } from 'utils/getTimeReading'
 
 const ArticleFooter = dynamic(() => import('@/domains/article/footer'))
-
-const obs = new PerformanceObserver((items) => {
-  // biome-ignore lint/complexity/noForEach: <explanation>
-  items.getEntries().forEach((entry) => {
-    console.log(`${entry.name}: ${entry.duration}ms`)
-  })
-  performance.clearMarks()
-})
-obs.observe({ entryTypes: ['measure'] })
 
 type PagePropTypes = {
   params: { slug: string }
