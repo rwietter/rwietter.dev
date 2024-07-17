@@ -1,7 +1,4 @@
-'use client'
 import Link from 'next/link'
-import { memo } from 'react'
-import { useTranslation } from 'react-i18next'
 import { AiOutlineArrowLeft, AiOutlineCalendar } from 'react-icons/ai'
 import { RiTimer2Line } from 'react-icons/ri'
 import { getLocaleDate } from 'utils/get-locale-date'
@@ -10,23 +7,12 @@ import type { Post } from '@/types/Post'
 
 import styles from './styles.module.css'
 
-interface ArticleHeaderPropTypes extends Post { }
-
-type Langs = {
-  [key: string]: string
-}
-
-const langs: Langs = {
-  en: 'en-US',
-  pt: 'pt-BR',
-}
+interface ArticleHeaderPropTypes extends Post {}
 
 const ArticleHeader: React.FC<ArticleHeaderPropTypes> = (props) => {
-  const { t, i18n } = useTranslation()
-
   const { localeDate: publishedAt } = getLocaleDate(
     props.frontmatter.publishedAt,
-    langs[i18n.language],
+    'en-US',
   )
 
   return (
@@ -40,7 +26,7 @@ const ArticleHeader: React.FC<ArticleHeaderPropTypes> = (props) => {
               aria-label='Back to overview'
             >
               <AiOutlineArrowLeft size={19} aria-hidden='true' />
-              <p>{t('backToOverview')}</p>
+              <p>Back to overview</p>
             </button>
           </Link>
           <p className={styles.dateTimeRead}>
@@ -61,4 +47,4 @@ const ArticleHeader: React.FC<ArticleHeaderPropTypes> = (props) => {
   )
 }
 
-export default memo(ArticleHeader)
+export default ArticleHeader

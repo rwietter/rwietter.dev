@@ -4,6 +4,12 @@
   align-self: center;
 }
 
+@media(max-width: 568px) {
+  :where(.success, .warning, .error, .info, .messager) svg {
+    display: none;
+  }
+}
+
 :where(.success, .warning, .error, .info, .messager) p {
   /* Override margin-bottom of the article p */
   margin-bottom: 0 !important;
@@ -20,8 +26,19 @@
   color: var(--text-color);
   display: grid;
   transition: var(--transition-primary);
-  grid-template-columns: 30px 1fr;
+  grid-template-columns: 1fr;
   gap: 1em;
+}
+
+@media(min-width: 568px) {
+
+  .success,
+  .warning,
+  .error,
+  .info,
+  .messager {
+    grid-template-columns: 30px 1fr;
+  }
 }
 
 .success {

@@ -58,7 +58,7 @@ Suponha que, **hipoteticamente**, que exista um `switch` com $15$ `cases` e ele 
 
 ```c
 int main() {
-    for (int i = 0; i <Chunk 3; i++) {
+    for (int i = 0; i < 3; i++) {
         switch (i) {
         case 0:
             printf("Executing Case 1\n");
@@ -105,9 +105,13 @@ Em suma, isso resulta em [ciclos de clock](https://en.wikipedia.org/wiki/Clock_r
 
 Voltando ao tópico principal, de que forma podemos tornar uma sequência de condicionais em um acesso direto ? Precisamos de uma estrutura de dados que nos de acesso direto ao valor ou endereço; para isso temos os *arrays* e as *dictionaries*, podemos acessar o *array* pelo *index* ou em um *dictionary* por sua *key*.
 
-> Array: um conjunto de itens acessíveis aleatoriamente por números inteiros, o índice.
+<Info>
+Um Array é um conjunto de itens acessíveis por números inteiros, o índice.
+</Info>
 
-> Dictionary: um tipo de dados abstrato que armazena itens ou valores. Um valor é acessado por uma chave associada. As operações básicas são new, insert, find e delete.
+<Info>
+Um Dictionary (Dicionário) é um tipo de estrutura dados abstrata que armazena itens ou valores. Um valor é acessado por uma chave associada. As operações básicas são new, insert, find e delete.
+</Info>
 
 Os dicionários utilizam funções hash, que em casos de colisão de hash vem a ter uma complexidade $\mathcal{O}(n)$. Você encontrará exemplos na internet de jump tables com *dicionaries*, mas usualmente é implementada por compiladores por meio de arrays.
 

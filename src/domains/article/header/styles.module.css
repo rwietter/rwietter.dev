@@ -37,7 +37,7 @@
   all: unset;
   display: flex;
   align-items: center;
-  padding: 0.1em;
+  padding: 0.3em 0;
   font-family: var(--font-primary), monospace;
   color: var(--text-gray-color);
   border: none;
@@ -68,7 +68,7 @@
 .dateTimeRead {
   --fluid-type-max: 1rem;
   display: flex;
-  padding: 0.1em;
+  padding: 0.4em 0;
   align-items: center;
   font-family: var(--font-primary);
   color: var(--text-gray-color);
@@ -82,6 +82,7 @@
 /* articleTitle */
 .articleTitle {
   --fluid-type-max: 3rem;
+  --fluid-type-target: 7vw;
   --fluid-type-min: 1.3rem;
   font-family: var(--font-secondary);
   padding-top: 0.5em;
@@ -101,8 +102,8 @@
 /* articleDescription */
 .articleDescription {
   --fluid-type-max: 1.3rem;
-  --fluid-type-target: 2vw;
-  font-family: var(--font-primary), monospace;
+  --fluid-type-target: 4vw;
+  font-family: var(--font-primary);
   font-weight: 400;
   line-height: 1.6em;
   padding: 0.8rem 0;
