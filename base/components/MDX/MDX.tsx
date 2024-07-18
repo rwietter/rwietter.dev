@@ -31,7 +31,7 @@ const components = {
 }
 
 const MDX: FC<ArticleData> = ({ mdxSource }) => {
-  return <MDXRemote {...mdxSource} components={components} />
+  return <MDXRemote {...mdxSource} components={components} lazy />
 }
 
 export { MDX }

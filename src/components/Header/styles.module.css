@@ -35,7 +35,7 @@
   transition: var(--transition-primary);
   --fluid-type-min: 1rem;
   --fluid-type-max: 1.5rem;
-  --fluid-type-target: 4vw;
+  --fluid-type-target: 3vw;
 }
 
 @media screen and (min-width: 620px) {

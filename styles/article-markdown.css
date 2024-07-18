@@ -213,14 +213,14 @@ article table tr:nth-child(2n) {
 }
 
 article pre code {
-  padding: 2em;
   white-space: pre;
+  padding: 1em;
   border-radius: 8px;
   -moz-tab-size: 2;
   -o-tab-size: 2;
   tab-size: 2;
-  --fluid-type-max: 1rem;
-  --fluid-type-min: 0.8rem;
+  --fluid-type-max: 1.1rem;
+  --fluid-type-min: 0.9rem;
   --fluid-type-target: 1vw;
 }
 
@@ -305,31 +305,59 @@ article mark[data-chars-id] {
   border-radius: 0.3em;
 }
 
-article mark[data-chars-id="s"] {
-  background: #52371B;
-  border-bottom: 1px solid #FDCB33;
+article mark[data-chars-id="y"] {
+  background: #854d0e80;
+  border-bottom: 1px solid rgb(202 138 4);
 }
 
-article mark[data-chars-id="s"] span {
-  color: #FDCB33;
+article mark[data-chars-id="y"] span {
+  color: rgb(253 224 71);
 }
 
-article mark[data-chars-id="v"] {
-  background: #5F1931;
-  border-bottom: 1px solid #D798CF;
+article mark[data-chars-id="r"] {
+  background: #9f123980;
+  border-bottom: 1px solid rgb(219 39 119);
 }
 
-article mark[data-chars-id="v"] span {
-  color: #D798CF;
+article mark[data-chars-id="r"] span {
+  color: rgb(249 168 212);
 }
 
-article mark[data-chars-id="i"] {
-  background: #452168;
-  border-bottom: 1px solid #C0A9DA;
+article mark[data-chars-id="b"] {
+  background: #6b21a880;
+  border-bottom: 1px solid rgb(147 51 234);
 }
 
-article mark[data-chars-id="i"] span {
-  color: #C0A9DA;
+article mark[data-chars-id="b"] span {
+  color: rgb(233 213 255);
+}
+
+article mark[data-chars-id="g"] {
+  background: #0f9d5880;
+  border-bottom: 1px solid rgb(16 185 129);
+}
+
+article mark[data-chars-id="g"] span {
+  color: rgb(0 255 191);
+}
+
+/*
+  ---------------------------------------
+  Highlight lines
+  ---------------------------------------
+*/
+article code span[data-highlighted-line] {
+  background: #c8c8ff1a;
+  /* border-bottom: 1px solid var(--highlighted-line-border); */
+}
+
+/*
+  ---------------------------------------
+  Highlight lines
+  ---------------------------------------
+*/
+article figure[data-rehype-pretty-code-figure] {
+  margin: 2em 0;
 }
 
 /*

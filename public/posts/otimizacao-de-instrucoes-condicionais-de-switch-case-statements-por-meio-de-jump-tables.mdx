@@ -25,7 +25,7 @@ Neste artigo, exploraremos o que são jump tables, como elas funcionam e por que
 Vamos começar por uma instrução `switch/case` para compreender porquê jump tables são aplicadas.
 
 No código mais simples possível em **C**, criamos um `switch/case`; o `scanf` permite ler o *prompt* e atribuir o valor por referência para a variável `choice`. A seguir, nosso `switch` vai, dentre os casos, condicionalmente verificar qual `case` é igual a variável `choice` e executar o bloco de código que for verdadeiro e parar por conta do `break`; em último caso se não corresponder a nenhum `case`, irá bater no `default` e executar as instruções e parar.
-
+<Chunk>
 ```c
 int main() {
     int choice;
@@ -49,7 +49,7 @@ int main() {
     return 0;
 }
 ```
-<Chunk>
+
 Então você pode estar se perguntando, porque isso tem problemas de desempenho ? Não é algo constante ?
 
 De fato, é uma operação constante mas que depende do número de `cases`, que é conhecido em tempo de compilação. Mas o problema entra quando temos muitos `cases` — perceba que cada condição do `switch` vai ser avaliada — até encontrar um `break`. Não é algo que produziria um estrangulamento de desempenho, mas pode tomar alguns ciclos de CPU dependendo do contexto.
@@ -379,11 +379,11 @@ No exemplo abaixo de um Assembly de um Microcontroller de 8-bit PIC, temos uma d
     goto    index_three
 ```
 
-Adicionalmente, nesse outro exemplo temos uma jump table com `goto`. Mas como você pode notar, temos alguns operadores diferentes; a expressão toda declara um array de ponteiros para **labels**; as labels `Case1`, `Case2` e `Case3` são endereços de pontos específicos no código (**labels**) e o operador `&&` é uma extensão do GCC que permite **obter o endereço de uma label**.
+Adicionalmente, no exemplo seguinte temos uma branch table com `goto`. Mas como você pode notar, temos alguns operadores diferentes; a expressão toda declara um array de ponteiros para **labels**; as labels `Case1`, `Case2` e `Case3` são endereços de pontos específicos no código (**labels**) e o operador `&&` é uma extensão do GCC que permite **obter o endereço de uma label**.
 
 A expressão `goto *branchTable[index]` tem algumas particularidades que vem da extensão "**Computed Goto**". A primeira é que pode-se **colocar endereços de labels em void**, essencialmente, `void* label_address = &&Somelabel`. A segunda é **invocar goto em uma expressão variável** em vez de uma label conhecida em tempo de compilação, ou seja, `goto *branchTable[index]`; isso então irá saltar para esta label.
 
-```c
+```c  showLineNumbers {3, 11}#b {2,15}#b {1,19} /Case1/#y /Case2/#r /Case3/#b /&&/#g /goto *branchTable[index]/#g
 void func3(void) { printf("three\n"); }
 void func2(void) { printf("two\n"); }
 void func1(void) { printf("one\n"); }
