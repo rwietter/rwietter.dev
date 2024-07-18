@@ -2,7 +2,6 @@ import Microblog from '@/domains/microblog/Microblog'
 import { getMdxSource } from '@/lib/serializeMdx'
 import { WorkerThread } from '@/lib/worker'
 import type { MDXSerialized } from '@/types/MDX'
-import graymatter from 'gray-matter'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 
@@ -45,8 +44,7 @@ async function getData(): Promise<Data> {
       filePath,
     )
 
-    const { content } = graymatter(file)
-    const mdxSource = await getMdxSource(content)
+    const mdxSource = await getMdxSource(file)
 
     return {
       content: mdxSource,
