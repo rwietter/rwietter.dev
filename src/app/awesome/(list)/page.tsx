@@ -10,35 +10,24 @@ const getData = async () => {
   try {
     const files = fs.readdirSync(path.join(process.cwd(), 'public', 'awesome'))
 
-    const posts = await Promise.all(
-      files.map(async (file) => {
-        const source = fs.readFileSync(
-          path.join(process.cwd(), 'public', 'awesome', file),
-          'utf8',
-        )
-
-        const { data, content } = matter(source)
-
-        return {
-          frontmatter: data,
-          slug: data?.slug,
-          content,
-        }
-      }),
-    )
-
-    const awesomeListsByPublishedDate = posts.sort(
-      (a, b) =>
-        -new Date(a.frontmatter?.publishedAt) -
-        -new Date(b.frontmatter?.publishedAt),
-    )
+    const posts = files.map((file) => {
+      const content = fs.readFileSync(
+        path.join(process.cwd(), 'public', 'awesome', file),
+        'utf8',
+      )
+      const { data } = matter(content)
+      return {
+        frontmatter: data,
+        slug: data?.slug,
+      }
+    })
 
     return {
-      awesome: awesomeListsByPublishedDate,
+      awesome: posts,
     }
   } catch (error) {
     return {
-      awesome: [],
+      error: error as Error,
     }
   }
 }
@@ -71,6 +60,11 @@ const jsonLd = {
 
 const Page = async () => {
   const data = await getData()
+
+  if ('error' in data) {
+    return <p>Sorry, there was an error loading the awesome lists.</p>
+  }
+
   return (
     <>
       <script
@@ -81,7 +75,7 @@ const Page = async () => {
       <section className={styles.container}>
         <h1 className={styles.title}>Awesome Lists</h1>
         <ul className={styles.list}>
-          {data.awesome.map((list) => (
+          {data?.awesome.map((list) => (
             <Link
               href={`/awesome/${list.slug}`}
               key={list.slug}

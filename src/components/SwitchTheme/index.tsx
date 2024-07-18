@@ -1,6 +1,5 @@
 'use client'
 
-import { type FC, useEffect, useRef } from 'react'
 import { MdSunny } from 'react-icons/md'
 import styles from './styles.module.css'
 
@@ -8,51 +7,47 @@ interface Props {
   visible: 'header' | 'sticky'
 }
 
-const updateTheme = () => {
-  const theme = localStorage.getItem('theme') || ''
-  const html = document.querySelector('html')
-  if (!html) return
-  html.classList.value = theme
-  return
-}
-
-const storeTheme = () => {
-  const theme = document.querySelector('html')?.classList?.value || ''
-  localStorage.setItem('theme', theme)
-  return
-}
-
-const SwitchTheme: FC<Props> = ({ visible }) => {
-  const buttonRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    updateTheme()
-  }, [])
-
-  const handleSwitchTheme = () => {
-    buttonRef.current?.setAttribute('data-active', 'true')
-    document.querySelector('html')?.classList.toggle('dark')
-    storeTheme()
-
-    const timeout = setTimeout(() => {
-      buttonRef.current?.removeAttribute('data-active')
-      clearTimeout(timeout)
-    }, 500)
-    return
-  }
-
+const SwitchTheme: React.FC<Props> = ({ visible }) => {
   return (
     // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
-    <div
-      className={`${styles.theme} theme`}
-      onClick={handleSwitchTheme}
-      ref={buttonRef}
-      aria-hidden='true'
-      data-visible={visible}
-    >
+    <div className={styles.theme} onClick={switchTheme} data-visible={visible}>
       <MdSunny />
     </div>
   )
 }
 
 export default SwitchTheme
+
+function saveTheme() {
+  if (document.documentElement.classList.contains('dark')) {
+    localStorage.setItem('theme', 'dark')
+    notifyTheme('dark')
+    return
+  }
+  notifyTheme('light')
+  localStorage.setItem('theme', 'light')
+}
+
+function switchTheme() {
+  document.documentElement.classList.toggle('dark')
+  saveTheme()
+}
+
+function notifyTheme(theme: string) {
+  if (!('Notification' in window)) {
+    return
+  }
+
+  if (Notification.permission === 'granted') {
+    new Notification(`Theme set to ${theme}`)
+    return
+  }
+
+  if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then((permission) => {
+      if (permission === 'granted') {
+        new Notification(`Theme set to ${theme}`)
+      }
+    })
+  }
+}

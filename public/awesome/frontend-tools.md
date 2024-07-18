@@ -18,6 +18,7 @@ This is a list of tools that are useful for frontend development.
 ## Front UI and Tools
 - [One line layouts](https://web.dev/one-line-layouts/)
 - [Glassmorphism CSS Generator](https://ui.glass/generator/)
+- [Web Platform Experimental Tests](https://results.web-platform-tests.org/results/css?label=experimental&label=master&aligned)
 - [Landing Animations](https://www.landing.love/)
 - [JSON Visio Graph](https://jsonvisio.com/editor)
 - [SVG to Content URL](https://yoksel.github.io/url-encoder/)
@@ -37,6 +38,9 @@ This is a list of tools that are useful for frontend development.
 - [Paletton](http://paletton.com/#uid=14i0u0kcflZ0HBQ5yqUkTizCch6)
 - [svg path editor](https://yqnn.github.io/svg-path-editor/)
 - [Floating UI](https://floating-ui.com/)
+
+## New CSS Features
+- [text-box-trim](https://www.webfromthefuture.com/features/text-box-trim)
 
 ## Backend Tools
 - [Prisma GPT](https://gpt.howtoprisma.com/)

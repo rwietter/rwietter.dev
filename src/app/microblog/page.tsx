@@ -1,9 +1,11 @@
-import Microblog from '@/domains/microblog/Microblog'
 import { getMdxSource } from '@/lib/serializeMdx'
 import { WorkerThread } from '@/lib/worker'
-import type { MDXSerialized } from '@/types/MDX'
+import dynamic from 'next/dynamic'
 import fs from 'node:fs/promises'
 import path from 'node:path'
+import { workerPath } from 'utils/workerPath'
+
+const Microblog = dynamic(() => import('@/domains/microblog/Microblog'))
 
 const Page: React.FC = async () => {
   const data = await getData()
@@ -21,13 +23,8 @@ const Page: React.FC = async () => {
 
 export default Page
 
-type Data =
-  | {
-      content: MDXSerialized
-    }
-  | { error: Error }
-
-async function getData(): Promise<Data> {
+async function getData() {
+  const worker = new WorkerThread()
   try {
     const [mainEntityOfPage] = await fs.readdir(
       path.join(process.cwd(), 'public', 'microblog'),
@@ -39,7 +36,7 @@ async function getData(): Promise<Data> {
       `${mainEntityOfPage}`,
     )
 
-    const file = await new WorkerThread().runWorker<string>(
+    const file = await worker.runWorker<string>(
       workerPath('fileReaderWorker.js'),
       filePath,
     )
@@ -51,12 +48,9 @@ async function getData(): Promise<Data> {
     }
   } catch (err) {
     console.error(`[${process.cwd()}src/app/microblog]`, err)
+    worker.terminate()
     return {
       error: err as Error,
     }
   }
-}
-
-function workerPath(workerName: string) {
-  return path.join(process.cwd(), 'public', 'workers', `${workerName}`)
 }

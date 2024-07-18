@@ -12,7 +12,7 @@ type ArticlePropTypes = {
 const ArticleContent: FC<ArticlePropTypes> = ({ mdxSource }) => {
   return (
     <div className={styles.articleContainer}>
-      <article className={styles.articleMarkdown}>
+      <article className={`${styles.articleMarkdown} blogpost`}>
         <MDX mdxSource={mdxSource} />
       </article>
     </div>

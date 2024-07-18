@@ -1,3 +1,4 @@
+import { WorkerThread } from '@/lib/worker'
 import matter from 'gray-matter'
 import type { Metadata } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
@@ -5,23 +6,81 @@ import fs from 'node:fs'
 import path from 'node:path'
 import rehypeExternalLinks from 'rehype-external-links'
 import { makeSeo } from 'src/components/SEO/makeSeo'
-import styles from 'src/domains/awesome/list/styles.module.css'
-import Mdx from './Mdx'
+import { workerPath } from 'utils/workerPath'
+
+import MDX from '@/base/components/MDX'
+import styles from '@/domains/awesome/list/styles.module.css'
 
 type PageProps = {
   params: { slug: string }
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
-async function getData(slug: string) {
-  try {
-    let file = ''
+const Page = async (props: PageProps) => {
+  const { slug } = props.params
+  const { data } = await getData(slug)
 
+  if (!data.frontmatter) {
+    return
+  }
+
+  const { content, frontmatter } = data
+
+  const mdxSource = await serialize(content, {
+    mdxOptions: {
+      rehypePlugins: [[rehypeExternalLinks, { target: '_blank' }]],
+    },
+  })
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id:': 'https://rwietter.dev',
+    },
+    headline: data.frontmatter.title,
+    author: 'Maurício Witter',
+    articleBody: content,
+    backstory: frontmatter.description,
+    license: 'CC-BY-SA-4.0',
+    url: `https://rwietter.dev/blog/article/${slug}`,
+    text: frontmatter.description,
+    keywords: 'article, blog, rwietter, web development, programming, tech',
+    image: frontmatter.image,
+    datePublished: frontmatter.publishedAt,
+    dateModified: frontmatter.updatedAt,
+  }
+
+  return (
+    <>
+      <script
+        type='application/ld+json'
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <article className={`${styles.container} awesome`}>
+        <MDX mdxSource={mdxSource} />
+      </article>
+    </>
+  )
+}
+
+export default Page
+
+async function getData(slug: string) {
+  const worker = new WorkerThread()
+  try {
     const filepath = path.join(process.cwd(), 'public', 'awesome', `${slug}.md`)
 
-    if (fs.existsSync(filepath)) {
-      file = fs.readFileSync(filepath, 'utf8')
+    if (!fs.existsSync(filepath)) {
+      return { data: { error: new Error('File not found') } }
     }
+
+    const file = await worker.runWorker(
+      workerPath('fileReaderWorker.js'),
+      filepath,
+    )
 
     const { content, data } = matter(file)
 
@@ -34,10 +93,11 @@ async function getData(slug: string) {
       },
     }
   } catch (error) {
+    console.error('[awesome/(list)/[slug]/page.tsx]', error)
+    worker.terminate()
     return {
       data: {
-        content: '',
-        frontmatter: {},
+        error,
       },
     }
   }
@@ -73,57 +133,3 @@ export async function generateMetadata({
 
   return seo
 }
-
-export const revalidate = 60
-
-const Page = async (props: PageProps) => {
-  const { slug } = props.params
-  const { data } = await getData(slug)
-
-  if (!data.frontmatter) {
-    return
-  }
-
-  const { content, frontmatter } = data
-
-  const mdxSource = await serialize(content, {
-    mdxOptions: {
-      rehypePlugins: [[rehypeExternalLinks, { target: '_blank' }]]
-    },
-  })
-
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id:': 'https://rwietter.dev',
-    },
-    headline: data.frontmatter.title,
-    author: 'Maurício Witter',
-    articleBody: content,
-    backstory: frontmatter.description,
-    license: 'CC-BY-SA-4.0',
-    url: `https://rwietter.dev/blog/article/${slug}`,
-    text: frontmatter.description,
-    keywords: 'article, blog, rwietter, web development, programming, tech',
-    image: frontmatter.image,
-    datePublished: frontmatter.publishedAt,
-    dateModified: frontmatter.updatedAt,
-  }
-
-  return (
-    <>
-      <script
-        type='application/ld+json'
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <section className={styles.container}>
-        <Mdx mdxSource={mdxSource} />
-      </section>
-    </>
-  )
-}
-
-export default Page

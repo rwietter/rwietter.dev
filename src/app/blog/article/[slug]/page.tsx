@@ -10,8 +10,8 @@ import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import fs from 'node:fs'
 import path from 'node:path'
-import { Worker } from 'node:worker_threads'
 import { getReadingTime } from 'utils/getTimeReading'
+import { workerPath } from 'utils/workerPath'
 
 const ArticleFooter = dynamic(() => import('@/domains/article/footer'))
 
@@ -73,6 +73,7 @@ const Page = async (props: PagePropTypes) => {
 export default Page
 
 async function getData(slug: string): Promise<{ data: Post | null }> {
+  const worker = new WorkerThread()
   try {
     const filepath = path.join(process.cwd(), 'public', 'posts', `${slug}.mdx`)
 
@@ -80,7 +81,7 @@ async function getData(slug: string): Promise<{ data: Post | null }> {
       return { data: null }
     }
 
-    const file = await new WorkerThread().runWorker(
+    const file = await worker.runWorker(
       workerPath('fileReaderWorker.js'),
       filepath,
     )
@@ -99,6 +100,7 @@ async function getData(slug: string): Promise<{ data: Post | null }> {
     }
   } catch (error) {
     console.error(`${process.cwd()}/public/posts/${slug}.mdx`, error)
+    worker.terminate()
     return {
       data: null,
     }
@@ -136,25 +138,4 @@ export async function generateMetadata({
   })
 
   return seo
-}
-
-function runWorker(workerPath: string, workerData: string): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const worker = new Worker(workerPath, {
-      workerData,
-    })
-    worker.on('message', resolve)
-    worker.on('error', (error) => {
-      console.error('Worker error:', error)
-      reject(error)
-    })
-    worker.on('messageerror', reject)
-    worker.on('exit', (code) => {
-      if (code !== 0) reject(new Error(`Worker stopped with exit code ${code}`))
-    })
-  })
-}
-
-function workerPath(workerName: string) {
-  return path.join(process.cwd(), 'public', 'workers', `${workerName}`)
 }

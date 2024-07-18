@@ -1,0 +1,13 @@
+article .wrapper {
+  padding: 1rem 0;
+}
+
+article .title {
+  --fluid-type-min: 1.2rem;
+  --fluid-type-max: 2rem;
+  --fluid-type-target: 4vw;
+  font-family: monospace;
+  font-weight: 500;
+  text-transform: capitalize;
+  padding-bottom: 1em;
+}

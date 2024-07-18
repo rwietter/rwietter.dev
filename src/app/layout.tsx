@@ -39,6 +39,16 @@ export default function RootLayout({
 function DocumentStuff() {
   return (
     <>
+      <Script id='theme-script' strategy='beforeInteractive'>
+        {`
+          (function() {
+            const userPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const savedTheme = localStorage.getItem('theme');
+            const theme = savedTheme || (userPrefersDark ? 'dark' : 'light');
+            document.documentElement.className = theme;
+          })();
+        `}
+      </Script>
       <Script
         defer
         src='https://cloud.umami.is/script.js'

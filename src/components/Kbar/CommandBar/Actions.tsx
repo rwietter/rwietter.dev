@@ -4,13 +4,13 @@ import type { Action as KBarAction } from 'kbar'
 import { useRouter } from 'next/navigation'
 import { BiCodeCurly } from 'react-icons/bi'
 import { CiLink } from 'react-icons/ci'
+import { FaFontAwesomeFlag } from 'react-icons/fa'
 import { MdOutlineAlternateEmail } from 'react-icons/md'
 import { RiHome3Line } from 'react-icons/ri'
-import { RxPerson } from 'react-icons/rx'
 import { SiSubstack } from 'react-icons/si'
 import { SlHeart, SlSocialGithub, SlSocialTwitter } from 'react-icons/sl'
 import { TbBrandTelegram } from 'react-icons/tb'
-import { FaFontAwesomeFlag } from 'react-icons/fa'
+import { PiCherriesThin } from 'react-icons/pi'
 
 const Actions = () => {
   const router = useRouter()
@@ -66,13 +66,13 @@ const Actions = () => {
       icon: <FaFontAwesomeFlag size={16} color='var(--colors-gray50)' />,
     },
     {
-      id: 'About',
-      name: 'About',
-      shortcut: ['t'],
-      keywords: 'page-about',
+      id: 'Microblog',
+      name: 'Microblog',
+      shortcut: ['m'],
+      keywords: 'microblog',
       section: 'Pages',
-      perform: () => router.push('/about'),
-      icon: <RxPerson size={18} color='var(--colors-gray50)' />,
+      perform: () => router.push('/microblog'),
+      icon: <PiCherriesThin size={18} color='var(--colors-gray50)' />,
     },
     {
       id: 'Projects',

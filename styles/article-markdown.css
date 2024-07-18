@@ -1,4 +1,4 @@
-article :where(h1, h2, h3, h4, h5, h6) {
+.blogpost :where(h1, h2, h3, h4, h5, h6) {
   font-weight: 600;
   margin-top: 40px;
   margin-bottom: 16px;
@@ -7,21 +7,21 @@ article :where(h1, h2, h3, h4, h5, h6) {
   font-family: var(--font-secondary);
 }
 
-article :where(table, tr, th, td, tbody, thead) {
+.blogpost :where(table, tr, th, td, tbody, thead) {
   transition: var(--transition-primary);
 }
 
-article a {
+.blogpost a {
   background: transparent;
   color: var(--main-color);
   text-decoration: underline;
 }
 
-article :where(b, strong) {
+.blogpost :where(b, strong) {
   font-weight: 800 !important;
 }
 
-article img {
+.blogpost img {
   border-style: none;
   max-width: 100%;
   margin: 1em 0;
@@ -29,7 +29,7 @@ article img {
   background: var(--bg-color);
 }
 
-article hr {
+.blogpost hr {
   height: 0.2em;
   margin: 24px 0;
   transition: var(--transition-primary);
@@ -37,63 +37,63 @@ article hr {
   border: 0;
 }
 
-article h1 {
+.blogpost h1 {
   font-weight: 600;
   --fluid-type-min: 1.3rem;
   --fluid-type-max: 2.3rem;
   --fluid-type-target: 4vw;
 }
 
-article h2 {
+.blogpost h2 {
   font-weight: 600;
   --fluid-type-min: 1.2rem;
   --fluid-type-max: 2.1rem;
   --fluid-type-target: 4vw;
 }
 
-article h3 {
+.blogpost h3 {
   font-weight: 500;
   --fluid-type-min: 1.1rem;
   --fluid-type-max: 1.8rem;
   --fluid-type-target: 4vw;
 }
 
-article h4 {
+.blogpost h4 {
   font-weight: 500;
   --fluid-type-min: 1rem;
   --fluid-type-max: 1.5rem;
   --fluid-type-target: 4vw;
 }
 
-article h5 {
+.blogpost h5 {
   font-weight: 400;
   --fluid-type-min: 0.9rem;
   --fluid-type-max: 1.3rem;
   --fluid-type-target: 4vw;
 }
 
-article h6 {
+.blogpost h6 {
   font-weight: 400;
   --fluid-type-min: 0.8rem;
   --fluid-type-max: 1.1rem;
   --fluid-type-target: 4vw;
 }
 
-article p {
+.blogpost p {
   margin-top: 0;
   margin-bottom: 10px;
 }
 
 @media (min-width: 1200px) {
 
-  article p,
-  article li {
+  .blogpost p,
+  .blogpost li {
     text-align: justify;
     hyphens: auto;
   }
 }
 
-article blockquote {
+.blogpost blockquote {
   margin: 2em 0 !important;
   padding: 0 2em;
   color: var(--text-gray-color);
@@ -104,7 +104,7 @@ article blockquote {
   --fluid-type-max: 0.9rem;
 }
 
-article blockquote p {
+.blogpost blockquote p {
   font-family: var(--font-secondary);
   font-weight: 400;
   font-style: italic;
@@ -116,12 +116,12 @@ article blockquote p {
 }
 
 @media (min-width: 768px) {
-  article blockquote p {
+  .blogpost blockquote p {
     padding: 1em;
   }
 }
 
-article blockquote::before {
+.blogpost blockquote::before {
   content: "";
   position: absolute;
   width: 3px;
@@ -134,15 +134,15 @@ article blockquote::before {
   color: var(--text-color);
 }
 
-article p code {
+.blogpost p code {
   background: var(--neutral) !important;
   padding: 0.02em 0.2em;
   border-radius: 0.3em;
   --fluid-type-max: 1rem;
 }
 
-article p em,
-article p i {
+.blogpost p em,
+.blogpost p i {
   font-family: var(--font-secondary);
   font-style: italic;
   text-decoration: underline;
@@ -150,14 +150,14 @@ article p i {
   font-weight: 500;
 }
 
-article blockquote p code {
+.blogpost blockquote p code {
   font-family: var(--font-primary);
   background: var(--neutral);
   font-weight: 400;
   padding: 0.1em 0.3em;
 }
 
-article pre {
+.blogpost pre {
   margin-top: 0;
   margin: 1.5em 0;
   font-family: var(--font-code);
@@ -165,11 +165,11 @@ article pre {
   font-size: 12px;
 }
 
-article li+li {
+.blogpost li+li {
   margin-top: 0.25em;
 }
 
-article table {
+.blogpost table {
   border-collapse: collapse;
   max-width: 100%;
   width: 100%;
@@ -181,20 +181,20 @@ article table {
   background: var(--bg-color);
 }
 
-article table thead {
+.blogpost table thead {
   display: table;
   position: relative;
   width: 100%;
 }
 
-article tbody {
+.blogpost tbody {
   display: table;
   position: relative;
   width: 100%;
 }
 
-article table th,
-article table td {
+.blogpost table th,
+.blogpost table td {
   padding: 6px 13px;
   font-family: var(--font-secondary);
   color: var(--text-color);
@@ -202,17 +202,17 @@ article table td {
   border: 1px solid var(--sub-alt-color);
 }
 
-article table tr {
+.blogpost table tr {
   background: var(--bg-color);
   transition: var(--transition-primary);
   border-top: 1px solid var(--sub-alt-color);
 }
 
-article table tr:nth-child(2n) {
+.blogpost table tr:nth-child(2n) {
   background: var(--bg-alt-color);
 }
 
-article pre code {
+.blogpost pre code {
   white-space: pre;
   padding: 1em;
   border-radius: 8px;
@@ -224,7 +224,7 @@ article pre code {
   --fluid-type-target: 1vw;
 }
 
-article figure pre code span {
+.blogpost figure pre code span {
   font-family: var(--font-code);
   line-height: 1.8;
   font-weight: 400;
@@ -237,33 +237,33 @@ article figure pre code span {
   List replace marker
   ---------------------------------------
 */
-article ul {
+.blogpost ul {
   padding-left: 0;
 }
 
-article ul li {
+.blogpost ul li {
   list-style: none;
   padding: 0;
 }
 
-article ul li {
+.blogpost ul li {
   position: relative;
   padding-left: 28px;
 }
 
-article ul li::before {
+.blogpost ul li::before {
   content: "—";
   filter: invert(50%);
   position: absolute;
   left: 0;
 }
 
-article ol {
+.blogpost ol {
   margin-left: 28px;
   padding: 1.8em 0;
 }
 
-article ol li::marker {
+.blogpost ol li::marker {
   color: var(--main-color);
   font-weight: 800;
   font-family: var(--font-secondary);
@@ -300,44 +300,44 @@ html code span {
   ---------------------------------------
 */
 
-article mark[data-chars-id] {
+.blogpost mark[data-chars-id] {
   padding: 0.2em;
   border-radius: 0.3em;
 }
 
-article mark[data-chars-id="y"] {
+.blogpost mark[data-chars-id="y"] {
   background: #854d0e80;
   border-bottom: 1px solid rgb(202 138 4);
 }
 
-article mark[data-chars-id="y"] span {
+.blogpost mark[data-chars-id="y"] span {
   color: rgb(253 224 71);
 }
 
-article mark[data-chars-id="r"] {
+.blogpost mark[data-chars-id="r"] {
   background: #9f123980;
   border-bottom: 1px solid rgb(219 39 119);
 }
 
-article mark[data-chars-id="r"] span {
+.blogpost mark[data-chars-id="r"] span {
   color: rgb(249 168 212);
 }
 
-article mark[data-chars-id="b"] {
+.blogpost mark[data-chars-id="b"] {
   background: #6b21a880;
   border-bottom: 1px solid rgb(147 51 234);
 }
 
-article mark[data-chars-id="b"] span {
+.blogpost mark[data-chars-id="b"] span {
   color: rgb(233 213 255);
 }
 
-article mark[data-chars-id="g"] {
+.blogpost mark[data-chars-id="g"] {
   background: #0f9d5880;
   border-bottom: 1px solid rgb(16 185 129);
 }
 
-article mark[data-chars-id="g"] span {
+.blogpost mark[data-chars-id="g"] span {
   color: rgb(0 255 191);
 }
 
@@ -346,7 +346,7 @@ article mark[data-chars-id="g"] span {
   Highlight lines
   ---------------------------------------
 */
-article code span[data-highlighted-line] {
+.blogpost code span[data-highlighted-line] {
   background: #c8c8ff1a;
   /* border-bottom: 1px solid var(--highlighted-line-border); */
 }
@@ -356,7 +356,7 @@ article code span[data-highlighted-line] {
   Highlight lines
   ---------------------------------------
 */
-article figure[data-rehype-pretty-code-figure] {
+.blogpost figure[data-rehype-pretty-code-figure] {
   margin: 2em 0;
 }
 

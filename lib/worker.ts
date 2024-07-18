@@ -1,23 +1,46 @@
-import { Worker } from 'node:worker_threads'
+import { Worker, type WorkerOptions } from 'node:worker_threads'
 
 export class WorkerThread {
   private worker: Worker | null = null
 
-  runWorker<T>(workerPath: string, data: T): Promise<T> {
+  public runWorker<T>(
+    workerPath: string,
+    data: T,
+    workerOptions?: WorkerOptions,
+  ): Promise<T> {
     return new Promise((resolve, reject) => {
-      const worker = new Worker(workerPath, {
+      this.worker = new Worker(workerPath, {
         workerData: data,
+        ...workerOptions,
       })
-      worker.on('message', resolve)
-      worker.on('error', (error) => {
-        console.error('Worker error:', error)
+      this.worker.on('message', (result: T) => {
+        resolve(result)
+        this.cleanup()
+      })
+      this.worker.on('error', (error: Error) => {
+        console.error('[WorkerThread Error]:', error)
         reject(error)
+        this.cleanup()
       })
-      worker.on('messageerror', reject)
-      worker.on('exit', (code) => {
-        if (code !== 0)
+      this.worker.on('exit', (code) => {
+        if (code !== 0) {
           reject(new Error(`Worker stopped with exit code ${code}`))
+        }
+        this.cleanup()
       })
     })
+  }
+  public terminate(): void {
+    if (this.worker) {
+      this.worker.terminate()
+      this.worker = null
+    }
+  }
+
+  private cleanup(): void {
+    if (this.worker) {
+      this.worker.removeAllListeners()
+      this.worker = null
+    }
   }
 }

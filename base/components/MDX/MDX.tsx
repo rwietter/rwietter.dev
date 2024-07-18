@@ -2,18 +2,16 @@
 
 import { MDXRemote, type MDXRemoteSerializeResult } from 'next-mdx-remote'
 import dynamic from 'next/dynamic'
-import type { FC } from 'react'
 
 // biome-ignore format:
-const TextHighlight = dynamic(() => import('@/base/components/TextHighlight/TextHighlight'))
+const High = dynamic(() => import('@/base/components/TextHighlight/TextHighlight'))
 // biome-ignore format:
 const Success = dynamic(() => import('@/base/components/Callouts/SuccessCallout'))
-// biome-ignore format:
-const Warning = dynamic(() => import('@/base/components/Callouts/WarningCallout'))
+const Warn = dynamic(() => import('@/base/components/Callouts/WarningCallout'))
 const Err = dynamic(() => import('@/base/components/Callouts/ErrorCallout'))
 const Info = dynamic(() => import('@/base/components/Callouts/InfoCallout'))
 // biome-ignore format:
-const Messager = dynamic(() => import('@/base/components/Callouts/MessagerCallout'))
+const Message = dynamic(() => import('@/base/components/Callouts/MessagerCallout'))
 const Chunk = dynamic(() => import('@/base/components/Chunk/Chunk'))
 const Micro = dynamic(() => import('@/base/components/MicroPost/MicroPost'))
 
@@ -22,18 +20,18 @@ interface ArticleData {
 }
 
 const components = {
-  TextHighlight,
+  High,
   Success,
-  Warning,
-  Error: Err,
+  Warn,
+  Err,
   Info,
-  Messager,
+  Message,
   Chunk,
   Micro,
 }
 
-const MDX: FC<ArticleData> = ({ mdxSource }) => {
-  return <MDXRemote {...mdxSource} components={components} lazy />
+const MDX: React.FC<ArticleData> = ({ mdxSource }) => {
+  return <MDXRemote {...mdxSource} components={components} />
 }
 
 export { MDX }
