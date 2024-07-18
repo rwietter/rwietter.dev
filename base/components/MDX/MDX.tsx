@@ -15,6 +15,7 @@ const Info = dynamic(() => import('@/base/components/Callouts/InfoCallout'))
 // biome-ignore format:
 const Messager = dynamic(() => import('@/base/components/Callouts/MessagerCallout'))
 const Chunk = dynamic(() => import('@/base/components/Chunk/Chunk'))
+const Micro = dynamic(() => import('@/base/components/MicroPost/MicroPost'))
 
 interface ArticleData {
   mdxSource: MDXRemoteSerializeResult
@@ -28,6 +29,7 @@ const components = {
   Info,
   Messager,
   Chunk,
+  Micro,
 }
 
 const MDX: FC<ArticleData> = ({ mdxSource }) => {

@@ -1,8 +1,16 @@
-const Microblog: React.FC = () => {
+import MDX from '@/base/components/MDX'
+import type { MDXSerialized } from '@/types/MDX'
+
+type MicroBlogTypeProps = {
+  data: {
+    content: MDXSerialized
+  }
+}
+
+const Microblog: React.FC<MicroBlogTypeProps> = (props) => {
   return (
     <div>
-      <h1>Microblog</h1>
-      <p>Microblog content goes here...</p>
+      <MDX mdxSource={props.data.content} />
     </div>
   )
 }

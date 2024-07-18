@@ -1,4 +1,7 @@
 import Microblog from '@/domains/microblog/Microblog'
+import { getMdxSource } from '@/lib/serializeMdx'
+import { WorkerThread } from '@/lib/worker'
+import type { MDXSerialized } from '@/types/MDX'
 import graymatter from 'gray-matter'
 import fs from 'node:fs/promises'
 import path from 'node:path'
@@ -10,37 +13,52 @@ const Page: React.FC = async () => {
     return <p>Sorry, there was an error loading the microblog posts.</p>
   }
 
-  return <Microblog />
+  return (
+    <article className='microblog'>
+      <Microblog data={data} />
+    </article>
+  )
 }
 
 export default Page
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-async function getData(): Promise<any> {
+type Data =
+  | {
+      content: MDXSerialized
+    }
+  | { error: Error }
+
+async function getData(): Promise<Data> {
   try {
-    const files = await fs.readdir(
+    const [mainEntityOfPage] = await fs.readdir(
       path.join(process.cwd(), 'public', 'microblog'),
     )
-
-    const data = Promise.all(
-      files.map(async (file) => {
-        const fileText = await fs.readFile(
-          path.join(process.cwd(), 'public', 'microblog', file),
-          'utf-8',
-        )
-
-        const { data, content } = graymatter(fileText)
-
-        return {
-          content,
-          frontmatter: data,
-        }
-      }),
+    const filePath = path.join(
+      process.cwd(),
+      'public',
+      'microblog',
+      `${mainEntityOfPage}`,
     )
-    return data
+
+    const file = await new WorkerThread().runWorker<string>(
+      workerPath('fileReaderWorker.js'),
+      filePath,
+    )
+
+    const { content } = graymatter(file)
+    const mdxSource = await getMdxSource(content)
+
+    return {
+      content: mdxSource,
+    }
   } catch (err) {
+    console.error(`[${process.cwd()}src/app/microblog]`, err)
     return {
       error: err as Error,
     }
   }
+}
+
+function workerPath(workerName: string) {
+  return path.join(process.cwd(), 'public', 'workers', `${workerName}`)
 }

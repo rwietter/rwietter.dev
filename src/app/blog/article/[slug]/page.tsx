@@ -2,19 +2,15 @@ import { makeSeo } from '@/components/SEO/makeSeo'
 import ArticleContent from '@/domains/article/content'
 import ArticleHeader from '@/domains/article/header'
 import styles from '@/domains/article/styles.module.css'
+import { getMdxSource } from '@/lib/serializeMdx'
+import { WorkerThread } from '@/lib/worker'
 import type { Post, PostFrontMatter } from '@/types/Post'
 import matter from 'gray-matter'
 import type { Metadata } from 'next'
-import { serialize } from 'next-mdx-remote/serialize'
 import dynamic from 'next/dynamic'
 import fs from 'node:fs'
 import path from 'node:path'
 import { Worker } from 'node:worker_threads'
-import rehypeExternalLinks from 'rehype-external-links'
-import rehypeKatex from 'rehype-katex'
-import rehypePrettyCode from 'rehype-pretty-code'
-import remarkGfm from 'remark-gfm'
-import remarkMath from 'remark-math'
 import { getReadingTime } from 'utils/getTimeReading'
 
 const ArticleFooter = dynamic(() => import('@/domains/article/footer'))
@@ -84,7 +80,10 @@ async function getData(slug: string): Promise<{ data: Post | null }> {
       return { data: null }
     }
 
-    const file = await runWorker(workerPath('fileReaderWorker.js'), filepath)
+    const file = await new WorkerThread().runWorker(
+      workerPath('fileReaderWorker.js'),
+      filepath,
+    )
     const { content, data } = matter(file)
     const { readTime } = getReadingTime(content)
     const mdxSource = await getMdxSource(content)
@@ -104,31 +103,6 @@ async function getData(slug: string): Promise<{ data: Post | null }> {
       data: null,
     }
   }
-}
-
-async function getMdxSource(article: string) {
-  const source = await serialize(article, {
-    mdxOptions: {
-      rehypePlugins: [
-        rehypeKatex,
-        [
-          rehypePrettyCode,
-          {
-            highlight: true,
-            lineNumbers: true,
-            theme: {
-              dark: 'github-dark-default',
-              light: 'github-light-default',
-            },
-          },
-        ],
-        [rehypeExternalLinks, { target: '_blank' }],
-      ],
-      remarkPlugins: [remarkGfm, remarkMath],
-      useDynamicImport: true,
-    },
-  })
-  return source
 }
 
 export async function generateMetadata({
