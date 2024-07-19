@@ -1,8 +1,8 @@
-import Loading from '@/components/Loading/Loading'
 import dynamic from 'next/dynamic'
 import type { PropsWithChildren } from 'react'
 
-const Kbar = dynamic(() => import('src/components/Kbar/CommandBar'))
+const Kbar = dynamic(() => import('@/components/Kbar/CommandBar'))
+const Loading = dynamic(() => import('@/components/Loading/Loading'))
 
 type Props = PropsWithChildren
 
