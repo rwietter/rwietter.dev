@@ -57,7 +57,7 @@ const Page = async (props: PagePropTypes) => {
         // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <section className={`${styles.articleMarkdownContainer} fade-in-layout`}>
+      <section className={styles.articleMarkdownContainer}>
         <ArticleHeader
           content={content}
           readingTime={readingTime}

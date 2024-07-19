@@ -59,7 +59,7 @@ const Page = async (props: PageProps) => {
         // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <article className={`${styles.container} awesome fade-in-layout`}>
+      <article className={`${styles.container} awesome`}>
         <MDX mdxSource={mdxSource} />
       </article>
     </>

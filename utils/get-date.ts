@@ -1,26 +1,26 @@
-import { format } from 'date-fns'
-import { enUS, ptBR } from 'date-fns/locale'
+export function formatDate(date: string) {
+  const [year, month, day] = date.split('-').map(Number)
+  const dateObj = new Date(Date.UTC(year, month - 1, day + 1))
 
-const supportedLocales = {
-  en: enUS,
-  pt: ptBR,
-}
-
-export type LocaleLang = 'en' | 'pt'
-
-export const getDate = (date: Date, locale: LocaleLang): string | null => {
-  const lang = supportedLocales[locale] || supportedLocales.pt
-
-  const localeIndexedLoockup = {
-    en: () =>
-      `${format(date, "dd'rd' MMMM yyyy", {
-        locale: lang,
-      })}`,
-    pt: () =>
-      `${format(date, 'dd MMMM yyyy', {
-        locale: lang,
-      })}`,
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
   }
 
-  return localeIndexedLoockup[locale] ? localeIndexedLoockup[locale]() : null
+  return new Intl.DateTimeFormat('en-US', options).format(dateObj)
+}
+
+export function getDate(date?: string) {
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  }
+
+  return new Intl.DateTimeFormat('en-US', options).format(
+    date ? new Date(date) : new Date(),
+  )
 }

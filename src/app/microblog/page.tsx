@@ -15,7 +15,7 @@ const Page: React.FC = async () => {
   }
 
   return (
-    <article className='microblog fade-in-layout'>
+    <article className='microblog'>
       <Microblog data={data} />
     </article>
   )

@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { useTranslation } from 'react-i18next'
 import SwitchTheme from 'src/components/SwitchTheme'
 import styles from './styles.module.css'
 
@@ -15,7 +14,6 @@ const activePath = (pathname: string) => (href: string, entry?: string) => {
 
 const Header = () => {
   const isActive = activePath(usePathname())
-  const { t } = useTranslation()
 
   return (
     <header className={styles.header}>
@@ -50,12 +48,9 @@ const Header = () => {
           title='Projects'
         >
           <Link className={styles.link} href='/projects'>
-            /{t('header.pages.projects')}
+            /projects
           </Link>
         </div>
-        {/* <div className={isActive('/setup')} aria-current="page" role="menuitem" title="Setup">
-          <Link href="/setup">/setup</Link>
-        </div> */}
       </nav>
       <SwitchTheme visible='header' />
     </header>

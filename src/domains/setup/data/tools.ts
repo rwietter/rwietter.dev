@@ -1,4 +1,4 @@
-import { SetupData } from '../types/setup-data'
+import type { SetupData } from '../types/setup-data'
 
 export const tools: SetupData[] = [
   {

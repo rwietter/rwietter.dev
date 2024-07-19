@@ -1,19 +1,16 @@
 import Link from 'next/link'
 import { AiOutlineArrowLeft, AiOutlineCalendar } from 'react-icons/ai'
 import { RiTimer2Line } from 'react-icons/ri'
-import { getLocaleDate } from 'utils/get-locale-date'
 
 import type { Post } from '@/types/Post'
 
+import { getDate } from 'utils/get-date'
 import styles from './styles.module.css'
 
 interface ArticleHeaderPropTypes extends Post {}
 
 const ArticleHeader: React.FC<ArticleHeaderPropTypes> = (props) => {
-  const { localeDate: publishedAt } = getLocaleDate(
-    props.frontmatter.publishedAt,
-    'en-US',
-  )
+  const publishedAt = getDate(props.frontmatter.publishedAt)
 
   return (
     <section className={styles.section}>

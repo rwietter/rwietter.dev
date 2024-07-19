@@ -2,7 +2,7 @@ import type { Post } from '@/types/Post'
 import Link from 'next/link'
 import type { FC } from 'react'
 import { TfiPencil } from 'react-icons/tfi'
-import { getLocaleDate } from 'utils/get-locale-date'
+import { getDate } from 'utils/get-date'
 import styles from './styles.module.css'
 
 type PostsPropTypes = {
@@ -10,13 +10,13 @@ type PostsPropTypes = {
 }
 
 const Posts: FC<PostsPropTypes> = ({ post }) => {
-  const { localeDate } = getLocaleDate(post.frontmatter.publishedAt, 'pt-BR')
+  const publishedAt = getDate(post.frontmatter.publishedAt)
 
   return (
     <li className={styles.cardContainer}>
       <p className={styles.dateTimeRead}>
         <TfiPencil size={17} />
-        {localeDate}
+        {publishedAt}
       </p>
       <Link
         href={`/blog/article/${post.slug}`}

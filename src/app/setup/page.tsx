@@ -27,21 +27,19 @@ const jsonLd = {
     'Operational System and Software Development Setup for Development and Productivity.',
 }
 
-const Page = () => {
-  return (
-    <>
-      <script
-        type='application/ld+json'
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <div className={styles.main}>
-        <section className={styles.content}>
-          <Setup />
-        </section>
-      </div>
-    </>
-  )
-}
+const Page = () => (
+  <>
+    <script
+      type='application/ld+json'
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+    <div className={styles.main}>
+      <section className={styles.content}>
+        <Setup />
+      </section>
+    </div>
+  </>
+)
 
 export default Page

@@ -79,18 +79,3 @@ p {
     "cv11" 1;
   font-variant-ligatures: common-ligatures;
 }
-
-.fade-in-layout {
-  opacity: 0;
-  animation: fadeIn 150ms ease-in forwards;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}

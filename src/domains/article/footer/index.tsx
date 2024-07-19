@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { type FC, memo } from 'react'
-import { useTranslation } from 'react-i18next'
 import { FiCoffee, FiTwitter } from 'react-icons/fi'
 import { GoCommentDiscussion } from 'react-icons/go'
 import { SidebarSocialIcons } from 'src/components/StickyBar/Social'
@@ -19,10 +18,10 @@ interface ArticleFooterPropsTypes {
 
 const ArticleFooter: FC<ArticleFooterPropsTypes> = ({ post }) => {
   const pathname = usePathname()
-  const { t } = useTranslation()
 
-  const tweetUrl = `http://twitter.com/share?text=${t('article.justRead')} "${post.title
-    }"&url=https://rwietter.dev${pathname}&hashtags=${post.category}`
+  const tweetUrl = `http://twitter.com/share?text=I just read "${
+    post.title
+  }"&url=https://rwietter.dev${pathname}&hashtags=${post.category}`
 
   const linkToSearchOnTwietter = `https://twitter.com/search?q=https://rwietter.dev${pathname}`
 
@@ -32,16 +31,16 @@ const ArticleFooter: FC<ArticleFooterPropsTypes> = ({ post }) => {
       <nav className={styles.navHeader}>
         <a href={tweetUrl} target='_blank' rel='noreferrer'>
           <FiTwitter size={14} />
-          &nbsp;{t('article.shareOnTwitter')}
+          &nbsp;Tweet this article
         </a>
         <a href={linkToSearchOnTwietter} target='_blank' rel='noreferrer'>
           <GoCommentDiscussion size={14} />
-          &nbsp;{t('article.joinTheDiscussion')}
+          &nbsp;Discuss on Twitter
         </a>
         {post.category && (
           <Link href={`/blog/category/${post.category}`}>
             <FiCoffee size={14} />
-            &nbsp;{t('article.moreIn')} &nbsp;
+            &nbsp;Learn more about &nbsp;
             <strong>{post.category}</strong>
           </Link>
         )}
@@ -59,7 +58,7 @@ const ArticleFooter: FC<ArticleFooterPropsTypes> = ({ post }) => {
         </a>
         {post.author && (
           <p className={styles.author}>
-            {t('article.writtenBy')} <strong>{post.author}</strong>
+            Written by <strong>{post.author}</strong>
           </p>
         )}
       </section>
