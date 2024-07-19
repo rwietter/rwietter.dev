@@ -72,13 +72,39 @@ const Page = async (props: PagePropTypes) => {
 
 export default Page
 
-async function getData(slug: string): Promise<{ data: Post | null }> {
+export async function generateStaticParams() {
+  const data = await generatePaths()
+
+  return data?.posts.map((post) => ({
+    slug: post.slug,
+  }))
+}
+
+const generatePaths = async () => {
+  try {
+    const files = fs.readdirSync(path.join(process.cwd(), 'public', 'posts'))
+    const posts = files.map((file) => ({
+      slug: file.replace(/\.mdx$/, ''),
+    }))
+
+    return {
+      posts: posts,
+    }
+  } catch (error) {
+    console.error(error)
+    return {
+      posts: [],
+    }
+  }
+}
+
+async function getData(slug: string) {
   const worker = new WorkerThread()
   try {
     const filepath = path.join(process.cwd(), 'public', 'posts', `${slug}.mdx`)
 
     if (!fs.existsSync(filepath)) {
-      return { data: null }
+      return { data: null, error: new Error('File not found') }
     }
 
     const file = await worker.runWorker(
@@ -101,9 +127,7 @@ async function getData(slug: string): Promise<{ data: Post | null }> {
   } catch (error) {
     console.error(`${process.cwd()}/public/posts/${slug}.mdx`, error)
     worker.terminate()
-    return {
-      data: null,
-    }
+    return { data: null, error }
   }
 }
 

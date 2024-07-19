@@ -43,11 +43,7 @@ const getData = async () => {
       posts: sortedByDatePosts,
     }
   } catch (error) {
-    if (error instanceof Error) {
-      console.error(
-        `[ERROR]: ${error.name}\n[MESSAGE]: ${error.message}\n[STACK]: ${error.stack}`,
-      )
-    }
+    console.error(error)
     return {
       posts: [],
     }
@@ -81,6 +77,11 @@ const jsonLd = {
 
 const Page = async () => {
   const data = await getData()
+
+  if ('error' in data) {
+    return <p>Ops... Something went wrong. Please, try again later.</p>
+  }
+
   return (
     <>
       <script
