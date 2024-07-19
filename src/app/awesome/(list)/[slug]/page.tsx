@@ -59,7 +59,7 @@ const Page = async (props: PageProps) => {
         // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <article className={`${styles.container} awesome`}>
+      <article className={`${styles.container} awesome fade-in-layout`}>
         <MDX mdxSource={mdxSource} />
       </article>
     </>
@@ -67,6 +67,32 @@ const Page = async (props: PageProps) => {
 }
 
 export default Page
+
+export async function generateStaticParams() {
+  const data = await generatePaths()
+
+  return data?.awesome.map((list) => ({
+    slug: list.slug,
+  }))
+}
+
+const generatePaths = async () => {
+  try {
+    const files = fs.readdirSync(path.join(process.cwd(), 'public', 'awesome'))
+    const paths = files.map((file) => ({
+      slug: file.replace(/\.md$/, ''),
+    }))
+
+    return {
+      awesome: paths,
+    }
+  } catch (error) {
+    return {
+      error: error as Error,
+      awesome: [],
+    }
+  }
+}
 
 async function getData(slug: string) {
   const worker = new WorkerThread()

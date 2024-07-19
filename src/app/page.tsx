@@ -4,9 +4,8 @@ import AuthorContent from '@/domains/home/author-content'
 import AuthorHeader from '@/domains/home/author-header'
 import type { Metadata } from 'next'
 
-
 const Page = () => (
-  <>
+  <div className='fade-in-layout'>
     <script
       type='application/ld+json'
       // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
@@ -15,7 +14,7 @@ const Page = () => (
     <AuthorHeader />
     <AuthorContent />
     <KbarInit />
-  </>
+  </div>
 )
 
 export default Page
