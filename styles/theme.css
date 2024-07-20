@@ -19,8 +19,9 @@
   --warning: #f7d794;
   --info: #81ecec;
 
-  --transition-primary: color 200ms ease, background 200ms ease, border-color 200ms ease,
-    box-shadow 200ms ease, fill 200ms ease, stroke 200ms ease;
+  --transition-primary: color 200ms ease, background 200ms ease,
+    border-color 200ms ease, box-shadow 200ms ease, fill 200ms ease,
+    stroke 200ms ease;
 
   --system-ui: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -28,7 +29,8 @@
   --font-tex: KaTeX_Math;
   --font-secondary: "Noto Serif", serif;
   --font-title: var(--font-secondary), Inter, sans-serif;
-  --font-code: ui-monospace, PT Mono, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  --font-code: ui-monospace, PT Mono, Consolas, Monaco, "Andale Mono",
+    "Ubuntu Mono", monospace;
   --font-bolder: Inter, sans-serif;
 }
 

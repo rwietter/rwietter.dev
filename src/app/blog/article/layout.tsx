@@ -3,6 +3,7 @@ import Providers from './providers'
 
 import '../../../../styles/article-markdown.css'
 import '../../../../styles/katex-override.css'
+import '../../../../shared/styles/footnotes.css'
 
 type Props = PropsWithChildren
 

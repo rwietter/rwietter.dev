@@ -3,6 +3,7 @@ import Providers from './providers'
 
 import '../../../styles/katex-override.css'
 import '../../../styles/microblog-mdx.css'
+import '../../../shared/styles/footnotes.css'
 
 type Props = PropsWithChildren
 
