@@ -20,8 +20,6 @@ type PagePropTypes = {
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export const revalidate = 60
-
 const Page = async (props: PagePropTypes) => {
   const { slug } = props.params
   const { data } = await getData(slug)
