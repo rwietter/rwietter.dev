@@ -35,13 +35,11 @@ Então, quando devemos duplicar código e quando devemos abstrair ? Essas pergun
 
 ### Don't Repeat Yourself
 
-DRY surgiu para tentar resolver Os Males da Duplicação (_The Evils of Duplication_)[^1]. <High color="red">Se você tem código duplicado, você precisa lembrar-se onde duplicou, mas não é uma questão de saber se você vai se lembrar: é uma questão de quando você vai esquecer</High>, e a surpresa não será nada agradável quando acontecer.
+DRY surgiu para tentar resolver Os Males da Duplicação (_The Evils of Duplication_).[^1] <High color="red">Se você tem código duplicado, você precisa lembrar-se onde duplicou, mas não é uma questão de saber se você vai se lembrar: é uma questão de quando você vai esquecer</High>, e a surpresa não será nada agradável quando acontecer.
 
 Em outras palavras, quando você precisa alterar alguma coisa e o código está repetido por N vezes na sua base de código, então você terá que alterar em N lugares e isso nos leva ao problema descrito na seção 1.
 
-> “Cada fragmento de conhecimento deve ter uma representação única, inequívoca e autoritária dentro de um sistema.”
->
-> — Andy Hunt e Dave Thomas (The Pragmatic Programmer)[^1].
+> “Cada fragmento de conhecimento deve ter uma representação única, inequívoca e autoritária dentro de um sistema.” [^1]
 
 Conforme Hunt e Thomas, **um código que representa um conhecimento deve ter uma representação única, inequívoca e autoritária dentro de um sistema**. Isso significa que DRY não é apenas sobre não duplicar código, mas é, sobretudo, conhecimento.
 
@@ -57,9 +55,7 @@ Esse conceito foi proposto por Martin Fowler em seu livro Refactoring.
 
 Você deve estar se perguntando o porquê de **três** ser especial. Geralmente você acaba tendo duas duplicações com uma ou outra leve particularidade e pode ser mantida assim caso você não saiba os requisitos futuros, mas quando há três duplicação é muito comum ter mais duplicações.
 
-> “A primeira vez que você faz algo, você simplesmente faz. Na segunda vez que você faz algo semelhante, você pode ter calafrios com a duplicação, mas faz a duplicação de qualquer maneira. Na terceira vez que você fizer algo semelhante, você refatorará”
->
-> — Martin Fowler (Refactoring).
+> “A primeira vez que você faz algo, você simplesmente faz. Na segunda vez que você faz algo semelhante, você pode ter calafrios com a duplicação, mas faz a duplicação de qualquer maneira. Na terceira vez que você fizer algo semelhante, você refatorará”. [^2]
 
 Rule of Three diz que você pode duplicar o código por duas vezes, mas se você tiver que repetir pela terceira vez, então é hora de refatorar.
 
@@ -111,12 +107,11 @@ No entanto, isso não significa que a duplicação de código seja a melhor alte
 
 A solução para evitar a duplicação de código e ainda assim criar abstrações úteis é encontrar o equilíbrio certo entre abstração e detalhes de implementação. É importante pensar em como a abstração pode ser útil no longo prazo e se ela pode ser adaptada facilmente para futuras mudanças no sistema. É importante também criar abstrações que sejam simples, claras e facilmente compreensíveis.
 
-## Referências
+[^1]: Hunt, Andrew; Thomas, David (1999). The Pragmatic Programmer: From Journeyman to Master. Addison-Wesley Professional. ISBN 978-0201616224.
+[^2]: Fowler, Martin (2018). Refactoring: Improving the Design of Existing Code (2nd ed.). Addison-Wesley Professional. ISBN 978-0134757599.
 
-- [The Pragmatic Programmer](https://www.amazon.com.br/Pragmatic-Programmer-Journeyman-Master/dp/020161622X)
-- [Refactoring](https://www.amazon.com.br/Refactoring-Improving-Design-Existing-Code/dp/0134757599/ref=pd_lpo_1?pd_rd_w=y2LPp&content-id=amzn1.sym.036a9a17-ef5c-4c87-bb2c-81a28b5a8e68&pf_rd_p=036a9a17-ef5c-4c87-bb2c-81a28b5a8e68&pf_rd_r=T1Z6DP66YJS241C8ZYSX&pd_rd_wg=NXa55&pd_rd_r=4883151e-42e5-403c-981f-c973bb258c03&pd_rd_i=0134757599&psc=1)
+## Recursos
+
 - [AHA Programming](https://kentcdodds.com/blog/aha-programming)
 - [Stop trying to be so DRY, instead Write Everything Twice (WET)](https://dev.to/wuz/stop-trying-to-be-so-dry-instead-write-everything-twice-wet-5g33)
 - [The Wrong Abstraction](https://sandimetz.com/blog/2016/1/20/the-wrong-abstraction)
-
-[^1]: Andy Hunt e Dave Thomas em [The Pragmatic Programmer](https://www.amazon.com.br/Pragmatic-Programmer-Journeyman-Master/dp/020161622X).

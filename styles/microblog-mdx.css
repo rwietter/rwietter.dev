@@ -66,6 +66,6 @@
 
 @layer components {
   .microblog .footnotes ol {
-    padding: 1em 0 1em 3.5em !important;
+    padding: 1em 0 1em 3em !important;
   }
 }
