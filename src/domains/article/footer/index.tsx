@@ -3,7 +3,8 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { type FC, memo } from 'react'
-import { FiCoffee, FiTwitter } from 'react-icons/fi'
+import { FiTwitter } from 'react-icons/fi'
+import { TbTags } from 'react-icons/tb'
 import { GoCommentDiscussion } from 'react-icons/go'
 import { SidebarSocialIcons } from 'src/components/StickyBar/Social'
 import styles from './styles.module.css'
@@ -31,17 +32,16 @@ const ArticleFooter: FC<ArticleFooterPropsTypes> = ({ post }) => {
       <nav className={styles.navHeader}>
         <a href={tweetUrl} target='_blank' rel='noreferrer'>
           <FiTwitter size={14} />
-          &nbsp;Tweet this article
+          &nbsp;Tweet
         </a>
         <a href={linkToSearchOnTwietter} target='_blank' rel='noreferrer'>
           <GoCommentDiscussion size={14} />
-          &nbsp;Discuss on Twitter
+          &nbsp;Discuss
         </a>
         {post.category && (
           <Link href={`/blog/category/${post.category}`}>
-            <FiCoffee size={14} />
-            &nbsp;Learn more about &nbsp;
-            <strong>{post.category}</strong>
+            <TbTags size={14} />
+            &nbsp; {post.category}
           </Link>
         )}
       </nav>

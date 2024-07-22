@@ -83,7 +83,43 @@ A duplicação de código incorre em um custo muito alto na maioria das vezes, m
 
 Por exemplo, temos o **ComponenteA** e o **ComponenteB**, eles são uma duplicação de código com um padrão em comum e mesmo conhecimento, então criamos a AbstraçãoX de forma simples e flexível por padrão (Imagem 1). Digamos que o ComponenteB precisa mudar e é preciso modificar a AbstraçãoX, de tal modo que adicionamos mais responsabilidade e que não é usada no ComponenteA, ou seja, isso já **deixou de ter o mesmo conhecimento** e possivelmente trará problemas futuros. Para resolver isso, vamos separar a AbstraçãoX em AbstraçãoX e AbstraçãoY ou desfazer as abstrações e retornar aos Componentes A e B.
 
-![b55d6170-0684-4f19-9f93-480f96b242b3_1344x1306.webp](https://res.cloudinary.com/ddwnioveu/image/upload/v1685323229/b55d6170_0684_4f19_9f93_480f96b242b3_1344x1306_a053b70020.webp)
+Seja uma estrutura de dados **discounts**, como você faria uma boa abstração para suportar mudanças nos dados ?
+
+```js
+const discounts = {
+  regular: 0.1,
+  premium: 0.15,
+  vip: 0.2,
+}
+```
+
+O que usualmente alguém faria é logo começar com um código imperativo e pouco flexível tal como o exemplo a seguir
+
+```js
+function calculateDiscount(total, userType) {
+  if(userType === 'regular') {
+    return total * discounts.regular
+  } else if(userType === 'premium') {
+    return total * discounts.premium
+  } else if(userType === 'vip') {
+    return total * discounts.vip
+  }
+  return 0
+}
+```
+
+Isso é horrível, é um código feio, não manutenível e ineficiente. Vamos tentar uma outra abordagem mais flexível, que tal essa ?
+
+```js
+function calculateDiscount(total, userType) {
+  if(userType in discounts){
+    return total * discounts[userType]
+  }
+  return 0
+}
+```
+
+Agora só precisamos alterar nossa estrutura de dados e a função continuará suportando qualquer uma.
 
 Dessa forma, podemos resolver a questão de abstrair sem ter que lidar duplicações. Particularmente, as duplicações em uma base de código grande são bem custosas. Assim, para lidarmos com abstrações erradas, analisamos o contexto e o conhecimento, quando não faz mais sentido essa abstração, removemos a abstração. Não precisamos ter que duplicar código uma, duas ou três vezes a espera de abstrair e evitar dores de cabeça.
 

@@ -142,11 +142,9 @@
 
 .blogpost p em,
 .blogpost p i {
-  font-family: var(--font-secondary);
   font-style: italic;
   text-decoration: underline;
-  text-decoration-line: underline;
-  font-weight: 500;
+  text-underline-offset: 5px;
 }
 
 .blogpost blockquote p code {
