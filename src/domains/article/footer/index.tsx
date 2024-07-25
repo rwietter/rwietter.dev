@@ -4,8 +4,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { type FC, memo } from 'react'
 import { FiTwitter } from 'react-icons/fi'
-import { TbTags } from 'react-icons/tb'
 import { GoCommentDiscussion } from 'react-icons/go'
+import { TbTags } from 'react-icons/tb'
 import { SidebarSocialIcons } from 'src/components/StickyBar/Social'
 import styles from './styles.module.css'
 
@@ -41,7 +41,7 @@ const ArticleFooter: FC<ArticleFooterPropsTypes> = ({ post }) => {
         {post.category && (
           <Link href={`/blog/category/${post.category}`}>
             <TbTags size={14} />
-            &nbsp; {post.category}
+            &nbsp;{[`#${post.category}`]}
           </Link>
         )}
       </nav>

@@ -26,15 +26,10 @@ export default Page
 async function getData() {
   const worker = new WorkerThread()
   try {
-    const [mainEntityOfPage] = await fs.readdir(
+    const [main] = await fs.readdir(
       path.join(process.cwd(), 'public', 'microblog'),
     )
-    const filePath = path.join(
-      process.cwd(),
-      'public',
-      'microblog',
-      `${mainEntityOfPage}`,
-    )
+    const filePath = path.join(process.cwd(), 'public', 'microblog', `${main}`)
 
     const file = await worker.runWorker<string>(
       workerPath('fileReaderWorker.js'),

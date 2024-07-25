@@ -272,6 +272,7 @@
 */
 
 html code {
+  --shiki-light-bg: var(--bg-alt-color);
   color: var(--shiki-light);
   background-color: var(--shiki-light-bg);
   transition: var(--transition-primary);

@@ -27,6 +27,7 @@ export async function getMdxSource(article: string): Promise<MDXSerialized> {
       remarkPlugins: [remarkGfm, remarkMath],
       useDynamicImport: true,
     },
+    parseFrontmatter: true,
   })
   return source
 }

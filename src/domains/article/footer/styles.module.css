@@ -49,7 +49,7 @@
 .separator {
   width: 100%;
   height: 1px;
-  background: var(--sub-color);
+  background: var(--neutral);
   transition: var(--transition-primary);
 }
 

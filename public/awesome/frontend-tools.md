@@ -10,12 +10,14 @@ publishedAt: 2024-07-09
 This is a list of tools that are useful for frontend development.
 
 ## Libraries
+
 - [Shadcn](https://ui.shadcn.com/docs)
 - [Typesafe Next.js app](https://create.t3.gg/)
 - [D3 Graphs](https://nivo.rocks/)
 - [D3 JS](https://d3-graph-gallery.com/)
 
 ## Front UI and Tools
+
 - [One line layouts](https://web.dev/one-line-layouts/)
 - [Glassmorphism CSS Generator](https://ui.glass/generator/)
 - [Web Platform Experimental Tests](https://results.web-platform-tests.org/results/css?label=experimental&label=master&aligned)
@@ -38,20 +40,26 @@ This is a list of tools that are useful for frontend development.
 - [Paletton](http://paletton.com/#uid=14i0u0kcflZ0HBQ5yqUkTizCch6)
 - [svg path editor](https://yqnn.github.io/svg-path-editor/)
 - [Floating UI](https://floating-ui.com/)
+- [Interactive Veen Diagrams](https://interactivenn.net/index.html)
+- [Styling Tables the Modern CSS Way](https://piccalil.li/blog/styling-tables-the-modern-css-way/)
 
 ## New CSS Features
+
 - [text-box-trim](https://www.webfromthefuture.com/features/text-box-trim)
 
 ## Backend Tools
+
 - [Prisma GPT](https://gpt.howtoprisma.com/)
 
 ## Graphs
+
 - [Graphs](https://graphviz.org/)
 - [Mermaid](https://mermaid.js.org/intro/)
 - [Mermaid Live Editor](https://mermaid.live/)
 - [Mermaid Live Editor](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams)
 
 ## Metrics
+
 - [Web Vitals](https://web.dev/vitals/)
 - [Design checklist](https://www.checklist.design/)
 - [Metrics](https://web.dev/metrics)
@@ -62,6 +70,7 @@ This is a list of tools that are useful for frontend development.
 - [Fathom Analytics](https://usefathom.com/)
 
 ## Favorite Tools
+
 - [Ray](https://ray.so/)
 - [Devhints](https://devhints.io/cron)
 - [Code to img](https://codetoimg.com/)
@@ -83,6 +92,7 @@ This is a list of tools that are useful for frontend development.
 - [Ecmascript compatible features](https://kangax.github.io/compat-table/esnext/)
 
 ## Development tools/helpers
+
 - [Sketchpad](https://sketch.io/sketchpad/)
 - [Email Sandbox Service](https://mailtrap.io/)
 - [CSS Houdini](https://houdini.how/)
@@ -110,6 +120,7 @@ This is a list of tools that are useful for frontend development.
 - [Chrome releases](https://chromestatus.com/features#milestone%3D102)
 
 ## Performance
+
 - [Crux Compare](https://crux-compare.netlify.app/)
 - [mobiReady](https://ready.mobi/#1554313-38lz)
 - [Estimator](https://estimator.dev/)
@@ -118,21 +129,27 @@ This is a list of tools that are useful for frontend development.
 - [Perf Track](https://perf-track.web.app/react)
 
 ## Frameworks
+
 - [Factor](https://github.com/FactorJS/factor)
 
 ## Cloud
+
 - [Amazon Lightsail](https://aws.amazon.com/pt/lightsail/)
 - [EnvShare](https://envshare.dev/)
 
 ### Serverless
+
 - [FaunaDB](https://docs.fauna.com/fauna/current/learn/tutorials/fql/authentication/user)
 - [Supertokens](https://supertokens.com/)
 
 ### React
+
 - [React Lambda](https://github.com/sultan99/react-on-lambda)
 
 ### Playground
+
 - [Replit](https://replit.com/~)
 
 ### **Typescript**
+
 - [Ts Patterns](https://github.com/gvergnaud/ts-pattern)
