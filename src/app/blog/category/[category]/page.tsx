@@ -12,11 +12,7 @@ const Page = (props: any) => {
     return <h1>Ops! Something went wrong...</h1>
   }
 
-  return (
-    <>
-      <Categories posts={data.posts} />
-    </>
-  )
+  return <Categories posts={data.posts} category={data.category} />
 }
 
 function getData(category: string) {
@@ -49,6 +45,7 @@ function getData(category: string) {
     return {
       data: {
         posts,
+        category,
       },
     }
   } catch (error) {

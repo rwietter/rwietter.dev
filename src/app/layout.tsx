@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='pt-BR'>
+    <html lang='en'>
       <head>
         <DocumentStuff />
       </head>
@@ -50,10 +50,9 @@ function DocumentStuff() {
         `}
       </Script>
       <Script
-        defer
         src='https://cloud.umami.is/script.js'
         data-website-id='99c64e87-1dbd-4e1c-b45b-ada2e802dcc1'
-        strategy='worker'
+        strategy='afterInteractive'
       />
       <meta name='application-name' content='Maurício Witter' />
       <meta name='apple-mobile-web-app-capable' content='yes' />
