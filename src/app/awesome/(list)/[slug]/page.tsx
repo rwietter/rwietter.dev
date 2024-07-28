@@ -97,7 +97,12 @@ const generatePaths = async () => {
 async function getData(slug: string) {
   const worker = new WorkerThread()
   try {
-    const filepath = path.join(process.cwd(), 'public', 'awesome', `${slug}.md`)
+    const filepath = path.join(
+      process.cwd(),
+      'public',
+      'awesome',
+      `${slug}.mdx`,
+    )
 
     if (!fs.existsSync(filepath)) {
       return { data: { error: new Error('File not found') } }
