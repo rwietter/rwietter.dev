@@ -6,5 +6,4 @@ const API_LAST_FM = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttra
 export const fetcherLastFm = () =>
 	fetch(API_LAST_FM, {
 		next: { revalidate: 300 },
-		cache: "force-cache",
 	}).then((res) => res.json());

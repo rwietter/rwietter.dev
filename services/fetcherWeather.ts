@@ -2,6 +2,5 @@ const API_WEATHER = `https://dataservice.accuweather.com/currentconditions/v1/${
 
 export const fetcherWeather = () =>
 	fetch(API_WEATHER, {
-		next: { revalidate: 300 },
-		cache: "force-cache",
+		next: { revalidate: 28800 },
 	}).then((res) => res.json());
