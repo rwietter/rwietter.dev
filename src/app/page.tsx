@@ -19,6 +19,8 @@ const Page = () => (
 
 export default Page
 
+export const revalidate = 600
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',

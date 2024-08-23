@@ -79,9 +79,8 @@
   --fluid-type-target: 4vw;
 }
 
-.blogpost p {
-  margin-top: 0;
-  margin-bottom: 10px;
+.blogpost > p {
+  margin: 22px 0;
 }
 
 @media (min-width: 1200px) {
@@ -140,11 +139,15 @@
   --fluid-type-max: 1rem;
 }
 
+.blogpost ul li code {
+  --fluid-type-max: 1rem;
+}
+
 .blogpost p em,
 .blogpost p i {
   font-style: italic;
-  text-decoration: underline;
-  text-underline-offset: 5px;
+  /* text-decoration: underline; */
+  /* text-underline-offset: 5px; */
 }
 
 .blogpost blockquote p code {

@@ -17,3 +17,7 @@
 .text[data-color="red"] {
   background-color: rgb(255, 206, 206);
 }
+
+.text[data-color="purple"] {
+  background-color: #d7cfff;
+}
