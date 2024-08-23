@@ -22,13 +22,13 @@ This article is <High color="yellow">based on my studies of Monads in Haskell</H
 
 # Background
 
-"Monad is a way of composing embellished functions. It’s not about side effects or state. It’s about composition. [...] embellished functions may be used to express a variety of effects or state[^5]."
+“Monad is a way of composing embellished functions. It’s not about side effects or state. It’s about composition. [...] embellished functions may be used to express a variety of effects or state[^5].”
 
-"Monads were first introduced to computer science by Moggi[^2] and later expanded by Wadler[^3] to express the semantics of programs with computational effects. Type and effect inference were also introduced to account for these effects[^1]."
+“Monads were first introduced to computer science by Moggi[^2] and later expanded by Wadler[^3] to express the semantics of programs with computational effects. Type and effect inference were also introduced to account for these effects[^1].”
 
-"It is well known that purely functional programs are easier to reason about than imperative ones, and one of the first pieces of advice in **Kernighan and Pike's** *The Practice of Programming* is '<High>Be careful with side effects</High>'[^1]."
+“It is well known that purely functional programs are easier to reason about than imperative ones, and one of the first pieces of advice in **Kernighan and Pike's** *The Practice of Programming* is '<High>Be careful with side effects</High>'[^1].”
 
-"There are many equivalent ways of defining a monad[^5]",  "a monad introduces a type operator $(\mu)$, where $(\mu\tau)$ represents computations returning values of type $(\tau)$. The type $(\mu\tau)$ can be interpreted as an abstract datatype that encapsulates computations returning values of type $(\tau)$. These computations are accessed and manipulated using two fundamental operations: **unit** and **bind**[^1]."
+“There are many equivalent ways of defining a monad[^5]”,  “a monad introduces a type operator $(\mu)$, where $(\mu\tau)$ represents computations returning values of type $(\tau)$. The type $(\mu\tau)$ can be interpreted as an abstract datatype that encapsulates computations returning values of type $(\tau)$. These computations are accessed and manipulated using two fundamental operations: **unit** and **bind**[^1].”
 
 Where $(\mu)$ is a monadic operator and $(\tau)$ is a generic type. So, $(\mu\tau)$ indicates a type that represents a **computation that eventually returns a value of type $(\tau)$**. For example, in Haskell, `Maybe Int` would be a monad that can compute and return an `Int` value or nothing.
 
@@ -42,9 +42,9 @@ return :: a -> m a
 
 This corresponds to the mathematical expression $(\eta: \tau \rightarrow \mu \tau)$. Where $(\mu)$ represents the monadic type constructor `m` and $(\eta)$ is a natural transformation.
 
-"Bind, sometimes referred to as *star*, can be represented as $(\mu \tau \rightarrow (\tau \rightarrow \mu \tau') \rightarrow \mu \tau')$. **Bind** takes a computation of type $(\mu\tau)$ (a computation that eventually returns a value of type $(\tau)$) and a function that transforms the value $(\tau)$ into a new computation of type $(\mu \tau')$. **Bind** then chains these two computations, passing the result of the first computation to the function that produces the second computation[^1]."
+“Bind, sometimes referred to as *star*, can be represented as $(\mu \tau \rightarrow (\tau \rightarrow \mu \tau') \rightarrow \mu \tau')$. **Bind** takes a computation of type $(\mu\tau)$ (a computation that eventually returns a value of type $(\tau)$) and a function that transforms the value $(\tau)$ into a new computation of type $(\mu \tau')$. **Bind** then chains these two computations, passing the result of the first computation to the function that produces the second computation[^1].”
 
-> "In Haskell, bind is represented by `>>=`. The ` >>=` function takes the value from a monad container and passes it to a function to produce a monad container containing a new value, possibly of a different type. The `>>=` function is known as "bind" because it binds the value in a monad container to the first argument of a function. By adding logic to the binding function, a monad can implement a specific strategy for combining computations in the monad[^4]."
+> “In Haskell, bind is represented by `>>=`. The ` >>=` function takes the value from a monad container and passes it to a function to produce a monad container containing a new value, possibly of a different type. The `>>=` function is known as "bind" because it binds the value in a monad container to the first argument of a function. By adding logic to the binding function, a monad can implement a specific strategy for combining computations in the monad[^4].”
 
 For example, given a `Maybe Int` and a function `f :: Int -> Maybe String`, bind allows us to chain these computations to produce a new computation of type `Maybe String`.
 
@@ -94,7 +94,6 @@ This law ensures that the order in which you apply the flattening operations doe
 (m >>= f) >>= g  =  m >>= (\x -> f x >>= g)
 ```
 
----
 ## Haskell Monads
 
 The `Monad` typeclass includes three essential operations, but for a complete minimal `Monad` instance, you only need to define the `>>=` function[^6].
@@ -107,7 +106,7 @@ return :: a -> m a
 
 ### The ">>" operator
 
-"The `>>` operator sequences two actions while discarding any resulting value of the first action⁶". For example, here the `>>` operator ignores the result of the first action (Just 5), and returns the result of the second action (Just "Second Action").
+“The `>>` operator sequences two actions while discarding any resulting value of the first action[^6]”. For example, here the `>>` operator ignores the result of the first action (`Just 5`), and returns the result of the second action (`Just "Second Action"`).
 
 ```haskell
 -- The type signature is:
@@ -118,7 +117,7 @@ ignm = Just 5 >> Just "Second Action"
 
 ### The ">>=" operator
 
-"The `>>=` operator is called bind and is — or, at least, comprises — what makes Monad special. Typically, when working with monads, we apply the bind function (`>>=`). We might use it explicitly, or indirectly through the `do` notation[^6]".
+“The `>>=` operator is called bind and is — or, at least, comprises — what makes Monad special. Typically, when working with monads, we apply the bind function (`>>=`). We might use it explicitly, or indirectly through the `do` notation[^6]”.
 
 The `bind` operator (`>>=`) is responsible for "chaining" monadic operations, passing the unwrapped value (for example, the value inside `Just` in the case of `Maybe`) to the next function, and so forth.
 
@@ -146,8 +145,8 @@ justr x = return (x * 2)
 ## Summary
 
 - **Monad**: It's a context that encapsulates a value (or the absence of it) and handles side effects in a controlled way.
-- **`bind`**: Unwraps a monad and flattens the result, passing it to another function.
-- **`unit`**: Puts a value into a monadic context.
+- **bind**: Unwraps a monad and flattens the result, passing it to another function.
+- **unit**: Puts a value into a monadic context.
 
 There is much more to explore regarding Monads, including a deeper analysis of categories, functors, and Applicative in Haskell, but I will reserve those topics for a future post to maintain the brevity and clarity of this one. Thank you for reading, and should you have any questions or contributions, please submit an [issue](https://github.com/rwietter/rwietter.dev/issues).
 
