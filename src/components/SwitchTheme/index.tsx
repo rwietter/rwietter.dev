@@ -18,19 +18,14 @@ const SwitchTheme: React.FC<Props> = ({ visible }) => {
 
 export default SwitchTheme
 
-function saveTheme() {
-  if (document.documentElement.classList.contains('dark')) {
-    localStorage.setItem('theme', 'dark')
-    notifyTheme('dark')
-    return
-  }
-  notifyTheme('light')
-  localStorage.setItem('theme', 'light')
-}
-
 function switchTheme() {
-  document.documentElement.classList.toggle('dark')
-  saveTheme()
+  const theme =
+    document.documentElement.getAttribute('data-theme') === 'light'
+      ? 'dark'
+      : 'light'
+
+  document.documentElement.setAttribute('data-theme', theme)
+  localStorage.setItem('theme', theme)
 }
 
 function notifyTheme(theme: string) {
