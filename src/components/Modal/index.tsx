@@ -1,3 +1,5 @@
+"use client"
+
 import type { ForwardRefRenderFunction, PropsWithChildren } from 'react'
 import React, { forwardRef, useImperativeHandle } from 'react'
 import { GrClose } from 'react-icons/gr'
@@ -58,8 +60,6 @@ const Modal: ForwardRefRenderFunction<
     close: closeModal,
     toggle: toggleModal,
   }))
-
-  console.log(isModalOpen)
 
   return (
     <>

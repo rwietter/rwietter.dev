@@ -1,48 +1,49 @@
 {
-  "compilerOptions": {
-    "target": "esnext",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "outDir": "./public",
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
-    "jsx": "preserve",
-    "isolatedModules": true,
-    "incremental": true,
-    "baseUrl": "./",
-    "paths": {
-      "@/app/*": ["src/app/*"],
-      "@/components/*": ["src/components/*"],
-      "@/domains/*": ["src/domains/*"],
-      "@/hooks/*": ["src/hooks/*"],
-      "@/lib/*": ["lib/*"],
-      "@/base/*": ["base/*"],
-      "@/services/*": ["services/*"],
-      "@/types/*": ["types/*"],
-      "@/api/*": ["src/app/api/*"]
-    },
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "typeRoots": ["./node_modules/@types", "./types"]
-  },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "public/workers/readingTime.js",
-    "public/workers/serializeWorker.js",
-    "public/workers/fileReaderWorker.js"
-  ],
-  "exclude": ["node_modules"]
+	"compilerOptions": {
+		"target": "esnext",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"allowJs": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
+		"noEmit": true,
+		"outDir": "./public",
+		"esModuleInterop": true,
+		"module": "esnext",
+		"moduleResolution": "node",
+		"allowSyntheticDefaultImports": true,
+		"resolveJsonModule": true,
+		"jsx": "preserve",
+		"isolatedModules": true,
+		"incremental": true,
+		"baseUrl": "./",
+		"paths": {
+			"@/app/*": ["src/app/*"],
+			"@/components/*": ["src/components/*"],
+			"@/domains/*": ["src/domains/*"],
+			"@/hooks/*": ["src/hooks/*"],
+			"@/lib/*": ["lib/*"],
+			"@/base/*": ["base/*"],
+			"@/services/*": ["services/*"],
+			"@/types/*": ["types/*"],
+			"@/api/*": ["src/app/api/*"]
+		},
+		"plugins": [
+			{
+				"name": "next"
+			}
+		],
+		"typeRoots": ["./node_modules/@types", "./types"]
+	},
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		".next/types/**/*.ts",
+		"public/workers/readingTime.js",
+		"public/workers/serializeWorker.js",
+		"public/workers/fileReaderWorker.js",
+		"src/app/syllabus/page.tss"
+	],
+	"exclude": ["node_modules"]
 }

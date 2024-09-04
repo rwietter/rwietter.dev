@@ -39,8 +39,9 @@
   --bg-alt-color: #121212;
   --text-color: #fafafa;
   --text-gray-color: #b1b1b1;
-  --text-alt-color: #ffffff;
   --text-highlight: #000000;
+
+  --text-alt-color: #ffffff;
   --main-color: #778eff;
   --sub-color: #0f0f11;
   --sub-alt-color: #0f0f11;
@@ -88,6 +89,25 @@
   --cb-box-alt-color: rgba(199, 205, 215, 0.1);
 
   --neutral: #c7cdd7;
+}
+
+[data-theme='noveau']:root {
+  --bg-color: #202020;
+  --bg-alt-color: #282828;
+  --text-color: #dddddd;
+  --text-gray-color: #bbbbbb;
+  --text-highlight: #6a7791;
+
+  --text-alt-color: #ffffff;
+  --main-color: #717171;
+  --sub-color: #38383b;
+  --sub-alt-color: #2f2f33;
+
+  --select: #444;
+  --cb-bg-color: rgba(38, 35, 35, 0.6);
+  --cb-box-alt-color: rgba(92, 88, 88, 0.6);
+
+  --neutral: #3a4048;
 }
 
 

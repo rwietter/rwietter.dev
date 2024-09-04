@@ -1,0 +1,13 @@
+.modalItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: var(--transition-primary);
+  cursor: pointer;
+  border-radius: 22px;
+}
+
+.modalItem svg {
+  color: var(--text-color);
+  transition: var(--transition-primary);
+}

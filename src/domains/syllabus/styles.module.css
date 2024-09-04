@@ -1,0 +1,9 @@
+article .title {
+  --fluid-type-min: 1.2rem;
+  --fluid-type-max: 2rem;
+  --fluid-type-target: 4vw;
+  margin-top: 25px;
+  font-family: var(--font-primary);
+  font-weight: bold;
+  text-transform: uppercase;
+}
