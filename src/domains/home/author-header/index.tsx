@@ -1,4 +1,4 @@
-import { SidebarSocialIcons } from 'src/components/StickyBar/Social'
+import { SocialIcons } from '@/components/Social'
 import { author } from './author'
 import styles from './styles.module.css'
 
@@ -9,7 +9,7 @@ const AuthorHeader = () => {
       <span className={styles.username}>@{author.username}</span>
       <h2 className={styles.biography}>{author.biography}</h2>
       <div className={styles.socialContainer}>
-        <SidebarSocialIcons />
+        <SocialIcons />
       </div>
     </section>
   )

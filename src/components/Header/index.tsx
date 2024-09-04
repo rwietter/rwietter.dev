@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import SwitchTheme from 'src/components/SwitchTheme'
 import styles from './styles.module.css'
 
 const activePath = (pathname: string) => (href: string, entry?: string) => {
@@ -28,7 +27,7 @@ const Header = () => {
             title='Home'
           >
             <Link className={styles.link} href='/'>
-              /home
+              Home
             </Link>
           </div>
           <div
@@ -39,7 +38,7 @@ const Header = () => {
             title='Blog'
           >
             <Link className={styles.link} href='/blog'>
-              /blog
+              Blog
             </Link>
           </div>
           <div
@@ -50,11 +49,11 @@ const Header = () => {
             title='Projects'
           >
             <Link className={styles.link} href='/projects'>
-              /projects
+              Projects
             </Link>
           </div>
         </nav>
-        <SwitchTheme visible='header' />
+        {/* <SwitchTheme visible='header' /> */}
       </header>
     </>
   )

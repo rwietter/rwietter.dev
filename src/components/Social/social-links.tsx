@@ -1,7 +1,8 @@
 import type { SocialLink } from '@/types/Social'
 import { LiaOrcid } from 'react-icons/lia'
-import { PiGithubLogo, PiLinkedinLogo, PiTwitterLogo } from 'react-icons/pi'
+import { PiGithubLogo, PiLinkedinLogo } from 'react-icons/pi'
 import { SiSubstack } from 'react-icons/si'
+import { TbBrandBluesky } from 'react-icons/tb'
 
 export type SocialLinks = SocialLink[]
 
@@ -25,10 +26,10 @@ export const links: SocialLinks = [
     color: 'github',
   },
   {
-    icon: <PiTwitterLogo size={27} />,
-    url: 'https://twitter.com/rwietter',
-    name: 'Twitter',
-    color: 'twitter',
+    icon: <TbBrandBluesky size={27} />,
+    url: 'https://bsky.app/profile/did:plc:l4rdag2x2gkyq5zkgb46pbzl',
+    name: 'Bluesky',
+    color: 'bluesky',
   },
   {
     icon: <LiaOrcid size={27} />,

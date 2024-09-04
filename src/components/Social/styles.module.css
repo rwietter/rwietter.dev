@@ -16,8 +16,13 @@ div.socialContainer {
   color: var(--text-color);
   display: inline-block;
   text-decoration: none;
+  transition: var(--transition-primary);
 }
 
 .link+.link {
   padding-left: 0.8rem;
+}
+
+.link:hover {
+  color: var(--main-color);
 }

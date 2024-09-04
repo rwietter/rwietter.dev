@@ -27,19 +27,62 @@ O estilo imperativo concentra-se em como executar o código detalhe a detalhe e 
 
 A exemplo, o código abaixo é um algoritmo de ordenação chamado de bubble Sort que percorre o array `n^2` fazendo a troca dos elementos até ordená-lo completamente. Nesse código há a construção da lógica e fluxo de controle, além da mutabilidade do array.
 
-![bubble sort](https://substackcdn.com/image/fetch/w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0a640f32-3aa6-4420-a048-16e4174e1a81_1348x1350.png)
+```c
+// Bubble sort in C
+#include <stdio.h>
+
+void bubbleSort(int arr[], int n) {
+  int i, j;
+  for (i = 0; i < n - 1; i++) {
+    for (j = 0; j < n - 1 - i; j++) {
+      if (arr[j] > arr[j + 1]) {
+        int temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+      }
+    }
+  }
+}
+
+int main() {
+  int arr[] = {64, 34, 25, 12, 22, 11, 90};
+  int n = sizeof(arr) / sizeof(arr[0]);
+  bubbleSort(arr, n);
+  printf("Array ordenado: \n");
+  for (int i = 0; i < n; i++)
+    printf("%d ", arr[i]);
+  return 0;
+}
+```
+
 
 O código imperativo é interessante para programação de código de baixo nível para o qual existem poucas ou nenhuma abstração. O código fica extremamente verboso, ruim para depurar, ler e para dar manutenção. Em um código imperativo há muitos loops, condicionais e mutações de estado que facilmente resultam em bugs.
 
 Assim sendo, a programação imperativa é mais adequada para tarefas onde é importante controlar o estado do programa e gerenciar o fluxo de execução.
 
-Vamos calcular o fatorial de um número natural positivo, cuja fórmula está na imagem abaixo.
+Vamos calcular o fatorial de um número natural positivo, cuja fórmula se dá por:
 
-![fatorial](https://substackcdn.com/image/fetch/w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff5c2b102-a99c-45d4-a8ee-71d106821de5_487x157.png)
+$$
+n! =
+\begin{cases}
+1 & \text{if } n = 0 \\
+n \cdot (n-1)! & \text{else}
+\end{cases}
+$$
 
 No fatorial imperativo, avaliamos se `n` é menor ou igual a zero e retornamos 1, do contrário fazemos um loop até `n-1` e multiplicamos o valor de `n` pelo índice fazendo a mutabilidade de `n`, ao final retornamos `n`. Nesse código criamos a lógica de calcular o fatorial de `n` e o fluxo de controle.
 
-![fatorial imperativo](https://substackcdn.com/image/fetch/w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F36ca5586-ae84-49f3-9be8-23b7b7e716d9_1040x630.png)
+```js
+const factorial = n => {
+  if ( n <= 0 ) return 1;
+
+  for ( let i = n - 1; i > 0; i-- ) {
+    n *= i;
+  }
+
+  return n;
+}
+```
 
 ### Características do código Imperativo
 
@@ -183,7 +226,9 @@ Você como Engenheiro de Software precisa conhecer bem as diversas classificaç�
 
 ## Estado da Arte
 
-> A crescente popularidade das linguagens de programação declarativas decorre da simplicidade inerente do paradigma, cujo alto nível de abstração garante estilos de programação legíveis por humanos. — MOTTOLA A.. Design and implementation of a declarative programming language in a reactive environment. 2005.
+> A crescente popularidade das linguagens de programação declarativas decorre da simplicidade inerente do paradigma, cujo alto nível de abstração garante estilos de programação legíveis por humanos.
+>
+> — MOTTOLA A.. Design and implementation of a declarative programming language in a reactive environment. 2005.
 
 Muitas das linguagens imperativas começaram a trazer novos recursos na última década para o estilo declarativo. Um exemplo é o Java 8 que trouce uma nova API para Streams para operar em coleções usando expressões lambda abstraindo o código imperativo.
 
@@ -195,7 +240,7 @@ Na área de cloud-computing, várias ferramentas no estilo declarativo como o Te
 
 À medida que a programação declarativa continua a evoluir, é provável que ela desempenhe um papel cada vez mais importante no futuro do desenvolvimento de software. Portanto, aprender sobre programação declarativa pode ser um investimento valioso para qualquer desenvolvedor que deseja melhorar sua habilidade em criar código de qualidade.
 
-Se você chegou até aqui, espero que tenha tido uma ótima leitura e que esse conteúdo possa ter lhe ajudado de alguma forma. Obrigado por ler! Qualquer dúvida, agregação ou correção, [envie-me uma dm no twitter ](https://twitter.com/rwietter).
+Se você chegou até aqui, espero que tenha tido uma ótima leitura e que esse conteúdo possa ter lhe ajudado de alguma forma. Obrigado por ler! Qualquer dúvida, agregação ou correção, [envie-me uma dm no Bluesky](https://bsky.app/profile/did:plc:l4rdag2x2gkyq5zkgb46pbzl).
 
 ## Referências
 

@@ -66,13 +66,13 @@ const StickyBar = () => {
           <div className={styles.menuBarLink}>
             <button
               type='button'
+              onClick={handleToggleModal}
               className={styles.menuBarItem}
               aria-label='Go to blog'
             >
               <VscSettings
                 role='button'
                 size={20}
-                onClick={handleToggleModal}
                 style={{ cursor: 'pointer' }}
               />
             </button>

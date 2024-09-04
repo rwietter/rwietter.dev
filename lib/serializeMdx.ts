@@ -17,8 +17,8 @@ export async function getMdxSource(article: string): Promise<MDXSerialized> {
             highlight: true,
             lineNumbers: true,
             theme: {
-              dark: 'rose-pine',
-              light: 'rose-pine-dawn',
+              dark: 'github-dark-default',
+              light: 'github-light-default',
             },
           },
         ],

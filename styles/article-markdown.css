@@ -93,10 +93,10 @@
 }
 
 .blogpost blockquote {
-  margin: 2em 0 !important;
-  padding: 0 2em;
+  margin: 2em 0;
+  padding: 0 1em;
   color: var(--text-gray-color);
-  background: transparent;
+  background: var(--sub-alt-color);
   transition: var(--transition-primary);
   border-radius: 4px;
   position: relative;
@@ -104,14 +104,14 @@
 }
 
 .blogpost blockquote p {
-  font-family: var(--font-secondary);
+  font-family: var(--font-primary);
   font-weight: 400;
   font-style: italic;
-  padding: 0.2em;
+  padding: 0.1em;
   text-align: left;
   line-height: 1.5;
-  --fluid-type-max: 1.3rem;
-  --fluid-type-target: 5vw;
+  --fluid-type-max: 1.2rem;
+  --fluid-type-target: 3vw;
 }
 
 @media (min-width: 768px) {
@@ -276,10 +276,31 @@
 */
 
 html code {
-  --shiki-light-bg: var(--bg-alt-color);
+  background: var(--bg-alt-color);
+  color: var(--shiki-light);
+  /* background: var(--shiki-light-bg); */
+  transition: var(--transition-primary);
+}
+
+[data-theme='dark']:root code,
+[data-theme='dark']:root code span {
   color: var(--shiki-light);
   background-color: var(--shiki-light-bg);
-  transition: var(--transition-primary);
+}
+
+[data-theme='noveau']:root code,
+[data-theme='noveau']:root code span {
+  color: var(--shiki-dark);
+  background-color: var(--bg-alt-color);
+}
+
+@media (prefers-color-scheme: dark) {
+
+  [data-theme='dark']:root code,
+  [data-theme='dark']:root code span {
+    color: var(--shiki-dark);
+    background-color: var(--shiki-dark-bg);
+  }
 }
 
 html code span {

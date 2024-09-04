@@ -15,11 +15,11 @@ const Syllabus: React.FC<SyllabusPropTypes> = (props) => (
       <span>
         This is a bibliography of works that I have read or am currently
         reading. They are organized by topic and are not exhaustive. I will
-        update this list as I read more books.
+        update this list as I read more books and papers. <span> </span>
       </span>
       <span>
         Citations are provided in IEEE format. If the resource is available
-        offline and
+        offline, I will provide a link to the publisher's website.
       </span>
     </section>
     <MDX mdxSource={props.data.content} />
