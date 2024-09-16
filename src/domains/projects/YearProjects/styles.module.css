@@ -9,7 +9,7 @@
 .title {
   font-weight: 600;
   padding: 1rem 0;
-  font-family: var(--font-secondary);
+  font-family: var(--font-primary);
   color: var(--text-color);
   transition: var(--transition-primary);
 
@@ -64,4 +64,5 @@
   font-weight: 300;
   color: var(--text-alt-color);
   line-height: 1.7;
+  font-family: var(--font-secondary);
 }

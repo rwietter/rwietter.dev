@@ -91,7 +91,7 @@ E além disso, se o algoritmo faz uma predição incorreta sobre qual caminho um
 
 Outro problema das branchs é que elas podem causar **cache misses**. O cache miss ocorre quando os dados ou instruções requisitados não estão presentes nos caches L1, L2, L3 e afim, forçando o sistema a buscar os dados na memória principal, que é mais lenta a adiciona maior latência.
 
-Por exemplo, a condicional no código abaixo, essa abordagem geralmente é mais lenta do que simplesmente `value = new_val` — não porque o código é maior — mas porque a variável poderia estar no cache e o desvio condicional pode gerar um branch misprediction.
+Por exemplo, a condicional no código abaixo, geralmente é mais lenta do que simplesmente `value = new_val` — não porque o código é maior — mas porque a variável poderia estar no _cache_ e o desvio condicional pode gerar um _branch misprediction_ ou _cache miss_.
 
 ```js
 if (value !== new_val) {
@@ -117,11 +117,11 @@ Os dicionários utilizam funções hash, que em casos de colisão de hash vem a 
 
 ## Condições para uso de Jump Table (gcc)
 
-O Intervalo Contíguo de Casos: se os valores dos <High>casos são contíguos ou próximos</High>, é mais eficiente usar uma jump table.
+- **Intervalo Contíguo de Casos**: se os valores dos <High>casos são contíguos ou próximos</High>, é mais eficiente usar uma jump table.
 
-O Número de Casos: se o número de casos é suficiente para justificar a tabela, normalmente <High>5 ou mais casos contíguos</High>.
+- **Número de Casos**: se o número de casos é suficiente para justificar a tabela, normalmente <High>5 ou mais casos contíguos</High>.
 
-Case labels: os rótulos dos casos devem ser constantes — não variáveis ou strings — <High>(1..n, a..z, Enum)</High>.
+- **Case labels**: os rótulos dos casos devem ser constantes — não variáveis ou strings — <High>(1..n, a..z, Enum)</High>.
 
 ## Multiway branch
 

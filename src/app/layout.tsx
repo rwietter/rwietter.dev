@@ -8,7 +8,7 @@ import Providers from './providers'
 
 import styles from './styles.module.css'
 
-import '../../styles/page-shadow.css'
+import '../../styles/fonts.css'
 import '../../styles/styles.css'
 import '../../styles/theme.css'
 
@@ -24,9 +24,8 @@ export default function RootLayout({
       </head>
       <body>
         <div className={styles.main}>
-          <div id='over-shadow' />
+          <Header />
           <Providers>
-            <Header />
             <main className={styles.layout}>{children}</main>
             <StickyBar />
           </Providers>
@@ -44,8 +43,7 @@ function DocumentStuff() {
           (function() {
             const userPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             const savedTheme = localStorage.getItem('theme');
-            const theme = savedTheme || (userPrefersDark ? 'dark' : 'light');
-            document.documentElement.className = theme;
+            document.documentElement.setAttribute("data-theme", savedTheme);
           })();
         `}
       </Script>

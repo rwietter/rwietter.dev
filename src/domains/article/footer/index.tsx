@@ -1,12 +1,12 @@
 'use client'
 
+import { SocialIcons } from '@/components/Social'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { type FC, memo } from 'react'
 import { FiTwitter } from 'react-icons/fi'
 import { GoCommentDiscussion } from 'react-icons/go'
 import { TbTags } from 'react-icons/tb'
-import { SidebarSocialIcons } from 'src/components/StickyBar/Social'
 import styles from './styles.module.css'
 
 interface ArticleFooterPropsTypes {
@@ -20,9 +20,8 @@ interface ArticleFooterPropsTypes {
 const ArticleFooter: FC<ArticleFooterPropsTypes> = ({ post }) => {
   const pathname = usePathname()
 
-  const tweetUrl = `http://twitter.com/share?text=I just read "${
-    post.title
-  }"&url=https://rwietter.dev${pathname}&hashtags=${post.category}`
+  const tweetUrl = `http://twitter.com/share?text=I just read "${post.title
+    }"&url=https://rwietter.dev${pathname}&hashtags=${post.category}`
 
   const linkToSearchOnTwietter = `https://twitter.com/search?q=https://rwietter.dev${pathname}`
 
@@ -47,7 +46,7 @@ const ArticleFooter: FC<ArticleFooterPropsTypes> = ({ post }) => {
       </nav>
       <div className={styles.separator} />
       <section className={styles.socialContainer}>
-        <SidebarSocialIcons />
+        <SocialIcons />
         <a
           className={styles.license}
           href='https://github.com/rwietter/rwietter.dev#CC-BY-SA-4.0-2'

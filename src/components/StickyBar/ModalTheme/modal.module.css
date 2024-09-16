@@ -1,0 +1,23 @@
+.modalItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: var(--transition-primary);
+  cursor: pointer;
+  border-radius: 22px;
+}
+
+.modalItem svg {
+  color: var(--text-color);
+  transition: var(--transition-primary);
+}
+
+.modalItem {
+  margin-right: 1em;
+  padding: 0.5em 0;
+  width: 100%;
+}
+
+.modalItem:last-child {
+  margin-right: 0;
+}

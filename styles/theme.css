@@ -4,16 +4,16 @@
   --text-color: #1c2334;
   --text-gray-color: #555969;
   --text-alt-color: #080808;
-  --caret-color: #1c2334;
+  --text-highlight: #1c2334;
   --main-color: #8338ec;
   --sub-color: #c9c9cf;
   --sub-alt-color: #f4f4f6;
-  --select: #4433ff;
-  --highlight: #afb8c133;
-  --highlight-text: #000000;
+
   --cb-bg-color: rgba(255, 255, 255, 0.6);
   --cb-box-alt-color: rgba(0, 0, 0, 0.1);
   --neutral: #dfe3e6;
+
+  --select: #4433ff;
   --success: #98ffc3;
   --error: #f78890;
   --warning: #f7d794;
@@ -23,35 +23,92 @@
     border-color 200ms ease, box-shadow 200ms ease, fill 200ms ease,
     stroke 200ms ease;
 
-  --system-ui: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  --font-primary: Inter, sans-serif;
+  --system-ui: var(--headers-font);
+  --font-primary: var(--headers-font), Inter, sans;
   --font-tex: KaTeX_Math;
-  --font-secondary: "Noto Serif", serif;
-  --font-title: var(--font-secondary), Inter, sans-serif;
+  --font-secondary: var(--body-font), Inter, serif;
+  --font-title: var(--font-secondary), Inter, serif;
   --font-code: ui-monospace, PT Mono, Consolas, Monaco, "Andale Mono",
     "Ubuntu Mono", monospace;
-  --font-bolder: Inter, sans-serif;
+  --font-bolder: var(--headers-font);
 }
 
-.dark:root {
+[data-theme='dark']:root {
   --bg-color: #000000;
   --bg-alt-color: #121212;
   --text-color: #fafafa;
   --text-gray-color: #b1b1b1;
+  --text-highlight: #000000;
+
   --text-alt-color: #ffffff;
-  --caret-color: #0f0f11;
   --main-color: #778eff;
   --sub-color: #0f0f11;
   --sub-alt-color: #0f0f11;
-  --error-color: #ff4754;
-  --highlight: #afb8c133;
-  --highlight-text: #f6f5f5;
+
   --select: #617bff;
   --cb-bg-color: rgba(0, 0, 0, 0.6);
   --cb-box-alt-color: rgba(255, 255, 255, 0.1);
+
   --neutral: #3a4048;
 }
+
+[data-theme='desert']:root {
+  --bg-color: #f4eeeb;
+  --bg-alt-color: hsl(30, 39%, 91%);
+  --text-color: #2d2b27;
+  --text-gray-color: #8f8073;
+  --text-highlight: #2d2b27;
+
+  --text-alt-color: #7d7564;
+  --main-color: #d39268;
+  --sub-color: #b3764f;
+  --sub-alt-color: rgba(234, 219, 199, 0.3);
+
+  --select: #eadbc7;
+  --cb-bg-color: rgba(216, 207, 199, 0.1);
+  --cb-box-alt-color: rgba(216, 207, 199, 0.3);
+
+  --neutral: #e8dbd1;
+}
+
+[data-theme='nord-light']:root {
+  --bg-color: #eceff4;
+  --bg-alt-color: #e3e7ed;
+  --text-color: #6a7791;
+  --text-gray-color: #535e75;
+  --text-highlight: #6a7791;
+
+  --text-alt-color: #535e75;
+  --main-color: #8fbcbb;
+  --sub-color: #535e75;
+  --sub-alt-color: hsl(225, 30%, 91%);
+
+  --select: #8fbcbb;
+  --cb-bg-color: rgba(240, 240, 240, 0.3);
+  --cb-box-alt-color: rgba(199, 205, 215, 0.1);
+
+  --neutral: #c7cdd7;
+}
+
+[data-theme='noveau']:root {
+  --bg-color: #202020;
+  --bg-alt-color: #282828;
+  --text-color: #dddddd;
+  --text-gray-color: #bbbbbb;
+  --text-highlight: #6a7791;
+
+  --text-alt-color: #ffffff;
+  --main-color: #717171;
+  --sub-color: #38383b;
+  --sub-alt-color: #2f2f33;
+
+  --select: #444;
+  --cb-bg-color: rgba(38, 35, 35, 0.6);
+  --cb-box-alt-color: rgba(92, 88, 88, 0.6);
+
+  --neutral: #3a4048;
+}
+
 
 body {
   background-color: var(--bg-color);

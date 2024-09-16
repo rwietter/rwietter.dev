@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { links } from './social-links'
 import styles from './styles.module.css'
 
-const SidebarSocialIcons = () => (
+const SocialIcons = () => (
   <div className={`${styles.socialContainer} social`}>
     {links.map((link: SocialLink) => (
       <Link
@@ -21,4 +21,4 @@ const SidebarSocialIcons = () => (
   </div>
 )
 
-export { SidebarSocialIcons }
+export { SocialIcons }

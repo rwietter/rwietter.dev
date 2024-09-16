@@ -1,6 +1,6 @@
 .text {
   background-color: #ffe6c3;
-  color: var(--caret-color);
+  color: var(--text-highlight);
   padding: 0.1em 0.2em;
   border-radius: 0.3em;
   font-weight: 500 !important;
