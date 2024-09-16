@@ -33,16 +33,28 @@ const nextConfig = {
     ENV: process.env.ENV,
   },
   images: {
-    domains: [
-      'localhost',
-      'vitals.vercel-insights.com',
-      'i.imgur.com',
-      'lastfm.freetls.fastly.net',
-      'strapi-cms-rw.herokuapp.com',
-      'i.scdn.co',
-      'rwietter-strapi-cms.herokuapp.com',
-      'res.cloudinary.com',
-      'picsum.photos',
+    remotePatterns: [
+      {
+        hostname: 'i.imgur.com',
+      },
+      {
+        hostname: 'localhost',
+      },
+      {
+        hostname: 'vitals.vercel-insights.com',
+      },
+      {
+        hostname: 'lastfm.freetls.fastly.net',
+      },
+      {
+        hostname: 'i.scdn.co',
+      },
+      {
+        hostname: 'res.cloudinary.com',
+      },
+      {
+        hostname: 'picsum.photos',
+      },
     ],
     formats: ['image/webp'],
   },

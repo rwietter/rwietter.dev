@@ -1,5 +1,5 @@
 .articleContainer {
-  font-family: var(--font-primary);
+  font-family: var(--font-secondary);
   max-width: 60rem;
   margin: 0 auto;
 }

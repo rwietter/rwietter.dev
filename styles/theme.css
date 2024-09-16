@@ -23,15 +23,14 @@
     border-color 200ms ease, box-shadow 200ms ease, fill 200ms ease,
     stroke 200ms ease;
 
-  --system-ui: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  --font-primary: Inter, sans-serif;
+  --system-ui: var(--headers-font);
+  --font-primary: var(--headers-font), Inter, sans;
   --font-tex: KaTeX_Math;
-  --font-secondary: "Noto Serif", serif;
-  --font-title: var(--font-secondary), Inter, sans-serif;
+  --font-secondary: var(--body-font), Inter, serif;
+  --font-title: var(--font-secondary), Inter, serif;
   --font-code: ui-monospace, PT Mono, Consolas, Monaco, "Andale Mono",
     "Ubuntu Mono", monospace;
-  --font-bolder: Inter, sans-serif;
+  --font-bolder: var(--headers-font);
 }
 
 [data-theme='dark']:root {

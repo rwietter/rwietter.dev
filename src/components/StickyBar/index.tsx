@@ -1,7 +1,6 @@
 "use client"
 
 import Modal from '@/components/Modal'
-import { ModalTheme } from '@/components/StickyBar/ModalTheme'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React from 'react'
@@ -18,6 +17,9 @@ export interface ModalRef {
 const SwitchTheme = dynamic(() => import('@/components/SwitchTheme'))
 const Kbar = dynamic(() => import('@/components/StickyBar/Kbar'))
 const ScrollUp = dynamic(() => import('@/components/StickyBar/ScrollUp'))
+
+const ModalTheme = dynamic(() => import('@/components/StickyBar/ModalTheme').then((mod) => mod.ModalTheme))
+const ModalFont = dynamic(() => import('@/components/StickyBar/ModalFont').then((mod) => mod.ModalFont))
 
 const StickyBar = () => {
   const modalRef = React.useRef<ModalRef>(null)
@@ -95,6 +97,7 @@ const StickyBar = () => {
 
       <Modal ref={modalRef} title='Settings'>
         <ModalTheme />
+        <ModalFont />
       </Modal>
     </>
   )

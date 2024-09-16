@@ -17,14 +17,14 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
-  height: 100%;
+  height: auto;
   max-width: 30rem;
-  max-height: 30rem;
   background: var(--bg-color);
   display: flex;
   flex-direction: column;
   z-index: 1000;
   border-radius: 4px;
+  padding-bottom: 1em;
   animation: fadeIn 200ms ease;
   transition: background 200ms ease, box-shadow 200ms ease, color 200ms ease;
 }
@@ -66,14 +66,4 @@
   color: var(--text-color);
   transition: var(--transition-primary);
   border-radius: 22px;
-}
-
-.modalGroup .modalGroupContent>* {
-  margin-right: 1em;
-  padding: 0.5em 0;
-  width: 100%;
-}
-
-.modalGroup .modalGroupContent>*:last-child {
-  margin-right: 0;
 }

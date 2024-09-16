@@ -84,7 +84,7 @@
   --fluid-type-max: 3rem;
   --fluid-type-target: 7vw;
   --fluid-type-min: 1.3rem;
-  font-family: var(--font-secondary);
+  font-family: var(--font-primary);
   padding-top: 0.5em;
   font-weight: 800;
   margin: 0;

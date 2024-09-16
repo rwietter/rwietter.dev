@@ -8,6 +8,7 @@ import Providers from './providers'
 
 import styles from './styles.module.css'
 
+import '../../styles/fonts.css'
 import '../../styles/styles.css'
 import '../../styles/theme.css'
 
