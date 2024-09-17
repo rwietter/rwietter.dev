@@ -4,12 +4,11 @@ import { SocialIcons } from '@/components/Social'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { type FC, memo } from 'react'
-import { FiTwitter } from 'react-icons/fi'
 import { GoCommentDiscussion } from 'react-icons/go'
-import { TbTags } from 'react-icons/tb'
+import { TbBrandBluesky, TbTags } from 'react-icons/tb'
 import styles from './styles.module.css'
 
-interface ArticleFooterPropsTypes {
+interface PropsTypes {
   post: {
     category: string
     author: string
@@ -17,29 +16,29 @@ interface ArticleFooterPropsTypes {
   }
 }
 
-const ArticleFooter: FC<ArticleFooterPropsTypes> = ({ post }) => {
+const LICENSE = 'CC-BY-SA-4.0'
+
+const ArticleFooter: FC<PropsTypes> = ({ post }) => {
   const pathname = usePathname()
 
-  const tweetUrl = `http://twitter.com/share?text=I just read "${post.title
-    }"&url=https://rwietter.dev${pathname}&hashtags=${post.category}`
-
-  const linkToSearchOnTwietter = `https://twitter.com/search?q=https://rwietter.dev${pathname}`
+  const url = `https://bsky.app/intent/compose?text=I just read "${post.title}" %20 https://rwietter.dev${pathname}%20%23${post.category}`
+  const search = `https://bsky.app/search?q=https://rwietter.dev${pathname}`
 
   return (
     <div className={styles.articleFooterContainer}>
       <div className={styles.separator} />
       <nav className={styles.navHeader}>
-        <a href={tweetUrl} target='_blank' rel='noreferrer'>
-          <FiTwitter size={14} />
-          &nbsp;Tweet
+        <a href={url} target='_blank' rel='noreferrer'>
+          <TbBrandBluesky size={18} />
+          &nbsp;Post
         </a>
-        <a href={linkToSearchOnTwietter} target='_blank' rel='noreferrer'>
-          <GoCommentDiscussion size={14} />
+        <a href={search} target='_blank' rel='noreferrer'>
+          <GoCommentDiscussion size={18} />
           &nbsp;Discuss
         </a>
         {post.category && (
           <Link href={`/blog/category/${post.category}`}>
-            <TbTags size={14} />
+            <TbTags size={18} />
             &nbsp;{[`#${post.category}`]}
           </Link>
         )}
@@ -53,7 +52,7 @@ const ArticleFooter: FC<ArticleFooterPropsTypes> = ({ post }) => {
           target='_blank'
           rel='noreferrer'
         >
-          CC-BY-SA-4.0
+          {LICENSE}
         </a>
         {post.author && (
           <p className={styles.author}>

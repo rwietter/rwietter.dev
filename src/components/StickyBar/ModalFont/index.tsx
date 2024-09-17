@@ -62,7 +62,7 @@ export const ModalFont = () => {
           >
             <option value="Inter">Default</option>
             <option value="Inter">Sans</option>
-            <option value="Noto Serif">Sans-serif</option>
+            <option value="Noto Serif">Serif</option>
             <option value="monospace">Monospace</option>
           </select>
         </section>

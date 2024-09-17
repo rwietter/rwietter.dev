@@ -24,10 +24,10 @@
     stroke 200ms ease;
 
   --system-ui: var(--headers-font);
-  --font-primary: var(--headers-font), Inter, sans;
+  --font-primary: var(--headers-font);
   --font-tex: KaTeX_Math;
-  --font-secondary: var(--body-font), Inter, serif;
-  --font-title: var(--font-secondary), Inter, serif;
+  --font-secondary: var(--body-font);
+  --font-title: var(--font-secondary);
   --font-code: ui-monospace, PT Mono, Consolas, Monaco, "Andale Mono",
     "Ubuntu Mono", monospace;
   --font-bolder: var(--headers-font);
