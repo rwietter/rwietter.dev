@@ -2,7 +2,7 @@
 title: Um paralelo entre Programação Declarativa e Programação Imperativa
 description: Quais são os trade-offs entre o Paradigma Imperativo e o Paradigma Declarativo, princípios e uso
 publishedAt: 2020-07-06
-updatedAt: 2020-07-06
+updatedAt: 2024-09-21
 image: https://res.cloudinary.com/ddwnioveu/image/upload/v1711683355/1917f95b3631a136d788ffd54197badd56befcde_vxoba8.jpg
 alternativeText: Arte tipográfica tridimensional abstrata formando a palavra "pain" com estruturas semelhantes a alfinetes criando uma sensação de movimento e profundidade.
 category: coding
@@ -143,7 +143,9 @@ Para alcançar o estilo declarativo de programação, é necessário que alguns 
 
 Em uma linguagem onde todos os dados são imutáveis, aplica-se o conceito de stateless. Isso significa que, uma vez que uma variável é atribuída, seu valor não pode ser alterado. Em vez disso, qualquer manipulação ou transformação de dados envolve o retorno de uma cópia dos valores originais transformados, de forma que os valores originais sem mantenham intactos. Em outras palavras, não fazemos a persistência dos dados entre as chamadas de execuções. Em JavaScript, funções como `map`, `filter` e `flatMap`são stateless e funções como `sort` são stateful.
 
-> Uma função sem estado é aquela que não depende ou manipula o estado de contexto mais amplo. Ele pega tudo o que precisa como parâmetro e retorna um resultado, sem efeitos colaterais e nada armazenado entre as chamadas de execuções.
+<Info>
+Uma função sem estado é aquela que não depende ou manipula o estado de contexto mais amplo. Ele pega tudo o que precisa como parâmetro e retorna um resultado, sem efeitos colaterais e nada armazenado entre as chamadas de execuções.
+</Info>
 
 Conforme Nick Samoylov em [Introduction to Programming](https://www.oreilly.com/library/view/introduction-to-programming/9781788839129/50f54a6f-dd25-40bc-89d2-31b73d95b6b7.xhtml), as operações sem estado geralmente não representam um problema ao alternar de um fluxo sequencial para um paralelo. Cada elemento é processado de forma independente e o stream pode ser dividido em qualquer número de substreams para processamento independente. Ou seja, o stateless acaba com bugs e race conditions em ambientes multithreading, não há razões para usar locks para sincronizar eventos dependentes.
 
@@ -226,9 +228,9 @@ Você como Engenheiro de Software precisa conhecer bem as diversas classificaç�
 
 ## Estado da Arte
 
-> A crescente popularidade das linguagens de programação declarativas decorre da simplicidade inerente do paradigma, cujo alto nível de abstração garante estilos de programação legíveis por humanos.
->
-> — MOTTOLA A.. Design and implementation of a declarative programming language in a reactive environment. 2005.
+<Cite>
+A crescente popularidade das linguagens de programação declarativas decorre da simplicidade inerente do paradigma, cujo alto nível de abstração garante estilos de programação legíveis por humanos[^1].
+</Cite>
 
 Muitas das linguagens imperativas começaram a trazer novos recursos na última década para o estilo declarativo. Um exemplo é o Java 8 que trouce uma nova API para Streams para operar em coleções usando expressões lambda abstraindo o código imperativo.
 
@@ -240,7 +242,7 @@ Na área de cloud-computing, várias ferramentas no estilo declarativo como o Te
 
 À medida que a programação declarativa continua a evoluir, é provável que ela desempenhe um papel cada vez mais importante no futuro do desenvolvimento de software. Portanto, aprender sobre programação declarativa pode ser um investimento valioso para qualquer desenvolvedor que deseja melhorar sua habilidade em criar código de qualidade.
 
-Se você chegou até aqui, espero que tenha tido uma ótima leitura e que esse conteúdo possa ter lhe ajudado de alguma forma. Obrigado por ler! Qualquer dúvida, agregação ou correção, [envie-me uma dm no Bluesky](https://bsky.app/profile/did:plc:l4rdag2x2gkyq5zkgb46pbzl).
+Se você encontrar algum erro ou tiver alguma dúvida, sinta-se à vontade para me mandar uma mensagem no [Bluesky](https://bsky.app/profile/did:plc:l4rdag2x2gkyq5zkgb46pbzl) ou abrir uma issue no [GitHub](https://github.com/rwietter/rwietter.dev/issues).
 
 ## Referências
 
@@ -250,3 +252,5 @@ Se você chegou até aqui, espero que tenha tido uma ótima leitura e que esse c
 - [Practical advantages of declarative programming](https://research-information.bris.ac.uk/en/publications/practical-advantages-of-declarative-programming)
 - [CodeDocs - Declarative programming](https://codedocs.org/what-is/declarative-programming)
 - [Imperative Programming in Depth](https://blog.ndepend.com/imperative-programming-in-depth/)
+
+[^1]: MOTTOLA A.. Design and implementation of a declarative programming language in a reactive environment. 2005.

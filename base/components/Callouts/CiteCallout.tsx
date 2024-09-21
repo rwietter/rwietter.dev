@@ -1,22 +1,22 @@
 import type { PropsWithChildren } from 'react'
 import styles from './styles.module.css'
-import { MdOutlineDangerous } from 'react-icons/md'
+import { VscQuote } from 'react-icons/vsc'
 
-type ErrorPropTypes = PropsWithChildren<{
+type MessagerPropTypes = PropsWithChildren<{
   title?: string
 }>
 
-const ErrorCallout: React.FC<ErrorPropTypes> = ({
+const CiteCallout: React.FC<MessagerPropTypes> = ({
   children,
-  title = 'Danger, Error',
+  title = 'Cite',
 }) => (
-  <section className={styles.error}>
+  <section className={styles.cite}>
     <section className={styles.header}>
-      <MdOutlineDangerous size={45} />
+      <VscQuote size={45} />
       <p>{title}</p>
     </section>
     <section className={styles.children}>{children}</section>
   </section>
 )
 
-export default ErrorCallout
+export default CiteCallout

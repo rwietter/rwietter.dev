@@ -31,9 +31,10 @@
   --font-code: ui-monospace, PT Mono, Consolas, Monaco, "Andale Mono",
     "Ubuntu Mono", monospace;
   --font-bolder: var(--headers-font);
+  --font-serif: "Spectral", FallBack, serif;
 }
 
-[data-theme='dark']:root {
+[data-theme="dark"]:root {
   --bg-color: #000000;
   --bg-alt-color: #121212;
   --text-color: #fafafa;
@@ -52,7 +53,7 @@
   --neutral: #3a4048;
 }
 
-[data-theme='desert']:root {
+[data-theme="desert"]:root {
   --bg-color: #f4eeeb;
   --bg-alt-color: hsl(30, 39%, 91%);
   --text-color: #2d2b27;
@@ -71,7 +72,7 @@
   --neutral: #e8dbd1;
 }
 
-[data-theme='nord-light']:root {
+[data-theme="nord-light"]:root {
   --bg-color: #eceff4;
   --bg-alt-color: #e3e7ed;
   --text-color: #6a7791;
@@ -90,7 +91,7 @@
   --neutral: #c7cdd7;
 }
 
-[data-theme='noveau']:root {
+[data-theme="noveau"]:root {
   --bg-color: #202020;
   --bg-alt-color: #282828;
   --text-color: #dddddd;
@@ -108,7 +109,6 @@
 
   --neutral: #3a4048;
 }
-
 
 body {
   background-color: var(--bg-color);
