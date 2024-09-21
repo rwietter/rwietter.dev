@@ -22,9 +22,19 @@ const Modal: ForwardRefRenderFunction<
 > = (props, ref) => {
   const [isModalOpen, setIsModalOpen] = React.useState(false)
   const modalRef = React.useRef<HTMLDivElement>(null)
+  const [isAnimating, setIsAnimating] = React.useState(false)
 
-  const openModal = () => setIsModalOpen(true)
-  const closeModal = () => setIsModalOpen(false)
+  const openModal = () => {
+    setIsModalOpen(true)
+    setIsAnimating(false)
+  }
+  const closeModal = () => {
+    setIsAnimating(true)
+    setTimeout(() => {
+      setIsModalOpen(false)
+      setIsAnimating(false)
+    }, 200)
+  }
   const toggleModal = () => setIsModalOpen((prev) => !prev)
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
@@ -55,28 +65,41 @@ const Modal: ForwardRefRenderFunction<
     }
   }, [])
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useImperativeHandle(ref, () => ({
     open: openModal,
     close: closeModal,
     toggle: toggleModal,
-  }))
+  }), [])
 
   return (
     <>
       {isModalOpen && (
         <>
-          <div className={styles.modalBlurOverlay} />
-          <div ref={modalRef} className={styles.modal}>
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title"
+            aria-describedby="modal-description"
+            tabIndex={-1}
+            className={styles.modalBlurOverlay}
+          />
+          <div ref={modalRef}
+            className={`${styles.modal} ${isAnimating ? styles.modalClose : styles.modalOpen}`}
+          >
             <section className={styles.header}>
-              <p>{props.title}</p>
-              <GrClose
-                role='button'
+              <h2 id="modal-title">{props.title}</h2>
+              <button
+                className={styles.closeButton}
+                aria-label="Close Modal"
                 onClick={closeModal}
-                style={{ cursor: 'pointer' }}
-              />
+                type='button'
+                style={{ border: 'none', background: 'none', cursor: 'pointer', color: 'var(--color-text)' }}
+              >
+                <GrClose />
+              </button>
             </section>
-
-            <section className={styles.content}>{props.children}</section>
+            <section id="modal-description" className={styles.content}>{props.children}</section>
           </div>
         </>
       )}
@@ -90,9 +113,13 @@ interface ModalGroupProps extends PropsWithChildren {
 
 export const ModalGroup: React.FC<ModalGroupProps> = (props) => {
   return (
-    <section className={styles.modalGroup}>
-      <p>{props.title}</p>
-      <section className={styles.modalGroupContent}>{props.children}</section>
+    <section
+      aria-labelledby="modal-group-title"
+      aria-describedby="modal-group-description"
+      className={styles.modalGroup}
+    >
+      <p id='modal-group-title'>{props.title}</p>
+      <section id='modal-group-description' className={styles.modalGroupContent}>{props.children}</section>
     </section>
   )
 }
