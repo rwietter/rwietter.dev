@@ -1,10 +1,9 @@
 .modal {
   position: fixed;
   margin: 0 auto;
-  /* 10rem is half of the modal height */
-  top: calc(50% - 10rem);
-  /* 15rem is half of the modal width */
-  left: calc(50% - 15rem);
+  top: calc(50dvh - 10rem);
+  left: 0;
+  right: 0;
   width: 100%;
   min-height: 20rem;
   height: auto;

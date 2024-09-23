@@ -9,6 +9,7 @@
   padding-top: 2rem;
   position: relative;
   z-index: 3;
+  transition: all 0.3s ease;
 }
 
 @media screen and (min-width: 620px) {
@@ -48,7 +49,6 @@
   }
 }
 
-/* NavItem */
 .navItem {
   display: flex;
   align-items: center;
@@ -76,10 +76,4 @@
 
 .navItem:hover {
   background: color-mix(in hsl, var(--bg-alt-color) 60%, var(--neutral) 40%);
-}
-
-@media screen and (min-width: 620px) {
-  .navItem {
-    line-height: initial;
-  }
 }

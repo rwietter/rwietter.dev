@@ -15,25 +15,23 @@ const ArticleHeader: React.FC<ArticleHeaderPropTypes> = (props) => {
   return (
     <section className={styles.section}>
       <div>
-        <div className={styles.infoHeader}>
+        <section className={styles.infoHeader}>
           <Link href='/blog'>
-            <button
-              className={styles.backToOverview}
-              type='button'
-              aria-label='Back to overview'
-            >
-              <AiOutlineArrowLeft size={19} aria-hidden='true' />
+            <button className={styles.backToOverview} type='button'>
+              <AiOutlineArrowLeft size={19} />
               <p>Back to overview</p>
             </button>
           </Link>
           <p className={styles.dateTimeRead}>
             <AiOutlineCalendar size={17} />
             {publishedAt}
-            &nbsp;|&nbsp;
+            {props.readingTime}
+          </p>
+          <p className={styles.dateTimeRead}>
             <RiTimer2Line size={17} />
             {props.readingTime}
           </p>
-        </div>
+        </section>
       </div>
 
       <h1 className={styles.articleTitle}>{props.frontmatter?.title}</h1>

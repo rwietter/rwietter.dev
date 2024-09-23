@@ -14,8 +14,8 @@ export function formatDate(date: string) {
 
 export function getDate(date?: string) {
   const options: Intl.DateTimeFormatOptions = {
-    weekday: 'long',
-    month: 'long',
+    weekday: 'short',
+    month: 'short',
     day: 'numeric',
     year: 'numeric',
   }

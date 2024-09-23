@@ -52,11 +52,9 @@ figcaption,
 blockquote,
 li,
 tt {
-  font-size: clamp(
-    var(--fluid-type-min, 1rem),
-    calc(0.5rem + var(--fluid-type-target, 3vw)),
-    var(--fluid-type-max, 1.1rem)
-  );
+  font-size: clamp(var(--fluid-type-min, 1rem),
+      calc(0.5rem + var(--fluid-type-target, 3vw)),
+      var(--fluid-type-max, 1.1rem));
   text-rendering: geometricPrecision;
 }
 
@@ -81,4 +79,15 @@ p {
     "cv06" 1,
     "cv11" 1;
   font-variant-ligatures: common-ligatures;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }

@@ -36,13 +36,14 @@ export const ModalFont = () => {
   }, [])
 
   return (
-    <ModalGroup title='Font'>
+    <ModalGroup title='Font' aria-modal='true' role='dialog'>
       <section className={styles.fonts}>
-        <section title='Headers Font'>
-          <p>Headers Font</p>
+        <fieldset style={{ all: 'unset' }} title='Headers Font'>
+          <label htmlFor='headers-font-select'>Headers Font</label>
           <select
             className={styles.modalItem}
             value={modalState.headersFont}
+            id='headers-font-select'
             onChange={(e) => handleUpdateHeadersFont(e.target.value)}
           >
             <option value='Inter'>Inter Sans</option>
@@ -50,13 +51,14 @@ export const ModalFont = () => {
             <option value='Spectral'>Spectral Serif</option>
             <option value='monospace'>Monospace</option>
           </select>
-        </section>
+        </fieldset>
 
-        <section title='Body Font'>
-          <p>Body Font</p>
+        <fieldset style={{ all: 'unset' }} title='Body Font'>
+          <label htmlFor='body-font-select'>Body Font</label>
           <select
             className={styles.modalItem}
             value={modalState.bodyFont}
+            id='body-font-select'
             onChange={(e) => handleUpdateBodyFont(e.target.value)}
           >
             <option value='Inter'>Inter Sans</option>
@@ -64,8 +66,11 @@ export const ModalFont = () => {
             <option value='Spectral'>Spectral Serif</option>
             <option value='monospace'>Monospace</option>
           </select>
-        </section>
+        </fieldset>
       </section>
+      <div aria-live='polite' className='sr-only'>
+        {`Headers font set to ${modalState.headersFont}, body font set to ${modalState.bodyFont}`}
+      </div>
     </ModalGroup>
   )
 }
