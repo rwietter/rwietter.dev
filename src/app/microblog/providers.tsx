@@ -2,7 +2,7 @@
 
 import { useIdleQueue } from '@/hooks/useIdleQueue/useIdleQueue'
 import { type PropsWithChildren, useEffect } from 'react'
-import { loadStylesheet } from '../../../utils/loadStylesheet'
+import { loadStylesheet } from 'utils/loadStylesheet'
 
 type Props = PropsWithChildren
 

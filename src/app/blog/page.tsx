@@ -11,7 +11,7 @@ const getData = async () => {
   try {
     const files = fs.readdirSync(path.join(process.cwd(), 'public', 'posts'))
     const mdxFiles = files.filter((file) =>
-      ['.mdx', '.md'].includes(path.extname(file)),
+      ['.mdx'].includes(path.extname(file)),
     )
 
     const posts = await Promise.all(

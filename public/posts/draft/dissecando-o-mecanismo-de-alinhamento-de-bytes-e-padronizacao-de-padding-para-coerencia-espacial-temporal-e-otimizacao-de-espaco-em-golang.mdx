@@ -1,0 +1,67 @@
+---
+title: Dissecando o mecanismo de alinhamento de bytes e padronização de padding para coerência espacial-temporal e otimização de espaço em Golang.
+description:
+slug: dissecando-o-mecanismo-de-alinhamento-de-bytes-e-padronizacao-de-padding-para-coerencia-espacial-temporal-e-otimizacao-de-espaco-em-golang
+image:
+alternativeText:
+caption:
+publishedAt: 2024-07-13
+updatedAt: 2024-07-16
+category: theory
+author: Maurício Witter
+keywords:
+---
+
+# Introdução
+
+Dentre vários conceitos e aspectos, neste post veremos sobre alinhamento de memória. Utilizarei Golang para este propósito, que já possui linters e ferramentas para fazer alinhamento de memória, adicionando padding e otimizando os pointer bytes para que o Garbage Collector possa fazer seu trabalho de forma eficiente.
+
+## Alinhamento
+
+Em primeiro lugar, devemos estar cientes de que o alinhamento depende da arquitetura do processador, incluindo o tamanho da palavra que o processador pode processar diretamente. Em arquiteturas de 32 bits, o processador trabalha com palavras de 4 bytes (32 bits) e, em arquiteturas de 64 bits, com palavras de 8 bytes (64 bits). Isso influencia os requisitos de alinhamento e acesso eficiente à memória, mas o número de operações realizadas por ciclo de clock depende de muitos outros fatores além do tamanho da palavra.
+
+### Endereço Alinhado
+
+Se um valor de tipo X começa em um endereço que é múltiplo de 8 (para uma arquitetura de 64 bits), o processador pode acessar a memória em um único ciclo, pois o valor cabe completamente dentro de um único bloco de memória de 64 bits, do contrário o processador precisará fazer acessos adicionais à memória.
+
+## Endereço Desalinhado
+
+Se o valor começar em um endereço ímpar ou um endereço que não seja múltiplo de 8, o valor pode estar "quebrado" entre dois blocos de 64 bits. Neste caso, o processador terá que realizar dois acessos à memória para ler partes do dado de dois blocos diferentes.
+
+Suponha que você tenha um valor de 64 bits (8 bytes) e ele esteja armazenado começando no endereço 9 (um endereço ímpar). O processador terá que acessar o bloco de memória que cobre os bytes 8 a 15 (endereços de memória de 8 bytes alinhados) para pegar a primeira parte do valor; então, terá que acessar o bloco de memória seguinte, que cobre os bytes 16 a 23, para pegar a parte restante do valor. Esse processo implica em dois ciclos de acesso à memória, o que é menos eficiente.
+
+## Padding Bytes
+
+Um valor de 8 bytes precisa ser carregado em um endereço de memória múltiplo de 8; para 4 bytes precisarão ser múltiplos de 4; para 2 bytes serão múltiplos de 2 e assim por diante.
+
+### Pointer Bytes
+
+Outro aspecto importante, é o tamanho dos pointer bytes. Essa importância está mais ligada a eficiência do Garbage Collector. Ele fica varrendo a memória em busca de ponteiros para objetos que não estão mais sendo usados. Dependendo de como o layout de memória da sua aplicação está, o GC pode precisar varrer mais bytes do que o necessário, causando um overhead desnecessário.
+
+Ok, mas como podemos verificar isso? Como sabemos quanto de pointer bytes são adicionados ao nosso struct? Vamos ver um exemplo prático.
+
+```go
+type Token struct {
+	File  *string
+	Line  int
+	Type  int
+	Value []byte
+}
+```
+
+Nesse código temos uma `struct` que representa um `Token`, dentre seus campos, estão dois ponteiros: `File` e `Value`. Podemos ver que `File` é o primeiro campo, ele possui um tipo `ponteiro` para `string` (16 bytes em 64-bit systems, 8 bytes em 32-bit systems). Adiante há `Line` e `Value` com um tipo `int` (64-bit, 8 bytes); além de `Value`, um ponteiro para `slice` do tipo `byte` (alias para `uint8`, 1 byte).
+
+Em termos de alinhamento, estão alinhados `[0x00-0x07][0x08-0x15][0x16-0x23][0x24]`, não necessitando de padding. No entanto, essa estrutura é ineficiente para o GC.
+
+# Conclusão
+
+O acesso desalinhado resulta em mais operações de leitura ou escrita, aumentando a latência e diminuindo a eficiência do processador. Em contraste, acessos alinhados permitem que o processador realize uma operação única para ler ou escrever um dado completo.
+
+---
+[^1]: Memória Virtual é um design de memória que permite que um computador execute programas como se tivesse mais memória do que realmente possui. A memória virtual é uma parte da memória secundária usada como memória primária.
+[^2]: R. E. Bryant and D. R. O’Hallaron, Computer systems: a programmer’s perspective, Third edition. Boston.
+
+## Recursos
+
+- [Aligning a Struct with or without Padding](https://www.intel.com/content/www/us/en/docs/programmable/683176/18-1/aligning-a-struct-with-or-without-padding.html)
+- [Part 2: Data Alignment, Padding, and Optimization Techniques](https://codeinterstellar.medium.com/part-2-data-alignment-padding-and-optimization-techniques-df2b2f2ba7e7)
