@@ -12,11 +12,11 @@ author: Maurício Witter
 keywords:
 ---
 
-# Introdução
+# 1 Introdução
 
 Data Alignment não é um assunto popular entre grande parte dos desenvolvedores, mas está longe de ser um assunto hermético/abstruso e não é nenhum conhecimeto esotérico. Mas esse assunto costuma estar longínquo da base que é ensinada em cursos universitários e bootcamps. Vamos jogar luz sobre ele, para entender porque é importante para desenvolver software melhor.
 
-### Architecture
+# 2 Architecture
 
 O alinhamento de dados/bytes está intrinsecamente relacionado ao hardware, especificamente à forma como ele executa as instruções. Isso ocorre porque, dependendo da arquitetura, há uma padronização para a execução de instruções. Por exemplo, em arquiteturas x86-64, a CPU busca 8 bytes (ou 64 bits) na memória por ciclo. Mas por que 8 bytes? Isso está relacionado ao fato de que sistemas computacionais operam com dados em [formato binário](https://www.wikiwand.com/pt/articles/Sistema_de_numera%C3%A7%C3%A3o_bin%C3%A1rio), ou seja, em potências de 2 e 64 bits é a geração que seguinte a de x86 (32 bits). A padronização facilita o processamento eficiente e otimiza o acesso à memória, pois está alinhado com a largura do barramento de dados[^2][^3] da arquitetura e dos registradores.
 
@@ -28,7 +28,7 @@ Em sistemas de 32 bits (x86), a CPU trabalha com 4 bytes (32 bits) por ciclo. Ne
 
 Portanto, o alinhamento de dados é determinado pela arquitetura, tudo precisa estar se comunicando na mesma linguagem para que o sistema computacional como um todo possa trabalhar em harmônia, evitando problemas de desempenho que ocorrem quando os dados estão desalinhados.
 
-## Data Alignment
+# 3 Data Alignment
 
 Consoantemente ao próprio nome, **Data Alignment** refere-se ao nivelamento dos dados na memória para que eles sejam múltiplos do tamanho do seu próprio tipo ou de um múltiplo de algum valor K (2, 4 ou 8). Isso permite que a CPU acesse os dados em menos ciclos, pois o alinhamento garante que os dados sejam lidos ou escritos sem penalidades, aproveitando o tamanho da `word-size` da arquitetura.
 
@@ -40,15 +40,15 @@ Dadas as definições inciais, vamos entender como isso de fato funciona, não �
 
 Para este post, estarei utilizando uma arquitetura x86-64; como linguagem — Golang — para ilustrar os exemplos. Na seção **"Regras de alinhamento"** estão dispostos os tipos da linguagem e seus respectivos tamanhos e as regras de alinhamento do compilador.
 
-### Diretivas de Alinhamento
+## 3.1 Diretivas de Alinhamento
 
-#### Diretivas Gerais
+### 3.1.1 Diretivas Gerais
 
 - **Alinhamento Padrão**: O alinhamento de um tipo é determinado pelo tamanho do seu maior campo, até um máximo de 8 bytes (o tamanho de um ponteiro em arquiteturas de 64 bits).
 
 - **Arredondamento**: O tamanho de um tipo é sempre arredondado para cima para ser um múltiplo do seu alinhamento. Isso garante que os tipos sejam armazenados em endereços de memória adequados.
 
-#### Diretivas de Alinhamento Específicos
+### 3.1.2 Diretivas de Alinhamento Específicos
 
 - `int8`, `uint8`, `bool`: Tamanho 1 byte, alinhamento 1 byte.
 - `int16`, `uint16`: Tamanho 2 bytes, alinhamento 2 bytes.
@@ -71,11 +71,9 @@ Para este post, estarei utilizando uma arquitetura x86-64; como linguagem — Go
 As variáveis `PtrSize` e `RegSize` são definidas em **Build Time**, logo, são do tamanho do `word-size` da arquitetura alvo.
 </Warn>
 
-Fechando esse hiato de conhecimento, agora finalmente podemos ir para a parte prática e ver como isso se aplica ao nosso código. Na `Transaction` abaixo, defini alguns campos diversos com tipos e seus respectivos tamanhos.
+Fechando esse hiato de conhecimento, agora finalmente podemos ir para a parte prática e ver como isso se aplica ao nosso código.
 
-Se você nunca viu sobre isso, deve estar bem confuso ainda — e com razão. Relaxa, eu já estive nesse lugar. Vamos ver um exemplo prático, até o final do post você vai entender tudo isso.
-
-### Alinhamento prático
+## 3.2 Alinhamento prático
 
 Na `Transaction` abaixo, defini alguns campos com tipos e seus respectivos tamanhos diversos para entendermos o que há de errado com ela e depois iremos corrigir. Let's go!
 
@@ -99,11 +97,13 @@ $$
 \end{align*}
 $$
 
-Nossa "memória mágica" pareceria algo assim. Cada bloco representando 1 byte, `operation` ocupando 1 bloco, `quantity` 2 blocos, `total` 8 blocos, `unitPrice` 4 blocos e `balance` 16 blocos.
+Então teríamos $31 bytes$ e nossa "memória mágica" pareceria algo assim. Cada bloco representando $1 byte$, `operation` ocupando 1 bloco, `quantity` 2 blocos, `total` 8 blocos, `unitPrice` 4 blocos e `balance` 16 blocos.
 
 ![100%](/assets/magic-memory.png)
 
-Em teoria, a `struct` `Transaction` deveria ter $31 \ bytes$, mas se verificarmos o tamanho da `struct` no Go, veremos que ela tem $40 \ bytes$. O que está acontecendo aqui? O que está errado? Bem, ocorre que, nossa `struct` não está alinhada, então o compilador adicionou lacunas extras (`padding`) para garantir que os campos estejam alinhados.
+## 3.3 Padding Bytes
+
+Em teoria, a `struct` `Transaction` deveria ter $31 \ bytes$, mas se verificarmos o tamanho da `struct` no Go, veremos que ela tem $40 \ bytes$. O que está acontecendo aqui? O que está errado? Bem, ocorre que, nossos campos da `struct` não estão alinhados, então o compilador adicionou lacunas extras (`padding` ou `gaps`) entre eles, para garantir que os campos estejam alinhados.
 
 ```go
 func main() {
@@ -112,7 +112,14 @@ func main() {
 	t := reflect.TypeOf(Transaction{})
 	for i := 0; i < t.NumField(); i++ {
 		field := t.Field(i)
-		fmt.Printf("Field: %s, Type: %s, Size: %d bytes\n", field.Name, field.Type, field.Type.Size())
+		fmt.Printf(
+      "Field: %s,
+      Type: %s,
+      Size: %d bytes\n",
+      field.Name,
+      field.Type,
+      field.Type.Size()
+    )
 	}
 }
 ```
@@ -128,7 +135,7 @@ go run main.go
 # Field: Balance, Type: complex128, Size: 16 bytes
 ```
 
-Como resultado de alinhamento, o go adicionou essas lacunas entre os campos e arrendondou o tamanho da `struct` para 40 bytes. Nossa memória agora parece algo assim:
+Como resultado de alinhamento, o go adicionou essas lacunas entre os campos, mas não precisou arredondar a estrutura final porque ela já termina alinhada, com o próximo offset sendo um múltiplo de $8$ — o $40$. Nossa memória agora seria algo assim:
 
 ![100%](/assets/memory-alignment-40-bytes.png)
 
@@ -136,7 +143,20 @@ Como resultado de alinhamento, o go adicionou essas lacunas entre os campos e ar
 2. **`Quantity` (int16):**  Precisa ser alinhado em um endereço múltiplo de 2 (tamanho de um `int16`). Como o offset atual é 1, o compilador adicionará **1 byte de padding** no bloco 2 para garantir o alinhamento correto de `Quantity` no bloco 3 (offset 2).
 3. **`Total` (float64):** Requer alinhamento de 8 bytes. O próximo offset disponível após `Quantity` seria o 4 (bloco 5), mas ele precisa ser alinhado em um múltiplo de 8.  Portanto, haverá **4 bytes de padding** (blocos 4, 5, 6 e 7) antes de `Total`.
 4. **`UnitPrice` (float32):**  Segue `Total` diretamente, ocupando 4 bytes e mantendo o alinhamento.
-5. **`Balance` (complex128):**  Como precisa de alinhamento de 8 bytes e o offset após `UnitPrice` já é múltiplo de 8, ele se encaixa perfeitamente sem a necessidade de padding adicional.
+5. **`Balance` (complex128):**  Esse tipo é 16 bytes, mas a diretiva diz que ele é alinhado `RegSize`, na minha máquina (x84-64), isso é 8 bytes, como o offset após `UnitPrice` já é múltiplo de 8, ele se encaixa perfeitamente sem a necessidade de padding adicional.
+
+Se somarmos os tamanhos dos campos e os bytes de padding, teremos o tamanho total da `struct`:
+
+$$
+\begin{align*}
+\text{Transaction} = & \ \text{byte} + \text{int16} + \text{float64} + \text{float32} + \text{complex128} \\
+\text{Transaction} = & \ 1 + 2 + 8 + 4 + 16 \\
+\text{Transaction} = & \ 31 \text{ bytes} + 1 \text{ byte} + 4 \text{ bytes} + 4 \text{ bytes} \\
+\text{Transaction} = & \ 40 \text{ bytes}
+\end{align*}
+$$
+
+
 
 ```go
 type TAlignment struct {
@@ -156,7 +176,6 @@ type TAlignment struct {
 cada instrução tem 16 bits, 2 acessos a memória
 devem ser feitos a cada ciclo
 
-### Padding
 
 ### Pointer Bytes
 
@@ -217,13 +236,20 @@ Observações Importantes
 - **Compatibilidade:** As regras de alinhamento são essenciais para garantir a compatibilidade entre diferentes compiladores Go e diferentes arquiteturas de CPU.
 - **Restrições de Tamanho:**  O compilador impõe restrições no tamanho máximo de alguns tipos. Por exemplo, o tamanho total de uma struct não pode exceder o tamanho máximo do espaço de endereço.
 
+Se os dados na `struct` não estão alinhados, o compilador insere `padding` para alinha-los. Esse preenchimento de lacunas com bytes nulos prejudica a eficiência do processamento, pois aumenta o tamanho da `struct` e, consequentemente, o uso de memória [^4]. Para evitar que o compilador adicione `padding`, você pode alinhar manualmente os campos da `struct` ou utilizar um script que faça isso por você (o que é mais recomendado).
+
 ---
 
 [^1]: R. E. Bryant and D. R. O’Hallaron, Computer systems: a programmer’s perspective, Third edition. Boston.
 [^2]: Barramentos de Dados — Trafega dados entre memória, processador e I/O; costuma ter a mesma largura que a word-size para transferências de dados; Barramento de Endereços — A largura do barramento de endereço determina a quantidade de memória máxima endereçavel; trafega endereços de memória. Barramento de Controle — trafega sinais para gerenciar todas as operações realizadas pelo sistema computacional..
 [^3]: Uma CPU de 32 bits pode utilizar barramentos de 64 bits, ela pode solicitar dois blocos de 32 bits por ciclo, mas só continua limitada a processar 1 bloco de 32 bits por ciclo ainda.
+[^4]: [Intel® FPGA SDK for OpenCL™ Standard Edition: Best Practices Guide — 3.5. Aligning a Struct with or without Padding](https://www.intel.com/content/www/us/en/docs/programmable/683176/18-1/aligning-a-struct-with-or-without-padding.html)
 
 ## Recursos
 
-- [Aligning a Struct with or without Padding](https://www.intel.com/content/www/us/en/docs/programmable/683176/18-1/aligning-a-struct-with-or-without-padding.html)
 - [Part 2: Data Alignment, Padding, and Optimization Techniques](https://codeinterstellar.medium.com/part-2-data-alignment-padding-and-optimization-techniques-df2b2f2ba7e7)
+
+
+# Draft
+
+- Hardware efficiency increases with the increasing alignment. — https://www.intel.com/content/www/us/en/docs/programmable/683176/18-1/aligning-a-struct-with-or-without-padding.html
