@@ -14,7 +14,161 @@ keywords:
 
 # Introdução
 
-Dentre vários conceitos e aspectos, neste post veremos sobre alinhamento de memória. Utilizarei Golang para este propósito, que já possui linters e ferramentas para fazer alinhamento de memória, adicionando padding e otimizando os pointer bytes para que o Garbage Collector possa fazer seu trabalho de forma eficiente.
+Data Alignment não é um assunto popular entre grande parte dos desenvolvedores, mas está longe de ser um assunto hermético/abstruso e não é nenhum conhecimeto esotérico. Mas esse assunto costuma estar longínquo da base que é ensinada em cursos universitários e bootcamps. Vamos jogar luz sobre ele, para entender porque é importante para desenvolver software melhor.
+
+### Architecture
+
+O alinhamento de dados/bytes está intrinsecamente relacionado ao hardware, especificamente à forma como ele executa as instruções. Isso ocorre porque, dependendo da arquitetura, há uma padronização para a execução de instruções. Por exemplo, em arquiteturas x86-64, a CPU busca 8 bytes (ou 64 bits) na memória por ciclo. Mas por que 8 bytes? Isso está relacionado ao fato de que sistemas computacionais operam com dados em [formato binário](https://www.wikiwand.com/pt/articles/Sistema_de_numera%C3%A7%C3%A3o_bin%C3%A1rio), ou seja, em potências de 2 e 64 bits é a geração que seguinte a de x86 (32 bits). A padronização facilita o processamento eficiente e otimiza o acesso à memória, pois está alinhado com a largura do barramento de dados[^2][^3] da arquitetura e dos registradores.
+
+<Cite>
+"Muitos sistemas de computador impõem restrições aos endereços permitidos para os tipos de dados primitivos, exigindo que o endereço de algum tipo de objeto seja um múltiplo de algum valor K (normalmente 2, 4 ou 8)"[^1].
+</Cite>
+
+Em sistemas de 32 bits (x86), a CPU trabalha com 4 bytes (32 bits) por ciclo. Nesse caso, o alinhamento de dados em múltiplos de 4 bytes garante um acesso eficiente, evitando penalidades de desempenho. Arquiteturas de 16 bits, comuns em sistemas embarcados mais antigos, trabalha com 2 bytes (16 bits) por ciclo, enquanto em arquiteturas de 8 bits, a unidade mínima é de 1 byte por ciclo. Há, também, outras diversas arquiteturas que trabalham com 128 bits, 256 bits e assim por diante.
+
+Portanto, o alinhamento de dados é determinado pela arquitetura, tudo precisa estar se comunicando na mesma linguagem para que o sistema computacional como um todo possa trabalhar em harmônia, evitando problemas de desempenho que ocorrem quando os dados estão desalinhados.
+
+## Data Alignment
+
+Consoantemente ao próprio nome, **Data Alignment** refere-se ao nivelamento dos dados na memória para que eles sejam múltiplos do tamanho do seu próprio tipo ou de um múltiplo de algum valor K (2, 4 ou 8). Isso permite que a CPU acesse os dados em menos ciclos, pois o alinhamento garante que os dados sejam lidos ou escritos sem penalidades, aproveitando o tamanho da `word-size` da arquitetura.
+
+<Cite>
+"Por exemplo, suponha que um processador sempre busque 8 bytes da memória com um endereço que deve ser múltiplo de 8. Se pudermos garantir que qualquer `double` esteja alinhado para ter seu endereço múltiplo de 8, então o valor pode ser lido ou escrito com uma única operação de memória. Caso contrário, poderemos precisar realizar dois acessos à memória, uma vez que o objeto pode ser dividido em dois blocos de memória de 8 bytes."[^1]
+</Cite>
+
+Dadas as definições inciais, vamos entender como isso de fato funciona, não é mesmo ? Categoricamente, para compreender como fazer o alinhamento de bytes, precisamos saber para qual arquitetura estamos compilando, quantos bytes os tipos da linguagem ocupam e quais diretivas o compilador adota para alinhar os bytes.
+
+Para este post, estarei utilizando uma arquitetura x86-64; como linguagem — Golang — para ilustrar os exemplos. Na seção **"Regras de alinhamento"** estão dispostos os tipos da linguagem e seus respectivos tamanhos e as regras de alinhamento do compilador.
+
+### Diretivas de Alinhamento
+
+#### Diretivas Gerais
+
+- **Alinhamento Padrão**: O alinhamento de um tipo é determinado pelo tamanho do seu maior campo, até um máximo de 8 bytes (o tamanho de um ponteiro em arquiteturas de 64 bits).
+
+- **Arredondamento**: O tamanho de um tipo é sempre arredondado para cima para ser um múltiplo do seu alinhamento. Isso garante que os tipos sejam armazenados em endereços de memória adequados.
+
+#### Diretivas de Alinhamento Específicos
+
+- `int8`, `uint8`, `bool`: Tamanho 1 byte, alinhamento 1 byte.
+- `int16`, `uint16`: Tamanho 2 bytes, alinhamento 2 bytes.
+- `int32`, `uint32`, `float32`: Tamanho 4 bytes, alinhamento 4 bytes.
+- `int64`, `uint64`, `float64`, `complex128`: Tamanho 8 bytes, alinhamento igual ao tamanho da `word-size` da máquina (definido por `RegSize`).
+- `complex64`: Tamanho 8 bytes, alinhamento 4 bytes.
+- **Pointers** (`*T`, `unsafe.Pointer`): Tamanho e alinhamento iguais ao tamanho de um ponteiro (`PtrSize`).
+- **Interfaces** (`interface{}`): Tamanho igual a dois ponteiros, alinhamento igual ao tamanho de um ponteiro.
+- **Arrays** (`[n]T`): O tamanho é um múltiplo do tamanho do elemento. O alinhamento é igual ao alinhamento do elemento.
+- **Structs** (`struct{...}`):
+    - O alinhamento de uma estrutura é o maior alinhamento de qualquer um dos seus campos.
+    - O tamanho de uma struct é o deslocamento do último campo, arredondado para cima para ser um múltiplo do alinhamento da struct.
+    - Padding pode ser adicionado entre os campos de uma estrutura para garantir o alinhamento correto dos campos.
+- **Strings** (`string`): Tamanho e alinhamento iguais ao tamanho de um ponteiro.
+- **Slices** (`[]T`): Tamanho de três ponteiros, alinhamento igual ao tamanho de um ponteiro.
+- **Channel** (`chan T`): Tamanho e alinhamento iguais ao tamanho de um ponteiro.
+- **Maps** (`map[K]V`): Tamanho e alinhamento iguais ao tamanho de um ponteiro.
+
+<Warn title="Attention">
+As variáveis `PtrSize` e `RegSize` são definidas em **Build Time**, logo, são do tamanho do `word-size` da arquitetura alvo.
+</Warn>
+
+Fechando esse hiato de conhecimento, agora finalmente podemos ir para a parte prática e ver como isso se aplica ao nosso código. Na `Transaction` abaixo, defini alguns campos diversos com tipos e seus respectivos tamanhos.
+
+Se você nunca viu sobre isso, deve estar bem confuso ainda — e com razão. Relaxa, eu já estive nesse lugar. Vamos ver um exemplo prático, até o final do post você vai entender tudo isso.
+
+### Alinhamento prático
+
+Na `Transaction` abaixo, defini alguns campos com tipos e seus respectivos tamanhos diversos para entendermos o que há de errado com ela e depois iremos corrigir. Let's go!
+
+```go
+type Transaction struct {
+	Operation byte
+	Quantity  int16
+	Total     float64
+	UnitPrice float32
+	Balance   complex128
+}
+```
+
+Bom, nós já conhecemos o tipos e seus respectivos tamanhos, certo? Abordamos eles na seção anterior, então se somarmos esses tamanhos, teremos o tamanho total da nossa `struct`, correto?
+
+$$
+\begin{align*}
+\text{Transaction} = & \ \text{byte} + \text{int16} + \text{float64} + \text{float32} + \text{complex128} \\
+\text{Transaction} = & \ 1 + 2 + 8 + 4 + 16 \\
+\text{Transaction} = & \ 31 \text{ bytes}
+\end{align*}
+$$
+
+Nossa "memória mágica" pareceria algo assim. Cada bloco representando 1 byte, `operation` ocupando 1 bloco, `quantity` 2 blocos, `total` 8 blocos, `unitPrice` 4 blocos e `balance` 16 blocos.
+
+![100%](/assets/magic-memory.png)
+
+Em teoria, a `struct` `Transaction` deveria ter $31 \ bytes$, mas se verificarmos o tamanho da `struct` no Go, veremos que ela tem $40 \ bytes$. O que está acontecendo aqui? O que está errado? Bem, ocorre que, nossa `struct` não está alinhada, então o compilador adicionou lacunas extras (`padding`) para garantir que os campos estejam alinhados.
+
+```go
+func main() {
+	fmt.Printf("Struct Size: %d bytes\n", reflect.TypeOf(Transaction{}).Size())
+	fmt.Println()
+	t := reflect.TypeOf(Transaction{})
+	for i := 0; i < t.NumField(); i++ {
+		field := t.Field(i)
+		fmt.Printf("Field: %s, Type: %s, Size: %d bytes\n", field.Name, field.Type, field.Type.Size())
+	}
+}
+```
+
+```bash
+go run main.go
+# Struct Size: 40 bytes
+
+# Field: Operation, Type: uint8, Size: 1 bytes
+# Field: Quantity, Type: int16, Size: 2 bytes
+# Field: Total, Type: float64, Size: 8 bytes
+# Field: UnitPrice, Type: float32, Size: 4 bytes
+# Field: Balance, Type: complex128, Size: 16 bytes
+```
+
+Como resultado de alinhamento, o go adicionou essas lacunas entre os campos e arrendondou o tamanho da `struct` para 40 bytes. Nossa memória agora parece algo assim:
+
+![100%](/assets/memory-alignment-40-bytes.png)
+
+1. **`Operation` (byte):** Ocupa o bloco 1 (offset 0).
+2. **`Quantity` (int16):**  Precisa ser alinhado em um endereço múltiplo de 2 (tamanho de um `int16`). Como o offset atual é 1, o compilador adicionará **1 byte de padding** no bloco 2 para garantir o alinhamento correto de `Quantity` no bloco 3 (offset 2).
+3. **`Total` (float64):** Requer alinhamento de 8 bytes. O próximo offset disponível após `Quantity` seria o 4 (bloco 5), mas ele precisa ser alinhado em um múltiplo de 8.  Portanto, haverá **4 bytes de padding** (blocos 4, 5, 6 e 7) antes de `Total`.
+4. **`UnitPrice` (float32):**  Segue `Total` diretamente, ocupando 4 bytes e mantendo o alinhamento.
+5. **`Balance` (complex128):**  Como precisa de alinhamento de 8 bytes e o offset após `UnitPrice` já é múltiplo de 8, ele se encaixa perfeitamente sem a necessidade de padding adicional.
+
+```go
+type TAlignment struct {
+	Operation byte       // 0x00
+	_         [1]byte    // 0x01
+	Quantity  int16      // 0x02 - 0x03
+	_         [4]byte    // 0x04 - 0x07
+	Total     float64    // 0x08 - 0x0F
+	UnitPrice float32    // 0x10 - 0x13
+	_         [4]byte    // 0x14 - 0x17
+	Balance   complex128 // 0x18 - 0x27
+} // Total: 40 bytes
+```
+
+
+> Se o barramento de dados tem largura 8 bits e
+cada instrução tem 16 bits, 2 acessos a memória
+devem ser feitos a cada ciclo
+
+### Padding
+
+### Pointer Bytes
+
+## Padronização de padding
+
+## Coerência espacial-temporal
+
+## Otimização de espaço
+
+## Benchmarks
+
+---
 
 ## Alinhamento
 
@@ -57,9 +211,17 @@ Em termos de alinhamento, estão alinhados `[0x00-0x07][0x08-0x15][0x16-0x23][0x
 
 O acesso desalinhado resulta em mais operações de leitura ou escrita, aumentando a latência e diminuindo a eficiência do processador. Em contraste, acessos alinhados permitem que o processador realize uma operação única para ler ou escrever um dado completo.
 
+Observações Importantes
+
+- **Considerações de Desempenho:** Organizar os campos de uma struct em ordem decrescente de tamanho pode melhorar o desempenho, pois minimiza a quantidade de padding necessária.
+- **Compatibilidade:** As regras de alinhamento são essenciais para garantir a compatibilidade entre diferentes compiladores Go e diferentes arquiteturas de CPU.
+- **Restrições de Tamanho:**  O compilador impõe restrições no tamanho máximo de alguns tipos. Por exemplo, o tamanho total de uma struct não pode exceder o tamanho máximo do espaço de endereço.
+
 ---
-[^1]: Memória Virtual é um design de memória que permite que um computador execute programas como se tivesse mais memória do que realmente possui. A memória virtual é uma parte da memória secundária usada como memória primária.
-[^2]: R. E. Bryant and D. R. O’Hallaron, Computer systems: a programmer’s perspective, Third edition. Boston.
+
+[^1]: R. E. Bryant and D. R. O’Hallaron, Computer systems: a programmer’s perspective, Third edition. Boston.
+[^2]: Barramentos de Dados — Trafega dados entre memória, processador e I/O; costuma ter a mesma largura que a word-size para transferências de dados; Barramento de Endereços — A largura do barramento de endereço determina a quantidade de memória máxima endereçavel; trafega endereços de memória. Barramento de Controle — trafega sinais para gerenciar todas as operações realizadas pelo sistema computacional..
+[^3]: Uma CPU de 32 bits pode utilizar barramentos de 64 bits, ela pode solicitar dois blocos de 32 bits por ciclo, mas só continua limitada a processar 1 bloco de 32 bits por ciclo ainda.
 
 ## Recursos
 

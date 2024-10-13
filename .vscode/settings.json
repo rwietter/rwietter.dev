@@ -1,4 +1,9 @@
 {
   "cSpell.language": "en,pt,en-US",
-  "cSpell.words": ["lastfm"]
+  "cSpell.words": [
+    "lastfm"
+  ],
+  "cSpell.enableFiletypes": [
+    "mdx"
+  ]
 }
