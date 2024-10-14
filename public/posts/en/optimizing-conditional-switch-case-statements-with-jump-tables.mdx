@@ -1,0 +1,434 @@
+---
+title: Optimizing Conditional Switch-Case Statements with Jump Tables
+description: This article examines theoretical and empirical aspects of jump tables and branches, highlighting use cases and challenges encountered in their application within various contexts for optimizing conditional instructions in switch-case statements and compilers.
+slug: optimizing-conditional-switch-case-statements-with-jump-tables
+image: https://res.cloudinary.com/ddwnioveu/image/upload/v1720299096/fgqw1b2j7dncrztplfbn.jpg
+alternativeText: fallen tree branches and branches submerged in a calm, dark body of water with lush green foliage in the background create a serene and picturesque scene.
+caption: Michael Held / Unsplash
+publishedAt: 2024-07-05
+updatedAt: 2024-07-06
+category: coding
+author: Maurício Witter
+keywords: jump table, branch table, indexed table lookup, dispatch table, multiway branch, switch-case, select, match, optimization, compilers, gcc, assembly, c, rust, go, python, javascript, programming, computer science
+---
+
+# Introduction
+
+Optimizing algorithms and employing efficient data structures, especially in the realm of compilers, is crucial for translating high-level, often abstract and less performant code into efficient binary or [bytecode](https://en.wikipedia.org/wiki/Java_bytecode). One such optimization involves handling conditional selections, like those implemented through `switch/case`, `select`, or `match` statements; this is where jump tables shine.
+
+A [jump table](https://www.cs.umd.edu/~waa/311-F09/jumptable.pdf) maps discrete values to corresponding functions or actions. Instead of relying on conditional instructions, jump tables provide a more efficient and modular approach to associating specific operations with different cases.
+
+This article explores jump tables, their functionality, and their significance in algorithm optimization. We'll analyze practical implementation examples, discuss the advantages and disadvantages associated with this technique, and consider its use cases.
+
+---
+
+Let's start with a `switch/case` instruction to understand why jump tables are employed.
+
+In the simplest possible **C** code, we create a `switch/case` statement. `scanf` allows us to read the prompt and assign the value by reference to the `choice` variable. Our `switch` statement then conditionally checks which `case` matches the `choice` variable and executes the corresponding code block, stopping at the `break` statement. If no match is found, the `default` case is executed, and the program terminates.
+
+```c
+int main() {
+    int choice;
+    printf("Enter a choice (1-3): ");
+    scanf("%d", &choice);
+
+    switch (choice) {
+        case 1:
+            printf("Executing Case 1\n");
+            break;
+        case 2:
+            printf("Executing Case 2\n");
+            break;
+        case 3:
+            printf("Executing Case 3\n");
+            break;
+        default:
+            printf("Invalid choice\n");
+            break;
+    }
+    return 0;
+}
+```
+
+You might wonder, why does this have performance implications? Isn't it a constant-time operation?
+
+Indeed, it is a constant-time operation, but its efficiency depends on the number of `cases`, which is known at compile time. The problem arises when we have numerous `cases` — note that each condition in the `switch` will be evaluated until a `break` is encountered. While this might not cause a performance bottleneck, it can consume CPU cycles depending on the context.
+
+Hypothetically, consider a `switch` statement with 15 `cases` executed **within a loop**. In [Big O notation](https://xlinux.nist.gov/dads/HTML/bigOnotation.html), we have a loop with a complexity of $\mathcal{O}(n)$ and $\mathcal{O}(15)$ `cases`, resulting in $\mathcal{O}(n*15)$ in the **worst-case scenario** (where all 15 cases are evaluated). We usually disregard the constant factor 15, but let's consider it for this example.
+
+```c
+int main() {
+    for (int i = 0; i < 3; i++) {
+        switch (i) {
+        case 0:
+            printf("Executing Case 1\n");
+            break;
+        case 1:
+            printf("Executing Case 2\n");
+            break;
+        //...
+     }
+   }
+  return 0;
+}
+```
+
+Wouldn't it be better if we could reduce this complexity to $\mathcal{O}(n*1)$? Imagine this loop iterating 200 times. We would have a complexity of $\mathcal{O}(200*15)$, resulting in 3000 operations in the worst case.
+
+Now, if we could optimize the code to reduce the number of evaluated `cases` to 1, the complexity becomes $\mathcal{O}(n * 1)$, effectively $\mathcal{O}(n)$. This is where jump tables come in.
+
+# Jump Tables
+
+Jump tables use the data value or a calculated derivative as an index into an array. This technique can be more efficient than using a `switch` statement, as it avoids branching.
+
+---
+
+Without delving into excessive detail, modern CPUs are not as efficient at handling conditional branches. CPUs process instructions in pipelines, and the fuller the pipeline, the more efficient the CPU utilization.
+
+<High color="red">Conditional branches pose a challenge to maintaining a full pipeline because when a branch instruction is encountered, the CPU doesn't know which path to take in advance.</High> Depending on the condition associated with the branch, the CPU must decide whether to continue with the subsequent instructions in the current flow or jump to a new instruction stream. While **Branch Predictor** algorithms prefetch instructions and load them into the pipeline, they don't always achieve optimal efficiency. This inefficiency worsens with nested branches, as the inner branches are unknown, making instruction prefetching difficult.
+
+Furthermore, if the algorithm makes an incorrect prediction about the path a branch will take, it must discard the speculatively loaded instructions (**branch misprediction**). The CPU then fetches the correct instructions and restarts execution from the branch point, causing a performance penalty due to the pipeline flush.
+
+Another problem with branches is that they can cause **cache misses**. A cache miss occurs when the required data or instructions are not present in the L1, L2, or L3 caches, forcing the system to fetch them from the slower main memory, adding latency.
+
+For example, the conditional in the code snippet below is generally slower than simply using `value = new_val` — not because the code is longer, but because the variable could be in the cache, and the conditional branch might cause a branch misprediction or cache miss.
+
+```js
+if (value !== new_val) {
+  value = new_val
+}
+```
+
+In summary, branches can lead to wasted [clock cycles](https://en.wikipedia.org/wiki/Clock_rate) and reduced [throughput](https://en.wikipedia.org/wiki/Instruction_pipelining). This is why compilers place significant emphasis on optimizing conditional instructions.
+
+---
+
+Returning to the main topic, how can we transform a sequence of conditionals into direct access? We need a data structure that provides direct access to values or addresses. Arrays and dictionaries achieve this; we can access an array element by its index or a dictionary value by its key.
+
+<Info>
+An Array is a set of items accessible by integer indices.
+</Info>
+
+<Info>
+A Dictionary is a type of abstract data structure that stores items or values. A value is accessed by an associated key. The basic operations are new, insert, find, and delete.
+</Info>
+
+Dictionaries use hash functions, which can have a complexity of $\mathcal{O}(n)$ in the case of hash collisions. You might find examples online of jump tables implemented with dictionaries, but compilers typically implement them using arrays.
+
+## Conditions for Jump Table Usage (gcc)
+
+- **Contiguous Case Range**: Jump tables are more efficient when the values of the <High>cases are contiguous or close together</High>.
+
+- **Number of Cases**: A jump table is typically justified if there are <High>five or more contiguous cases</High>.
+
+- **Case Labels**: Case labels must be constant — not variables or strings — <High>(1..n, a..z, Enum)</High>.
+
+## Multiway Branching
+
+There's often confusion surrounding terminology and definitions. We can consider **jump table as a branch optimization technique used by compilers** and **indexed table lookup as a data structure**. However, these terms are often used interchangeably. Other terms you might encounter include **dispatch table**, **branch table**, and **multiway branch**.
+
+If your language's compiler doesn't perform this optimization, you can implement a "switch-case by indexing" yourself. While not identical to how a compiler creates a jump table, it can still be efficient.
+
+Let's consider a classic `switch-case` example used when learning to program: a simple calculator for basic arithmetic operations. Each `case` corresponds to an arithmetic operator or a menu option.
+
+```c
+int main() {
+  int operation, num1, num2;
+
+  printf("Enter an operation \n1) sum\n2) multiply\n3) subtract\n4) divide\n");
+  printf("Choose an operation: ");
+  scanf("%d", &operation);
+
+  printf("Enter two numbers: ");
+  scanf("%d %d", &num1, &num2);
+
+  switch (operation) {
+  case 1:
+    printf("%d + %d = %d\n", num1, num2, num1 + num2);
+    break;
+
+  case 2:
+    printf("%d * %d = %d\n", num1, num2, num1 * num2);
+    break;
+
+  case 3:
+    printf("%d - %d = %d\n", num1, num2, num1 - num2);
+    break;
+
+  case 4:
+    printf("%d / %d = %d\n", num1, num2, num1 / num2);
+    break;
+
+  default:
+    printf("Invalid operation\n");
+    break;
+  }
+
+  return 0;
+}
+```
+
+The first step is to separate our expressions into functions. We'll use these functions as indices in our table for direct access.
+
+```c
+void sum(int a, int b);
+void subtract(int a, int b);
+void multiply(int a, int b);
+void divide(int a, int b);
+
+int main() {
+  int operation, num1, num2;
+
+  printf("Enter an operation \n1) sum\n2) multiply\n3) subtract\n4) divide\n");
+  printf("Choose an operation: ");
+  scanf("%d", &operation);
+
+  printf("Enter two numbers: ");
+  scanf("%d %d", &num1, &num2);
+
+  switch (operation) {
+  case 1:
+    sum(num1, num2);
+    break;
+
+  case 2:
+    multiply(num1, num2);
+    break;
+
+  case 3:
+    subtract(num1, num2);
+    break;
+
+  case 4:
+    divide(num1, num2);
+    break;
+
+  case 5:
+    // ...
+    break;
+
+  default:
+    printf("Invalid operation\n");
+    break;
+  }
+
+  return 0;
+}
+```
+
+Now, let's create the table. We define an array of function pointers since we want to store the addresses of our functions. Our functions have a `void` return type and take two `int` parameters, resulting in the following declaration: `void (*table[])(int, int)`.
+
+We initialize the table with a static array containing each function we created. We can then access the function address in the array using its index and invoke it by passing the arguments: `table[operation](num1, num2)`. This allows the function to be executed with a constant-time complexity of $\mathcal{O}(1)$ in both the best and worst cases.
+
+```c
+void sum(int a, int b);
+void subtract(int a, int b);
+void multiply(int a, int b);
+void divide(int a, int b);
+
+void sum(int a, int b) {
+  printf("%d + %d = %d\n", a, b, a + b);
+}
+
+void subtract(int a, int b) {
+  printf("%d - %d = %d\n", a, b, a - b);
+}
+
+void multiply(int a, int b) {
+  printf("%d * %d = %d\n", a, b, a * b);
+}
+
+void divide(int a, int b) {
+  printf("%d / %d = %d\n", a, b, a / b);
+}
+
+int main() {
+  int operation, num1, num2;
+
+  printf("Enter an operation \n1) sum\n2) multiply\n3) subtract\n4) divide\n");
+  printf("Choose an operation: ");
+  scanf("%d", &operation);
+
+  printf("Enter two numbers: ");
+  scanf("%d %d", &num1, &num2);
+
+  void (*table[])(int, int) = {sum, multiply, subtract, divide};
+  table[operation](num1, num2);
+
+  return 0;
+}
+```
+
+To compile the code and obtain its assembly representation, use the following flags:
+
+```bash
+gcc -O2 -S -o main.s main.c # assembly
+gcc source.c -O2  -S -o/dev/stdout # assembly
+gcc -O2 -o main main.c # binary
+```
+
+# Compilers (gcc)
+
+Compilers typically optimize `switch` statements using mathematical calculations. First, the compiler determines the location of each `case` by identifying the minimum and maximum case values. For example, in a `switch` statement with cases ranging from 10 to 15, the minimum value is 10, and the maximum is 15.
+
+In the assembly code below, the `subl` instruction subtracts the minimum case value from the argument $(min\_case - argument)$ to normalize the case values.
+
+```assembly
+.LFB18:
+	subl	$10, %edi
+```
+
+The next step is to normalize these intervals for easier and more efficient calculations. This can be achieved using the following formula:
+
+$$
+index = value - min\_case
+$$
+
+This results in the following normalized indices:
+
+```js
+5 = 15-10
+4 = 14-10
+3 = 13-10
+2 = 12-10
+1 = 11-10
+0 = 10-10
+```
+
+To ensure that the normalized value falls within the valid range, a comparison is made. If the comparison fails, the flow is directed to the default case. For instance, $index \leq (max\_case - min\_case)$.
+
+The `cmpl` instruction performs this check, and the `ja` instruction jumps to the `default` case if the check fails.
+
+```assembly
+.LFB18:
+	subl	$10, %edi
+	cmpl	$5, %edi
+	ja    .Ldefault
+```
+
+The `.L12` label defines the jump table, an array where each entry contains the relative offset to the beginning of the table.
+
+```assembly
+.L12:
+  .long .L17-.L12  # Offset for case 10
+  .long .L16-.L12  # Offset for case 11
+  .long .L15-.L12  # Offset for case 12
+  .long .L14-.L12  # Offset for case 13
+  .long .L13-.L12  # Offset for case 14
+  .long .L11-.L12  # Offset for case 15
+```
+
+To calculate the final address of the corresponding case code, the offset is added to the base address of the table. For example, $jump\_address = base\_address + offsets[index]$.
+
+The `leaq` (**Load Effective Address (Quad)**) instruction loads the effective address of the `.L12` label (jump table) into the `%rdx` register.
+
+The `movslq` (**Move and Sign-Extend Long to Quadword**) instruction calculates the address of the corresponding offset in the jump table and loads this offset, with sign extension, into the `%rax` register. Here, `%rdx` contains the base address of `.L12`, `%rdi` contains the normalized case index (i.e., $value - min\_case$), and 4 represents the size of each offset in the table (4 bytes).
+
+The `addq` (**Add Quadword**) instruction adds the loaded offset to the base address of the jump table (`.L12`), resulting in the final address of the specific case code. The `%rdx` register contains the base address of the jump table, and `%rax` contains the loaded offset.
+
+Finally, the `jmp` (**Jump**) instruction unconditionally jumps to the address stored in `%rax`, which now points to the code for the corresponding case in the `switch` statement. The `(*)` indicates that the jump should be made to the address stored in the `%rax` register.
+
+```assembly
+.LFB18:
+	# ...
+	leaq	.L12(%rip), %rdx
+	movslq	(%rdx,%rdi,4), %rax
+	addq	%rdx, %rax
+	jmp	*%rax
+```
+
+## Similar Concepts
+
+A concept similar to jump tables is the **Branch Table**. They share similarities but utilize `goto` instructions to jump to specific code sections. This approach often employs a GCC compiler extension called "**Labels as Values**," an efficient method for **multi-way branching**.
+
+<Cite>
+Multiway branching is an important programming technique which is all too often replaced by an inefficient sequence of if tests. Peter Naur recently wrote me that he considers the use of tables to control program flow as a basic idea of computer science that has been nearly forgotten; but he expects it will be ripe for rediscovery any day now. It is the key to efficiency in all the best compilers I have studied.
+
+<br/>
+— Donald Knuth, Structured Programming with go to Statements
+</Cite>
+
+Multiway branching is a programming construct that allows the **control flow of a program to be directed to one of several possible outcomes** based on the value of an expression. This is what we commonly know as **selection statements** — `switch`, `if`, `match` — which we can substitute with more efficient techniques like jump tables.
+
+```js
+if(expression) {
+	compound statement
+} else if(expression) {
+	compound statement
+} else {
+	compound statement
+}
+```
+
+```rust
+fn main() {
+	let x = 2;
+	match x {
+		1 => println!("One"),
+		2 => println!("Two"),
+		3 => println!("Three"),
+		_ => println!("Other"),
+	}
+}
+```
+
+In the example below, showcasing assembly code for an 8-bit PIC microcontroller, we have one such `goto` instruction for an unconditional branch.
+
+```assembly
+table
+    goto    index_zero
+    goto    index_one
+    goto    index_two
+    goto    index_three
+```
+
+Additionally, the following example demonstrates a branch table using `goto`. Notice the different operators; the expression declares an array of pointers to labels. The labels `Case1`, `Case2`, and `Case3` represent addresses of specific points in the code, and the `&&` operator is a GCC extension that allows retrieving the address of a label.
+
+The expression `goto *branchTable[index]` leverages the "**Computed Goto**" extension. This allows storing label addresses in `void` pointers, essentially `void* label_address = &&Somelabel`, and invoking `goto` on a variable expression instead of a compile-time label: `goto *branchTable[index]`. This causes the program to jump to the specified label.
+
+```c showLineNumbers {3, 11}#b {2,15}#b {1,19} /Case1/#y /Case2/#r /Case3/#b /&&/#g /goto *branchTable[index]/#g
+void func3(void) { printf("three\n"); }
+void func2(void) { printf("two\n"); }
+void func1(void) { printf("one\n"); }
+
+int main() {
+  int index = 2;
+  void (*branchTable[])(void) = {&&Case1, &&Case2, &&Case3};
+  goto *branchTable[index];
+
+Case1:
+  func1();
+  return 0;
+
+Case2:
+  func2();
+  return 0;
+
+Case3:
+  func3();
+  return 0;
+}
+```
+
+To compile this code, use the following command:
+
+```bash
+gcc -std=c11 -o jump jump.c
+```
+
+# Conclusion
+
+Jump tables are a generally efficient technique for optimizing conditional instructions. They replace `switch/case` statements with an index table that maps discrete values to corresponding functions or actions. This allows the compiler to avoid conditional branches and instead directly access the code associated with a specific value.
+
+While powerful, jump tables have limitations. For instance, case values must be constant (e.g., $1-n$, $a-z$). You cannot create jump tables with strings or functions. However, you can use Indexed Table Lookup and Dispatch Tables to circumvent these limitations. Additionally, there are cases where jump tables might be inefficient, such as when using [retpolines](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=86952) or non-contiguous cases.
+
+The key takeaway is understanding how conditional structures can impact program performance and how modern compilers optimize these instructions to improve the efficiency of generated code.
+
+If you encounter any errors or have any questions, feel free to message me on [Bluesky](https://bsky.app/profile/did:plc:l4rdag2x2gkyq5zkgb46pbzl) or open an issue on [GitHub](https://github.com/rwietter/rwietter.dev/issues).
+
+# References
+
+- [GNU GCC - Dispatch-Tables](https://gcc.gnu.org/onlinedocs/gcc-13.2.0/gccint/Dispatch-Tables.html)
+- [Function Dispatch Tables in C](https://blog.alicegoldfuss.com/function-dispatch-tables/)
+- [Multiway branch](https://www.wikiwand.com/en/Multiway_branch)
+- [Optimizing large jump tables for switch statements](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=11823)

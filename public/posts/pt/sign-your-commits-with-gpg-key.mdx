@@ -1,0 +1,96 @@
+---
+title: Configurando uma chave GPG para assinar commits e obter um selo verificado no GitHub
+description: How to set up a GPG key and sign your commits so GitHub can add a verified badge to your commits.
+slug: sign-your-commits-with-gpg-key
+image: https://res.cloudinary.com/ddwnioveu/image/upload/v1711596804/large_screensht_23_11_11_09_42_09_0974113a42.png
+alternativeText: Uma paisagem urbana futurista com silhuetas de pessoas caminhando na neblina.
+publishedAt: 2023-12-11
+updatedAt: 2024-07-16
+category: git
+author: Maurício Witter
+keywords: GPG, PGP, GNU Privacy Guard, Pretty Good Privacy, encryption, digital signature, security, authenticity, GitHub, commit, verified badge, public key, private key
+---
+
+# Introdução
+
+GPG significa "GNU Privacy Guard", uma implementação do PGP (Pretty Good Privacy). O GPG é uma ferramenta de criptografia de código aberto que garante privacidade e autenticidade em comunicações digitais. Seu principal objetivo é garantir a confidencialidade das mensagens, a autenticidade dos remetentes e a integridade dos dados transmitidos.
+
+O GPG utiliza um sistema de chaves assimétricas, onde cada usuário possui um par de chaves: uma chave privada e uma chave pública. A chave pública é usada para criptografar mensagens, enquanto a chave privada é necessária para descriptografar e assinar digitalmente as mensagens. Esse sistema permite que as partes se comuniquem com segurança, garantindo que apenas os destinatários autorizados possam acessar o conteúdo da mensagem.
+
+Além disso, o GPG é amplamente utilizado para verificar a autenticidade de arquivos e softwares por meio da criação e verificação de assinaturas digitais. Essas assinaturas ajudam a garantir a origem e a integridade dos dados, uma prática comum em ambientes onde a verificação de autenticidade é crucial, como o desenvolvimento de software.
+
+Podemos usar esse mecanismo para assinar nossos commits, garantindo que o commit seja realmente seu. O GitHub permite que você registre uma chave pública, então, quando você faz um commit, você o assina com sua chave privada. O GitHub então verifica o commit usando sua chave pública.
+
+Então, como você faz isso? Primeiro, precisamos criar nossa chave. Abra o terminal, baixe o GNU GPG e execute o seguinte comando:
+
+```bash
+gpg --full-generate-key
+
+# ou
+gpg --default-new-key-algo rsa4096 --gen-key
+```
+
+Ao terminar, você receberá um ID, mas você também pode obtê-lo executando o seguinte comando:
+
+```bash
+gpg --list-secret-keys --keyid-format=long
+```
+
+O **ID** se parece com algo como `6YSSE8K57DCE479894D4AD3B33F4A8C59535F3EDA`. Sua abreviação está logo acima, onde diz `sec rsa4096/<id>`.
+
+Em seguida, precisamos registrar nossa chave pública no GitHub. Primeiro, obtenha sua chave pública executando o seguinte comando no terminal, substituindo `<id>` pelo ID da sua chave do comando anterior:
+
+```bash
+gpg --armor --export <id>
+```
+
+Você verá um bloco de valores, semelhante ao exemplo abaixo. Esses valores aleatórios correspondem à sua chave pública, que você deve copiar do início ao fim.
+
+```bash
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+........
+........
+........
+-----END PGP PUBLIC KEY BLOCK-----
+```
+
+Agora, acesse sua conta do GitHub, vá em configurações e navegue até **[Chaves SSH e GPG](https://github.com/settings/gpg/new)**. Clique no botão para criar uma nova chave GPG, dê um nome a ela, cole sua chave pública e salve.
+
+Quase lá!
+
+Agora você pode assinar seus commits com o comando `git commit -S -m "mensagem"`. No entanto, em vez de usar a flag `-S` todas as vezes, você pode configurar seu arquivo `.gitconfig` para tornar esse o comportamento padrão. Para fazer isso, digite os seguintes comandos no terminal:
+
+```bash
+git config --global commit.gpgSign true # para assinar commits
+git config --global tag.gpgSign true # para assinar tags
+```
+
+Ou você pode adicionar o seguinte ao seu arquivo `.gitconfig`:
+
+```bash
+[user]
+  signingkey = <id>
+[commit]
+  gpgSign = true
+[tag]
+  gpgSign = true
+```
+
+Agora, basta fazer seus commits e assinar com sua senha, e o GitHub verificará a assinatura usando sua chave pública. Para que o GitHub exiba um **selo de assinatura verificada** ao lado do seu commit, vá em `perfil > configurações > SSH e GPG > Modo Vigilante` e ative a **caixa de seleção** que diz "**Sinalizar commits não assinados como não verificados**".
+
+Depois de fazer isso, seus commits mostrarão o seguinte **selo verificado pela chave GPG**:
+
+![commits](https://i.imgur.com/jWVpFf0.png)
+
+Ao clicar no **selo**, você pode ver o autor verificado do commit autenticado pelo GitHub usando sua chave pública.
+
+![commits](https://i.imgur.com/49TllSk.png)
+
+Ah! E para verificar um commit localmente, basta executar o comando:
+
+```bash
+git verify-commit <hash-do-commit>
+```
+
+Este processo garante que seus commits sejam assinados com segurança e verificáveis, adicionando uma camada extra de segurança e autenticidade às suas contribuições de código.

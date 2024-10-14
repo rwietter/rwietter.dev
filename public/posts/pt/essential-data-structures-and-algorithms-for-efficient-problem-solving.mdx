@@ -1,0 +1,79 @@
+---
+title: Estruturas de Dados e Algoritmos Essenciais para Resolução Eficiente de Problemas
+description: Uma discussão formal sobre a importância do conhecimento profundo em estruturas de dados e algoritmos essenciais para resolver problemas comuns em ciência da computação e engenharia de software.
+slug: essential-data-structures-and-algorithms-for-efficient-problem-solving
+image: https://res.cloudinary.com/ddwnioveu/image/upload/v1720896025/lupj3nt5rxkjhrfvwxnq.jpg
+alternativeText: Uma árvore com folhas em tons de vermelho, laranja e amarelo em plena floração.
+caption: u/Grashopha
+publishedAt: 2024-07-13
+updatedAt: 2024-07-16
+category: theory
+author: Maurício Witter
+keywords: data structures, algorithms, computer science, software engineering, AVL tree, BST, DAG, BFS, DFS, hash table, efficient problem solving
+---
+
+# Introdução
+
+Em minha opinião, é desnecessário conhecer todos os algoritmos e estruturas de dados, ao contrário da crença comum. Em vez disso, a compreensão profunda de alguns poucos selecionados é crucial. O restante você pode aprender quando precisar.
+
+Então, quais são os algoritmos e estruturas de dados mais importantes para se conhecer? Eu diria que os mais importantes em um conjunto $S$ são aqueles que são essenciais para resolver os problemas mais comuns em ciência da computação e engenharia de software. Vamos formalizar essa ideia.
+
+$$
+Seja \ S = \{ \text{Estruturas de Dados e Algoritmos} \}
+$$
+
+Você pode pensar em $S$ como um conjunto contendo todas as estruturas de dados e algoritmos. Agora, precisamos definir um subconjunto $E$ contendo as estruturas e algoritmos essenciais.
+
+$$
+Seja \ E = \{ \text{EDs e Algoritmos Essenciais} \}
+$$
+
+Por exemplo, um subconjunto essencial de $S$ poderia ser $E$ contendo as seguintes estruturas e algoritmos:
+
+$$
+E = \{ \text{AVL}, \text{BST}, \text{DAG}, \text{BFS}, \text{DFS}, \text{HT} \}
+$$
+
+E, para usar esse subconjunto, precisamos definir um conjunto $P$ contendo problemas comuns em ciência da computação e engenharia de software.
+
+$$
+Seja \ P = \{ \text{Problemas Comuns} \}
+$$
+
+Para cada problema $p \in P$, existe uma estrutura de dados ou algoritmo $e \in E$ que resolve $p$ eficientemente.
+
+$$
+\forall p \in P, \exists e \in E \quad \vert \quad  e \text{ resolve } p \text{ eficientemente}
+$$
+
+<High>Por favor, não dê importância excessiva a esta notação, pois ela serve apenas como um exemplo</High>. É evidente que **alguns problemas exigem soluções por meio de estruturas de dados e algoritmos não abrangidos em $E$**.
+
+Definirei o que quero dizer com "eficientemente" neste contexto. A eficiência é medida pelo tempo $T$ e espaço $S$ necessários para resolver $p$ usando $e$. Definimos que $e$ é eficiente se:
+
+$$
+\begin{aligned}
+&T(e, p) = \mathcal{O}(log \ n) \text{ ou } T(e, p) = \mathcal{O}(n) \\
+&S(e, p) = \mathcal{O}(n)
+\end{aligned}
+$$
+
+Onde $n$ denota o tamanho da entrada.
+
+Observe que $\mathcal{O}(n)$ é a complexidade de tempo no pior caso, o que é aceitável para a maioria dos problemas, já que os casos médios são melhores. Esta definição não é rígida, mas fornece uma ideia geral do que quero dizer com "eficientemente".
+
+Tipicamente, $E$ inclui estruturas e algoritmos eficientes para problemas comuns. Por exemplo, nos melhores casos e casos médios, essas estruturas e algoritmos têm uma complexidade de tempo de $ \mathcal{O}(log \ n) $ e uma complexidade de espaço de $ \mathcal{O}(n) $. No pior caso, eles têm uma complexidade de tempo de $\mathcal{O}(n) $ e uma complexidade de espaço de $ \mathcal{O}(n) $.
+
+| DS / A     | Inserção                                                        | Pesquisa                                                        | Remover                                                         | Travessia              |
+| ---------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------- |
+| AVL Tree   | $ \mathcal{\Theta}(log \ n) \quad / \quad \mathcal{O}(log \ n) $ | $ \mathcal{\Theta}(log \ n) \quad / \quad \mathcal{O}(log \ n) $ | $ \mathcal{\Theta}(log \ n) \quad / \quad \mathcal{O}(log \ n) $ | $ \mathcal{O}(n) $     |
+| BST        | $ \mathcal{\Theta}(log \ n) \quad / \quad \mathcal{O}(n) $       | $ \mathcal{\Theta}(log \ n) \quad / \quad \mathcal{O}(n) $       | $ \mathcal{\Theta}(log \ n) \quad / \quad \mathcal{O}(n) $       | $ \mathcal{O}(n) $     |
+| DAG        | $ \mathcal{O}(1) $                                               | $ \mathcal{O}(V + E) $                                           | $ \mathcal{O}(V + E) $                                           | $ \mathcal{O}(V + E) $ |
+| BFS        | -                                                                | $ \mathcal{O}(V + E) $                                           | -                                                                | $ \mathcal{O}(V + E) $ |
+| DFS        | -                                                                | $ \mathcal{O}(V + E) $                                           | -                                                                | $ \mathcal{O}(V + E) $ |
+| Hash Table | $ \mathcal{O}(1) \quad / \quad \mathcal{O}(n) $                  | $ \mathcal{O}(1) \quad / \quad \mathcal{O}(n) $                  | $ \mathcal{O}(1) \quad / \quad \mathcal{O}(n) $                  | -                      |
+
+Portanto, concentrar-se no subconjunto essencial $E$ fornece cobertura suficiente para resolver a maioria dos problemas comuns de forma eficiente, eliminando a necessidade de conhecer todas as estruturas de dados e algoritmos em $S$.
+
+## References
+
+- Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2009). Introduction to Algorithms (3rd ed.). MIT Press.

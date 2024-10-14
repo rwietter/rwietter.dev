@@ -27,17 +27,30 @@ const options = {
     ],
   },
   additionalPaths: async (config) => {
-    const blogPath = pth('public/posts');
+    const enBlogPath = pth('public/posts/en');
+    const ptBlogPath = pth('public/posts/pt');
     const awesomePath = pth('public/awesome');
-    const blogFiles = readDir(blogPath);
+    const enBlogFiles = readDir(enBlogPath);
+    const ptBlogFiles = readDir(ptBlogPath);
     const awesomeFiles = readDir(awesomePath);
 
-    const blogPaths = blogFiles.map((file) => {
+    const enBlogPaths = enBlogFiles.map((file) => {
       const mdmdx = /\.mdx?$/;
       const slug = file.replace(mdmdx, '');
 
       return {
-        loc: `${config.siteUrl}/blog/article/${slug}`,
+        loc: `${config.siteUrl}/blog/${slug}`,
+        changefreq: 'daily',
+        priority: 1,
+      };
+    });
+
+    const ptBlogPaths = ptBlogFiles.map((file) => {
+      const mdmdx = /\.mdx?$/;
+      const slug = file.replace(mdmdx, '');
+
+      return {
+        loc: `${config.siteUrl}/blog/${slug}`,
         changefreq: 'daily',
         priority: 1,
       };
@@ -49,7 +62,7 @@ const options = {
       priority: 1,
     }))
 
-    const allPaths = [...blogPaths, ...awesomePaths];
+    const allPaths = [...enBlogPaths, ...ptBlogPaths, ...awesomePaths];
 
     return allPaths;
   },

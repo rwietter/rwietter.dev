@@ -1,0 +1,255 @@
+---
+title: A Parallel Between Declarative Programming and Imperative Programming
+description: A comparison between the declarative and imperative programming paradigms, discussing their characteristics, advantages, disadvantages, and use cases.
+publishedAt: 2020-07-06
+updatedAt: 2024-09-21
+image: https://res.cloudinary.com/ddwnioveu/image/upload/v1711683355/1917f95b3631a136d788ffd54197badd56befcde_vxoba8.jpg
+alternativeText: Abstract three-dimensional typographic art forming the word "pain" with pin-like structures creating a sense of movement and depth.
+category: coding
+author: Maurício Witter
+slug: a-parallel-between-declarative-programming-and-imperative-programming
+keywords: paradigma imperativo, paradigma declarativo, fatorial, paradigma funcional, stateless, transparência referencial, abstração, efeitos colaterais, estilo de código
+---
+
+# Introduction
+
+Programming languages can be classified in several ways. They can be categorized by strong or weak type systems; by their level of abstraction (machine code, low-level assembler, or high-level); whether they are compiled or interpreted; or by paradigms (object-oriented, functional, procedural, logic, imperative, declarative, among others). This article will discuss the imperative and declarative paradigms.
+
+Understanding programming paradigms and their characteristics will help you better comprehend other paradigms such as functional, logic, or object-oriented, as they all share similarities with either declarative, imperative, or both.
+
+The imperative paradigm emerged first, alongside early shortcode languages. The declarative style originated with LISP (1958), followed by Prolog (1972) and functional languages like Haskell (1990).
+
+Examples of imperative languages include FORTRAN, ALGOL, Pascal, Ada, and C. On the declarative side, we have HTML, CSS, YAML, and SQL. Languages like JavaScript, Java, PHP, and Rust are multi-paradigm, and their style depends on the implementation. However, none of these are purely declarative.
+
+## Imperative Programming Style
+
+The imperative style focuses on how to execute code step-by-step, defining the control flow of how instructions alter a program's state. To put it simply, imperative code commands the computer, explicitly stating what needs to be done, how it should be done, and the exact order of execution.
+
+For example, the code below demonstrates the bubble sort algorithm, which iterates through an array `n^2` times, swapping elements until the array is sorted. This code illustrates the logic construction, control flow, and mutability of the array.
+
+```c
+// Bubble sort in C
+#include <stdio.h>
+
+void bubbleSort(int arr[], int n) {
+  int i, j;
+  for (i = 0; i < n - 1; i++) {
+    for (j = 0; j < n - 1 - i; j++) {
+      if (arr[j] > arr[j + 1]) {
+        int temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+      }
+    }
+  }
+}
+
+int main() {
+  int arr[] = {64, 34, 25, 12, 22, 11, 90};
+  int n = sizeof(arr) / sizeof(arr[0]);
+  bubbleSort(arr, n);
+  printf("Sorted array: \n");
+  for (int i = 0; i < n; i++)
+    printf("%d ", arr[i]);
+  return 0;
+}
+```
+
+Imperative code can be useful for low-level programming with few or no abstractions. However, it can become excessively verbose, difficult to debug, read, and maintain. Imperative code often involves numerous loops, conditional statements, and state mutations, which can easily lead to bugs.
+
+Therefore, imperative programming is best suited for tasks where controlling program state and managing execution flow are crucial.
+
+Let's calculate the factorial of a positive natural number, defined by the following formula:
+
+$$
+n! =
+\begin{cases}
+1 & \text{if } n = 0 \\
+n \cdot (n-1)! & \text{else}
+\end{cases}
+$$
+
+In the imperative factorial implementation, we check if `n` is less than or equal to zero and return 1. Otherwise, we loop until `n-1`, multiply the value of `n` by the index, mutate `n`, and finally return `n`. This code explicitly defines the logic for calculating the factorial of `n` and its control flow.
+
+```js
+const factorial = n => {
+  if ( n <= 0 ) return 1;
+
+  for ( let i = n - 1; i > 0; i-- ) {
+    n *= i;
+  }
+
+  return n;
+}
+```
+
+### Characteristics of Imperative Code
+
+- Sequential execution
+- Mutable state
+- Manual memory management
+- Non-deterministic
+
+### Advantages
+
+- Explicit control over the flow of execution
+- Memory efficiency (if used correctly)
+
+### Disadvantages
+
+- Verbose code
+- State mutability
+- Side effects
+
+## Declarative Paradigm
+
+The declarative paradigm, on the other hand, is a high-level abstraction model. This style declares what needs to be computed rather than how to compute it, delegating the implementation of control flow to the language.
+
+Declarative programming can be likened to creating a detailed map to reach a destination. You define the goal and describe the necessary steps, allowing the computer to determine the optimal route and execute the corresponding actions without requiring you to worry about the specifics of each step.
+
+Many languages implementing this style aim to eliminate side effects by describing what the program should accomplish in terms of the problem domain, rather than how to achieve it as a sequence of programming language primitives.
+
+As R. Kowalski stated in Communications of the ACM, Volume 22, Issue 7, July 1979, <High>an algorithm consists of logic and control flow. In declarative programming, the language tends to abstract the control flow, leaving the programmer to focus on developing the logic.</High> Formally, we can define:
+
+1. $\mathcal{A}$ as the set of all possible algorithms.
+2. $\mathcal{L}$ as the set of all possible logical components.
+3. $\mathcal{C}$ as the set of all possible control flows.
+
+Such that an algorithm $a \in \mathcal{A}$ is the combination of a logic component $l \in \mathcal{L}$ and a control flow component $c \in \mathcal{C}$:
+
+$$
+a = (l, c)
+$$
+
+We can represent this combination as the sum of the two components in an abstract space denoting the construction of the algorithm:
+
+$$
+\begin{aligned}
+&\mathcal{A} = \{ (l, c) \mid l \in \mathcal{L}, c \in \mathcal{C} \} \\
+&\mathcal{A} = \mathcal{L} + \mathcal{C}
+\end{aligned}
+$$
+
+In the article [_Practical Advantages of Declarative Programming_](https://www.cse.chalmers.se/~oloft/Papers/wm96.pdf), _Lloyd, J.W._ explains that <High>declarative programming can be understood as "**Strong**" and "**Weak**".</High> That is, <High color="blue">in the "Strong" sense, the programmer only provides the logic of what is needed.</High> <High color="red">In the "Weak" sense, the programmer needs to provide the logic and extend the control flow to compute the expected result.</High>
+
+### Principles of Declarative Programming
+
+To achieve a declarative programming style, certain concepts need to be applied. The main principles of this paradigm are: _Statelessness_, _Referential Transparency_, _Abstraction_, and _Absence of Side Effects_.
+
+![100%](/assets/aJz3ZYr.png)
+
+#### Statelessness
+
+In a language where all data is immutable, the concept of statelessness applies. This means that once a variable is assigned, its value cannot be changed. Instead, any data manipulation or transformation involves returning a copy of the transformed original values, leaving the original values intact. In other words, data is not persisted between execution calls. In JavaScript, functions like `map`, `filter`, and `flatMap` are stateless, while functions like `sort` are stateful.
+
+<Info>
+A stateless function is one that does not depend on or manipulate the state of a broader context. It takes everything it needs as parameters and returns a result, without side effects and without storing anything between execution calls.
+</Info>
+
+According to Nick Samoylov in [Introduction to Programming](https://www.oreilly.com/library/view/introduction-to-programming/9781788839129/50f54a6f-dd25-40bc-89d2-31b73d95b6b7.xhtml), stateless operations generally do not pose a problem when switching from sequential to parallel flow. Each element is processed independently, and the stream can be divided into any number of substreams for independent processing. In essence, statelessness eliminates bugs and race conditions in multithreaded environments, removing the need for locks to synchronize dependent events.
+
+#### Referential Transparency
+
+The value of a function application is independent of the context in which it occurs. In other words, given a specific input, the function must always return the same result. Therefore, the function must be independent of the context and not rely on global variables or states.
+
+The function `add` is not referentially transparent because it produces different results for the same argument:
+
+```js
+let total = 0
+
+const add = a => total += a
+
+const r1  = add(1) // 1
+const r2  = add(1) // 2
+```
+
+A function or expression is referentially transparent if it can be replaced by its value without altering the program's behavior.
+
+#### Abstraction
+
+Abstraction is one of the main, if not the most crucial, principle of the Declarative Paradigm. It's the first thing that comes to mind when thinking about it. As mentioned earlier, we state what we want and not how we want it, thus delegating the responsibility of execution to the programming language and merely describing the desired outcome from a given input.
+
+There are purely declarative languages, hybrid languages, and multi-paradigm languages. YAML, SQL, HTML, and XML are examples of purely declarative languages. Purely functional or logical languages like Haskell and Prolog, respectively, are hybrids because despite having their own paradigms (functional and logic), they emphasize declarative programming. Languages like JavaScript, Java, and PHP are multi-paradigm, meaning they include some declarative abstractions but also incorporate imperative instructions and do not dictate which approach to use.
+
+#### Absence of Side Effects
+
+Side effects are state changes or function executions not directly related to producing the expected result of a function. The Declarative Paradigm aims to eliminate state changes in global variables or shared objects. Instead, it focuses on evaluating expressions and producing immutable results, which helps to avoid problems related to state and concurrency.
+
+The function `doSomething` is considered referentially transparent because it always returns the same output value for a given input and does not depend on any external state. However, despite being referentially transparent, the function has a side effect - an action that occurs in addition to simply computing the return value. This side effect is not part of the function's return value computation but can have observable effects outside the function's scope.
+
+```js
+const doSomething = (arg) => {
+  console.log("something");
+  return arg;
+}
+```
+
+### Characteristics of Declarative Code
+
+- Stateless (internal state is not remembered between calls)
+- Deterministic (the same calls produce the same results)
+- Parallelism (execution of multiple tasks simultaneously)
+- Referential Transparency (an expression can be replaced by its value without affecting behavior)
+- Clear and concise semantic model
+- High-level abstractions
+- Independence
+
+### Advantages
+
+- Readability
+- Conciseness
+- Error recovery
+- Reusability
+- Commutativity
+- No side effects
+- Idempotence
+
+### Disadvantages
+
+- Low level of control
+- Difficulties programming with state (Stateful)
+
+## Use Cases
+
+As a Software Engineer, you need to be well-versed in the various classifications of languages and their technologies to make informed decisions and avoid wasted time and resources. There is no silver bullet, so it's crucial to understand the general characteristics. Here are some use cases for each style, although many other scenarios exist.
+
+### Imperative Paradigm
+
+- Low-Level Systems: Programming low-level systems like device drivers, operating systems, and firmware. These tasks require direct manipulation of memory locations and hardware registers, which is best accomplished using an imperative style.
+- Games and Simulations: Games and simulations often involve complex algorithms and real-time updates, which are more easily expressed using an imperative style. Imperative programming provides explicit control over the program flow, making it easier to write efficient game engines and physics simulations.
+- I/O Operations: Imperative programming is suitable for tasks involving many mutable states and side effects, such as I/O operations. Imperative programs can directly manipulate memory locations and device registers, making them suitable for these tasks.
+
+### Declarative Paradigm
+
+- Web Development: Declarative programming is frequently used in web development, where HTML, CSS, and other markup languages are used to define the structure and appearance of web pages. Declarative programming allows developers to specify the look of the page rather than how to achieve that look.
+- Data Processing: Declarative programming is well-suited for data processing tasks, such as querying databases and manipulating large datasets. Declarative programming languages like SQL provide a high-level interface for interacting with data, making it easier to write complex queries and transformations.
+- Functional Programming: Functional programming emphasizes using pure functions and immutable data structures. Functional programming is suitable for tasks that require a lot of concurrency or parallelism because pure functions have no side effects and can be executed in parallel safely.
+
+## State of the Art
+
+<Cite>
+The increasing popularity of declarative programming languages stems from the inherent simplicity of the paradigm, whose high level of abstraction ensures human-readable programming styles[^1].
+</Cite>
+
+Many imperative languages have started incorporating new features for declarative style in the last decade. One example is Java 8, which introduced a new Streams API for operating on collections using lambda expressions, abstracting away imperative code.
+
+In front-end development, we have also gained much more productivity and security with the emergence of declarative frameworks such as React, Vue, Angular, Next, Nuxt, and others in recent years.
+
+In the cloud computing domain, several declarative-style tools like Terraform, Ansible, Docker, and Kubernetes assist in deploying applications to production with scalability, security, and reliability through CI/CD pipelines.
+
+## Conclusion
+
+As declarative programming continues to evolve, it is likely to play an increasingly vital role in the future of software development. Therefore, learning about declarative programming can be a valuable investment for any developer who wants to improve their ability to create quality code.
+
+If you find any errors or have any questions, feel free to message me on [Bluesky](https://bsky.app/profile/did:plc:l4rdag2x2gkyq5zkgb46pbzl) or open an issue on [GitHub](https://github.com/rwietter/rwietter.dev/issues).
+
+## References
+
+- [Declarative Programming](https://en.wikipedia.org/wiki/Declarative_programming#:~:text=Declarative%20programming%20is%20a%20non,by%20a%20declarative%20programming%20style.)
+- [Algorithm = logic + control](https://dl.acm.org/doi/10.1145/359131.359136)
+- [A Note on Declarative Programming Paradigms and the Future of Definitional Programming](https://www.cse.chalmers.se/~oloft/Papers/wm96.pdf)
+- [Practical Advantages of Declarative Programming](https://research-information.bris.ac.uk/en/publications/practical-advantages-of-declarative-programming)
+- [CodeDocs - Declarative Programming](https://codedocs.org/what-is/declarative-programming)
+- [Imperative Programming in Depth](https://blog.ndepend.com/imperative-programming-in-depth/)
+
+[^1]: MOTTOLA A.. Design and implementation of a declarative programming language in a reactive environment. 2005.

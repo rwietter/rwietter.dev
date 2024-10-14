@@ -14,11 +14,16 @@ interface PropsTypes {
     author: string
     title: string
   }
+  i18n: {
+    discuss: string
+    writtenBy: string
+    share: string
+  }
 }
 
 const LICENSE = 'CC-BY-SA-4.0'
 
-const ArticleFooter: FC<PropsTypes> = ({ post }) => {
+const ArticleFooter: FC<PropsTypes> = ({ post, i18n }) => {
   const pathname = usePathname()
 
   const url = `https://bsky.app/intent/compose?text=I just read "${post.title}" %20 https://rwietter.dev${pathname}%20%23${post.category}`
@@ -30,11 +35,11 @@ const ArticleFooter: FC<PropsTypes> = ({ post }) => {
       <nav className={styles.navHeader}>
         <a href={url} target='_blank' rel='noreferrer'>
           <TbBrandBluesky size={18} />
-          &nbsp;Post
+          &nbsp;{i18n.share}
         </a>
         <a href={search} target='_blank' rel='noreferrer'>
           <GoCommentDiscussion size={18} />
-          &nbsp;Discuss
+          &nbsp;{i18n.discuss}
         </a>
         {post.category && (
           <Link href={`/blog/category/${post.category}`}>
@@ -56,7 +61,7 @@ const ArticleFooter: FC<PropsTypes> = ({ post }) => {
         </a>
         {post.author && (
           <p className={styles.author}>
-            Written by <strong>{post.author}</strong>
+            {i18n.writtenBy} <strong>{post.author}</strong>
           </p>
         )}
       </section>

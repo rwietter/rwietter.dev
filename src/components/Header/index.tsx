@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
+import type React from 'react'
 import styles from './styles.module.css'
 
 const activePath = (pathname: string) => (href: string, entry?: string) => {
@@ -11,9 +12,16 @@ const activePath = (pathname: string) => (href: string, entry?: string) => {
   return ''
 }
 
-const Header = () => {
-  const isActive = activePath(usePathname())
+type HeaderPropTypes = {
+  i18n: {
+    home: string
+    blog: string
+    projects: string
+  }
+}
 
+const Header: React.FC<HeaderPropTypes> = ({ i18n }) => {
+  const isActive = activePath(usePathname())
 
   return (
     <>
@@ -27,7 +35,7 @@ const Header = () => {
             title='Home'
           >
             <Link className={styles.link} href='/'>
-              Home
+              {i18n.home}
             </Link>
           </div>
           <div
@@ -38,7 +46,7 @@ const Header = () => {
             title='Blog'
           >
             <Link className={styles.link} href='/blog'>
-              Blog
+              {i18n.blog}
             </Link>
           </div>
           <div
@@ -49,7 +57,7 @@ const Header = () => {
             title='Projects'
           >
             <Link className={styles.link} href='/projects'>
-              Projects
+              {i18n.projects}
             </Link>
           </div>
         </nav>
