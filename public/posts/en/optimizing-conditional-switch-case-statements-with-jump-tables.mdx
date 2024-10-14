@@ -105,13 +105,13 @@ In summary, branches can lead to wasted [clock cycles](https://en.wikipedia.org/
 
 Returning to the main topic, how can we transform a sequence of conditionals into direct access? We need a data structure that provides direct access to values or addresses. Arrays and dictionaries achieve this; we can access an array element by its index or a dictionary value by its key.
 
-<Cite>
+<Info>
 An Array is a set of items accessible by integer indices.
-</Cite>
+</Info>
 
-<Cite>
+<Info>
 A Dictionary is a type of abstract data structure that stores items or values. A value is accessed by an associated key. The basic operations are new, insert, find, and delete.
-</Cite>
+</Info>
 
 Dictionaries use hash functions, which can have a complexity of $\mathcal{O}(n)$ in the case of hash collisions. You might find examples online of jump tables implemented with dictionaries, but compilers typically implement them using arrays.
 
@@ -286,7 +286,7 @@ $$
 
 This results in the following normalized indices:
 
-```
+```js
 5 = 15-10
 4 = 14-10
 3 = 13-10

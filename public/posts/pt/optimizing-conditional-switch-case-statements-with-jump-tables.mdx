@@ -105,13 +105,13 @@ Em suma, isso resulta em [ciclos de clock](https://en.wikipedia.org/wiki/Clock_r
 
 Voltando ao tópico principal, de que forma podemos tornar uma sequência de condicionais em um acesso direto ? Precisamos de uma estrutura de dados que nos de acesso direto ao valor ou endereço; para isso temos os *arrays* e as *dictionaries*, podemos acessar o *array* pelo *index* ou em um *dictionary* por sua *key*.
 
-<Cite>
+<Info>
 Um Array é um conjunto de itens acessíveis por números inteiros, o índice.
-</Cite>
+</Info>
 
-<Cite>
+<Info>
 Um Dictionary (Dicionário) é um tipo de estrutura dados abstrata que armazena itens ou valores. Um valor é acessado por uma chave associada. As operações básicas são new, insert, find e delete.
-</Cite>
+</Info>
 
 Os dicionários utilizam funções hash, que em casos de colisão de hash vem a ter uma complexidade $\mathcal{O}(n)$. Você encontrará exemplos na internet de jump tables com *dicionaries*, mas usualmente é implementada por compiladores por meio de arrays.
 
@@ -273,7 +273,7 @@ O que os compiladores fazem para otimizar um `switch statement` é usar, basicam
 
 No código assembly abaixo, a instrução `subl` vai subtrair o valor mínimo do argumento $(min\_case - argument)$, uma vez que os valores do case serão normalizados.
 
-```bash
+```assembly
 .LFB18:
 	subl	$10, %edi
 ```
@@ -286,7 +286,7 @@ $$
 
 E teremos os índices dispostos da seguinte maneira
 
-```md
+```js
 5 = 15-10
 4 = 14-10
 3 = 13-10
@@ -299,7 +299,7 @@ Para garantir que o valor normalizado está dentro dos limites, uma comparação
 
 A instrução `cmpl` faz essa verificação e a instrução `ja` salta para o `default` se tal verificação estiver fora do intervalo.
 
-```bash
+```assembly
 .LFB18:
 	subl	$10, %edi
 	cmpl	$5, %edi
@@ -308,7 +308,7 @@ A instrução `cmpl` faz essa verificação e a instrução `ja` salta para o `d
 
 O rótulo `.L12` define a jump table, que é um array onde cada entrada contém o deslocamento (offset) relativo ao início da tabela.
 
-```bash
+```assembly
 .L12:
   .long .L17-.L12  # Offset para case10
   .long .L16-.L12  # Offset para case11
@@ -328,7 +328,7 @@ A instrução `addq` (**Add Quadword**), adiciona o deslocamento carregado ao en
 
 Por fim, a instrução `jmp` (**Jump**) desvia incondicionalmente para o endereço contido em `%rax`, que agora é o endereço do código do caso correspondente do `switch`. O $(*)$, indica que o jump deve ser feito para o endereço armazenado no registrador `%rax`.
 
-```bash
+```assembly
 .LFB18:
 	# ...
 	leaq	.L12(%rip), %rdx
@@ -374,7 +374,7 @@ fn main() {
 
 No exemplo abaixo de um Assembly de um Microcontroller de 8-bit PIC, temos uma dessas instruções `goto` de um desvio incondicional (unconditional branch).
 
-```bash
+```assembly
  table
     goto    index_zero
     goto    index_one
