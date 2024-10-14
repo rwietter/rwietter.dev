@@ -1,10 +1,10 @@
+import type { Langs } from '@/shared/i18n/langs'
 import type { PostFrontMatter } from '@/types/Post'
 import matter from 'gray-matter'
 import type { Metadata } from 'next'
 import fs from 'node:fs'
 import path from 'node:path'
 import type React from 'react'
-import type { Langs } from 'shared/locale/langs'
 import { makeSeo } from 'src/components/SEO/makeSeo'
 import { BlogPosts } from 'src/domains/blog'
 import generateRssFeed from 'utils/feed-rss'
@@ -38,14 +38,13 @@ const getData = async ({
         }
       }),
     )
-
     const sortedByDatePosts = posts.sort(
       (a, b) =>
         -new Date(a.frontmatter?.publishedAt) -
         -new Date(b.frontmatter?.publishedAt),
     )
 
-    await generateRssFeed(sortedByDatePosts)
+    if (lang === 'en') await generateRssFeed(sortedByDatePosts)
 
     return {
       posts: sortedByDatePosts,

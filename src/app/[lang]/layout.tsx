@@ -8,6 +8,9 @@ import Providers from './providers'
 
 import styles from './styles.module.css'
 
+import type { Langs } from '@/shared/i18n/langs'
+
+import { getDictionary } from '@/shared/i18n/dictionaries'
 import '../../../styles/fonts.css'
 import '../../../styles/styles.css'
 import '../../../styles/theme.css'
@@ -17,16 +20,17 @@ export async function generateStaticParams() {
 }
 
 interface Params {
-  lang: string
+  lang: Langs
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params,
 }: Readonly<{
   children: React.ReactNode
   params: Params
 }>) {
+  const t = await getDictionary(params.lang)
   return (
     <html lang={params.lang}>
       <head>
@@ -34,7 +38,7 @@ export default function RootLayout({
       </head>
       <body>
         <div className={styles.main}>
-          <Header />
+          <Header i18n={t.components.header} />
           <Providers>
             <main className={styles.layout}>{children}</main>
             <StickyBar />

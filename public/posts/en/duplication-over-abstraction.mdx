@@ -1,0 +1,142 @@
+---
+title: Is Favoring Duplication Over Abstraction Really the Best Approach?
+description: Code duplication is generally considered bad practice, but a confusing abstraction can be just as detrimental. So, what's the best approach?
+image: https://res.cloudinary.com/ddwnioveu/image/upload/v1702426733/okeykat_h_S6_V_Qy0ckv_Y_unsplash_bfab162283.jpg
+alternativeText: Monochromatic image of liquid flowing over a pink background.
+publishedAt: 2023-05-29
+updatedAt: 2024-07-16
+slug: duplication-over-abstraction
+category: coding
+author: Maurício Witter
+keywords: DRY, Rule of Three, AHA, WET, Abstraction, Duplication, Code, Software Development
+---
+
+# Introduction
+
+This article delves into the DRY (Don't Repeat Yourself) principle in software development and its implications. DRY focuses on code duplication and abstractions. We will examine the Rule of Three concept proposed by Martin Fowler in his book "Refactoring", the AHA (Avoid Hasty Abstractions) concept by Kent C. Dodds, and the WET (Write Everything Twice) concept by Conlin Durbin.
+
+Let's first illustrate what constitutes code duplication to understand these concepts.
+
+Code duplication (a.k.a. copy/paste) is the **repetition of the same code in two or more locations within a codebase**. This duplication leads to various problems, including **code redundancy, bugs in repeated code across different components, and the introduction of bugs when maintaining one instance of the duplication while neglecting others.**
+
+In Computer Science, **abstraction simplifies complex and general concepts into a straightforward interface**, making them easier to grasp and manipulate across diverse contexts.
+
+## The Problem with Duplication
+
+Consider four buttons with repeated CSS styles. Now, a requirement arises to change the button background color. A developer unfamiliar with the code repetition, its locations, and frequency, attempts the update. This scenario can result in inconsistencies, with some buttons having color `#XXX` and others `#YYY`.
+
+Now, **imagine this scenario involving not just a simple button, but a critical piece of software**, such as JSON Web Token generation during login. Repeating this code and modifying it in one place but not another can lead to vulnerabilities or other bugs related to the token.
+
+Faulty abstraction is essentially poorly written and confusing code, an abstraction that shouldn't exist. So, is it better to leave code duplicated instead of creating a complex abstraction? Perhaps! However, it often stems from implementation errors, such as assigning multiple responsibilities to the abstraction or abstracting distinct knowledge domains.
+
+## General Principles
+
+When should we duplicate code, and when should we abstract? These questions have numerous answers, but no single conventional standard is universally adopted by developers.
+
+### Don't Repeat Yourself (DRY)
+
+DRY emerged to address the "Evils of Duplication." [^1] <High color="red">If you have duplicated code, you need to remember where you duplicated it. It’s not a matter of if you’ll forget, but when—and the surprise will not be a pleasant one.</High>
+
+In other words, if you need to change something and the code is repeated N times in your codebase, you'll have to make the change in N places, leading to the problem described in Section 1.
+
+> “Every piece of knowledge must have a single, unambiguous, authoritative representation within a system.” [^1]
+
+According to Hunt and Thomas, **code representing a piece of knowledge should have a single, unambiguous, and authoritative representation within a system.** This means DRY is not just about not duplicating code but, more importantly, knowledge.
+
+What does this mean? Two duplicated code segments might be identical initially but evolve with their own requirements, becoming distinct knowledge representations. In this case, creating an abstraction is pointless as it doesn't violate the DRY principle and might result in an abstraction representing different knowledge instances.
+
+DRY doesn't dictate when to abstract or not to abstract a duplication. You simply shouldn't repeat the same knowledge. Many developers create hasty abstractions, resulting in complex abstractions with numerous responsibilities, making the code less readable, maintainable, and testable.
+
+<High color="yellow">This leads us to the Rule of Three…</High>
+
+### Rule of Three
+
+Martin Fowler proposed this concept in his book "Refactoring."
+
+You might wonder why **three** is significant. You usually end up with two duplications with minor variations, which can remain as-is if future requirements are unclear. However, with three duplications, more are likely to follow.
+
+> "The first time you do something, you just do it. The second time you do something similar, you wince at the duplication, but you do the duplication anyway. The third time you do something similar, you refactor." [^2]
+
+The Rule of Three suggests you can duplicate code twice. Still, if you must repeat it a third time, it's time to refactor.
+
+### Write Everything Twice (WET)
+
+WET resembles the Rule of Three, aiming to avoid premature optimizations by allowing you to repeat code twice but not thrice. However, the system here can be considered more abstract, and the abstraction depends on the context.
+
+For instance, if you have buttons repeated on different pages, abstracting them into a single component makes sense. However, if you have two pages like /blog and /lists that receive a dataset and render the title and description, there's no need for abstraction as they are distinct knowledge components.
+
+Conlin Durbin emphasizes commenting on duplications to facilitate finding them when issues arise or abstractions are needed.
+
+### Avoid Hasty Abstractions (AHA)
+
+Finally, we reach AHA, pronounced "Aha!", meaning "Avoid Hasty Abstractions." Kent C. Dodds introduced this concept in a 2020 [article](https://kentcdodds.com/blog/aha-programming). Similarly, Dodds suggests **avoiding hasty abstractions because we don't know all the requirements of a system beforehand**, which can change and evolve, leading to a [wrong abstraction](https://sandimetz.com/blog/2016/1/20/the-wrong-abstraction), as Sandi Metz mentions.
+
+> "Optimize first, generalize later." (Kent C. Dodds - AHA)
+
+AHA offers more flexibility and doesn't impose duplication rules for refactoring and abstraction. However, it highlights the importance of DRY to avoid chaos. When facing duplications, the priority should be **optimizing them before abstracting with clarity**. As for when to refactor, **you can proceed when confident about the use cases**.
+
+## Adaptation
+
+Code duplication often incurs a high cost, even if it's just two instances. If the issue is poor abstraction, the problem lies in the implementation. Understanding how DRY treats knowledge is crucial to prevent creating abstractions with numerous responsibilities. If you have an abstraction taking different directions, break free from it and create another that caters to the new feature's requirements.
+
+For example, consider **ComponentA** and **ComponentB**, duplicate code with a common pattern and knowledge. We create AbstractionX, initially simple and flexible (Image 1). Suppose ComponentB requires changes, necessitating modifications to AbstractionX that add responsibility not used by ComponentA. This indicates a **divergence in knowledge** and potential future problems. To address this, we can either separate AbstractionX into AbstractionX and AbstractionY or revert to separate Components A and B.
+
+Considering a **discounts** data structure, how would you create a suitable abstraction to accommodate data changes?
+
+```js
+const discounts = {
+  regular: 0.1,
+  premium: 0.15,
+  vip: 0.2,
+}
+```
+
+A common approach might involve imperative and inflexible code like this:
+
+```js
+function calculateDiscount(total, userType) {
+  if(userType === 'regular') {
+    return total * discounts.regular
+  } else if(userType === 'premium') {
+    return total * discounts.premium
+  } else if(userType === 'vip') {
+    return total * discounts.vip
+  }
+  return 0
+}
+```
+
+This is inefficient, difficult to maintain, and simply not elegant. Let's try a more flexible approach:
+
+```js
+function calculateDiscount(total, userType) {
+  if(userType in discounts){
+    return total * discounts[userType]
+  }
+  return 0
+}
+```
+
+Now, only the data structure needs adjustment, and the function remains adaptable.
+
+This approach allows for abstraction without dealing with duplications. Duplications in a large codebase are particularly costly. To handle faulty abstractions, we analyze the context and knowledge. When an abstraction no longer makes sense, we remove it. We don't need to duplicate code once, twice, or thrice, waiting to abstract and potentially face headaches.
+
+**This is just another perspective. It's up to you to experiment and determine what works best for you.**
+
+### Beyond That…
+
+**Avoid overly generic abstractions:** Abstractions can become so generic that they lose their usefulness. For example, creating an "Animal" abstraction for a system that only has "Dog" objects is overly generic and adds no value. Abstractions should be specific and relevant to the problem being solved.
+
+**Avoid code duplication in tests:** Your tests should be as DRY as possible. Avoid duplicating code across multiple tests.
+
+For software evolution, **abstractions should be flexible enough to handle system changes** and allow the software to evolve without significant pain.
+
+Regarding code readability, **abstractions should enhance code readability, not hinder it.**
+
+## In Conclusion
+
+Creating abstractions is complex and requires a good understanding of the problem being solved. Poorly designed abstractions can be more challenging to understand and maintain than duplicated code.
+
+However, this doesn't mean code duplication is the best alternative. Duplication can lead to maintenance issues like duplicate fixes or outdated code and hinder code readability and comprehension. It increases the risk of errors, as a fix applied in one location might be forgotten in another where the code is duplicated.
+
+The solution to avoid code duplication while creating useful abstractions lies in finding the right balance between abstraction and implementation details. Consider the long-term usefulness of the abstraction and its adaptability to future system changes. Create abstractions that are simple, clear, and easily understandable.

@@ -1,23 +1,26 @@
-import { type ProjectItem, projects } from './data'
+import type { Langs } from '@/shared/i18n/langs'
+import { type Project, projects } from './data'
 import styles from './styles.module.css'
 
-type Project = {
-  title: string
-  description: string
-  github: string
+type PropTypes = {
+  lang: Langs
+  i18n: {
+    title: string
+  }
 }
 
-export const YearProjects = () => {
+export const YearProjects: React.FC<PropTypes> = ({ i18n, lang }) => {
+  const p = projects[lang]
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>More projects</h1>
-      {Object.keys(projects)
+      <h1 className={styles.title}>{i18n.title}</h1>
+      {Object.keys(projects[lang])
         .sort((a, b) => Number(b) - Number(a))
         .map((year) => (
           <div className={styles.projectItemContainer} key={year}>
             <span className={styles.year}>{year}</span>
             <div className={styles.list}>
-              {projects[year].map((project: ProjectItem) => (
+              {p[year]?.map((project: Project) => (
                 <ProjectItemComponent key={project.title} project={project} />
               ))}
             </div>

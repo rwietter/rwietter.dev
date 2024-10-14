@@ -1,15 +1,15 @@
-import { WorkerThread } from '@/lib/worker'
 import matter from 'gray-matter'
 import type { Metadata } from 'next'
 import { serialize } from 'next-mdx-remote/serialize'
 import fs from 'node:fs'
 import path from 'node:path'
 import rehypeExternalLinks from 'rehype-external-links'
-import { makeSeo } from 'src/components/SEO/makeSeo'
-import { workerPath } from 'utils/workerPath'
 
-import MDX from '@/base/components/MDX'
+import MDX from '@/base/MDX'
+import { makeSeo } from '@/components/SEO/makeSeo'
 import styles from '@/domains/awesome/list/styles.module.css'
+import { WorkerThread } from '@/lib/worker'
+import { workerPath } from 'utils/workerPath'
 
 type PageProps = {
   params: { slug: string }

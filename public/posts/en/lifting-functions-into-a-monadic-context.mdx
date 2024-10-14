@@ -44,7 +44,9 @@ This corresponds to the mathematical expression $(\eta: \tau \rightarrow \mu \ta
 
 “Bind, sometimes referred to as *star*, can be represented as $(\mu \tau \rightarrow (\tau \rightarrow \mu \tau') \rightarrow \mu \tau')$. **Bind** takes a computation of type $(\mu\tau)$ (a computation that eventually returns a value of type $(\tau)$) and a function that transforms the value $(\tau)$ into a new computation of type $(\mu \tau')$. **Bind** then chains these two computations, passing the result of the first computation to the function that produces the second computation[^1].”
 
-> “In Haskell, bind is represented by `>>=`. The ` >>=` function takes the value from a monad container and passes it to a function to produce a monad container containing a new value, possibly of a different type. The `>>=` function is known as "bind" because it binds the value in a monad container to the first argument of a function. By adding logic to the binding function, a monad can implement a specific strategy for combining computations in the monad[^4].”
+<Cite>
+“In Haskell, bind is represented by `>>=`. The ` >>=` function takes the value from a monad container and passes it to a function to produce a monad container containing a new value, possibly of a different type. The `>>=` function is known as "bind" because it binds the value in a monad container to the first argument of a function. By adding logic to the binding function, a monad can implement a specific strategy for combining computations in the monad[^4].”
+</Cite>
 
 For example, given a `Maybe Int` and a function `f :: Int -> Maybe String`, bind allows us to chain these computations to produce a new computation of type `Maybe String`.
 

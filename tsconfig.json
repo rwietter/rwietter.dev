@@ -22,11 +22,12 @@
 			"@/components/*": ["src/components/*"],
 			"@/domains/*": ["src/domains/*"],
 			"@/hooks/*": ["src/hooks/*"],
-			"@/lib/*": ["lib/*"],
-			"@/base/*": ["base/*"],
+			"@/lib/*": ["src/lib/*"],
+			"@/base/*": ["src/base/*"],
 			"@/services/*": ["services/*"],
 			"@/types/*": ["types/*"],
-			"@/api/*": ["src/app/api/*"]
+			"@/api/*": ["src/app/api/*"],
+      "@/shared/*": ["src/shared/*"]
 		},
 		"plugins": [
 			{

@@ -4,5 +4,29 @@
     "metadata": {
       "description": "This blog is about my journey as a Software Developer. Here do you find my thoughts, ideas, and experiences. I hope you enjoy it."
     }
+  },
+  "blogPost": {
+    "footer": {
+      "discuss": "Discuss",
+      "writtenBy": "Written by",
+      "share": "Share"
+    },
+    "header": {
+      "backToOverview": "Back to overview",
+      "readingTime": "min read"
+    }
+  },
+  "projects": {
+    "pinnedProjects": {},
+    "yearProjects": {
+      "title": "More Projects"
+    }
+  },
+  "components": {
+    "header": {
+      "home": "Home",
+      "blog": "Blog",
+      "projects": "Projects"
+    }
   }
 }

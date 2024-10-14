@@ -1,8 +1,8 @@
 import Syllabus from '@/domains/syllabus/compose'
-import { getMdxSource } from '@/lib/serializeMdx'
-import { WorkerThread } from '@/lib/worker'
 import fs from 'node:fs/promises'
 import path from 'node:path'
+import { getMdxSource } from 'src/lib/serializeMdx'
+import { WorkerThread } from 'src/lib/worker'
 import { workerPath } from 'utils/workerPath'
 
 const Page: React.FC = async () => {
@@ -40,7 +40,7 @@ async function getData() {
       content: mdxSource,
     }
   } catch (err) {
-    console.error(`[${process.cwd()}src/app/syllabus]`, err)
+    console.error('src/app/syllabus', err)
     worker.terminate()
     return {
       error: err as Error,

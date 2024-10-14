@@ -1,9 +1,9 @@
 import { getMdxSource } from '@/lib/serializeMdx'
+import { langs } from '@/shared/i18n/langs'
 import dynamic from 'next/dynamic'
 import { readFileSync, readdirSync } from 'node:fs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import { langs } from 'shared/locale/langs'
 
 const Microblog = dynamic(() => import('@/domains/microblog/Microblog'))
 
@@ -31,23 +31,6 @@ export default Page
 
 async function getData({ lang }: { lang: string }) {
   try {
-    // const postContent = [];
-    // for await (const lang of langs) {
-    // 	const [file] = await fs.readdir(
-    // 		path.join(process.cwd(), "public", "microblog", lang),
-    // 	);
-    // 	const filepath = path.join(
-    // 		process.cwd(),
-    // 		"public",
-    // 		"microblog",
-    // 		lang,
-    // 		file,
-    // 	);
-    // 	const content = readFileSync(filepath, "utf-8");
-    // 	const mdxSource = await getMdxSource(content);
-    // 	postContent.push(mdxSource);
-    // }
-
     const [file] = await fs.readdir(
       path.join(process.cwd(), 'public', 'microblog', lang),
     )

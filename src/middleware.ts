@@ -25,10 +25,14 @@ function getLocale(request: NextRequest): string {
 }
 
 export function middleware(request: NextRequest) {
-  if (request.nextUrl.pathname.startsWith('/_next')) return NextResponse.next()
-
   // Check if there is any supported locale in the pathname
   const { pathname } = request.nextUrl
+
+  // Ignore internal paths
+  if (pathname.startsWith('/_next')) {
+    return NextResponse.next()
+  }
+
   const pathnameHasLocale = locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
   )
@@ -47,10 +51,18 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    // Skip all internal paths (_next)
-    '/((?!_next).*)',
-    // Optional: only run on root (/) URL
-    // '/'
-  ],
+  matcher: "/((?!api|static|.*\\..*|_next).*)",
+};
+
+/*
+// Ignore internal paths
+function shouldExcludeRoute(request: NextRequest) {
+  const path = request.nextUrl.pathname;
+
+  return (
+    path.startsWith('/api') || //  exclude all API routes
+    path.startsWith('/static') || // exclude static files
+    path.includes('.') // exclude all files in the public folder
+  );
 }
+*/

@@ -3,13 +3,14 @@ import ArticleContent from '@/domains/article/content'
 import ArticleHeader from '@/domains/article/header'
 import styles from '@/domains/article/styles.module.css'
 import { getMdxSource } from '@/lib/serializeMdx'
+import { getDictionary } from '@/shared/i18n/dictionaries'
+import type { Langs } from '@/shared/i18n/langs'
 import type { Post, PostFrontMatter } from '@/types/Post'
 import matter from 'gray-matter'
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import fs from 'node:fs'
 import path from 'node:path'
-import type { Langs } from 'shared/locale/langs'
 import { getReadingTime } from 'utils/getTimeReading'
 
 const ArticleFooter = dynamic(() => import('@/domains/article/footer'))
@@ -20,9 +21,9 @@ type PagePropTypes = {
 }
 
 const Page = async (props: PagePropTypes) => {
-  const { slug } = props.params
-  const { lang } = props.params
+  const { slug, lang } = props.params
   const { data } = await getData({ slug, lang })
+  const t = await getDictionary(lang)
 
   if (!data) return <p>Page not found</p>
 
@@ -60,10 +61,11 @@ const Page = async (props: PagePropTypes) => {
           content={content}
           readingTime={readingTime}
           frontmatter={frontmatter}
+          i18n={t.blogPost.header}
         />
         <ArticleContent mdxSource={mdxSource} />
       </section>
-      <ArticleFooter post={frontmatter} />
+      <ArticleFooter post={frontmatter} i18n={t.blogPost.footer} />
     </>
   )
 }
@@ -101,7 +103,7 @@ const generatePaths = async ({
       posts: posts,
     }
   } catch (error) {
-    console.error(error)
+    console.error('blog/[slug]/page.tsx', error)
     return {
       posts: [],
     }

@@ -1,30 +1,43 @@
 import { makeSeo } from '@/components/SEO/makeSeo'
+import { getDictionary } from '@/shared/i18n/dictionaries'
+import type { Langs } from '@/shared/i18n/langs'
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
+import type React from 'react'
 
 const YearProjects = dynamic(() =>
   import('src/domains/projects/YearProjects').then((mod) => ({
     default: mod.YearProjects,
-  }))
+  })),
 )
 
 const TopProjects = dynamic(() =>
   import('src/domains/projects/TopProjects').then((mod) => ({
     default: mod.TopProjects,
-  }))
+  })),
 )
 
-const Page = () => (
-  <>
-    <script
-      type='application/ld+json'
-      // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-    />
-    <TopProjects />
-    <YearProjects />
-  </>
-)
+type PageProps = {
+  params: {
+    lang: Langs
+  }
+}
+
+const Page: React.FC<PageProps> = async ({ params }) => {
+  const lang = params.lang
+  const t = await getDictionary(lang)
+  return (
+    <>
+      <script
+        type='application/ld+json'
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <TopProjects lang={lang} />
+      <YearProjects i18n={t.projects.yearProjects} lang={lang} />
+    </>
+  )
+}
 
 export default Page
 

@@ -1,0 +1,160 @@
+---
+title: Elevando Funções para um Contexto Monádico
+description: Este artigo explora os aspectos teóricos e práticos das mônadas em Haskell, investigando seus fundamentos na teoria das categorias e focando nos conceitos centrais de _unit_ e _bind_. Através de uma abordagem prática, o artigo conecta a teoria à implementação em Haskell, explicando como as mônadas são usadas para estruturar e gerenciar computações.
+slug: lifting-functions-into-a-monadic-context
+image: https://res.cloudinary.com/ddwnioveu/image/upload/fl_preserve_transparency/v1724385218/aditya-patil.jpg?_s=public-apps
+alternativeText: Imagem de um túnel geométrico dourado, simbolizando a composição de funções dentro de uma mônada, com camadas transformando valores em direção a uma profundidade abstrata.
+caption: Aditya Patil / Unsplash
+publishedAt: 2024-08-22
+updatedAt: 2024-08-22
+category: theory
+author: Maurício Witter
+keywords: monads, haskell, bind, unit
+---
+
+# Introdução
+
+Este artigo é <High color="yellow">baseado em meus estudos sobre Mônadas em Haskell</High>. Descreverei o que aprendi usando referências e uma teoria simples voltada para aplicações práticas em Haskell. <High color="red">Mônadas têm suas raízes na teoria das categorias, pois envolvem conceitos como funtores, morfismos, endofuntores e muito mais</High>.
+
+<Warn>
+*Não sou um especialista em mônadas ou teoria das categorias — apenas um entusiasta — então sinta-se à vontade para enviar um _pull request_ ou abrir uma [issue](https://github.com/rwietter/rwietter.dev/issues) se encontrar algum erro para que ele possa ser corrigido.*
+</Warn>
+
+# Fundamentação Teórica
+
+“Mônada é uma forma de compor funções enriquecidas. Não se trata de efeitos colaterais ou estado. Trata-se de composição. [...] funções enriquecidas podem ser usadas para expressar uma variedade de efeitos ou estados[^5].”
+
+“As mônadas foram introduzidas pela primeira vez na ciência da computação por Moggi[^2] e posteriormente expandidas por Wadler[^3] para expressar a semântica de programas com efeitos computacionais. Inferência de tipo e efeito também foram introduzidos para levar em conta esses efeitos[^1].”
+
+“É sabido que programas puramente funcionais são mais fáceis de raciocinar do que os imperativos, e um dos primeiros conselhos em *A Prática da Programação* de **Kernighan e Pike** é '<High>Cuidado com os efeitos colaterais</High>'[^1].”
+
+“Existem muitas maneiras equivalentes de definir uma mônada[^5]”, “uma mônada introduz um operador de tipo $(\mu)$, onde $(\mu\tau)$ representa computações retornando valores do tipo $(\tau)$. O tipo $(\mu\tau)$ pode ser interpretado como um tipo de dados abstrato que encapsula computações retornando valores do tipo $(\tau)$. Essas computações são acessadas e manipuladas usando duas operações fundamentais: **unit** e **bind**[^1].”
+
+Onde $(\mu)$ é um operador monádico e $(\tau)$ é um tipo genérico. Então, $(\mu\tau)$ indica um tipo que representa uma **computação que eventualmente retorna um valor do tipo $(\tau)$**. Por exemplo, em Haskell, `Maybe Int` seria uma mônada que pode computar e retornar um valor `Int` ou nada.
+
+## Unit e Bind
+
+Unit e Bind são funções fundamentais das mônadas. Em termos monádicos, a **função unit** (frequentemente chamada de `return` em Haskell) é um bloco de construção fundamental de uma mônada e é expressa como $(\tau \rightarrow \mu \tau)$. Ela eleva um valor do tipo $(\tau)$ para o contexto monádico $(m\ \tau)$, transformando-o em uma computação do tipo $(\mu\tau)$[^1]. Em Haskell, se parece com:
+
+```haskell
+return :: a -> m a
+```
+
+Isso corresponde à expressão matemática $(\eta: \tau \rightarrow \mu \tau)$. Onde $(\mu)$ representa o construtor de tipo monádico `m` e $(\eta)$ é uma transformação natural.
+
+“Bind, às vezes chamado de *estrela*, pode ser representado como $(\mu \tau \rightarrow (\tau \rightarrow \mu \tau') \rightarrow \mu \tau')$. **Bind** recebe uma computação do tipo $(\mu\tau)$ (uma computação que eventualmente retorna um valor do tipo $(\tau)$) e uma função que transforma o valor $(\tau)$ em uma nova computação do tipo $(\mu \tau')$. **Bind** então encadeia essas duas computações, passando o resultado da primeira computação para a função que produz a segunda computação[^1].”
+
+<Cite>
+“Em Haskell, bind é representado por `>>=`. A função `>>=` recebe o valor de um contêiner de mônada e o passa para uma função para produzir um contêiner de mônada contendo um novo valor, possivelmente de um tipo diferente. A função `>>=` é conhecida como "bind" porque vincula o valor em um contêiner de mônada ao primeiro argumento de uma função. Ao adicionar lógica à função de vinculação, uma mônada pode implementar uma estratégia específica para combinar computações na mônada[^4].”
+</Cite>
+
+Por exemplo, dado um `Maybe Int` e uma função `f :: Int -> Maybe String`, bind nos permite encadear essas computações para produzir uma nova computação do tipo `Maybe String`.
+
+- $\mu \tau$ $=$ representa um valor monádico, como `Maybe Int`.
+- $\tau \rightarrow \mu \tau'$ $=$ é uma função que recebe um Int e retorna um `Maybe String`.
+- $\mu \tau'$ $=$ é o valor monádico resultante, `Maybe String`.
+
+---
+## Leis
+
+As leis que definem as propriedades das mônadas são baseadas na teoria das categorias porque se aprofundam no domínio das categorias, endofuntores e funtores. Esta é uma área mais complexa, mas resumidamente:
+
+### Identidade à Esquerda $( \mu \circ T\eta = id )$:
+
+Quando você "eleva" um valor para o contexto da mônada (usando $(\eta)$) e depois o "achata" de volta (usando $(\mu)$), o resultado final é apenas o valor original, inalterado.
+
+- **$(\mu)$**: Isso "achata" uma estrutura aninhada (por exemplo, `T (T a)` se torna `T a`).
+- **$(T\eta)$**: Aqui, $(T)$ é o **funtor** associado à mônada, e $(\eta)$ é o **unit** (também chamado de `return` ou `pure` em alguns contextos). $(T\eta)$ indica que primeiro aplicamos o funtor $(T)$ ao resultado da aplicação da transformação natural $(\eta)$. Em outras palavras, $(\eta)$ encapsula um valor em uma computação (por exemplo, transforma `a` em `T a`), e então $(T)$ é aplicado para transformá-lo ainda mais.
+- **$(\mu \circ T\eta)$**: O operador de composição $(\circ)$ denota **composição de função**. Isso significa que primeiro aplicamos $(T\eta)$ e depois aplicamos $(\mu)$ ao resultado. Concretamente, pense nisso como primeiro aplicar `return` e depois "achatar" o resultado.
+- **$(= id)$**: Esta equação significa que o resultado desta composição é o mesmo que aplicar a função **identidade** (`id`), ou seja, o valor original sem modificações.
+
+```haskell
+return a >>= f  =  f a
+```
+
+### Identidade à Direita $( \mu \circ \eta T = id )$:
+
+A ideia é que se você encapsular um valor dentro do contexto da mônada e depois achatá-lo (usando $(\mu)$), o resultado deve ser o valor original, inalterado. Esta é uma segunda maneira de garantir que as mônadas preservem a identidade.
+
+- **$(\eta T)$**: Aqui, $(\eta T)$ significa que primeiro aplicamos o **funtor** $(T)$ ao valor e depois aplicamos o **unit** $(\eta)$. Em outras palavras, estamos encapsulando o valor em uma computação e então aplicando o funtor a essa computação.
+- **$(\mu \circ \eta T)$**: Isso significa que primeiro encapsulamos o valor usando $(\eta)$, aplicamos o funtor $(T)$ e depois "achatamos" com $(\mu)$.
+- **$(= id)$**: Novamente, identidade significa que o resultado final deve ser o valor original sem modificações.
+
+```haskell
+m >>= return  =  m
+```
+
+### Associatividade $( \mu \circ T\mu = \mu \circ \mu T )$:
+
+Esta lei garante que a ordem em que você aplica as operações de achatamento não importa. Você pode achatar parte da estrutura primeiro e depois a outra parte, ou achatar tudo de uma vez. O resultado final será o mesmo.
+
+- **$(T\mu)$**: Aqui, aplicamos o **funtor** $(T)$ a uma computação que já foi achatada uma vez com $(\mu)$. Isso resulta em uma computação aninhada.
+- **$(\mu \circ T\mu)$**: Primeiro, aplicamos $(T\mu)$—ou seja, usamos o funtor para transformar a computação—e então aplicamos $(\mu)$ para achatá-la novamente. Isso deve ser equivalente a...
+- **$(\mu \circ \mu T)$**: Aqui, aplicamos $(\mu)$ diretamente, depois aplicamos $(T)$ à computação resultante, antes de achatá-la uma segunda vez.
+
+```haskell
+(m >>= f) >>= g  =  m >>= (\x -> f x >>= g)
+```
+
+## Mônadas em Haskell
+
+A classe de tipo `Monad` inclui três operações essenciais, mas para uma instância `Monad` mínima completa, você só precisa definir a função `>>=`[^6].
+
+```haskell
+(>>=) :: m a -> (a -> m b) -> m b
+(>>) :: m a -> m b -> m b
+return :: a -> m a
+```
+
+### O operador ">>"
+
+“O operador `>>` sequencia duas ações enquanto descarta qualquer valor resultante da primeira ação[^6]”. Por exemplo, aqui o operador `>>` ignora o resultado da primeira ação (`Just 5`) e retorna o resultado da segunda ação (`Just "Segunda Ação"`).
+
+```haskell
+-- A assinatura do tipo é:
+-- (>>) :: Maybe Int -> Maybe String -> Maybe String
+ignm :: Maybe String
+ignm = Just 5 >> Just "Segunda Ação"
+```
+
+### O operador ">>="
+
+“O operador `>>=` é chamado de bind e é — ou, pelo menos, compreende — o que torna Monad especial. Normalmente, ao trabalhar com mônadas, aplicamos a função bind (`>>=`). Podemos usá-la explicitamente ou indiretamente através da notação `do`[^6]”.
+
+O operador `bind` (`>>=`) é responsável por "encadear" operações monádicas, passando o valor desempacotado (por exemplo, o valor dentro de `Just` no caso de `Maybe`) para a próxima função, e assim por diante.
+
+```haskell
+-- (>>=) :: m a -> (a -> m b) -> m b
+
+-- Just x     :: Maybe Int            -- m a
+-- \a -> ...  :: Int -> Maybe Int     -- a -> m b
+-- (>>=)      :: Maybe Int -> (Int -> Maybe Int) -> Maybe Int -- m b
+bind :: Int -> Maybe Int
+bind x = Just x >>= \a -> Just (a + 1)
+```
+
+### O operador "return"
+
+O **contexto monádico** em `Maybe` é o encapsulamento do valor no construtor `Just` ou `Nothing`. Este encapsulamento permite que o valor seja manipulado dentro de uma "sequência de operações" monádica sem sair do contexto `Maybe`. Portanto, `return (x * 2)` coloca o valor de `x * 2` dentro do contexto monádico `Maybe`, que é `Just`.
+
+```haskell
+-- :: Int -> Maybe Int -- Coloca o valor no contexto Maybe (Just)
+-- return (x * 2) == Just (x * 2)
+justr :: Int -> Maybe Int
+justr x = return (x * 2)
+```
+
+## Resumo
+
+- **Mônada**: É um contexto que encapsula um valor (ou a ausência dele) e lida com efeitos colaterais de forma controlada.
+- **bind**: Desempacota uma mônada e achata o resultado, passando-o para outra função.
+- **unit**: Coloca um valor em um contexto monádico.
+
+Há muito mais para explorar em relação às Mônadas, incluindo uma análise mais aprofundada de categorias, funtores e Applicative em Haskell, mas reservarei esses tópicos para uma futura publicação para manter a brevidade e clareza desta. Obrigado pela leitura, e caso tenha alguma dúvida ou contribuição, por favor, abra uma [issue](https://github.com/rwietter/rwietter.dev/issues).
+
+[^1]: J. C. FILLIATRE, “[A theory of Monads Parametrized by Effects](https://www.lri.fr/~bibli/Rapports-internes/2003/RR1367.pdf)”. Sept. 2003. .
+[^2]: E. Moggi, “Notions of computation and monads”. Information and Computation, vol. 93, no. 1, pp. 55–92, Jul. 1991, doi: 10.1016/0890-5401(91)90052-4.
+[^3]: P. Wadler, “Monads for functional programming,” pp. 233–264, 1993, doi: 10.1007/978-3-662-02880-3_8.
+[^4]: Haskell Wiki, "[All About Monads](https://wiki.haskell.org/All_About_Monads)"
+[^5]: M. Bartosz, "[Monads: Programmer’s Definition](https://bartoszmilewski.com/2016/11/21/monads-programmers-definition/)"
+[^6]: Chris Allen, Julie Moronuki, Haskell Programming from First Principles.

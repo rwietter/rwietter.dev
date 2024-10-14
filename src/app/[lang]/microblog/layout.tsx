@@ -1,9 +1,9 @@
 import type { FC, PropsWithChildren } from 'react'
 import Providers from './providers'
 
-import '../../../../shared/styles/footnotes.css'
 import '../../../../styles/katex-override.css'
 import '../../../../styles/microblog-mdx.css'
+import '../../../shared/styles/footnotes.css'
 
 type Props = PropsWithChildren
 

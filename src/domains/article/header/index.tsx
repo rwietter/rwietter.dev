@@ -7,7 +7,12 @@ import type { Post } from '@/types/Post'
 import { getDate } from 'utils/get-date'
 import styles from './styles.module.css'
 
-interface ArticleHeaderPropTypes extends Post {}
+interface ArticleHeaderPropTypes extends Post {
+  i18n: {
+    backToOverview: string
+    readingTime: string
+  }
+}
 
 const ArticleHeader: React.FC<ArticleHeaderPropTypes> = (props) => {
   const publishedAt = getDate(props.frontmatter.publishedAt)
@@ -19,7 +24,7 @@ const ArticleHeader: React.FC<ArticleHeaderPropTypes> = (props) => {
           <Link href='/blog'>
             <button className={styles.backToOverview} type='button'>
               <AiOutlineArrowLeft size={19} />
-              <p>Back to overview</p>
+              <p>{props.i18n.backToOverview}</p>
             </button>
           </Link>
           <p className={styles.dateTimeRead}>
@@ -28,7 +33,7 @@ const ArticleHeader: React.FC<ArticleHeaderPropTypes> = (props) => {
           </p>
           <p className={styles.dateTimeRead}>
             <RiTimer2Line size={17} />
-            {props.readingTime}
+            {props.readingTime} {props.i18n.readingTime}
           </p>
         </section>
       </div>

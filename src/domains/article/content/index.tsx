@@ -1,6 +1,6 @@
 'use client'
 
-import MDX from '@/base/components/MDX'
+import MDX from '@/base/MDX'
 import type { FC } from 'react'
 import type { MDXSerialized } from 'types/MDX'
 import styles from './styles.module.css'

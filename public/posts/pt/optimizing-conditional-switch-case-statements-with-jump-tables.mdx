@@ -1,7 +1,7 @@
 ---
 title: Otimização de instruções condicionais Switch-Case Statements por meio de Jump Tables
 description: Este artigo examina aspectos teóricos e empíricos, destacando casos de uso e desafios encontrados na aplicação de jump tables e branchs em diferentes contextos para otimização de instruções condicionais em switch-case statements e compiladores.
-slug: otimizacao-de-instrucoes-condicionais-de-switch-case-statements-por-meio-de-jump-tables
+slug: optimizing-conditional-switch-case-statements-with-jump-tables
 image: https://res.cloudinary.com/ddwnioveu/image/upload/v1720299096/fgqw1b2j7dncrztplfbn.jpg
 alternativeText: galhos e branchs de árvores caídos submersos em um corpo de água calmo e escuro com folhagem verde exuberante ao fundo criam uma cena serena e pitoresca.
 caption: Michael Held / Unsplash
@@ -341,9 +341,12 @@ Por fim, a instrução `jmp` (**Jump**) desvia incondicionalmente para o endere�
 
 Existem alguns conceitos similares ao jump table, conhecidos como **Branch Table**. São similares, mas usam instruções `goto` para saltar para uma parte de código específica. Usa-se uma extensão do compilador GCC chamada "**Labels as Values**", um forma eficiente de *multi-way branching*.
 
-> A multiway branching é uma técnica de programação importante que é frequentemente substituída por uma sequência ineficiente de testes if. Peter Naur escreveu-me recentemente que considera o uso de tabelas para controlar o fluxo do programa como uma ideia básica da ciência da computação que foi quase esquecida; mas ele espera que esteja pronto para ser redescoberto a qualquer momento. É a chave para a eficiência de todos os melhores compiladores que estudei.
->
-> — Donald Knuth, Structured Programming with go to Statements
+<Cite>
+A multiway branching é uma técnica de programação importante que é frequentemente substituída por uma sequência ineficiente de testes if. Peter Naur escreveu-me recentemente que considera o uso de tabelas para controlar o fluxo do programa como uma ideia básica da ciência da computação que foi quase esquecida; mas ele espera que esteja pronto para ser redescoberto a qualquer momento. É a chave para a eficiência de todos os melhores compiladores que estudei.
+
+<br/>
+— Donald Knuth, Structured Programming with go to Statements
+</Cite>
 
 Multiway branching é um construto da programação que permite que o **fluxo de controle de um programa seja direcionado para um dos vários resultados possíveis**, com base no valor de uma expressão, aquilo que conhecemos como **selection statements** — `switch`, `if`, `match` — mas que podemos substituir por técnicas mais eficientes como jump table.
 

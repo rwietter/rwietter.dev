@@ -2,9 +2,9 @@ import { KbarInit } from '@/components/Kbar/KbarInit'
 import { makeSeo } from '@/components/SEO/makeSeo'
 import AuthorContent from '@/domains/home/author-content'
 import AuthorHeader from '@/domains/home/author-header'
+import { getDictionary } from '@/shared/i18n/dictionaries'
+import type { Langs } from '@/shared/i18n/langs'
 import type { Metadata } from 'next'
-import type { Langs } from 'shared/locale/langs'
-import { getDictionary } from './dictionaries'
 
 type PagePropTypes = {
   params: { lang: Langs }

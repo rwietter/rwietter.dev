@@ -4,5 +4,29 @@
     "metadata": {
       "description": "Este blog é sobre minha jornada como desenvolvedor de software.  Aqui você encontra meus pensamentos, ideias e experiências.  Espero que você goste."
     }
+  },
+  "blogPost": {
+    "footer": {
+      "discuss": "Discutir",
+      "writtenBy": "Escrito por",
+      "share": "Compartilhar"
+    },
+    "header": {
+      "backToOverview": "Voltar",
+      "readingTime": "min de leitura"
+    }
+  },
+  "projects": {
+    "pinnedProjects": {},
+    "yearProjects": {
+      "title": "Mais Projetos"
+    }
+  },
+  "components": {
+    "header": {
+      "home": "Início",
+      "blog": "Blog",
+      "projects": "Projetos"
+    }
   }
 }
