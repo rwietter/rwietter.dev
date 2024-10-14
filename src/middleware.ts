@@ -19,7 +19,7 @@ function getLocale(request: NextRequest): string {
   const acceptLang = request.headers.get('Accept-Language')
   if (!acceptLang) return defaultLocale
   // Get match locale
-  const headers = { 'accept-language': acceptLang }
+  const headers = { 'accept-language': acceptLang.split(',')[1] }
   const languages = new Negotiator({ headers }).languages()
   return match(languages, locales, defaultLocale)
 }
@@ -38,7 +38,6 @@ export function middleware(request: NextRequest) {
   // Redirect if there is no locale
   const locale = getLocale(request)
   request.nextUrl.pathname = `/${locale}${pathname}`
-  console.log(request.nextUrl.pathname)
   // e.g. incoming request is /products
   // The new URL is now /en-US/products
   const response = NextResponse.redirect(request.nextUrl)

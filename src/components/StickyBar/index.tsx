@@ -42,8 +42,12 @@ const StickyBar = () => {
   const handleToggleLanguage = () => {
     const lang = pathname.startsWith('/en') ? 'pt' : 'en'
     const path = pathname.replace(/^\/(en|pt)/, `/${lang}`)
-    setCookie('i18nlang', lang)
-    router.push(path)
+    setCookie('i18nlang', lang, {
+      path: '/',
+      expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30), // 30 dias
+      httpOnly: false,
+    })
+    window.location.href = path
   }
 
   return (
