@@ -3,13 +3,21 @@ import matter from 'gray-matter'
 import type { Metadata } from 'next'
 import fs from 'node:fs'
 import path from 'node:path'
+import type React from 'react'
+import type { Langs } from 'shared/locale/langs'
 import { makeSeo } from 'src/components/SEO/makeSeo'
 import { BlogPosts } from 'src/domains/blog'
 import generateRssFeed from 'utils/feed-rss'
 
-const getData = async () => {
+const getData = async ({
+  lang,
+}: {
+  lang: Langs
+}) => {
   try {
-    const files = fs.readdirSync(path.join(process.cwd(), 'public', 'posts'))
+    const files = fs.readdirSync(
+      path.join(process.cwd(), 'public', 'posts', lang),
+    )
     const mdxFiles = files.filter((file) =>
       ['.mdx'].includes(path.extname(file)),
     )
@@ -17,7 +25,7 @@ const getData = async () => {
     const posts = await Promise.all(
       mdxFiles.map(async (file) => {
         const source = fs.readFileSync(
-          path.join(process.cwd(), 'public', 'posts', file),
+          path.join(process.cwd(), 'public', 'posts', lang, file),
           'utf8',
         )
 
@@ -75,8 +83,14 @@ const jsonLd = {
     'https://res.cloudinary.com/ddwnioveu/image/upload/v1707422678/large_joshua_sortino_71v_Ab1_FXB_6g_unsplash_46a1453603.jpg',
 }
 
-const Page = async () => {
-  const data = await getData()
+type PagePropTypes = {
+  params: {
+    lang: Langs
+  }
+}
+
+const Page: React.FC<PagePropTypes> = async ({ params }) => {
+  const data = await getData({ lang: params.lang })
 
   if ('error' in data) {
     return <p>Ops... Something went wrong. Please, try again later.</p>

@@ -19,7 +19,7 @@ const Posts: FC<PostsPropTypes> = ({ post }) => {
         {publishedAt}
       </p>
       <Link
-        href={`/blog/article/${post.slug}`}
+        href={`/blog/${post.slug}`}
         scroll={false}
         shallow={true}
         prefetch={true}

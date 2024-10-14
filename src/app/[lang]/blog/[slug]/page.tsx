@@ -3,26 +3,26 @@ import ArticleContent from '@/domains/article/content'
 import ArticleHeader from '@/domains/article/header'
 import styles from '@/domains/article/styles.module.css'
 import { getMdxSource } from '@/lib/serializeMdx'
-import { WorkerThread } from '@/lib/worker'
 import type { Post, PostFrontMatter } from '@/types/Post'
 import matter from 'gray-matter'
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import fs from 'node:fs'
 import path from 'node:path'
+import type { Langs } from 'shared/locale/langs'
 import { getReadingTime } from 'utils/getTimeReading'
-import { workerPath } from 'utils/workerPath'
 
 const ArticleFooter = dynamic(() => import('@/domains/article/footer'))
 
 type PagePropTypes = {
-  params: { slug: string }
+  params: { slug: string; lang: Langs }
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
 const Page = async (props: PagePropTypes) => {
   const { slug } = props.params
-  const { data } = await getData(slug)
+  const { lang } = props.params
+  const { data } = await getData({ slug, lang })
 
   if (!data) return <p>Page not found</p>
 
@@ -70,17 +70,29 @@ const Page = async (props: PagePropTypes) => {
 
 export default Page
 
-export async function generateStaticParams() {
-  const data = await generatePaths()
+export async function generateStaticParams({
+  params,
+}: {
+  params: {
+    lang: Langs
+  }
+}) {
+  const data = await generatePaths({ lang: params.lang })
 
   return data?.posts.map((post) => ({
     slug: post.slug,
   }))
 }
 
-const generatePaths = async () => {
+const generatePaths = async ({
+  lang,
+}: {
+  lang: Langs
+}) => {
   try {
-    const files = fs.readdirSync(path.join(process.cwd(), 'public', 'posts'))
+    const files = fs.readdirSync(
+      path.join(process.cwd(), 'public', 'posts', lang),
+    )
     const posts = files.map((file) => ({
       slug: file.replace(/\.mdx$/, ''),
     }))
@@ -96,19 +108,27 @@ const generatePaths = async () => {
   }
 }
 
-async function getData(slug: string) {
-  const worker = new WorkerThread()
+async function getData({
+  slug,
+  lang,
+}: {
+  slug: string
+  lang: Langs
+}) {
   try {
-    const filepath = path.join(process.cwd(), 'public', 'posts', `${slug}.mdx`)
+    const filepath = path.join(
+      process.cwd(),
+      'public',
+      'posts',
+      lang,
+      `${slug}.mdx`,
+    )
 
     if (!fs.existsSync(filepath)) {
       return { data: null, error: new Error('File not found') }
     }
 
-    const file = await worker.runWorker(
-      workerPath('fileReaderWorker.js'),
-      filepath,
-    )
+    const file = fs.readFileSync(filepath, 'utf8')
     const { content, data } = matter(file)
     const { readTime } = getReadingTime(content)
     const mdxSource = await getMdxSource(content)
@@ -124,7 +144,6 @@ async function getData(slug: string) {
     }
   } catch (error) {
     console.error(`${process.cwd()}/public/posts/${slug}.mdx`, error)
-    worker.terminate()
     return { data: null, error }
   }
 }
@@ -133,7 +152,8 @@ export async function generateMetadata({
   params,
 }: PagePropTypes): Promise<Metadata> {
   const slug = params.slug
-  const { data } = await getData(slug)
+  const lang = params.lang
+  const { data } = await getData({ slug, lang })
 
   if (!data) {
     return makeSeo({

@@ -8,17 +8,27 @@ import Providers from './providers'
 
 import styles from './styles.module.css'
 
-import '../../styles/styles.css'
-import '../../styles/theme.css'
-import '../../styles/fonts.css'
+import '../../../styles/fonts.css'
+import '../../../styles/styles.css'
+import '../../../styles/theme.css'
+
+export async function generateStaticParams() {
+  return [{ lang: 'en' }, { lang: 'pt' }]
+}
+
+interface Params {
+  lang: string
+}
 
 export default function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode
+  params: Params
 }>) {
   return (
-    <html lang='en'>
+    <html lang={params.lang}>
       <head>
         <DocumentStuff />
       </head>

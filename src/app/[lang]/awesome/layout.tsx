@@ -1,6 +1,6 @@
 import type { FC, PropsWithChildren } from 'react'
 
-import '../../domains/awesome/list/mdx-styles.css'
+import '../../../domains/awesome/list/mdx-styles.css'
 
 type Props = PropsWithChildren
 
