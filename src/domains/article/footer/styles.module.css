@@ -70,7 +70,7 @@
 }
 
 .socialContainer .author {
-  --fluid-type-min: 1.2rem;
+  /* --fluid-type-min: 1.2rem; */
   --fluid-type-max: 1.2rem;
   --fluid-type-target: 2vw;
 }

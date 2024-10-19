@@ -17,7 +17,7 @@
 
 .awesome h1 {
   font-weight: 500;
-  --fluid-type-min: 1.3rem;
+  /* --fluid-type-min: 1.3rem; */
   --fluid-type-max: 2.3rem;
   --fluid-type-target: 4vw;
 }

@@ -73,7 +73,7 @@
   gap: 8px;
   align-items: center;
   font-family: var(--font-primary);
-  --fluid-type-min: 0.8rem;
+  /* --fluid-type-min: 0.8rem; */
   --fluid-type-max: 0.9rem;
   --fluid-type-target: 2vw;
 }
@@ -89,7 +89,7 @@
   align-items: center;
 }
 
-.actionrow > span:first-child {
+.actionrow>span:first-child {
   padding-right: 8px;
 }
 
@@ -112,11 +112,11 @@
   }
 }
 
-.animator > div > div::-webkit-scrollbar {
+.animator>div>div::-webkit-scrollbar {
   width: 3px;
 }
 
-.animator > div > div {
+.animator>div>div {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }

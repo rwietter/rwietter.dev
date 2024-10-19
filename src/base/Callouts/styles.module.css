@@ -9,20 +9,21 @@
   margin-bottom: 0 !important;
 }
 
-:where(.success, .warning, .error, .info, .cite) > .header {
+:where(.success, .warning, .error, .info, .cite)>.header {
   width: 100%;
   display: flex;
   align-items: center;
 }
-:where(.success, .warning, .error, .info, .cite) > .header p {
+
+:where(.success, .warning, .error, .info, .cite)>.header p {
   padding-left: 0.5em;
-  --fluid-type-min: 1rem;
+  /* --fluid-type-min: 1rem; */
   --fluid-type-max: 1.3rem;
   font-family: var(--font-serif);
-  font-weight: 600;
+  font-weight: 900;
 }
 
-:where(.success, .warning, .error, .info, .cite) > .children {
+:where(.success, .warning, .error, .info, .cite)>.children {
   margin-top: 1.5em;
 }
 
@@ -50,6 +51,12 @@
   border-color: #f7b92480;
   border: 2px solid #f7b92480;
   color: #ffb86c;
+}
+
+/* Override the color of the text to improve contrast */
+html:where([data-theme="light"], [data-theme="desert"], [data-theme="nord-light"]) .warning,
+html:where([data-theme="light"], [data-theme="desert"], [data-theme="nord-light"]) .error {
+  color: var(--text-color);
 }
 
 .info {

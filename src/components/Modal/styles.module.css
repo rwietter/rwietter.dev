@@ -1,7 +1,12 @@
+.title,
+.group_title {
+  font-size: clamp(1rem, calc(0.5rem + 5vw), 1.2rem);
+}
+
 .modal {
   position: fixed;
   margin: 0 auto;
-  top: calc(50dvh - 10rem);
+  top: calc(50dvh - 15rem);
   left: 0;
   right: 0;
   width: 100%;

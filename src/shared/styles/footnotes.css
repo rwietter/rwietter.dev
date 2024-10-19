@@ -2,7 +2,7 @@
   margin-top: 2em;
   border-top: 1px solid var(--neutral);
   --fluid-type-max: 1.05em;
-  --fluid-type-min: 0.9em;
+  /* --fluid-type-min: 0.9em; */
   --fluid-type-target: 4vw;
 }
 
@@ -58,7 +58,7 @@ section[data-footnotes].footnotes ol li::marker {
   padding: 1em 0 1em 2px;
 }
 
-.footnotes ol li + li {
+.footnotes ol li+li {
   margin: 1em 0;
 }
 

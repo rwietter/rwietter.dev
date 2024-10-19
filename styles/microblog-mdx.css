@@ -20,21 +20,21 @@
 
   .microblog h1 {
     font-weight: 300;
-    --fluid-type-min: 1.2rem;
+    /* --fluid-type-min: 1.2rem; */
     --fluid-type-max: 1.8rem;
     --fluid-type-target: 4vw;
   }
 
   .microblog h2 {
     font-weight: 300;
-    --fluid-type-min: 1rem;
+    /* --fluid-type-min: 1rem; */
     --fluid-type-max: 1.6rem;
     --fluid-type-target: 3vw;
   }
 
   .microblog h3 {
     font-weight: 300;
-    --fluid-type-min: 0.9rem;
+    /* --fluid-type-min: 0.9rem; */
     --fluid-type-max: 1.5rem;
     --fluid-type-target: 3vw;
   }
@@ -58,7 +58,7 @@
     margin: 16px 0 !important;
     color: var(--text-gray-color) !important;
     text-rendering: optimizeSpeed !important;
-    --fluid-type-min: 1rem;
+    /* --fluid-type-min: 1rem; */
     --fluid-type-max: 1rem;
     --fluid-type-target: 1vw;
   }

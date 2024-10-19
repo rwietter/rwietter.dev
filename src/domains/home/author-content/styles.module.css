@@ -18,5 +18,5 @@
   padding: 0.4rem 0;
   color: var(--text-color);
   transition: var(--transition-primary);
-  font-family: var(--font-secondary);
+  font-family: var(--font-primary);
 }

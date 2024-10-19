@@ -93,7 +93,9 @@ const Modal: ForwardRefRenderFunction<
             className={`${styles.modal} ${isAnimating ? styles.modalClose : styles.modalOpen}`}
           >
             <section className={styles.header}>
-              <h2 id='modal-title'>{props.title}</h2>
+              <h2 id='modal-title' className={styles.title}>
+                {props.title}
+              </h2>
               <button
                 className={styles.closeButton}
                 aria-label='Close Modal'
@@ -106,7 +108,7 @@ const Modal: ForwardRefRenderFunction<
                   color: 'var(--color-text)',
                 }}
               >
-                <GrClose />
+                <GrClose size={25} />
               </button>
             </section>
             <section id='modal-description' className={styles.content}>
@@ -136,7 +138,9 @@ export const ModalGroup: React.FC<ModalGroupProps> = (
       className={styles.modalGroup}
       {...props}
     >
-      <p id='modal-group-title'>{title}</p>
+      <p className={styles.group_title} id='modal-group-title'>
+        {title}
+      </p>
       <section
         id='modal-group-description'
         className={styles.modalGroupContent}

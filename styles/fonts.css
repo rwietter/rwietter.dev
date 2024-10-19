@@ -1,63 +1,150 @@
 @font-face {
-  font-family: "Inter";
-  src: url("/fonts/inter/Inter-Regular.woff2") format("woff2");
+  font-family: "Geist Var";
+  src: url("/fonts/geist-sans-var.ttf");
+  size-adjust: 100%;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Atkinson";
+  size-adjust: 100%;
+  font-display: swap;
+  font-weight: 900;
+  src: url("/fonts/Atkinson/Atkinson-Hyperlegible-Bold-102a.woff2") format('woff2');
+}
+
+@font-face {
+  font-family: "Atkinson";
+  size-adjust: 100%;
+  font-display: swap;
+  font-style: italic;
+  font-weight: 900;
+  src: url("/fonts/Atkinson/Atkinson-Hyperlegible-BoldItalic-102a.woff2") format('woff2');
+}
+
+@font-face {
+  font-family: "Atkinson";
+  size-adjust: 100%;
+  font-display: swap;
+  font-weight: normal;
+  font-style: italic;
+  src: url("/fonts/Atkinson/Atkinson-Hyperlegible-Italic-102a.woff2") format('woff2');
+}
+
+@font-face {
+  font-family: "Atkinson";
+  size-adjust: 100%;
+  font-display: swap;
+  font-weight: normal;
   font-style: normal;
+  src: url("/fonts/Atkinson/Atkinson-Hyperlegible-Regular-102a.woff2") format('woff2');
+}
+
+@font-face {
+  font-family: "Garamond";
+  size-adjust: 100%;
+  font-display: swap;
+  font-weight: normal;
+  font-style: italic;
+  src: url("/fonts/EB_Garamond/EBGaramond-Italic-VariableFont_wght.ttf");
+}
+
+@font-face {
+  font-family: "Garamond";
+  size-adjust: 100%;
+  font-display: swap;
+  font-weight: normal;
+  font-style: normal;
+  src: url("/fonts/EB_Garamond/EBGaramond-VariableFont_wght.ttf");
+}
+
+/* Spectral */
+@font-face {
+  font-family: "Spectral";
+  size-adjust: 100%;
+  font-display: swap;
+  src: url("/fonts/Spectral/Spectral-Light-Italic-Web.woff2") format('woff2');
+  font-style: italic;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Spectral";
+  size-adjust: 100%;
+  font-display: swap;
+  src: url("/fonts/Spectral/Spectral-Light-Web.woff2") format('woff2');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Spectral";
+  size-adjust: 100%;
+  font-display: swap;
+  src: url("/fonts/Spectral/Spectral-Medium-Italic-Web.woff2") format('woff2');
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Spectral";
+  size-adjust: 100%;
+  font-display: swap;
+  src: url("/fonts/Spectral/Spectral-Medium-Web.woff2") format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Spectral";
+  size-adjust: 100%;
+  font-display: swap;
+  src: url("/fonts/Spectral/Spectral-Regular-Italic-Web.woff2") format('woff2');
   font-weight: 400;
-  font-display: swap;
+  font-style: italic;
 }
 
 @font-face {
-  font-family: "Inter";
-  src: url("/fonts/inter/Inter-SemiBoldItalic.woff2") format("woff2");
+  font-family: "Spectral";
+  size-adjust: 100%;
+  font-display: swap;
+  src: url("/fonts/Spectral/Spectral-Regular-Web.woff2") format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Spectral";
+  size-adjust: 100%;
+  font-display: swap;
+  src: url("/fonts/Spectral/Spectral-SemiBold-Italic-Web.woff2") format('woff2');
   font-weight: 600;
   font-style: italic;
-  font-display: swap;
 }
 
 @font-face {
-  font-family: "Inter";
-  src: url("/fonts/inter/Inter-Italic.woff2") format("woff2");
-  font-weight: 300;
-  font-style: italic;
+  font-family: "Spectral";
+  size-adjust: 100%;
   font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/inter/Inter-SemiBold.woff2") format("woff2");
+  src: url("/fonts/Spectral/Spectral-SemiBold-Web.woff2") format('woff2');
   font-weight: 600;
   font-style: normal;
-  font-display: swap;
 }
 
 @font-face {
-  font-family: "Inter";
-  src: url("/fonts/inter/Inter-Bold.woff2") format("woff2");
-  font-weight: 800;
+  font-family: "Spectral";
+  size-adjust: 100%;
+  font-display: swap;
+  src: url("/fonts/Spectral/Spectral-Bold.ttf");
+  font-weight: 900;
   font-style: normal;
-  font-display: swap;
 }
 
 @font-face {
-  font-family: "Noto Serif";
-  src: url("/fonts/NotoSerif-Light.ttf") format("ttf");
-  font-weight: 300;
-  font-style: normal;
+  font-family: "Spectral";
+  size-adjust: 100%;
   font-display: swap;
-}
-
-@font-face {
-  font-family: "Noto Serif";
-  src: url("/fonts/NotoSerif-LightItalic.ttf") format("ttf");
-  font-weight: 300;
+  src: url("/fonts/Spectral/Spectral-BoldItalic.ttf");
+  font-weight: 900;
   font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Noto Serif";
-  src: url("/fonts/NotoSerif-Medium.ttf") format("ttf");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
 }

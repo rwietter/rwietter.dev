@@ -8,9 +8,9 @@ import Providers from './providers'
 
 import styles from './styles.module.css'
 
+import { getDictionary } from '@/shared/i18n/dictionaries'
 import type { Langs } from '@/shared/i18n/langs'
 
-import { getDictionary } from '@/shared/i18n/dictionaries'
 import '../../../styles/fonts.css'
 import '../../../styles/styles.css'
 import '../../../styles/theme.css'
@@ -52,12 +52,34 @@ export default async function RootLayout({
 function DocumentStuff() {
   return (
     <>
-      <Script id='theme-script' strategy='beforeInteractive'>
+      <Script id='theme-script'>
         {`
           (function() {
             const userPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             const savedTheme = localStorage.getItem('theme');
-            document.documentElement.setAttribute("data-theme", savedTheme);
+            document.documentElement.setAttribute("data-theme", savedTheme || (userPrefersDark ? 'dark' : 'light'));
+          })();
+        `}
+      </Script>
+      <Script strategy='beforeInteractive'>
+        {`
+          (function() {
+            const headersFont = localStorage.getItem('headersFont')
+            const bodyFont = localStorage.getItem('bodyFont')
+            const fontSize = localStorage.getItem('fontSize')
+
+            document.documentElement.style.setProperty(
+              '--headers-font',
+              headersFont || 'Geist Var',
+            )
+            document.documentElement.style.setProperty(
+              '--body-font',
+              bodyFont || 'Geist Var',
+            )
+            document.documentElement.style.setProperty(
+              '--fluid-type-min',
+              fontSize + 'rem' || '1rem',
+            )
           })();
         `}
       </Script>
@@ -67,19 +89,6 @@ function DocumentStuff() {
         strategy='afterInteractive'
       />
       <link rel='preconnect' href='https://fonts.googleapis.com' />
-      <link
-        rel='preconnect'
-        href='https://fonts.gstatic.com'
-        crossOrigin='anonymous'
-      />
-      <link
-        href='https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&display=swap'
-        rel='stylesheet'
-      />
-      <link
-        href='https://fonts.googleapis.com/css2?family=Noto+Serif:wght@300;500;800&display=swap'
-        rel='stylesheet'
-      />
       <meta name='application-name' content='Maurício Witter' />
       <meta name='apple-mobile-web-app-capable' content='yes' />
       <meta name='apple-mobile-web-app-status-bar-style' content='default' />

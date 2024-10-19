@@ -60,7 +60,7 @@ importers:
         version: 0.16.11
       kbar:
         specifier: 0.1.0-beta.45
-        version: 0.1.0-beta.45(@types/react-dom@18.3.0)(@types/react@18.2.21)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        version: 0.1.0-beta.45(@types/react-dom@18.3.1)(@types/react@18.2.21)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       negotiator:
         specifier: ^0.6.3
         version: 0.6.3
@@ -158,6 +158,9 @@ importers:
       '@types/react':
         specifier: 18.2.21
         version: 18.2.21
+      '@types/react-dom':
+        specifier: ^18.3.1
+        version: 18.3.1
       '@types/react-syntax-highlighter':
         specifier: ^15.5.11
         version: 15.5.13
@@ -1184,8 +1187,8 @@ packages:
   '@types/prop-types@15.7.12':
     resolution: {integrity: sha512-5zvhXYtRNRluoE/jAp4GVsSduVUzNWKkOZrCDBWYtE7biZywwdC2AcEzg+cSMLFRfVgeAFqpfNabiPjxFddV1Q==}
 
-  '@types/react-dom@18.3.0':
-    resolution: {integrity: sha512-EhwApuTmMBmXuFOikhQLIBUn6uFg81SwLMOAUgodJF14SOBOCMdU04gDoYi0WOJJHD144TL32z4yDqCW3dnkQg==}
+  '@types/react-dom@18.3.1':
+    resolution: {integrity: sha512-qW1Mfv8taImTthu4KoXgDfLuk4bydU6Q/TkADnDWWHwi4NX4BR+LWfTp2sVmTqRrsHvyDDTelgelxJ+SsejKKQ==}
 
   '@types/react-syntax-highlighter@15.5.13':
     resolution: {integrity: sha512-uLGJ87j6Sz8UaBAooU0T6lWJ0dBmjZgN1PZTrj05TNql2/XpC6+4HhMT5syIdFUUt+FASfCeLLv4kBygNU+8qA==}
@@ -5029,24 +5032,24 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.2.21
 
-  '@radix-ui/react-portal@1.1.1(@types/react-dom@18.3.0)(@types/react@18.2.21)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+  '@radix-ui/react-portal@1.1.1(@types/react-dom@18.3.1)(@types/react@18.2.21)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
-      '@radix-ui/react-primitive': 2.0.0(@types/react-dom@18.3.0)(@types/react@18.2.21)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@radix-ui/react-primitive': 2.0.0(@types/react-dom@18.3.1)(@types/react@18.2.21)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-use-layout-effect': 1.1.0(@types/react@18.2.21)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     optionalDependencies:
       '@types/react': 18.2.21
-      '@types/react-dom': 18.3.0
+      '@types/react-dom': 18.3.1
 
-  '@radix-ui/react-primitive@2.0.0(@types/react-dom@18.3.0)(@types/react@18.2.21)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+  '@radix-ui/react-primitive@2.0.0(@types/react-dom@18.3.1)(@types/react@18.2.21)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
       '@radix-ui/react-slot': 1.1.0(@types/react@18.2.21)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     optionalDependencies:
       '@types/react': 18.2.21
-      '@types/react-dom': 18.3.0
+      '@types/react-dom': 18.3.1
 
   '@radix-ui/react-slot@1.1.0(@types/react@18.2.21)(react@18.2.0)':
     dependencies:
@@ -5176,7 +5179,7 @@ snapshots:
     dependencies:
       '@types/node': 22.5.0
       '@types/react': 18.2.21
-      '@types/react-dom': 18.3.0
+      '@types/react-dom': 18.3.1
       next: 13.5.6(@babel/core@7.24.7)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       workbox-build: 6.6.0
     transitivePeerDependencies:
@@ -5197,7 +5200,7 @@ snapshots:
 
   '@types/prop-types@15.7.12': {}
 
-  '@types/react-dom@18.3.0':
+  '@types/react-dom@18.3.1':
     dependencies:
       '@types/react': 18.2.21
 
@@ -6695,9 +6698,9 @@ snapshots:
     dependencies:
       commander: 8.3.0
 
-  kbar@0.1.0-beta.45(@types/react-dom@18.3.0)(@types/react@18.2.21)(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+  kbar@0.1.0-beta.45(@types/react-dom@18.3.1)(@types/react@18.2.21)(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
     dependencies:
-      '@radix-ui/react-portal': 1.1.1(@types/react-dom@18.3.0)(@types/react@18.2.21)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@radix-ui/react-portal': 1.1.1(@types/react-dom@18.3.1)(@types/react@18.2.21)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       fast-equals: 2.0.4
       fuse.js: 6.6.2
       react: 18.2.0

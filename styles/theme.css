@@ -1,3 +1,5 @@
+@import url(./fonts.css);
+
 :root {
   --bg-color: #ffffff;
   --bg-alt-color: #f2f3f7;
@@ -28,29 +30,30 @@
   --font-tex: KaTeX_Math;
   --font-secondary: var(--body-font);
   --font-title: var(--font-secondary);
+  --font-bolder: var(--headers-font);
   --font-code: ui-monospace, PT Mono, Consolas, Monaco, "Andale Mono",
     "Ubuntu Mono", monospace;
   --font-bolder: var(--headers-font);
-  --font-serif: "Spectral", FallBack, serif;
+  --font-serif: "Spectral", serif;
 }
 
 [data-theme="dark"]:root {
   --bg-color: #000000;
-  --bg-alt-color: #121212;
+  --bg-alt-color: #0A0A0A;
   --text-color: #fafafa;
   --text-gray-color: #b1b1b1;
   --text-highlight: #000000;
 
   --text-alt-color: #ffffff;
   --main-color: #778eff;
-  --sub-color: #0f0f11;
-  --sub-alt-color: #0f0f11;
+  --sub-color: #0D0D0D;
+  --sub-alt-color: #0D0D0D;
 
   --select: #617bff;
   --cb-bg-color: rgba(0, 0, 0, 0.6);
-  --cb-box-alt-color: rgba(255, 255, 255, 0.1);
+  --cb-box-alt-color: rgba(16, 16, 16, 0.1);
 
-  --neutral: #3a4048;
+  --neutral: #0F0F0F;
 }
 
 [data-theme="desert"]:root {

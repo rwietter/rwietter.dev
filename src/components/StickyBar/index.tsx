@@ -1,14 +1,16 @@
 'use client'
 
 import Modal from '@/components/Modal'
+import { Portal } from '@/shared/components/Portal'
 import { setCookie } from 'cookies-next'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import React from 'react'
 import { FiList } from 'react-icons/fi'
 import { IoLanguage } from 'react-icons/io5'
 import { VscHome, VscSettings } from 'react-icons/vsc'
+import { FontSizeSlider } from './ModalFontSize'
 import styles from './styles.module.css'
 
 export interface ModalRef {
@@ -31,7 +33,6 @@ const ModalFont = dynamic(() =>
 const StickyBar = () => {
   const modalRef = React.useRef<ModalRef>(null)
   const pathname = usePathname()
-  const router = useRouter()
 
   const handleToggleModal = () => {
     if (modalRef.current) {
@@ -125,10 +126,13 @@ const StickyBar = () => {
         </div>
       </footer>
 
-      <Modal ref={modalRef} title='Settings'>
-        <ModalTheme />
-        <ModalFont />
-      </Modal>
+      <Portal>
+        <Modal ref={modalRef} title='Settings'>
+          <ModalTheme />
+          <ModalFont />
+          <FontSizeSlider />
+        </Modal>
+      </Portal>
     </>
   )
 }

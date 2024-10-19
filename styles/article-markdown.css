@@ -39,42 +39,42 @@
 
 .blogpost h1 {
   font-weight: 600;
-  --fluid-type-min: 1.3rem;
+  /* --fluid-type-min: 1.3rem; */
   --fluid-type-max: 2.3rem;
   --fluid-type-target: 4vw;
 }
 
 .blogpost h2 {
   font-weight: 600;
-  --fluid-type-min: 1.2rem;
+  /* --fluid-type-min: 1.2rem; */
   --fluid-type-max: 2.1rem;
   --fluid-type-target: 4vw;
 }
 
 .blogpost h3 {
   font-weight: 500;
-  --fluid-type-min: 1.1rem;
+  /* --fluid-type-min: 1.1rem; */
   --fluid-type-max: 1.8rem;
   --fluid-type-target: 4vw;
 }
 
 .blogpost h4 {
   font-weight: 500;
-  --fluid-type-min: 1rem;
+  /* --fluid-type-min: 1rem; */
   --fluid-type-max: 1.5rem;
   --fluid-type-target: 4vw;
 }
 
 .blogpost h5 {
   font-weight: 400;
-  --fluid-type-min: 0.9rem;
+  /* --fluid-type-min: 0.9rem; */
   --fluid-type-max: 1.3rem;
   --fluid-type-target: 4vw;
 }
 
 .blogpost h6 {
   font-weight: 400;
-  --fluid-type-min: 0.8rem;
+  /* --fluid-type-min: 0.8rem; */
   --fluid-type-max: 1.1rem;
   --fluid-type-target: 4vw;
 }
@@ -223,7 +223,7 @@
   -o-tab-size: 2;
   tab-size: 2;
   --fluid-type-max: 1.1rem;
-  --fluid-type-min: 0.9rem;
+  /* --fluid-type-min: 0.9rem; */
   --fluid-type-target: 1vw;
 }
 

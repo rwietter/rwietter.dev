@@ -13,7 +13,7 @@
   color: var(--text-color);
   transition: var(--transition-primary);
 
-  --fluid-type-min: 1.5rem;
+  /* --fluid-type-min: 1.5rem; */
   --fluid-type-max: 2rem;
 }
 

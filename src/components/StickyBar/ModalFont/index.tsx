@@ -4,8 +4,8 @@ import styles from './modal.module.css'
 
 export const ModalFont = () => {
   const [modalState, setModalState] = useState({
-    headersFont: 'Inter',
-    bodyFont: 'Inter',
+    headersFont: 'Geist Var',
+    bodyFont: 'Geist Var',
   })
 
   const handleUpdateHeadersFont = (font: string) => {
@@ -46,9 +46,9 @@ export const ModalFont = () => {
             id='headers-font-select'
             onChange={(e) => handleUpdateHeadersFont(e.target.value)}
           >
-            <option value='Inter'>Inter Sans</option>
-            <option value='Noto Serif'>Noto Serif</option>
-            <option value='Spectral'>Spectral Serif</option>
+            <option value='Geist Var'>Geist Var</option>
+            <option value='Atkinson'>Atkinson</option>
+            <option value='Spectral'>Spectral</option>
             <option value='monospace'>Monospace</option>
           </select>
         </fieldset>
@@ -61,9 +61,10 @@ export const ModalFont = () => {
             id='body-font-select'
             onChange={(e) => handleUpdateBodyFont(e.target.value)}
           >
-            <option value='Inter'>Inter Sans</option>
-            <option value='Noto Serif'>Noto Serif</option>
-            <option value='Spectral'>Spectral Serif</option>
+            <option value='Atkinson'>Atkinson</option>
+            <option value='Geist Var'>Geist Var</option>
+            <option value='Garamond'>EB Garamond</option>
+            <option value='Spectral'>Spectral</option>
             <option value='monospace'>Monospace</option>
           </select>
         </fieldset>
