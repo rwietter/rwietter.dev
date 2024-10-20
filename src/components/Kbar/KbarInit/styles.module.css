@@ -1,9 +1,7 @@
-/* KbarContainer */
 .kbarContainer {
   padding-top: 2rem;
 }
 
-/* KbarButton */
 .kbarButton {
   cursor: pointer;
   color: var(--text-alt-color);
@@ -29,7 +27,6 @@
   text-align: center;
   color: var(--text-alt-color);
   font-family: var(--font-code);
-  text-transform: uppercase;
   border: none;
   border-bottom: 1px dotted var(--text-alt-color);
   font-weight: 600;

@@ -6,7 +6,7 @@ image: https://res.cloudinary.com/ddwnioveu/image/upload/v1707422678/large_joshu
 alternativeText: A icônica Ponte Golden Gate envolta em neblina, criando uma cena mística e atmosférica.
 publishedAt: 2022-04-25
 updatedAt: 2022-04-25
-category: coding
+category: código
 author: Maurício Witter
 keywords: react, nextjs, useImperativeHandle, useRef, forwardRef, lifting state up, fluxo unidirecional, fluxo bidirecional, context api, gerenciador de estado global
 ---
@@ -66,7 +66,7 @@ import { useState } from "react";
 
 const Modal: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+
   return (
     <>
     {isModalOpen && (
@@ -155,7 +155,7 @@ const Modal: ForwardRefRenderFunction<ModalRef, ModalProps> = (props, ref) => {
 export default forwardRef(Modal);
 ```
 
-Agora, no componente `Home`, precisamos criar a `ref` e repassar para o componente modal.  Utilizamos o *hook* `useRef` para criar uma `ref` e passamos como *generic type* a interface `ModalRef` que específica a função que iremos referenciar. Exporte essa interface e importe no componente Modal, pois precisamos adicionar o *type* que recebemos como atributo do componente. 
+Agora, no componente `Home`, precisamos criar a `ref` e repassar para o componente modal.  Utilizamos o *hook* `useRef` para criar uma `ref` e passamos como *generic type* a interface `ModalRef` que específica a função que iremos referenciar. Exporte essa interface e importe no componente Modal, pois precisamos adicionar o *type* que recebemos como atributo do componente.
 
 ```tsx
 export interface ModalRef {
@@ -176,7 +176,7 @@ const Home: NextPage = () => {
 export default Home;
 ```
 
-Ainda no componente `Home`, só precisamos criar uma função que irá receber a referência da função do `Modal` e repassar para a propriedade `onClick`. Feito isso, já iremos ter o modal funcional. 
+Ainda no componente `Home`, só precisamos criar uma função que irá receber a referência da função do `Modal` e repassar para a propriedade `onClick`. Feito isso, já iremos ter o modal funcional.
 
 ```tsx
 const Home: NextPage = () => {
@@ -192,7 +192,7 @@ const Home: NextPage = () => {
 }
 ```
 
-Para finalizar, vamos adicionar um botão de `close` no modal para fechar quando estiver aberto. 
+Para finalizar, vamos adicionar um botão de `close` no modal para fechar quando estiver aberto.
 
 ```tsx
 return (

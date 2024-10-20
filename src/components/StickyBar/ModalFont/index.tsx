@@ -5,7 +5,7 @@ import styles from './modal.module.css'
 export const ModalFont = () => {
   const [modalState, setModalState] = useState({
     headersFont: 'Geist Var',
-    bodyFont: 'Geist Var',
+    bodyFont: 'Atkinson',
   })
 
   const handleUpdateHeadersFont = (font: string) => {

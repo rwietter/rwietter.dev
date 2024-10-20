@@ -1,0 +1,32 @@
+.link {
+  display: flex;
+  /* Override article css */
+  text-decoration: none !important;
+  color: var(--text-color) !important;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: auto;
+  position: relative;
+  margin: 40px 0 16px 0;
+}
+
+
+.hash {
+  position: absolute;
+  left: -36px;
+  display: none;
+  padding: 1px;
+  height: 100%;
+  fill: var(--main-color);
+  transition: var(--transition-primary), fill 0.3s ease, display 0.3s ease;
+}
+
+.link:hover .hash {
+  display: block;
+}
+
+.heading {
+  text-wrap: balance;
+  margin: 0;
+}

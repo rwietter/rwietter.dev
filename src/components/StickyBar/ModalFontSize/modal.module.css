@@ -1,3 +1,7 @@
+.wrapper {
+  display: none;
+}
+
 .fonts {
   display: flex;
   justify-content: center;
@@ -8,6 +12,13 @@
   padding-right: 1em;
   padding-bottom: 0.5em;
   font-size: clamp(1rem, calc(0.5rem + 5vw), 1.2rem);
+}
+
+@media screen and (min-width: 45em) {
+  .wrapper {
+    display: flex;
+    width: 100%;
+  }
 }
 
 .range {

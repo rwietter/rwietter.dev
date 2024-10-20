@@ -48,6 +48,7 @@
   padding: 1em;
   color: var(--text-color);
   transition: var(--transition-primary);
+  width: 100%;
 }
 
 .modalGroup .modalGroupContent {

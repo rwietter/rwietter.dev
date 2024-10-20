@@ -4,7 +4,7 @@ import { BiReset } from 'react-icons/bi'
 import styles from './modal.module.css'
 
 export const FontSizeSlider = () => {
-  const [fontSize, setFontSize] = useState(1)
+  const [fontSize, setFontSize] = useState(1.2)
   const fontRef = React.useRef<HTMLInputElement>(null)
 
   const handleFontSize = () => {
@@ -34,36 +34,38 @@ export const FontSizeSlider = () => {
   }, [])
 
   return (
-    <ModalGroup title='Font Size' aria-modal='true' role='dialog'>
-      <section className={styles.fonts}>
-        <label htmlFor='font-size-slider' className='sr-only'>
-          Adjust font Size
-        </label>
-        <input
-          className={styles.range}
-          type='range'
-          ref={fontRef}
-          min='1'
-          onChange={handleFontSize}
-          onClick={handleFontSize}
-          max='3'
-          step={0.1}
-          value={`${fontSize}`}
-        />
-        <span className={styles.feedback}>{fontSize}</span>
-        <button
-          className={styles.reset}
-          type='button'
-          aria-label='Reset font size'
-          title='Reset font size'
-          onClick={reset}
-        >
-          <BiReset size={20} />
-        </button>
-      </section>
-      <div aria-live='polite' className='sr-only'>
-        {`Font size is set to ${fontSize}`}
-      </div>
-    </ModalGroup>
+    <div className={styles.wrapper}>
+      <ModalGroup title='Font Size' aria-modal='true' role='dialog'>
+        <section className={styles.fonts}>
+          <label htmlFor='font-size-slider' className='sr-only'>
+            Adjust font Size
+          </label>
+          <input
+            className={styles.range}
+            type='range'
+            ref={fontRef}
+            min='1'
+            onChange={handleFontSize}
+            onClick={handleFontSize}
+            max='3'
+            step={0.1}
+            value={`${fontSize}`}
+          />
+          <span className={styles.feedback}>{fontSize}</span>
+          <button
+            className={styles.reset}
+            type='button'
+            aria-label='Reset font size'
+            title='Reset font size'
+            onClick={reset}
+          >
+            <BiReset size={20} />
+          </button>
+        </section>
+        <div aria-live='polite' className='sr-only'>
+          {`Font size is set to ${fontSize}`}
+        </div>
+      </ModalGroup>
+    </div>
   )
 }

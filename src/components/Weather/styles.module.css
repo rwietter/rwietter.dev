@@ -6,6 +6,7 @@
   flex-flow: row wrap;
   line-height: 1.6;
   --fluid-type-max: 1rem;
+  font-family: var(--font-primary);
 }
 
 .weather div {

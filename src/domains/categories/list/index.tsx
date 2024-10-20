@@ -11,7 +11,7 @@ type BlogPropTypes = {
 const Categories: FC<BlogPropTypes> = ({ posts, category }) => (
   <article className={styles.articlesContainer}>
     <h1>
-      Articles in <strong>#{category}</strong>
+      Articles in <strong>#{decodeURIComponent(category)}</strong>
     </h1>
     <ul>
       {posts?.map((post: CategoryPost) => (

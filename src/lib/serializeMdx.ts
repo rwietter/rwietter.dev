@@ -3,6 +3,7 @@ import { serialize } from 'next-mdx-remote/serialize'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypeKatex from 'rehype-katex'
 import rehypePrettyCode from 'rehype-pretty-code'
+import rehypeSlug from 'rehype-slug'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 
@@ -11,6 +12,7 @@ export async function getMdxSource(article: string): Promise<MDXSerialized> {
     mdxOptions: {
       rehypePlugins: [
         rehypeKatex,
+        rehypeSlug,
         [
           rehypePrettyCode,
           {

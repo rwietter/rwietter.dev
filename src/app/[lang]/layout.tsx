@@ -61,7 +61,7 @@ function DocumentStuff() {
           })();
         `}
       </Script>
-      <Script strategy='beforeInteractive'>
+      <Script>
         {`
           (function() {
             const headersFont = localStorage.getItem('headersFont')
@@ -76,9 +76,12 @@ function DocumentStuff() {
               '--body-font',
               bodyFont || 'Geist Var',
             )
+
+            const size = fontSize ? fontSize + 'rem' : '1.1rem'
+
             document.documentElement.style.setProperty(
               '--fluid-type-min',
-              fontSize + 'rem' || '1rem',
+              size,
             )
           })();
         `}
