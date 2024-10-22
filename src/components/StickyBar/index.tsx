@@ -10,7 +10,6 @@ import React from 'react'
 import { FiList } from 'react-icons/fi'
 import { IoLanguage } from 'react-icons/io5'
 import { VscHome, VscSettings } from 'react-icons/vsc'
-import { FontSizeSlider } from './ModalFontSize'
 import styles from './styles.module.css'
 
 export interface ModalRef {
@@ -23,11 +22,10 @@ const SwitchTheme = dynamic(() => import('@/components/SwitchTheme'))
 const Kbar = dynamic(() => import('@/components/StickyBar/Kbar'))
 const ScrollUp = dynamic(() => import('@/components/StickyBar/ScrollUp'))
 
-const ModalTheme = dynamic(() =>
-  import('@/components/StickyBar/ModalTheme').then((mod) => mod.ModalTheme),
-)
-const ModalFont = dynamic(() =>
-  import('@/components/StickyBar/ModalFont').then((mod) => mod.ModalFont),
+const ModalTheme = dynamic(() => import('@/components/CustomizeUI/ModalTheme'))
+const ModalFont = dynamic(() => import('@/components/CustomizeUI/ModalFont'))
+const FontSizeSlider = dynamic(
+  () => import('@/components/CustomizeUI/ModalFontSize'),
 )
 
 const StickyBar = () => {

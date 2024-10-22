@@ -5,7 +5,7 @@
 .kbarButton {
   cursor: pointer;
   color: var(--text-alt-color);
-  font-family: var(--font-primary);
+  font-family: var(--font-secondary);
   padding: 2px 8px 4px 8px;
   border-radius: 1em;
   outline: none;

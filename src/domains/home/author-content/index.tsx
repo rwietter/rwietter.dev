@@ -1,5 +1,5 @@
 import type { RecentTrackProps } from '@/types/Track'
-import { fetcherLastFm, fetcherWeather } from 'services'
+import { fetcherWeather } from 'services'
 import CurrentDate from 'src/components/CurrentDate'
 import { LastFMTrack } from 'src/components/Lastfm'
 import { WeatherConditions } from 'src/components/Weather'
@@ -12,12 +12,12 @@ export interface AuthorContentProps {
 }
 
 async function getData() {
-  const [weather, lastfm] = await Promise.all([
+  const [weather] = await Promise.all([
     fetcherWeather(),
-    fetcherLastFm(),
+    // fetcherLastFm(),
   ])
 
-  return { data: { weather, lastfm } }
+  return { data: { weather, lastfm: null } }
 }
 
 const AuthorContent = async () => {

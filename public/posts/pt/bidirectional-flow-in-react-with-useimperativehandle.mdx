@@ -1,7 +1,7 @@
 ---
 title: Fluxo bidirecional no React com useImperativeHandle
 description: Expondo uma função de um componente child para o componente owner no React.
-slug: fluxo-bidirecional-no-react-com-useimperativehandle
+slug: bidirectional-flow-in-react-with-useimperativehandle
 image: https://res.cloudinary.com/ddwnioveu/image/upload/v1707422678/large_joshua_sortino_71v_Ab1_FXB_6g_unsplash_46a1453603.jpg
 alternativeText: A icônica Ponte Golden Gate envolta em neblina, criando uma cena mística e atmosférica.
 publishedAt: 2022-04-25
@@ -21,11 +21,15 @@ Para resolver isso, podemos elevar o estado (*Lifting State Up*) de um component
 
 Conforme a documentação do React diz sobre o *hook* `useImperativeHandle`:
 
-> O *hook* `useImperativeHandle` personaliza o valor da instância que está exposta aos componentes *owner* ao usar `ref`. Como sempre, na maioria dos casos, seria bom evitar um código imperativo usando refs.
+<Cite>
+O *hook* `useImperativeHandle` personaliza o valor da instância que está exposta aos componentes *owner* ao usar `ref`. Como sempre, na maioria dos casos, seria bom evitar um código imperativo usando refs.
+</Cite>
 
 E sobre o *hook* `useRef`:
 
-> `useRef` retorna um objeto `ref` mutável, no qual a propriedade `current` é inicializada para o argumento passado (`initialValue`). O objeto retornado persistirá durante todo o ciclo de vida do componente.
+<Cite>
+`useRef` retorna um objeto `ref` mutável, no qual a propriedade `current` é inicializada para o argumento passado (`initialValue`). O objeto retornado persistirá durante todo o ciclo de vida do componente.
+</Cite>
 
 Ou seja, o *hook* `useRef` cria um objeto mutável que recebe um valor inicial no qual podemos mudar durante o ciclo de vida do componente, já o *hook*  `useImperativeHandle` vai nos ajudar a expor nossa propriedade para o componente superior de forma imperativa utilizando essa referência.
 

@@ -11,7 +11,7 @@ const propsIfThemeIsActive = (activityTheme: string) => (theme: string) => ({
   transition: 'var(--transition-primary)',
 })
 
-export const ModalTheme = () => {
+const ModalTheme = () => {
   const [modalState, setModalState] = React.useState({
     activityTheme: 'light',
   })
@@ -107,3 +107,5 @@ export const ModalTheme = () => {
     </ModalGroup>
   )
 }
+
+export default ModalTheme

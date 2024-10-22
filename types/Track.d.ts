@@ -20,5 +20,5 @@ export interface RecentTrackProps {
 }
 
 export interface LastFmTrackProps {
-  lastFm: RecentTrackProps
+  lastFm: RecentTrackProps | null
 }

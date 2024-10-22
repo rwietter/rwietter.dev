@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { BiReset } from 'react-icons/bi'
 import styles from './modal.module.css'
 
-export const FontSizeSlider = () => {
+const RESET_FONT_SIZE = 1.2
+
+const FontSizeSlider = () => {
   const [fontSize, setFontSize] = useState(1.2)
   const fontRef = React.useRef<HTMLInputElement>(null)
 
@@ -11,19 +13,18 @@ export const FontSizeSlider = () => {
     setFontSize(Number(fontRef.current?.value))
     document.documentElement.style.setProperty(
       '--fluid-type-min',
-      `${fontSize}rem`,
+      `${fontRef.current?.value}rem`,
     )
-    localStorage.setItem('fontSize', `${fontSize}`)
+    localStorage.setItem('fontSize', `${fontRef.current?.value}`)
   }
 
   const reset = () => {
-    const RESET_SIZE = 1.2
-    setFontSize(RESET_SIZE)
+    setFontSize(RESET_FONT_SIZE)
     document.documentElement.style.setProperty(
       '--fluid-type-min',
-      `${RESET_SIZE}rem`,
+      `${RESET_FONT_SIZE}rem`,
     )
-    localStorage.setItem('fontSize', `${RESET_SIZE}`)
+    localStorage.setItem('fontSize', `${RESET_FONT_SIZE}`)
   }
 
   useEffect(() => {
@@ -69,3 +70,5 @@ export const FontSizeSlider = () => {
     </div>
   )
 }
+
+export default FontSizeSlider

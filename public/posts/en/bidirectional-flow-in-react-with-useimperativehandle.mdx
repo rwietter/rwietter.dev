@@ -1,0 +1,235 @@
+---
+title: Bidirectional Flow in React with useImperativeHandle
+description: Exposing a child component's function to the owner component in React.
+slug: bidirectional-flow-in-react-with-useimperativehandle
+image: https://res.cloudinary.com/ddwnioveu/image/upload/v1707422678/large_joshua_sortino_71v_Ab1_FXB_6g_unsplash_46a1453603.jpg
+alternativeText: The iconic Golden Gate Bridge shrouded in fog, creating a mystical and atmospheric scene.
+publishedAt: 2022-04-25
+updatedAt: 2022-04-25
+category: code
+author: Maurício Witter
+keywords: react, nextjs, useImperativeHandle, useRef, forwardRef, lifting state up, unidirectional flow, bidirectional flow, context api, global state manager
+---
+
+### Introduction
+
+Hello 👋
+
+Today we're going to discuss unidirectional and bidirectional flows in Next.js. By default, in React, data flows in one direction: from *owner* to *child*, i.e., unidirectional flow. However, sometimes we need to access a specific function or perform a state change in a *child* component from the *owner* component, i.e., bidirectionally, exposing data from the lower component to the higher one.
+
+To solve this, we can lift the state (*Lifting State Up*) of a *child* component to an *owner* component, which will contain the *child* component's logic. Another way is to use the *Context API* or another global state manager for state sharing.  But we can also expose a function or state to the *owner* component through the `useImperativeHandle` hook and the `useRef` hook, passing the property reference to the *owner* component. Let's see how this works.
+
+As the React documentation states regarding the `useImperativeHandle` hook:
+
+<Cite>
+The `useImperativeHandle` hook customizes the instance value that is exposed to parent components when using `ref`. As always, imperative code using refs should be avoided in most cases.
+</Cite>
+
+And regarding the `useRef` hook:
+
+<Cite>
+`useRef` returns a mutable `ref` object whose `.current` property is initialized to the passed argument (`initialValue`). The returned object will persist for the full lifetime of the component.
+</Cite>
+
+In other words, the `useRef` hook creates a mutable object that receives an initial value which we can change during the component's lifecycle. The `useImperativeHandle` hook will help us expose our property to the parent component imperatively using this reference.
+
+### Let's move on to a practical example
+
+Let's start by creating an app with the *Next.js* framework. Run the commands below in your terminal to create the project, then navigate into the directory and run the application.
+
+```shell
+# create the project
+yarn create next-app --typescript
+
+# enter the created directory
+cd my-app
+
+# compile and run the project at http://localhost:3000
+yarn dev
+```
+
+Project created! Now, let's go to `index.tsx` in `/pages/index.tsx` and remove the unnecessary code, leaving it as in the example below.
+
+```tsx
+import type { NextPage } from 'next'
+
+const Home: NextPage = () => {
+  return (
+    <div> </div>
+  )
+}
+
+export default Home
+```
+
+Let's create our `Modal` component. Create a `components` directory in the project root, and inside it, a `modal` directory and create an `index.tsx` file. Inside the modal component, add a `label` and an `input` with the logic to open the modal when the state is true (*Short Circuit Evaluation*).
+
+```tsx
+// components/modal/index.tsx
+import { useState } from "react";
+
+const Modal: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  return (
+    <>
+    {isModalOpen && (
+      <div className="modal">
+        <label htmlFor="nome">What is your name?</label>
+        <input name="nome" />
+      </div>
+    )}
+  </>
+)};
+
+export default Modal;
+```
+
+Let's import the `Modal` into the `Home` component and add a button below it that will trigger an event when clicked. This event needs to change the modal's state to `true` so that it is displayed on the screen. Therefore, we need to reference the function that changes the modal's state to the `Home` component.
+
+```tsx
+import Modal from '../components/modal'
+import type { NextPage } from 'next'
+
+const Home: NextPage = () => {
+  return (
+    <main>
+      <Modal />
+      <button onClick={() => {}} className="open-modal-button">
+        Open Modal
+      </button>
+  </main>
+)}
+
+export default Home
+```
+
+Before that, let's add some styling to the modal. Create a style file `styles/modal.css`; this style will position the modal over other elements, center its components, and add a width and height. You can copy the CSS from this [link](https://github.com/rwietter/blog-posts/blob/main/my-app/styles/modal.css).
+
+In the `global.css` style, add the code below to center the content.
+
+```css
+/* styles/global.css */
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+```
+
+Now, just import the `modal.css` file into `pages/_app.tsx`. This way, the style will already be applied to our `Modal` component.
+
+```tsx
+// pages/_app.tsx
+import '../styles/globals.css';
+import '../styles/modal.css';
+```
+
+Now we need to do the reverse flow; we will reference the function that will change the state so that the *owner* component can access it. In the modal, we need to receive the reference that will be created in the *owner* component; this reference is obtained as the second parameter. We will also add the **type** to our parameters with *generic types*. We will also expose the `handleOpenModal` function with the `useImperativeHandle` hook. Its first argument receives the reference created in the *owner*, and the second argument is a *callback* that will return an object with our function that we want to access through the reference created in the *owner*. Finally, we will export the component as an argument to the `forwardRef` function; this function will forward the reference to the *owner* component.
+
+```tsx
+import {
+  forwardRef,
+  ForwardRefRenderFunction,
+  ReactNode,
+  useImperativeHandle,
+  useState,
+} from "react";
+
+interface ModalProps {
+  children?: ReactNode;
+}
+
+export interface ModalRef {
+  handleOpenModal: () => void;
+}
+
+
+const Modal: ForwardRefRenderFunction<ModalRef, ModalProps> = (props, ref) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => setIsModalOpen((state) => !state);
+
+  useImperativeHandle(ref, () => ({
+    handleOpenModal,
+  }));
+
+  // ...
+  return (
+    <></>
+  )
+}
+
+export default forwardRef(Modal);
+```
+
+Now, in the `Home` component, we need to create the `ref` and pass it to the modal component. We use the `useRef` hook to create a `ref` and pass the `ModalRef` interface as a *generic type*, which specifies the function we will reference. Export this interface and import it into the Modal component, as we need to add the *type* we receive as a component attribute.
+
+```tsx
+import { useRef } from 'react';
+import { ModalRef } from '../components/modal/index';
+import Modal from '../components/modal'
+import type { NextPage } from 'next'
+
+
+const Home: NextPage = () => {
+  const modalRef = useRef<ModalRef>(null);
+
+  return (
+    <>
+      <Modal ref={modalRef} />
+      <button onClick={() => {}}>Open Modal</button>
+    </>
+  )
+}
+
+export default Home;
+```
+
+Still in the `Home` component, we just need to create a function that will receive the function reference from the `Modal` and pass it to the `onClick` property. Once this is done, we will have a functional modal.
+
+```tsx
+// ... other imports
+
+const Home: NextPage = () => {
+  const modalRef = useRef<ModalRef>(null);
+  const handleOpenModal = () => modalRef.current?.handleOpenModal();
+
+  return (
+    <>
+      <Modal ref={modalRef} />
+      <button onClick={handleOpenModal}>Open Modal</button>
+    </>
+  )
+}
+
+export default Home;
+```
+
+Finally, let's add a `close` button in the modal to close it when it's open.
+
+```tsx
+return (
+  <>
+  {isModalOpen && (
+      <div className="modal">
+      <label htmlFor="nome">What is your name?</label>
+      <input name="nome" />
+      <button onClick={handleOpenModal}>Close</button>
+      </div>
+    )}
+  </>
+);
+```
+
+### Conclusion
+
+This is a simple way to change a state when we can't or don't want to create the logic for a feature in a component that doesn't need to know about this feature, or when we don't want to use a state manager.  It's not very common, nor is it recommended to use imperative code, but it can be very useful when necessary :)
+
+### References
+
+* [useImperativeHandle Hook](https://reactjs.org/docs/hooks-reference.html#useimperativehandle)
+* [useRef Hook](https://reactjs.org/docs/hooks-reference.html#useref)
+* [ForwardRef](https://reactjs.org/docs/react-api.html#reactforwardref)
+* [Project Repository](https://github.com/rwietter/blog-posts/tree/main/my-app)

@@ -2,7 +2,7 @@ import { ModalGroup } from '@/components/Modal'
 import { useEffect, useState } from 'react'
 import styles from './modal.module.css'
 
-export const ModalFont = () => {
+const ModalFont = () => {
   const [modalState, setModalState] = useState({
     headersFont: 'Geist Var',
     bodyFont: 'Atkinson',
@@ -75,3 +75,5 @@ export const ModalFont = () => {
     </ModalGroup>
   )
 }
+
+export default ModalFont
