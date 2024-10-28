@@ -1,7 +1,3 @@
-# *
-User-agent: *
-Allow: /*
-
 # Twitterbot
 User-agent: Twitterbot
 Allow: /*
@@ -21,6 +17,66 @@ Allow: /*
 # DuckDuckBot
 User-agent: DuckDuckBot
 Allow: /*
+
+# Google-Extended
+User-agent: Google-Extended
+Disallow: /
+
+# Amazonbot
+User-agent: Amazonbot
+Disallow: /
+
+# Applebot-Extended
+User-agent: Applebot-Extended
+Disallow: /
+
+# anthropic-ai
+User-agent: anthropic-ai
+Disallow: /
+
+# Bytespider
+User-agent: Bytespider
+Disallow: /
+
+# CCBot
+User-agent: CCBot
+Disallow: /
+
+# ChatGPT-User
+User-agent: ChatGPT-User
+Disallow: /
+
+# ClaudeBot
+User-agent: ClaudeBot
+Disallow: /
+
+# Claude-Web
+User-agent: Claude-Web
+Disallow: /
+
+# Diffbot
+User-agent: Diffbot
+Disallow: /
+
+# FacebookBot
+User-agent: FacebookBot
+Disallow: /
+
+# ImagesiftBot
+User-agent: ImagesiftBot
+Disallow: /
+
+# Omgilibot
+User-agent: Omgilibot
+Disallow: /
+
+# PerplexityBot
+User-agent: PerplexityBot
+Disallow: /
+
+# YouBot
+User-agent: YouBot
+Disallow: /
 
 # Host
 Host: https://rwietter.dev/

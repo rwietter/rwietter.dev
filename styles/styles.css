@@ -54,7 +54,7 @@ li,
 tt {
   --clamp-font: clamp(var(--fluid-type-min, 1rem),
       calc(0.5rem + var(--fluid-type-target, 5vw)),
-      var(--fluid-type-max, 1.2rem));
+      var(--user-font-size, var(--fluid-type-max, 1.2rem)));
   font-size: var(--clamp-font);
   text-rendering: geometricPrecision;
   -webkit-font-smoothing: antialiased;

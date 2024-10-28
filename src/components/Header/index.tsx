@@ -4,12 +4,14 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import type React from 'react'
+import { PiAsteriskSimpleLight } from 'react-icons/pi'
 import styles from './styles.module.css'
 
-const activePath = (pathname: string) => (href: string, entry?: string) => {
-  if (pathname === href) return 'active'
-  if (entry && pathname.match(entry)) return 'active'
-  return ''
+const activePath = (pathname: string) => (href: string) => {
+  if (pathname.replace(/\/(en|pt)/, '/') === href) return true
+  const path = pathname.replace(/\/(en|pt)/, '')
+  if (path === href) return true
+  if (path.split('/')[1] === href.split('/')[1]) return true
 }
 
 type HeaderPropTypes = {
@@ -29,7 +31,6 @@ const Header: React.FC<HeaderPropTypes> = ({ i18n }) => {
         <nav className={styles.nav} aria-label='navigation' role='menubar'>
           <div
             className={styles.navItem}
-            data-active={isActive('/')}
             aria-current='page'
             role='menuitem'
             title='Home'
@@ -37,10 +38,14 @@ const Header: React.FC<HeaderPropTypes> = ({ i18n }) => {
             <Link className={styles.link} href='/'>
               {i18n.home}
             </Link>
+            {isActive('/') ? (
+              <div className={styles.active}>
+                <PiAsteriskSimpleLight />
+              </div>
+            ) : null}
           </div>
           <div
             className={styles.navItem}
-            data-active={isActive('/blog', '/blog/article/')}
             aria-current='page'
             role='menuitem'
             title='Blog'
@@ -48,10 +53,14 @@ const Header: React.FC<HeaderPropTypes> = ({ i18n }) => {
             <Link className={styles.link} href='/blog'>
               {i18n.blog}
             </Link>
+            {isActive('/blog') ? (
+              <div className={styles.active}>
+                <PiAsteriskSimpleLight />
+              </div>
+            ) : null}
           </div>
           <div
             className={styles.navItem}
-            data-active={isActive('/projects')}
             aria-current='page'
             role='menuitem'
             title='Projects'
@@ -59,6 +68,11 @@ const Header: React.FC<HeaderPropTypes> = ({ i18n }) => {
             <Link className={styles.link} href='/projects'>
               {i18n.projects}
             </Link>
+            {isActive('/projects') ? (
+              <div className={styles.active}>
+                <PiAsteriskSimpleLight />
+              </div>
+            ) : null}
           </div>
         </nav>
         {/* <SwitchTheme visible='header' /> */}

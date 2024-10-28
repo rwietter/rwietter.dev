@@ -12,7 +12,7 @@ const FontSizeSlider = () => {
   const handleFontSize = () => {
     setFontSize(Number(fontRef.current?.value))
     document.documentElement.style.setProperty(
-      '--fluid-type-min',
+      '--user-font-size',
       `${fontRef.current?.value}rem`,
     )
     localStorage.setItem('fontSize', `${fontRef.current?.value}`)
@@ -20,11 +20,8 @@ const FontSizeSlider = () => {
 
   const reset = () => {
     setFontSize(RESET_FONT_SIZE)
-    document.documentElement.style.setProperty(
-      '--fluid-type-min',
-      `${RESET_FONT_SIZE}rem`,
-    )
-    localStorage.setItem('fontSize', `${RESET_FONT_SIZE}`)
+    document.documentElement.style.removeProperty('--user-font-size')
+    localStorage.removeItem('fontSize')
   }
 
   useEffect(() => {

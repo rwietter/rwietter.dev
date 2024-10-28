@@ -1,0 +1,81 @@
+/* Figure.module.css */
+.figure {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  margin: 0 auto;
+  will-change: transform;
+  transition: transform 0.4s ease-in-out;
+}
+
+/* Zoom effect */
+.zoomable {
+  cursor: zoom-in;
+}
+
+.zoomWrapper:hover .zoomable {
+  transform: none;
+}
+
+/* Versão alternativa com lente de aumento */
+.zoomWrapper:hover .zoomable {
+  transform-origin: 0%;
+}
+
+@media (min-width: 75em) {
+  .zoomWrapper:hover .zoomable {
+    transform: scale(1.15);
+  }
+
+  .zoomWrapper:hover .zoomable {
+    transform-origin: var(--x) var(--y);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zoomable {
+    transition: none;
+  }
+}
+
+.caption {
+  text-align: center;
+  color: color-mix(in srgb, var(--neutral) 40%, var(--text-color) 60%);
+  line-height: 1.5;
+  --fluid-type-min: 0.75em;
+  --fluid-type-max: 1em;
+}
+
+/* Alignment classes */
+.left {
+  margin-right: auto;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.right {
+  margin-left: auto;
+}
+
+/* Optional: Add responsive behavior */
+@media (max-width: 768px) {
+  .figure {
+    margin: 1rem 0;
+    padding: 0.5rem;
+  }
+}

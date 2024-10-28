@@ -7,7 +7,7 @@
   --text-gray-color: #555969;
   --text-alt-color: #080808;
   --text-highlight: #1c2334;
-  --main-color: #8338ec;
+  --main-color: rgb(131, 56, 236);
   --sub-color: #c9c9cf;
   --sub-alt-color: #f4f4f6;
 
@@ -15,11 +15,11 @@
   --cb-box-alt-color: rgba(0, 0, 0, 0.1);
   --neutral: #dfe3e6;
 
-  --select: #4433ff;
-  --success: #98ffc3;
-  --error: #f78890;
-  --warning: #f7d794;
-  --info: #81ecec;
+  --select: rgb(68, 51, 255);
+  --success: rgb(152, 255, 195);
+  --error: rgb(247, 136, 144);
+  --warning: rgb(247, 215, 148);
+  --info: rgb(129, 236, 236);
 
   --transition-primary: color 200ms ease, background 200ms ease,
     border-color 200ms ease, box-shadow 200ms ease, fill 200ms ease,
@@ -31,8 +31,7 @@
   --font-secondary: var(--body-font);
   --font-title: var(--font-secondary);
   --font-bolder: var(--headers-font);
-  --font-code: ui-monospace, PT Mono, Consolas, Monaco, "Andale Mono",
-    "Ubuntu Mono", monospace;
+  --font-code: "IntoneMono Nerd Font", ui-monospace, monospace;
   --font-bolder: var(--headers-font);
   --font-serif: "Spectral", serif;
 }
@@ -45,7 +44,7 @@
   --text-highlight: #000000;
 
   --text-alt-color: #ffffff;
-  --main-color: #778eff;
+  --main-color: rgb(119, 142, 255);
   --sub-color: #0D0D0D;
   --sub-alt-color: #0D0D0D;
 
@@ -64,7 +63,7 @@
   --text-highlight: #2d2b27;
 
   --text-alt-color: #7d7564;
-  --main-color: #d39268;
+  --main-color: rgb(211, 146, 104);
   --sub-color: #b3764f;
   --sub-alt-color: rgba(234, 219, 199, 0.3);
 

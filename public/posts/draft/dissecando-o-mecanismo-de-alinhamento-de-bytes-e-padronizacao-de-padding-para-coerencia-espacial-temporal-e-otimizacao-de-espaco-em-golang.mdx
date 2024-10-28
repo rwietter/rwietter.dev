@@ -38,7 +38,7 @@ Consoantemente ao próprio nome, **Data Alignment** refere-se ao nivelamento dos
 
 Dadas as definições inciais, vamos entender como isso de fato funciona, não é mesmo ? Categoricamente, para compreender como fazer o alinhamento de bytes, precisamos saber para qual arquitetura estamos compilando, quantos bytes os tipos da linguagem ocupam e quais diretivas o compilador adota para alinhar os bytes.
 
-Para este post, estarei utilizando uma arquitetura x86-64; como linguagem — Golang — para ilustrar os exemplos. Na seção **"Regras de alinhamento"** estão dispostos os tipos da linguagem e seus respectivos tamanhos e as regras de alinhamento do compilador.
+Para este post, estarei utilizando uma arquitetura x86-64; como linguagem — Golang — para ilustrar os exemplos. Na seção [3.1 Diretivas de Alinhamento](#31-diretivas-de-alinhamento), estão dispostos os tipos da linguagem e seus respectivos tamanhos e as regras de alinhamento do compilador Go.
 
 ## 3.1 Diretivas de Alinhamento
 
@@ -97,9 +97,15 @@ $$
 \end{align*}
 $$
 
-Então teríamos $31 bytes$ e nossa "memória mágica" pareceria algo assim. Cada bloco representando $1 byte$, `operation` ocupando 1 bloco, `quantity` 2 blocos, `total` 8 blocos, `unitPrice` 4 blocos e `balance` 16 blocos.
+Então teríamos $31 \ bytes$ e nossa "memória mágica" pareceria algo assim. Cada bloco representando $1 \ byte$, `operation` ocupando 1 bloco, `quantity` 2 blocos, `total` 8 blocos, `unitPrice` 4 blocos e `balance` 16 blocos.
 
-![100%](/assets/magic-memory.png)
+<Figure
+  source="/assets/magic-memory.png"
+  id="1"
+  lang="pt"
+  alt="Representação dos blocos de memória se não houvesse qualquer alinhamento de bytes."
+  caption="Representação dos blocos de memória se não houvesse qualquer alinhamento de bytes."
+/>
 
 ## 3.3 Padding Bytes
 
@@ -137,7 +143,14 @@ go run main.go
 
 Como resultado de alinhamento, o go adicionou essas lacunas entre os campos, mas não precisou arredondar a estrutura final porque ela já termina alinhada, com o próximo offset sendo um múltiplo de $8$ — o $40$. Nossa memória agora seria algo assim:
 
-![100%](/assets/memory-alignment-40-bytes.png)
+<Figure
+  source="/assets/memory-alignment-40-bytes.png"
+  id="2"
+  lang="pt"
+  caption="Representação dos blocos de memória com padding bytes. 1 bloco (unit8), 1 bloco de padding, 2 blocos (int16), 4 blocos padding, 8 blocos (float64), 4 blocos (float32), 4 blocos de padding, 16 blocos (complex128)."
+  alt="Representação dos blocos de memória com padding bytes. 1 bloco (unit8), 1 bloco de padding, 2 blocos (int16), 4 blocos padding, 8 blocos (float64), 4 blocos (float32), 4 blocos de padding, 16 blocos (complex128)."
+/>
+
 
 1. **`Operation` (byte):** Ocupa o bloco 1 (offset 0).
 2. **`Quantity` (int16):**  Precisa ser alinhado em um endereço múltiplo de 2 (tamanho de um `int16`). Como o offset atual é 1, o compilador adicionará **1 byte de padding** no bloco 2 para garantir o alinhamento correto de `Quantity` no bloco 3 (offset 2).
@@ -248,8 +261,3 @@ Se os dados na `struct` não estão alinhados, o compilador insere `padding` par
 ## Recursos
 
 - [Part 2: Data Alignment, Padding, and Optimization Techniques](https://codeinterstellar.medium.com/part-2-data-alignment-padding-and-optimization-techniques-df2b2f2ba7e7)
-
-
-# Draft
-
-- Hardware efficiency increases with the increasing alignment. — https://www.intel.com/content/www/us/en/docs/programmable/683176/18-1/aligning-a-struct-with-or-without-padding.html

@@ -49,7 +49,7 @@ const ModalFont = () => {
             <option value='Geist Var'>Geist Var</option>
             <option value='Atkinson'>Atkinson</option>
             <option value='Spectral'>Spectral</option>
-            <option value='monospace'>Monospace</option>
+            <option value='IntoneMono Nerd Font'>Intel One Mono</option>
           </select>
         </fieldset>
 
@@ -65,7 +65,7 @@ const ModalFont = () => {
             <option value='Geist Var'>Geist Var</option>
             <option value='Garamond'>EB Garamond</option>
             <option value='Spectral'>Spectral</option>
-            <option value='monospace'>Monospace</option>
+            <option value='IntoneMono Nerd Font'>Intel One Mono</option>
           </select>
         </fieldset>
       </section>
