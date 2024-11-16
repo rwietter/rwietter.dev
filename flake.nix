@@ -1,35 +1,25 @@
 {
-  description = "Next.js devShell with pnpm";
+  description = "A Nix-flake-based Node.js development environment";
 
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
-  };
+  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.*.tar.gz";
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs { inherit system; };
-        nodejs = pkgs.nodejs_latest;
-      in with pkgs; {
-        devShells.default = mkShell {
-          name = "nextjs-dev";
-          buildInputs = [ nodejs nodejs.pkgs.pnpm ];
-          shellHook = ''
-            if [ ! -f "package.json" ]; then
-              echo "Creating a new Next.js project..."
-              npx create-next-app@latest .
-            elif [ ! -d ".next" ];then
-              echo "Installing dependencies..."
-              pnpm install
-            fi
-
-
-            echo "Node Environment ready! 🚀"
-            echo "Node $(node -v)"
-            echo "pnpm $(pnpm -v)"
-        '';
+  outputs = { self, nixpkgs }:
+    let
+      supportedSystems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+      forEachSupportedSystem = f: nixpkgs.lib.genAttrs supportedSystems (system: f {
+        pkgs = import nixpkgs { inherit system; overlays = [ self.overlays.default ]; };
+      });
+    in
+    {
+      overlays.default = final: prev: rec {
+        nodejs = prev.nodejs;
+        yarn = (prev.yarn.override { inherit nodejs; });
       };
-    }
-  );
+
+      devShells = forEachSupportedSystem ({ pkgs }: {
+        default = pkgs.mkShell {
+          packages = with pkgs; [ node2nix nodejs nodePackages.pnpm yarn ];
+        };
+      });
+    };
 }
