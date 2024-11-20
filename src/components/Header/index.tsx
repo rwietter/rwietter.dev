@@ -12,6 +12,7 @@ const activePath = (pathname: string) => (href: string) => {
   const path = pathname.replace(/\/(en|pt)/, '')
   if (path === href) return true
   if (path.split('/')[1] === href.split('/')[1]) return true
+  return false
 }
 
 type HeaderPropTypes = {
@@ -34,45 +35,33 @@ const Header: React.FC<HeaderPropTypes> = ({ i18n }) => {
             aria-current='page'
             role='menuitem'
             title='Home'
+            data-active={isActive('/')}
           >
             <Link className={styles.link} href='/'>
               {i18n.home}
             </Link>
-            {isActive('/') ? (
-              <div className={styles.active}>
-                <PiAsteriskSimpleLight />
-              </div>
-            ) : null}
           </div>
           <div
             className={styles.navItem}
             aria-current='page'
             role='menuitem'
             title='Blog'
+            data-active={isActive('/blog')}
           >
             <Link className={styles.link} href='/blog'>
               {i18n.blog}
             </Link>
-            {isActive('/blog') ? (
-              <div className={styles.active}>
-                <PiAsteriskSimpleLight />
-              </div>
-            ) : null}
           </div>
           <div
             className={styles.navItem}
             aria-current='page'
             role='menuitem'
             title='Projects'
+            data-active={isActive('/projects')}
           >
             <Link className={styles.link} href='/projects'>
               {i18n.projects}
             </Link>
-            {isActive('/projects') ? (
-              <div className={styles.active}>
-                <PiAsteriskSimpleLight />
-              </div>
-            ) : null}
           </div>
         </nav>
         {/* <SwitchTheme visible='header' /> */}

@@ -30,7 +30,7 @@
 .nav a {
   color: var(--text-alt-color);
   text-decoration: none;
-  font-weight: 400;
+  font-weight: 600 !important;
   position: relative;
   font-family: var(--font-primary);
   /* --fluid-type-min: 1rem; */
@@ -59,13 +59,23 @@
   background: transparent;
 }
 
-.active {
-  position: absolute;
-  top: -5px;
-  right: -15px;
+.navItem[data-active='true'] a {
+  color: var(--main-color);
 }
 
-.active svg {
-  fill: var(--main-color);
+.navItem[data-active='true'] a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0.1rem;
+  background: var(--main-color);
+  transition: var(--transition-primary);
+}
+
+.navItem[data-active='false'] a {
+  color: var(--text-alt-color);
+  opacity: 0.7;
   transition: var(--transition-primary);
 }

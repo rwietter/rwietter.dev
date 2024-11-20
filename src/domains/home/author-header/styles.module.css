@@ -15,11 +15,10 @@
   color: var(--text-color);
   font-family: var(--font-primary);
   transition: var(--transition-primary);
-  font-feature-settings: "calt" 1, "dlig" 1, "ss02" 1;
+  font-feature-settings: "calt" 0, "dlig" 0, "ss02" 1;
   letter-spacing: -0.02em;
   font-optical-sizing: auto;
-  /* --fluid-type-min: 1.2rem; */
-  --fluid-type-max: 4.5rem;
+  --fluid-type-max: 4rem;
   --fluid-type-target: 8vw;
 }
 
