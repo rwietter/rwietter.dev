@@ -39,6 +39,7 @@
               nodejs
               nodePackages.pnpm
               yarn
+              biome
             ];
 
             shellHook = ''
@@ -46,6 +47,10 @@
               if [ ! -d "node_modules" ]; then
                 pnpm install
               fi
+            '';
+
+            postShellHook = ''
+              trap "rm -r node_modules .next" EXIT
             '';
           };
         }
