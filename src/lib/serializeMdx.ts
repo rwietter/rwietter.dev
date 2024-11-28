@@ -7,23 +7,26 @@ import rehypeSlug from 'rehype-slug'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 
+import { transformerNotationDiff } from '@shikijs/transformers'
+import { transformerColorizedBrackets } from '@shikijs/colorized-brackets'
+
+const options = {
+  highlight: true,
+  lineNumbers: true,
+  theme: {
+    dark: 'github-dark-default',
+    light: 'github-light-default',
+  },
+  transformers: [transformerNotationDiff(), transformerColorizedBrackets()],
+}
+
 export async function getMdxSource(article: string): Promise<MDXSerialized> {
   const source = await serialize(article, {
     mdxOptions: {
       rehypePlugins: [
         rehypeKatex,
         rehypeSlug,
-        [
-          rehypePrettyCode,
-          {
-            highlight: true,
-            lineNumbers: true,
-            theme: {
-              dark: 'github-dark-default',
-              light: 'github-light-default',
-            },
-          },
-        ],
+        [rehypePrettyCode, { ...options }],
         [rehypeExternalLinks, { target: '_blank' }],
       ],
       remarkPlugins: [remarkGfm, remarkMath],

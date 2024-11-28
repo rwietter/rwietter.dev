@@ -408,3 +408,26 @@ code[data-line-numbers-max-digits="2"]>[data-line]::before {
 code[data-line-numbers-max-digits="3"]>[data-line]::before {
   width: 3rem;
 }
+
+
+/*
+  ---------------------------------------
+  Diff (shikijs transformerNotationDiff)
+  To use, add "// [ !code --]" or "// [ !code ++]" to the code block
+  ---------------------------------------
+*/
+figure code .diff.add {
+  background: rgba(0, 255, 0, 0.1) !important;
+}
+
+figure code .diff.add span {
+  background: none !important;
+}
+
+figure code .diff.remove {
+  background: rgba(255, 0, 0, 0.1) !important;
+}
+
+figure code .diff.remove span {
+  background: none !important;
+}
