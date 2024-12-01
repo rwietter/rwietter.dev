@@ -133,6 +133,15 @@
   color: var(--text-color);
 }
 
+.blogpost code {
+  background: var(--neutral) !important;
+  padding: 0.1em 0.3em;
+  border-radius: 0.3em;
+  font-family: var(--font-code) !important;
+  letter-spacing: -0.02em;
+  font-size: inherit;
+}
+
 .blogpost p code,
 .blogpost ul li code {
   background: var(--neutral) !important;
@@ -177,7 +186,6 @@
   max-width: 100%;
   width: 100%;
   table-layout: fixed;
-  display: block;
   overflow: auto;
   padding: 1em 0;
   color: var(--text-color);
@@ -185,13 +193,13 @@
 }
 
 .blogpost table thead {
-  display: table;
+  display: table-header-group;
   position: relative;
   width: 100%;
 }
 
 .blogpost tbody {
-  display: table;
+  display: table-row-group;
   position: relative;
   width: 100%;
 }
@@ -263,7 +271,7 @@
 
 .blogpost ol {
   margin-left: 28px;
-  padding: 1.8em 0;
+  /* padding: 1.8em 0; */
 }
 
 .blogpost ol li::marker {

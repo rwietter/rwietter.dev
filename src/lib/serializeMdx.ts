@@ -6,11 +6,12 @@ import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
+import remarkToc from 'remark-toc'
 
 import { transformerNotationDiff } from '@shikijs/transformers'
 import { transformerColorizedBrackets } from '@shikijs/colorized-brackets'
 
-const options = {
+const rehypePrettyCodeOptions = {
   highlight: true,
   lineNumbers: true,
   theme: {
@@ -26,10 +27,14 @@ export async function getMdxSource(article: string): Promise<MDXSerialized> {
       rehypePlugins: [
         rehypeKatex,
         rehypeSlug,
-        [rehypePrettyCode, { ...options }],
+        [rehypePrettyCode, { ...rehypePrettyCodeOptions }],
         [rehypeExternalLinks, { target: '_blank' }],
       ],
-      remarkPlugins: [remarkGfm, remarkMath],
+      remarkPlugins: [
+        remarkGfm,
+        remarkMath,
+        [remarkToc, { heading: 'Contents', tight: false, ordered: false }],
+      ],
       useDynamicImport: true,
     },
     parseFrontmatter: true,

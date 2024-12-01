@@ -1,23 +1,27 @@
 .text {
   background-color: #ffe6c3;
   color: var(--text-highlight);
-  padding: 0.1em 0.2em;
+  padding: 0.2em 0.2em;
   border-radius: 0.3em;
   font-weight: 500 !important;
 }
 
 .text[data-color="yellow"] {
-  background-color: #ffe6c3;
+  background-color: rgba(255, 230, 195, 1);
 }
 
 .text[data-color="blue"] {
-  background-color: rgb(194, 221, 255);
+  background-color: rgba(194, 221, 255, 1);
 }
 
 .text[data-color="red"] {
-  background-color: rgb(255, 206, 206);
+  background-color: rgba(255, 206, 206, 1);
 }
 
 .text[data-color="purple"] {
-  background-color: #d7cfff;
+  background-color: rgba(221, 194, 255, 1);
+}
+
+.text[data-color="green"] {
+  background-color: rgba(194, 255, 206, 1);
 }
