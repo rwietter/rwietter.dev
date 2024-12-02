@@ -92,7 +92,7 @@ Fechando esse hiato de definições, agora finalmente podemos ir para a parte pr
 
 Na struct `Transaction`, foi definido alguns campos e alguns tipos primitivos para entendermos como o alinhamento de bytes funciona na prática.
 
-```go
+```go showLineNumbers
 type Transaction struct {
 	Operation byte
 	Quantity  int16
@@ -125,7 +125,7 @@ Teoricamente teríamos $31$ bytes, quando alocada em uma memória fictícia que 
 
 Em teoria, a struct `Transaction` deveria ter $31 \ bytes$, mas se verificarmos o tamanho da `struct`, veremos que ela tem $40 \ bytes$. O que há de errado? Bem, nada! Ocorre que, nossos campos da `struct` não estão alinhados, então o compilador adicionou lacunas extras (**paddings** ou **gaps**) entre eles, para garantir que os campos estejam alinhados.
 
-```go
+```go showLineNumbers
 func main() {
 	fmt.Printf("Struct Size: %d bytes\n", reflect.TypeOf(Transaction{}).Size())
 	fmt.Println()
@@ -144,7 +144,7 @@ func main() {
 }
 ```
 
-```bash
+```bash showLineNumbers
 go run main.go
 # Struct Size: 40 bytes
 
@@ -185,7 +185,7 @@ $$
 
 Como resultado final teríamos uma `struct` de **$40$ bytes**, que poderíamos representar assim:
 
-```go
+```go showLineNumbers
 type TAlignment struct {
 	Operation byte       // 0x00
 	_         [1]byte    // 0x01
@@ -210,7 +210,7 @@ As rotinas de biblioteca que alocam memória, como `malloc`, devem ser projetada
 
 O [Garbage Collector](https://tip.golang.org/doc/gc-guide) — GC — fica, dentre outras coisas, varrendo a memória, em busca de ponteiros para objetos que não estão mais sendo usados ou referenciados para, então, desaloca-los da memória. <High>Dependendo de como o layout de memória está, o GC pode precisar varrer mais bytes do que o necessário, causando um overhead</High>.
 
-```go
+```go showLineNumbers
 type Token struct {
 	File  *string
 	Line  int
@@ -245,7 +245,7 @@ Uma otimização de `Transaction` seria reorganizar os campos para que eles seja
 
 Na seguinte `struct` reorganizamos os campos para serem compatíveis com os múltiplos de seus alinhamentos, como visto na seção [3.1](#31-diretivas-de-alinhamento). Ainda houve a necessidade de adicionar 1 byte de padding antes de `Total` porque um `float64` precisa de um alinhamento de 8 bytes e o próximo offset disponível era 23, que não é um múltiplo de 8. No fim, ficamos com uma `struct` alinhada de 32 bytes.
 
-```go
+```go showLineNumbers
 type Transaction struct {
 	Balance   complex128 // offset 0-15 - 16 bytes
 	UnitPrice float32    // offset 16-19 - 4 bytes
@@ -257,7 +257,7 @@ type Transaction struct {
 
 Desta outra maneira, obtemos uma otimização de $30$ bytes **aparente**, mas como foi dito na seção [3.1.1](#311-diretivas-gerais), o tamanho é arredondado para cima para ser um múltiplo do seu do seu alinhamento ou de `RegSize`, então o tamanho final da `struct` ainda seria 32 bytes, ou seja, o tamanho mínimo que poderíamos obter para ela, quando alinhada para esta `struct`.
 
-```go
+```go showLineNumbers
 type Transaction struct {
 	Total     float64    // offset 0-7 - 8 bytes
 	Balance   complex128 // offset 8-23 - 16 bytes
@@ -289,13 +289,13 @@ Aprendemos que o alinhamento de bytes é um conceito importante para o desempenh
 
 Agora você já sabe como alinhar seus dados manualmente através de aritmética simples, calculando os offsets dos tipos de dados e identificando quais posições eles devem ocupar sem que o compilador adicione paddings inúteis para preencher os espaços entre os campos desalinhados. Mas, isso pode ser tedioso quando você tem muitas `structs`e tipos de dados, então você pode usar o pacote [fieldalignment](https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/fieldalignment) ou o [betteralign](https://github.com/dkorunic/betteralign) para fazer isso por você.
 
-```bash
+```bash showLineNumbers
 # Fieldalignment
 go install golang.org/x/tools/go/analysis/passes/fieldalignment/cmd/fieldalignment@latest
 fieldalignment --help
 ```
 
-```bash
+```bash showLineNumbers
 # Betteralign
 go install github.com/dkorunic/betteralign/cmd/betteralign@latest
 betteralign --help

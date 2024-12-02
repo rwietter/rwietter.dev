@@ -92,7 +92,7 @@ With these definitions established, let's examine practical alignment in Go code
 
 Consider the `Transaction` struct, defined with various primitive types to illustrate byte alignment in practice:
 
-```go
+```go showLineNumbers
 type Transaction struct {
 	Operation byte
 	Quantity  int16
@@ -123,7 +123,7 @@ Theoretically, `Transaction` should be 31 bytes, but checking its actual size re
 
 ## 3.3 Padding Bytes
 
-```go
+```go showLineNumbers
 func main() {
 	fmt.Printf("Struct Size: %d bytes\n", reflect.TypeOf(Transaction{}).Size())
 	fmt.Println()
@@ -140,7 +140,7 @@ func main() {
 }
 ```
 
-```bash
+```bash showLineNumbers
 go run main.go
 Struct Size: 40 bytes
 
@@ -180,7 +180,7 @@ $$
 
 An aligned representation:
 
-```go
+```go showLineNumbers
 type TAlignment struct {
 	Operation byte       // 0x00
 	_         [1]byte    // 0x01
@@ -205,7 +205,7 @@ Pointers are special; their size equals the architecture's word size, and their 
 
 The Go garbage collector (GC) scans memory for pointers to unused objects to reclaim memory.  Memory layout influences GC efficiency; inefficient layouts can cause unnecessary overhead.[^11]
 
-```go
+```go showLineNumbers
 type Token struct {
 	File  *string
 	Line  int
@@ -236,7 +236,7 @@ Misaligned data can cross cache line boundaries. Accessing a struct member might
 
 Optimizing `Transaction` involves reorganizing fields for alignment.  Reordering avoids adding extra bytes. Here are two examples of optimized `struct` organizations. Both achieve the minimum size of 32 bytes for an aligned version of this `struct`. The first prioritizes alignment based on size:
 
-```go
+```go showLineNumbers
 type Transaction struct {
 	Balance   complex128 // offset 0-15 - 16 bytes
 	UnitPrice float32    // offset 16-19 - 4 bytes
@@ -248,7 +248,7 @@ type Transaction struct {
 
 The second example reorders placing `Total` first, this may be preferable based on access patterns or frequency within your code:
 
-```go
+```go showLineNumbers
 type Transaction struct {
 	Total     float64    // offset 0-7 - 8 bytes
 	Balance   complex128 // offset 8-23 - 16 bytes
@@ -280,13 +280,13 @@ We've explored data alignment's significance in enhancing CPU access and minimiz
 
 Now you know how to manually align data by calculating offsets, ensuring correct field positioning without compiler-added padding. For larger structs, tools like [fieldalignment](https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/fieldalignment) or [betteralign](https://github.com/dkorunic/betteralign) automate this process.
 
-```bash
+```bash showLineNumbers
 # Fieldalignment
 go install golang.org/x/tools/go/analysis/passes/fieldalignment/cmd/fieldalignment@latest
 fieldalignment --help
 ```
 
-```bash
+```bash showLineNumbers
 # Betteralign
 go install github.com/dkorunic/betteralign/cmd/betteralign@latest
 betteralign --help

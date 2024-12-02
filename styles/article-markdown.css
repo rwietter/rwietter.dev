@@ -1,3 +1,5 @@
+@import url(./rehype-pretty-code.css);
+
 .blogpost :where(h1, h2, h3, h4, h5, h6) {
   font-weight: 600;
   margin-top: 40px;
@@ -146,6 +148,10 @@
   background-color: transparent !important;
 }
 
+.blogpost figure pre code span[data-line] mark[data-highlighted-chars] span {
+  background: transparent !important;
+}
+
 .blogpost p code,
 .blogpost ol li code,
 .blogpost ul li code {
@@ -283,164 +289,4 @@
   color: var(--main-color);
   font-weight: 800;
   font-family: var(--font-secondary);
-}
-
-/*
-  ---------------------------------------
-  Theme
-  ---------------------------------------
-*/
-
-html code {
-  background: var(--bg-alt-color);
-  color: var(--shiki-light);
-  /* background: var(--shiki-light-bg); */
-  transition: var(--transition-primary);
-}
-
-[data-theme='dark']:root code,
-[data-theme='dark']:root code span {
-  color: var(--shiki-light);
-  background-color: var(--shiki-light-bg);
-}
-
-[data-theme='noveau']:root code,
-[data-theme='noveau']:root code span {
-  color: var(--shiki-dark);
-  background-color: var(--bg-alt-color);
-}
-
-@media (prefers-color-scheme: dark) {
-
-  [data-theme='dark']:root code,
-  [data-theme='dark']:root code span {
-    color: var(--shiki-dark);
-    background-color: var(--shiki-dark-bg);
-  }
-}
-
-html code span {
-  color: var(--shiki-light);
-}
-
-.dark code {
-  color: var(--shiki-dark);
-  background-color: var(--shiki-dark-bg);
-}
-
-.dark code span {
-  color: var(--shiki-dark);
-}
-
-/*
-  ---------------------------------------
-  rehypePrettyCode styles
-  ---------------------------------------
-*/
-
-.blogpost mark[data-chars-id] {
-  padding: 0.2em;
-  border-radius: 0.3em;
-}
-
-.blogpost mark[data-chars-id="y"] {
-  background: #854d0e80;
-  border-bottom: 1px solid rgb(202 138 4);
-}
-
-.blogpost mark[data-chars-id="y"] span {
-  color: rgb(253 224 71);
-}
-
-.blogpost mark[data-chars-id="r"] {
-  background: #9f123980;
-  border-bottom: 1px solid rgb(219 39 119);
-}
-
-.blogpost mark[data-chars-id="r"] span {
-  color: rgb(249 168 212);
-}
-
-.blogpost mark[data-chars-id="b"] {
-  background: #6b21a880;
-  border-bottom: 1px solid rgb(147 51 234);
-}
-
-.blogpost mark[data-chars-id="b"] span {
-  color: rgb(233 213 255);
-}
-
-.blogpost mark[data-chars-id="g"] {
-  background: #0f9d5880;
-  border-bottom: 1px solid rgb(16 185 129);
-}
-
-.blogpost mark[data-chars-id="g"] span {
-  color: rgb(0 255 191);
-}
-
-/*
-  ---------------------------------------
-  Highlight lines
-  ---------------------------------------
-*/
-.blogpost code span[data-highlighted-line] {
-  background: #c8c8ff1a;
-  /* border-bottom: 1px solid var(--highlighted-line-border); */
-}
-
-.blogpost figure[data-rehype-pretty-code-figure] {
-  margin: 2em 0;
-}
-
-/*
-  ---------------------------------------
-  Line Numbers
-  ---------------------------------------
-*/
-
-code {
-  counter-reset: line;
-}
-
-code[data-line-numbers]>[data-line]::before {
-  counter-increment: line;
-  content: counter(line);
-
-  display: inline-block;
-  width: 1rem;
-  margin-right: 2rem;
-  text-align: right;
-  color: gray;
-}
-
-code[data-line-numbers-max-digits="2"]>[data-line]::before {
-  width: 2rem;
-}
-
-code[data-line-numbers-max-digits="3"]>[data-line]::before {
-  width: 3rem;
-}
-
-
-/*
-  ---------------------------------------
-  Diff (shikijs transformerNotationDiff)
-  To use, add "// [ !code --]" or "// [ !code ++]" to the code block
-  ---------------------------------------
-*/
-figure code .diff.add {
-  background: rgba(0, 255, 0, 0.1) !important;
-}
-
-figure code .diff.add span {
-  background: none !important;
-}
-
-figure code .diff.remove {
-  background: rgba(255, 0, 0, 0.1) !important;
-}
-
-figure code .diff.remove span {
-  background: none !important;
 }
