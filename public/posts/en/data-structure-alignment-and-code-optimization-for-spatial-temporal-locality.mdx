@@ -1,0 +1,308 @@
+---
+title: Data Structure Alignment and Code Optimization for Spatial-Temporal Locality
+description: Understand data alignment in Go, its practical application, the implications of misalignment, and its relationship with spatial-temporal locality for optimized performance.
+slug: data-structure-alignment-and-code-optimization-for-spatial-temporal-locality
+image: /assets/blog/en/edz-norton-ofja_9Ud9i0-unsplash.jpg
+alternativeText: Scrabble tiles spelling "ALIGNMENT" on a white background.
+caption: Photo by Edz Norton on Unsplash
+publishedAt: 2024-12-01
+updatedAt: 2024-12-01
+category: theory
+author: Maurício Witter
+keywords: go, golang, memory, alignment, padding, cache, spatial-temporal locality, optimization
+---
+
+# Contents
+
+# 1. Introduction
+
+Data alignment isn't a widely discussed topic among developers, yet it's far from obscure or esoteric.  This concept is often overlooked in university courses and bootcamps, and I didn't encounter it during my own college education.  Driven by curiosity, I decided to explore this topic further, and this post encapsulates my findings.
+
+In this post, we'll delve into:
+
+1.  What data alignment is;
+2.  Its relationship with computer architecture;
+3.  Practical applications in Go, with examples;
+4.  Implications of data misalignment;
+5.  How to align data and prevent unnecessary compiler-added padding;
+6.  The connection between data alignment and spatial-temporal locality.
+
+# 2. Computer Architecture and Hardware
+
+Data/byte alignment is intrinsically linked to hardware, virtual memory, and its management by the operating system. Each architecture has a standardized word size and specific instructions. For example, x86-64 architectures use 8 bytes (64 bits) per CPU cycle. Why 8 bytes?  Computer systems operate with data in binary format, using powers of 2.  64 bits is the next generation of x86 (which used 32 bits).  Standardization facilitates efficient processing and optimizes memory access by aligning instructions and data with the architecture's data bus width[^2][^3] and cache lines.
+
+<Cite>
+"Many computer systems impose restrictions on the addresses permitted for primitive data types, requiring that the address of some type of object be a multiple of some value K (typically 2, 4, or 8)"[^1].
+</Cite>
+
+32-bit (x86) systems use 4 bytes (32 bits) per cycle. Aligning data to multiples of 4 bytes ensures efficient access, avoiding performance penalties.  16-bit architectures, common in older embedded systems, use 2 bytes (16 bits) per cycle, while 8-bit architectures use 1 byte. Other architectures work with 128 bits, 256 bits, and so on.
+
+Data alignment is architecture-dependent because all components must operate with compatible data sizes for the system to function harmoniously, preventing performance issues caused by misaligned data.  However, advancements in algorithms and instruction sets have optimized data handling, making misalignment less problematic in many cases, with negligible performance differences.
+
+Historically, scalar instructions exhibited similar performance with unaligned memory access. Vector instructions, like those in SSE, often had specific, slower variants for unaligned data. AVX improved unaligned data handling, reducing penalties, but ideal alignment remains crucial for optimal performance, which is why compilers still perform alignment[^8].
+
+Furthermore, some DMA (Direct Memory Access) controllers transfer data in aligned bursts. Misaligned data can necessitate multiple smaller transfers, impacting efficiency.
+
+# 3. Data Alignment
+
+Data alignment refers to arranging data in memory so that its starting address is a multiple of its data type size or a power of two (2, 4, or 8).  This alignment reduces CPU cycles needed for access since it leverages the architecture's word size for efficient data transfer.
+
+<Cite>
+"For example, suppose a processor always fetches 8 bytes from memory, and the address must be a multiple of 8. If we can ensure that any `double` is aligned to have its address be a multiple of 8, then the value can be read or written with a single memory operation. Otherwise, we might need to perform two memory accesses, since the object might straddle two 8-byte memory blocks."[^1]
+</Cite>
+
+To understand byte alignment in practice, we need to consider the target architecture, the size of language-specific data types, and the compiler's alignment directives.
+
+This post focuses on the x86-64 architecture and the Go programming language.  Section 3.1 details Go's data type sizes and alignment rules.
+
+## 3.1 Alignment Directives
+
+### 3.1.1 General Directives
+
+*   **Default Alignment:** A type's alignment is determined by its largest field's size, up to a maximum of 8 bytes (the pointer size on 64-bit architectures)[^9].
+
+*   **Rounding:** A type's size is always rounded up to a multiple of its alignment to ensure storage at suitable memory addresses[^9].
+
+### 3.1.2 Specific Alignment Directives
+
+*   `int8`, `uint8`, `bool`: 1 byte size, 1-byte alignment.
+*   `int16`, `uint16`: 2 byte size, 2-byte alignment.
+*   `int32`, `uint32`, `float32`: 4 byte size, 4-byte alignment.
+*   `int64`, `uint64`, `float64`, `complex128`: 8 byte size, alignment equal to the machine's word size (`RegSize`).
+*   `complex64`: 8 byte size, 4-byte alignment.
+*   **Pointers** (`*T`, `unsafe.Pointer`): Size and alignment equal to the pointer size (`PtrSize`).
+*   **Interfaces** (`interface{}`): Size of two pointers, alignment equal to the pointer size.
+*   **Arrays** (`[n]T`): Size is a multiple of the element size; alignment matches the element's alignment.
+*   **Structs** (`struct{...}`):
+    *   A struct's alignment is the largest alignment of any of its fields.
+    *   A struct's size is the offset of the last field, rounded up to a multiple of the struct's alignment.
+    *   Padding may be added between fields to ensure proper alignment.
+*   **Strings** (`string`): Size and alignment equal to the pointer size.
+*   **Slices** (`[]T`): Size of three pointers, alignment equal to the pointer size.
+*   **Channels** (`chan T`): Size and alignment equal to the pointer size.
+*   **Maps** (`map[K]V`): Size and alignment equal to the pointer size[^9].
+
+<Warn title="Important">
+`PtrSize` and `RegSize` are determined at build time and correspond to the target architecture's word size[^9].
+</Warn>
+
+With these definitions established, let's examine practical alignment in Go code.
+
+## 3.2 Practical Alignment
+
+Consider the `Transaction` struct, defined with various primitive types to illustrate byte alignment in practice:
+
+```go
+type Transaction struct {
+	Operation byte
+	Quantity  int16
+	Total     float64
+	UnitPrice float32
+	Balance   complex128
+}
+```
+
+Based on the sizes discussed in Section 3.1, the total size should be the sum of its fields, right?
+
+$$
+\begin{gathered}
+T = & 1 + 2 + 8 + 4 + 16 \\
+T = & 31 \text{ bytes}
+\end{gathered}
+$$
+
+Theoretically, `Transaction` should be 31 bytes, but checking its actual size reveals it to be 40 bytes. What's happening?  The fields aren't aligned, so the compiler adds padding (gaps) to ensure alignment.
+
+<Figure
+  source="/assets/blog/en/magic-memory.png"
+  id="1"
+  lang="en"
+  alt="Memory blocks representation without any byte alignment."
+  caption="Memory representation without byte alignment."
+/>
+
+## 3.3 Padding Bytes
+
+```go
+func main() {
+	fmt.Printf("Struct Size: %d bytes\n", reflect.TypeOf(Transaction{}).Size())
+	fmt.Println()
+	t := reflect.TypeOf(Transaction{})
+	for i := 0; i < t.NumField(); i++ {
+		field := t.Field(i)
+		fmt.Printf(
+			"Field: %s, Type: %s, Size: %d bytes\n",
+			field.Name,
+			field.Type,
+			field.Type.Size(),
+		)
+	}
+}
+```
+
+```bash
+go run main.go
+Struct Size: 40 bytes
+
+Field: Operation, Type: uint8, Size: 1 bytes
+Field: Quantity, Type: int16, Size: 2 bytes
+Field: Total, Type: float64, Size: 8 bytes
+Field: UnitPrice, Type: float32, Size: 4 bytes
+Field: Balance, Type: complex128, Size: 16 bytes
+```
+
+Go adds padding between fields to achieve alignment, resulting in a 40-byte struct. The struct ends aligned on an 8-byte boundary (offset 40), so no final padding is needed.  Memory allocation for this `struct` resembles Figure 2.
+
+<Figure
+  source="/assets/blog/en/memory-alignment-40-bytes.png"
+  id="2"
+  caption="Memory layout with padding. 1 block (uint8), 1 padding block, 2 blocks (int16), 4 padding blocks, 8 blocks (float64), 4 blocks (float32), 4 padding blocks, 16 blocks (complex128)."
+  alt="Memory representation with padding bytes."
+/>
+
+
+1. **`Operation` (byte):** Occupies 1 byte (offset 0).
+2. **`Quantity` (int16):** Requires 2-byte alignment. The current offset is 1, so the compiler adds **1 byte of padding**, placing `Quantity` at offset 2.
+3. **`Total` (float64):** Requires 8-byte alignment. The next available offset after `Quantity` is 4.  To align to a multiple of 8, there's **4 bytes of padding** before `Total`, starting it at offset 8.
+4. **`UnitPrice` (float32):** Follows `Total` directly, taking 4 bytes and maintaining alignment.
+5. **`Balance` (complex128):** Is 16 bytes, aligned to `RegSize` (8 bytes on x86-64).  The next available offset is 24, which is aligned correctly.
+
+Adding field sizes and padding gives the total `struct` size:
+
+$$
+\begin{gathered}
+T_{b} = & \ 1 + 2 + 8 + 4 + 16 \\
+T_{p} = & \ 1 + 4 + 4 \\
+T_{t} = & \ 31 + 9 \\
+T_{t} = & \ 40 \text{ bytes}
+\end{gathered}
+$$
+
+An aligned representation:
+
+```go
+type TAlignment struct {
+	Operation byte       // 0x00
+	_         [1]byte    // 0x01
+	Quantity  int16      // 0x02 - 0x03
+	_         [4]byte    // 0x04 - 0x07
+	Total     float64    // 0x08 - 0x0F
+	UnitPrice float32    // 0x10 - 0x13
+	_         [4]byte    // 0x14 - 0x17
+	Balance   complex128 // 0x18 - 0x27
+} // Total: 40 bytes
+```
+
+## 3.4 Pointer Bytes
+
+Pointers are special; their size equals the architecture's word size, and their alignment matches their size.  Memory allocation routines like `malloc` in C or `make`, `channels`, `slices`, and `maps` in Go[^11][^12] must return pointers satisfying the worst-case alignment requirement for the target machine.
+
+<Cite>
+"Library routines that allocate memory, such as `malloc`, must be designed to return a pointer that satisfies the worst-case alignment restriction for the machine it is running on, typically 4 or 8."[^1]
+</Cite>
+
+### 3.4.1 Garbage Collection
+
+The Go garbage collector (GC) scans memory for pointers to unused objects to reclaim memory.  Memory layout influences GC efficiency; inefficient layouts can cause unnecessary overhead.[^11]
+
+```go
+type Token struct {
+	File  *string
+	Line  int
+	Type  int
+	Value []byte
+}
+```
+
+Therefore, it's recommended to **place pointer types first** within structs to optimize GC performance.
+
+## 3.5 Implications
+
+You might wonder, "Why can a smaller, misaligned struct be less efficient than a larger, aligned one?".  This is primarily due to the CPU's memory cache.
+
+The cache stores data in fixed-size blocks called cache lines. When the CPU needs data, it first checks the cache. A "cache hit"[^5] means the data is present and retrieved quickly. A "cache miss"[^5] forces access to the much slower main memory.
+
+Misaligned data can cross cache line boundaries. Accessing a struct member might require loading two cache lines, doubling accesses and potentially increasing cache misses. Aligned structs fit within a single cache line, reducing access times and improving hit rates.  Padding optimizes memory access for performance, mitigating frequent cache misses. The table below illustrates cache levels and characteristics (values are illustrative and vary across systems):
+
+
+| Level | Size        | Latency       | Location     | Example                                    |
+| :---- | :---------- | :------------ | :----------- | :----------------------------------------- |
+| L1    | 16–128 KB   | ~1–4 cycles   | Per-core    | L1 miss results in a check of L2.            |
+| L2    | 128 KB–1 MB | ~10 cycles    | Per-core    | L2 hit; data loaded into L1.               |
+| L3    | 4–64 MB     | ~20–50 cycles | Shared       | Checked if data isn't in L2.                |
+| RAM   | GBs         | ~100–300 cycles| Off-processor | Accessed if data isn't found in cache levels |
+
+## 3.6 Optimizing the `Transaction` struct
+
+Optimizing `Transaction` involves reorganizing fields for alignment.  Reordering avoids adding extra bytes. Here are two examples of optimized `struct` organizations. Both achieve the minimum size of 32 bytes for an aligned version of this `struct`. The first prioritizes alignment based on size:
+
+```go
+type Transaction struct {
+	Balance   complex128 // offset 0-15 - 16 bytes
+	UnitPrice float32    // offset 16-19 - 4 bytes
+	Quantity  int16      // offset 20-21 - 2 bytes
+	Operation byte       // offset 22 - 1 byte
+	Total     float64    // offset 24-31 - 8 bytes
+} // Total: 32 bytes
+```
+
+The second example reorders placing `Total` first, this may be preferable based on access patterns or frequency within your code:
+
+```go
+type Transaction struct {
+	Total     float64    // offset 0-7 - 8 bytes
+	Balance   complex128 // offset 8-23 - 16 bytes
+	UnitPrice float32    // offset 24-27 - 4 bytes
+	Quantity  int16      // offset 28-29 - 2 bytes
+	Operation byte       // offset 30 - 1 byte
+} // Total: 32 bytes
+```
+
+There are multiple ways to organize a `struct` for alignment, but there's always a minimum aligned size. For `Transaction`, it's 32 bytes. Organize fields based on access patterns, placing pointer types first, frequently accessed fields together, or fields used in sequence for maximum efficiency.
+
+## 3.7 Spatial-Temporal Locality
+
+Spatial-temporal locality enhances cache performance, and proper alignment contributes to this locality.  A loaded cache line contains the requested data and adjacent data (spatial locality).  Good spatial locality means adjacent data will likely be used soon, creating "cache hits."  Repeatedly accessed data (temporal locality) remains in the cache longer, reducing main memory accesses[^7][^10].
+
+### 3.7.1 Spatial Locality
+
+When a program accesses data, it's likely to access nearby data soon. This occurs in loops iterating over arrays or contiguous data structures like linked lists. Sequential memory storage significantly improves performance. Spatial locality justifies fetching larger memory blocks (cache lines) on a "cache miss." The CPU fetches the entire cache line containing the requested data, anticipating access to nearby data[^7][^10].
+
+### 3.7.2 Temporal Locality
+
+Programs tend to reuse data recently accessed.  Random access patterns hinder this, decreasing prefetching effectiveness and increasing cache misses. Temporal locality emphasizes keeping frequently used data in higher-level caches (L1, L2)[^7][^10].
+
+# 4. Conclusion
+
+This post examined data alignment, enabling efficient CPU cache and DMA utilization alongside spatial-temporal locality considerations. Modern CPUs have optimized instructions, yet byte alignment remains important for system performance.
+
+We've explored data alignment's significance in enhancing CPU access and minimizing performance penalties. We've seen how architecture dictates alignment and how Go's compiler aligns data types.  We've also seen how proper alignment contributes to spatial-temporal locality, leading to better cache utilization and therefore optimized memory performance.
+
+Now you know how to manually align data by calculating offsets, ensuring correct field positioning without compiler-added padding. For larger structs, tools like [fieldalignment](https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/fieldalignment) or [betteralign](https://github.com/dkorunic/betteralign) automate this process.
+
+```bash
+# Fieldalignment
+go install golang.org/x/tools/go/analysis/passes/fieldalignment/cmd/fieldalignment@latest
+fieldalignment --help
+```
+
+```bash
+# Betteralign
+go install github.com/dkorunic/betteralign/cmd/betteralign@latest
+betteralign --help
+```
+
+I hope this post has been helpful.  Feel free to leave a comment or suggestion on [GitHub](https://github.com/rwietter/rwietter.dev). Thank you for reading!
+
+[^1]: R. E. Bryant and D. R. O’Hallaron, Computer systems: a programmer’s perspective, Third edition. Boston.
+[^2]: Barramentos de Dados — Trafega dados entre memória, processador e I/O; costuma ter a mesma largura que a word-size para transferências de dados; Barramento de Endereços — A largura do barramento de endereço determina a quantidade de memória máxima endereçável; trafega endereços de memória. Barramento de Controle — trafega sinais para gerenciar todas as operações realizadas pelo sistema computacional..
+[^3]: Uma CPU de 32 bits pode utilizar barramentos de 64 bits, ela pode solicitar dois blocos de 32 bits por ciclo, mas só continua limitada a processar 1 bloco de 32 bits por ciclo ainda.
+[^4]: [Intel® FPGA SDK for OpenCL™ Standard Edition: Best Practices Guide — 3.5. Aligning a Struct with or without Padding](https://www.intel.com/content/www/us/en/docs/programmable/683176/18-1/aligning-a-struct-with-or-without-padding.html)
+[^5]: [Cache (computing)](https://www.wikiwand.com/en/articles/Cache_(computing))
+[^6]: [Pointers Are Complicated, or: What's in a Byte?](https://www.ralfj.de/blog/2018/07/24/pointers-and-bytes.html)
+[^7]: [What every programmer should know about memory — Memory part 2: CPU caches](https://lwn.net/Articles/252125/)
+[^8]: [Reddit: How big a deal is memory alignment these days (on x86)?](https://www.reddit.com/r/C_Programming/comments/na4l6v/how_big_a_deal_is_memory_alignment_these_days_on/)
+[^9]: [Go Compiler: Align](https://github.com/golang/go/blob/356ba0f06586a833cd8de9c04af0d2adddf95851/src/cmd/compile/internal/types/size.go)
+[^10]: [MC542: Organização de Computadores Teoria e Prática](https://www.ic.unicamp.br/~ducatte/mc542/Slides/mc542_A_05_2s07.pdf)
+[^11]: [A Guide to the Go Garbage Collector](https://go.dev/doc/gc-guide)
+[^12]: [Go Memory Model](https://go.dev/ref/mem)

@@ -1,12 +1,12 @@
 ---
-title: Alinhamento Estrutural de Bytes e Otimização de Código para Coerência Espacial-Temporal
-description: Como uma struct com menos bytes (mesmo que desalinhada) pode ser menos eficiente que uma struct com mais bytes (alinhada) ?
-slug: alinhamento-estrutural-de-bytes-e-otimizacao-de-codigo-para-coerencia-espacial-temporal
-image: 
-alternativeText:
-caption:
-publishedAt: 2024-11-13
-updatedAt: 2024-11-16
+title: Alinhamento Estrutural de Dados e Otimização de Código para Localidade Espacial-Temporal
+description: Compreendendo alinhamento de dados, como ele é aplicado na prática, quais são as implicações de não alinhar os dados e como isso se relaciona com localidade espacial-temporal.
+slug: data-structure-alignment-and-code-optimization-for-spatial-temporal-locality
+image: /assets/blog/pt/edz-norton-ofja_9Ud9i0-unsplash.jpg
+alternativeText: Peças de Scrabble formando a palavra "ALINHAMENTO" sobre um fundo branco.
+caption: Foto de Edz Norton em Unsplash
+publishedAt: 2024-12-01
+updatedAt: 2024-12-01
 category: theory
 author: Maurício Witter
 keywords: go, golang, memory, alignment, padding, cache, spatial-temporal coherence, optimization
@@ -16,7 +16,7 @@ keywords: go, golang, memory, alignment, padding, cache, spatial-temporal cohere
 
 # 1 Introdução
 
-**Data Alignment** não é um assunto tão popular entre grande parte dos desenvolvedores, mas está longe de ser um assunto hermético ou esotérico. Mas esse assunto costuma estar longínquo da base que é ensinada em cursos universitários e _bootcamps_. Eu mesmo não cheguei a ver nada sobre isso no meu curso da faculdade, então restou para minha curiosidade dar conta de resolver.
+**Data Alignment** não é um assunto tão popular entre grande parte dos desenvolvedores, mas está longe de ser um assunto hermético ou esotérico. Mas esse assunto costuma estar longínquo da base que é ensinada em cursos universitários e _bootcamps_. Eu mesmo não cheguei a ver nada sobre isso no meu curso da faculdade, então restou para minha curiosidade dar conta de resolver e aqui estamos.
 
 Neste post, vamos entender:
 
@@ -25,7 +25,7 @@ Neste post, vamos entender:
 3. **Como ele é aplicado na prática, com exemplos em [Go](https://go.dev/)**; 
 4. **Quais são as implicações de não alinhar os dados**; 
 5. **Como alinhar os dados para evitar que o compilador adicione padding bytes desnecessários** e 
-6. **Entender por que a Coerência espacial-temporal é importante para otimizar o desempenho do sistema computacional**.
+6. **Entender como isso se relaciona com localidade espacial-temporal**.
 
 # 2 Arquitetura Computacional e Hardware
 
@@ -105,17 +105,16 @@ type Transaction struct {
 Bom, nós já conhecemos o tipos e seus respectivos tamanhos, certo? Abordamos eles na seção [3.1](#31-diretivas-de-alinhamento), então se somarmos esses tamanhos, teremos o tamanho total da nossa `struct`, correto?
 
 $$
-\begin{align*}
-\text{Transaction} = & \ \text{byte} + \text{int16} + \text{float64} + \text{float32} + \text{complex128} \\
-\text{Transaction} = & \ 1 + 2 + 8 + 4 + 16 \\
-\text{Transaction} = & \ 31 \text{ bytes}
-\end{align*}
+\begin{gathered}
+\text{T} = & \ 1 + 2 + 8 + 4 + 16 \\
+\text{T} = & \ 31 \text{ bytes}
+\end{gathered}
 $$
 
-Então teríamos $31 \ bytes$, quando alocada em uma memória fictícia que não existe alinhamento. Cada bloco representando $1 \ byte$, `operation` ocupando 1 bloco, `quantity` 2 blocos, `total` 8 blocos, `unitPrice` 4 blocos e `balance` 16 blocos. Isso se parece com a [Figura 1](#1).
+Teoricamente teríamos $31$ bytes, quando alocada em uma memória fictícia que não existe alinhamento. Cada bloco representando $1 \ byte$, `operation` ocupando 1 bloco, `quantity` 2 blocos, `total` 8 blocos, `unitPrice` 4 blocos e `balance` 16 blocos. Isso se parece com a [Figura 1](#1).
 
 <Figure
-  source="/assets/magic-memory.png"
+  source="/assets/blog/pt/magic-memory.png"
   id="1"
   lang="pt"
   alt="Representação dos blocos de memória se não houvesse qualquer alinhamento de bytes."
@@ -124,7 +123,7 @@ Então teríamos $31 \ bytes$, quando alocada em uma memória fictícia que não
 
 ## 3.3 Padding Bytes
 
-Em teoria, a struct `Transaction` deveria ter $31 \ bytes$, mas se verificarmos o tamanho da `struct`, veremos que ela tem $40 \ bytes$ — 🤨. O que há de errado? Bem, nada 🙃. Ocorre que, nossos campos da `struct` não estão alinhados, então o compilador adicionou lacunas extras (**paddings** ou **gaps**) entre eles, para garantir que os campos estejam alinhados.
+Em teoria, a struct `Transaction` deveria ter $31 \ bytes$, mas se verificarmos o tamanho da `struct`, veremos que ela tem $40 \ bytes$. O que há de errado? Bem, nada! Ocorre que, nossos campos da `struct` não estão alinhados, então o compilador adicionou lacunas extras (**paddings** ou **gaps**) entre eles, para garantir que os campos estejam alinhados.
 
 ```go
 func main() {
@@ -159,7 +158,7 @@ go run main.go
 Como resultado de alinhamento, o [go](https://go.dev/) adicionou essas lacunas entre os campos, mas não precisou arredondar a estrutura final porque ela já termina alinhada, com o próximo **offset** sendo um múltiplo de $8$ — o $40$. A alocação dessa `struct` se pareceria com a [Figura 2](#2) agora.
 
 <Figure
-  source="/assets/memory-alignment-40-bytes.png"
+  source="/assets/blog/pt/memory-alignment-40-bytes.png"
   id="2"
   lang="pt"
   caption="Representação dos blocos de memória com padding bytes. 1 bloco (unit8), 1 bloco de padding, 2 blocos (int16), 4 blocos padding, 8 blocos (float64), 4 blocos (float32), 4 blocos de padding, 16 blocos (complex128)."
@@ -177,10 +176,10 @@ Se somarmos os tamanhos dos campos e os bytes de padding, teremos o tamanho tota
 
 $$
 \begin{gathered}
-Transaction_{t} = & \ 1 + 2 + 8 + 4 + 16 \\
-Transaction_{p} = & \ 1 + 4 + 4 \\
-Transaction = & \ 31 + 9 \\
-Transaction = & \ 40 \text{ bytes}
+T_{b} = & \ 1 + 2 + 8 + 4 + 16 \\
+T_{p} = & \ 1 + 4 + 4 \\
+T_{t} = & \ 31 + 9 \\
+T_{t} = & \ 40 \text{ bytes}
 \end{gathered}
 $$
 
@@ -270,9 +269,9 @@ type Transaction struct {
 
 Enfim, existem $n$ maneiras de organizar a `struct` para que ela seja alinhada, mas ela sempre terá um tamanho mínimo, alinhado ao offset que seja um múltiplo do seu alinhamento. No caso de `Transaction`, a base minima é $32$ bytes. Mas você ainda pode organizar essa struct conforme o seu modelo de uso para obter a eficiência máxima, como colocar pointers bytes primeiro, ou os campos que são mais acessados juntos, ou os campos que são acessados com mais frequência.
 
-## 3.7 Coerência espacial-temporal
+## 3.7 Localidade Espacial-Temporal
 
-A coerência espacial-temporal é explorada pelos sistemas de cache para melhorar o desempenho, e essa coerência também advém de um bom alinhamento. Quando uma linha de cache é carregada, **ela contém não apenas o dado solicitado, mas também os dados adjacentes (localidade espacial)**. Se o programa exibir boa localidade espacial, esses dados adjacentes provavelmente serão usados em breve, resultando em "cache hits". Da mesma forma, **se um dado for acessado repetidamente (localidade temporal), ele permanecerá no cache por mais tempo**, evitando acessos à memória principal[^7][^10].
+A localidade espacial-temporal é explorada pelos sistemas de cache para melhorar o desempenho, e essa localidade também advém de um bom alinhamento. Quando uma linha de cache é carregada, **ela contém não apenas o dado solicitado, mas também os dados adjacentes (localidade espacial)**. Se o programa exibir boa localidade espacial, esses dados adjacentes provavelmente serão usados em breve, resultando em "cache hits". Da mesma forma, **se um dado for acessado repetidamente (localidade temporal), ele permanecerá no cache por mais tempo**, evitando acessos à memória principal[^7][^10].
 
 ### 3.7.1 Localidade Espacial
 
