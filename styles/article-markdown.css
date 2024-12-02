@@ -141,6 +141,11 @@
   font-size: inherit;
 }
 
+/* Fix shiki line highlight */
+.blogpost pre code span[data-highlighted-line] span {
+  background-color: transparent !important;
+}
+
 .blogpost p code,
 .blogpost ol li code,
 .blogpost ul li code {
