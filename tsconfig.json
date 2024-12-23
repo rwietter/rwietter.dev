@@ -1,7 +1,11 @@
 {
 	"compilerOptions": {
 		"target": "esnext",
-		"lib": ["dom", "dom.iterable", "esnext"],
+		"lib": [
+			"dom",
+			"dom.iterable",
+			"esnext"
+		],
 		"allowJs": true,
 		"skipLibCheck": true,
 		"strict": true,
@@ -18,33 +22,58 @@
 		"incremental": true,
 		"baseUrl": "./",
 		"paths": {
-			"@/app/*": ["src/app/*"],
-			"@/components/*": ["src/components/*"],
-			"@/domains/*": ["src/domains/*"],
-			"@/hooks/*": ["src/hooks/*"],
-			"@/lib/*": ["src/lib/*"],
-			"@/base/*": ["src/base/*"],
-			"@/services/*": ["services/*"],
-			"@/types/*": ["types/*"],
-			"@/api/*": ["src/app/api/*"],
-      "@/shared/*": ["src/shared/*"]
+			"@/app/*": [
+				"src/app/*"
+			],
+			"@/components/*": [
+				"src/components/*"
+			],
+			"@/domains/*": [
+				"src/domains/*"
+			],
+			"@/hooks/*": [
+				"src/hooks/*"
+			],
+			"@/lib/*": [
+				"src/lib/*"
+			],
+			"@/base/*": [
+				"src/base/*"
+			],
+			"@/services/*": [
+				"services/*"
+			],
+			"@/types/*": [
+				"types/*"
+			],
+			"@/api/*": [
+				"src/app/api/*"
+			],
+			"@/shared/*": [
+				"src/shared/*"
+			]
 		},
 		"plugins": [
 			{
 				"name": "next"
 			}
 		],
-		"typeRoots": ["./node_modules/@types", "./types"]
+		"typeRoots": [
+			"./node_modules/@types",
+			"./types"
+		]
 	},
 	"include": [
 		"next-env.d.ts",
 		"**/*.ts",
 		"**/*.tsx",
 		".next/types/**/*.ts",
-		"public/workers/readingTime.js",
-		"public/workers/serializeWorker.js",
-		"public/workers/fileReaderWorker.js",
+		"public/til/workers/readingTime.js",
+		"public/til/workers/serializeWorker.js",
+		"public/til/workers/fileReaderWorker.js",
 		"src/app/[lang]/syllabus/page.tss"
 	],
-	"exclude": ["node_modules"]
+	"exclude": [
+		"node_modules"
+	]
 }

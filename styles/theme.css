@@ -37,16 +37,16 @@
 }
 
 [data-theme="dark"]:root {
-  --bg-color: #000000;
-  --bg-alt-color: #0A0A0A;
+  --bg-color: #121212;
+  --bg-alt-color: #191919;
   --text-color: #fafafa;
   --text-gray-color: #b1b1b1;
-  --text-highlight: #000000;
+  --text-highlight: #121212;
 
   --text-alt-color: #ffffff;
   --main-color: rgb(119, 142, 255);
-  --sub-color: #0D0D0D;
-  --sub-alt-color: #0D0D0D;
+  --sub-color: #191919;
+  --sub-alt-color: #191919;
 
   --select: #617bff;
   --cb-bg-color: rgba(0, 0, 0, 0.6);

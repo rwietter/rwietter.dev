@@ -2,7 +2,7 @@
 
 import type { Action as KBarAction } from "kbar";
 import { useRouter } from "next/navigation";
-import { BiCodeCurly } from "react-icons/bi";
+import { BiBookBookmark, BiCodeCurly } from "react-icons/bi";
 import { CiLink } from "react-icons/ci";
 import { FaFontAwesomeFlag } from "react-icons/fa";
 import { MdOutlineAlternateEmail } from "react-icons/md";
@@ -91,6 +91,15 @@ const Actions = () => {
       section: "Pages",
       perform: () => router.push("/projects"),
       icon: <BiCodeCurly size={18} color="var(--colors-gray50)" />,
+    },
+    {
+      id: "Today I Learned",
+      name: "Today I Learned",
+      shortcut: ["d"],
+      keywords: "Today I Learned",
+      section: "Pages",
+      perform: () => router.push("/til"),
+      icon: <BiBookBookmark size={18} color="var(--colors-gray50)" />,
     },
     {
       id: "GitHub",

@@ -20,7 +20,9 @@ export function getDate(date?: string) {
     year: 'numeric',
   }
 
-  return new Intl.DateTimeFormat('en-US', options).format(
-    date ? new Date(date) : new Date(),
-  )
+  if (!date) return new Intl.DateTimeFormat('en-US', options).format(new Date())
+
+  const [year, month, day] = new Date(date).toISOString().split(/[-T:.]/)
+  const utc = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day) + 1))
+  return new Intl.DateTimeFormat('en-US', options).format(utc)
 }
