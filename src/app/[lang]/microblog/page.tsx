@@ -5,6 +5,8 @@ import { readFileSync, readdirSync } from 'node:fs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 
+import styles from './styles.module.css'
+
 const Microblog = dynamic(() => import('@/domains/microblog/Microblog'))
 
 type PagePropTypes = {
@@ -22,6 +24,7 @@ const Page: React.FC<PagePropTypes> = async ({ params }) => {
 
   return (
     <article className='microblog'>
+      <h1 className={styles.title}>Microblog</h1>
       <Microblog data={data} />
     </article>
   )

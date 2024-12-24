@@ -11,7 +11,6 @@ type MicroBlogTypeProps = {
 const Microblog: React.FC<MicroBlogTypeProps> = (props) => {
   return (
     <div className={styles.wrapper}>
-      <h1 className={styles.title}>Microblog</h1>
       <MDX mdxSource={props.data.content} />
     </div>
   )

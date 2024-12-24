@@ -9,6 +9,8 @@ import { makeSeo } from 'src/components/SEO/makeSeo'
 import { BlogPosts } from 'src/domains/blog'
 import generateRssFeed from 'utils/feed-rss'
 
+import styles from './styles.module.css'
+
 const getData = async ({
   lang,
 }: {
@@ -102,6 +104,7 @@ const Page: React.FC<PagePropTypes> = async ({ params }) => {
         // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <h1 className={styles.title}>Blog</h1>
       <BlogPosts posts={data.posts} />
     </>
   )

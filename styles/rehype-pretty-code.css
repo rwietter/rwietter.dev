@@ -28,7 +28,7 @@ html code {
   [data-theme='dark']:root code,
   [data-theme='dark']:root code span {
     color: var(--shiki-dark);
-    background-color: var(--shiki-dark-bg);
+    background-color: var(--bg-alt-color);
   }
 }
 

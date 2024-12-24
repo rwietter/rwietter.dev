@@ -6,7 +6,8 @@
 
 .articleMarkdown {
   /* --fluid-type-min: 1rem; */
-  --fluid-type-max: 1.15rem;
   padding: 1rem 0;
   color: var(--text-color);
+  --fluid-type-max: 1.05em;
+  --fluid-type-min: 1.05em;
 }

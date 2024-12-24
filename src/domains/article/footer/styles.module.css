@@ -48,9 +48,17 @@
 
 .separator {
   width: 100%;
+  position: absolute;
+  left: 0;
   height: 1px;
-  background: var(--neutral);
+  background: var(--border-color);
   transition: var(--transition-primary);
+}
+
+@media (min-width: 1200px) {
+  .separator {
+    width: calc(100% - 3.5rem);
+  }
 }
 
 .socialContainer {

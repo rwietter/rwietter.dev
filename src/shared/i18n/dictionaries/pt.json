@@ -13,7 +13,10 @@
     },
     "header": {
       "backToOverview": "Voltar",
-      "readingTime": "min de leitura"
+      "readingTime": "min de leitura",
+      "by": "Por",
+      "on": "em",
+      "with": "com"
     }
   },
   "projects": {

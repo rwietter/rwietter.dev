@@ -29,7 +29,7 @@ const nextConfig = {
     ACCUWEATHER_CITY_ID: process.env.ACCUWEATHER_CITY_ID,
     LASTFM_API_KEY: process.env.LASTFM_API_KEY,
     LASTFM_USERNAME: process.env.LASTFM_USERNAME,
-    SITE_URL: process.env.SITE_URL,
+    PUBLIC_SITE_URL: process.env.PUBLIC_SITE_URL,
     ENV: process.env.ENV,
   },
   images: {

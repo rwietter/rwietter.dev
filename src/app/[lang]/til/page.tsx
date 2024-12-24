@@ -9,6 +9,8 @@ import type React from 'react'
 import { makeSeo } from 'src/components/SEO/makeSeo'
 import generateRssFeed from 'utils/feed-rss'
 
+import styles from './styles.module.css'
+
 const getData = async () => {
   try {
     const files = fs.readdirSync(
@@ -98,6 +100,7 @@ const Page: React.FC<PagePropTypes> = async () => {
         // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <h1 className={styles.title}>Today I Learned</h1>
       <TilList tils={data.tils} />
     </>
   )

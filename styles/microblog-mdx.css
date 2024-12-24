@@ -2,7 +2,6 @@
   max-width: 50em;
   background: var(--bg-color);
   transition: var(--transition-primary);
-  font-family: var(--font-code);
 }
 
 @layer components {
@@ -15,7 +14,7 @@
     font-weight: 400;
     line-height: 1.3;
     border: none !important;
-    font-family: var(--font-code);
+    font-family: var(--font-primary);
   }
 
   .microblog h1 {
@@ -61,6 +60,7 @@
     /* --fluid-type-min: 1rem; */
     --fluid-type-max: 1rem;
     --fluid-type-target: 1vw;
+    font-family: var(--font-secondary);
   }
 }
 
