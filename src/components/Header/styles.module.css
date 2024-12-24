@@ -1,81 +1,56 @@
 /* Header */
 .header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  width: 100%;
-  max-width: 60rem;
-  margin: 0 auto;
-  padding-top: 2rem;
-  position: relative;
-  z-index: 3;
-  transition: all 0.3s ease;
-}
-
-@media screen and (min-width: 620px) {
-  .header {
-    padding-top: 3rem;
-  }
-}
-
-/* Nav */
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-flow: wrap;
-  font-weight: 600;
-}
-
-.nav a {
-  color: var(--text-alt-color);
-  text-decoration: none;
-  font-weight: 600 !important;
-  position: relative;
-  font-family: var(--font-primary);
-  /* --fluid-type-min: 1rem; */
-  --fluid-type-max: 1.5rem;
-  --fluid-type-target: 3vw;
-}
-
-.nav .navItem+.navItem {
-  padding-left: 1.5rem;
-}
-
-@media screen and (min-width: 620px) {
-  .nav {
-    flex-flow: nowrap;
-    justify-content: space-between;
-  }
-}
-
-.navItem {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  line-height: 1.8;
+  flex-flow: row;
+  position: fixed;
   transition: var(--transition-primary);
-  background: transparent;
+  background: var(--bg-color);
+  border-right: 1px solid var(--border-color);
+  width: 100vw;
+  height: 4rem;
+  z-index: 10;
+  padding: 0 1rem;
+  border-bottom: 1px solid var(--border-color);
 }
 
-.navItem[data-active='true'] a {
+.link {
+  color: var(--text-alt-color);
+  font-family: var(--font-primary);
+  font-weight: 400;
+  --fluid-type-max: 1rem;
+  --fluid-type-min: 1rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+
+  align-self: center;
+  writing-mode: horizontal-tb;
+  text-orientation: sideways;
+  text-align: center;
+}
+
+.link:hover {
   color: var(--main-color);
 }
 
-.navItem[data-active='true'] a::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 0.1rem;
-  background: var(--main-color);
-  transition: var(--transition-primary);
+.link:current {
+  color: var(--main-color);
 }
 
-.navItem[data-active='false'] a {
-  color: var(--text-alt-color);
-  opacity: 0.7;
-  transition: var(--transition-primary);
+@media screen and (min-width: 1200px) {
+  .header {
+    width: 3.5rem;
+    height: 100vh;
+    height: 100dvh;
+    padding: 2rem 0 2rem 0.7rem;
+    flex-flow: column;
+  }
+
+  .link {
+    align-self: flex-start;
+    writing-mode: vertical-rl;
+    /* Define o texto na vertical, da direita para a esquerda */
+    text-orientation: upright;
+    /* Mantém as letras em posição vertical */
+  }
 }

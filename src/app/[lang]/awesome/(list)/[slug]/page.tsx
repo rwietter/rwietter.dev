@@ -7,7 +7,6 @@ import rehypeExternalLinks from 'rehype-external-links'
 
 import MDX from '@/base/MDX'
 import { makeSeo } from '@/components/SEO/makeSeo'
-import styles from '@/domains/awesome/list/styles.module.css'
 import { WorkerThread } from '@/lib/worker'
 import { workerPath } from 'utils/workerPath'
 
@@ -59,7 +58,7 @@ const Page = async (props: PageProps) => {
         // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <article className={`${styles.container} awesome`}>
+      <article className="awesome">
         <MDX mdxSource={mdxSource} />
       </article>
     </>

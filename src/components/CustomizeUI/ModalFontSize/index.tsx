@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { BiReset } from 'react-icons/bi'
 import styles from './modal.module.css'
 
-const RESET_FONT_SIZE = 1.2
+const RESET_FONT_SIZE = 1
 
 const FontSizeSlider = () => {
-  const [fontSize, setFontSize] = useState(1.2)
+  const [fontSize, setFontSize] = useState(1)
   const fontRef = React.useRef<HTMLInputElement>(null)
 
   const handleFontSize = () => {

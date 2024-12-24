@@ -13,7 +13,10 @@
     },
     "header": {
       "backToOverview": "Back to overview",
-      "readingTime": "min read"
+      "readingTime": "min read",
+      "by": "By",
+      "on": "on",
+      "with": "with a"
     }
   },
   "projects": {

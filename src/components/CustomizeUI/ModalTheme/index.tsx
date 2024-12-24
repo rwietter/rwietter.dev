@@ -4,6 +4,7 @@ import { BiMoon } from "react-icons/bi";
 import { GiDesert, GiNightSky, GiRose } from "react-icons/gi";
 import { MdSunny } from "react-icons/md";
 import styles from "./modal.module.css";
+import { LiaRaspberryPi } from "react-icons/lia";
 
 const propsIfThemeIsActive = (activityTheme: string) => (theme: string) => ({
 	background:
@@ -86,6 +87,18 @@ const ModalTheme = () => {
 					type="button"
 				>
 					<GiRose size={22} />
+				</button>
+
+				<button
+					className={styles.modalItem}
+					style={{ ...themeProps("periwinkle") }}
+					aria-label="Periwinkle theme"
+					aria-pressed={state.activityTheme === "periwinkle"}
+					onClick={() => handleSetTheme("periwinkle")}
+					onKeyDown={(e) => handleKeyDown(e, "periwinkle")}
+					type="button"
+				>
+					<LiaRaspberryPi size={22} />
 				</button>
 
 				<button

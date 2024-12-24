@@ -38,7 +38,7 @@ export default async function RootLayout({
       </head>
       <body>
         <div className={styles.main}>
-          <Header i18n={t.components.header} />
+          <Header />
           <Providers>
             <main className={styles.layout}>{children}</main>
             <StickyBar />
@@ -50,6 +50,7 @@ export default async function RootLayout({
 }
 
 function DocumentStuff() {
+  const SITE_URL = process.env.PUBLIC_SITE_URL
   return (
     <>
       <Script id='theme-script'>
@@ -77,7 +78,7 @@ function DocumentStuff() {
               bodyFont || 'Geist Var',
             )
 
-            const size = fontSize ? fontSize + 'rem' : '1.1rem'
+            const size = fontSize ? fontSize + 'rem' : '1rem'
 
             document.documentElement.style.setProperty(
               '--fluid-type-min',
@@ -98,8 +99,11 @@ function DocumentStuff() {
       <meta name='apple-mobile-web-app-title' content='Maurício Witter' />
       <meta name='format-detection' content='telephone=no' />
       <meta name='mobile-web-app-capable' content='yes' />
+      <link rel="alternate" type="application/atom+xml" title="RSS Atom Feed" href={`${SITE_URL}/rss.atom`} />
+      <link rel="alternate" type="application/rss+xml" title="RSS XML Feed" href={`${SITE_URL}/rss.xml`} />
+      <link rel="alternate" type="application/json" title="RSS JSON Feed" href={`${SITE_URL}/rss.json`} />
       <meta name='theme-color' content='#000000' />
-      <link
+      {/* <link
         rel='alternate'
         type='application/rss+xml'
         title='XML RSS feed'
@@ -116,7 +120,7 @@ function DocumentStuff() {
         type='application/json'
         title='JSON RSS feed'
         href='/rss.json'
-      />
+      /> */}
       <meta
         name='google-site-verification'
         content='oQ_XpS8_c5DYamhVCpljtPUmV-CX7D8zVxHbTd_ExNc'

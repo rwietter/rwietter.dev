@@ -5,6 +5,8 @@ import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import type React from 'react'
 
+import styles from './styles.module.css'
+
 const YearProjects = dynamic(() =>
   import('src/domains/projects/YearProjects').then((mod) => ({
     default: mod.YearProjects,
@@ -33,6 +35,7 @@ const Page: React.FC<PageProps> = async ({ params }) => {
         // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <h1 className={styles.title}>Projects</h1>
       <TopProjects lang={lang} />
       <YearProjects i18n={t.projects.yearProjects} lang={lang} />
     </>

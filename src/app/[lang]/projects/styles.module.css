@@ -1,0 +1,6 @@
+.title {
+  padding-top: 1rem;
+  --fluid-type-min: 1.1rem;
+  --fluid-type-max: 2rem;
+  --fluid-type-target: 10vw;
+}

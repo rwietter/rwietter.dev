@@ -8,7 +8,6 @@
   /* min-height: 100vh;
   min-height: 100dvh; */
   background: var(--bg-color);
-  padding: 0 2rem;
   transition: var(--transition-primary);
 }
 
@@ -20,5 +19,16 @@
   width: 100%;
   max-width: 60rem;
   margin: 0 auto;
-  padding: 1rem 0rem 8rem 0rem;
+  padding-top: 4rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  padding-bottom: 6rem;
+}
+
+@media screen and (min-width: 1200px) {
+  .layout {
+    padding-top: 1rem;
+    padding-right: 0;
+    padding-left: 0;
+  }
 }

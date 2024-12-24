@@ -8,7 +8,7 @@
   margin-bottom: 16px;
   line-height: 1.3;
   border: none !important;
-  font-family: var(--font-code);
+  font-family: var(--font-primary);
 }
 
 .awesome h1:first-child {
@@ -16,21 +16,21 @@
 }
 
 .awesome h1 {
-  font-weight: 500;
-  /* --fluid-type-min: 1.3rem; */
+  font-weight: 600;
+  --fluid-type-min: 1.4rem;
   --fluid-type-max: 2.3rem;
   --fluid-type-target: 4vw;
 }
 
 .awesome h2 {
-  font-weight: 400;
+  font-weight: 500;
   --fluid-type-min: 1.2rem;
   --fluid-type-max: 2.1rem;
   --fluid-type-target: 4vw;
 }
 
 .awesome h3 {
-  font-weight: 300;
+  font-weight: 400;
   --fluid-type-min: 1.1rem;
   --fluid-type-max: 1.8rem;
   --fluid-type-target: 4vw;
@@ -50,7 +50,7 @@
 
 .awesome p {
   margin-top: 0;
-  font-family: var(--font-code);
+  font-family: var(--font-secondary);
   margin-bottom: 10px;
 }
 
@@ -70,7 +70,7 @@
 .awesome ul li {
   list-style: none;
   padding: 0;
-  font-family: var(--font-code);
+  font-family: var(--font-secondary);
 }
 
 .awesome ul li {

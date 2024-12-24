@@ -4,7 +4,7 @@ import styles from './modal.module.css'
 
 const ModalFont = () => {
   const [modalState, setModalState] = useState({
-    headersFont: 'Geist Var',
+    headersFont: 'Atkinson',
     bodyFont: 'Atkinson',
   })
 
@@ -48,7 +48,6 @@ const ModalFont = () => {
           >
             <option value='Geist Var'>Geist Var</option>
             <option value='Atkinson'>Atkinson</option>
-            <option value='Spectral'>Spectral</option>
             <option value='IntoneMono Nerd Font'>Intel One Mono</option>
           </select>
         </fieldset>
@@ -63,8 +62,6 @@ const ModalFont = () => {
           >
             <option value='Atkinson'>Atkinson</option>
             <option value='Geist Var'>Geist Var</option>
-            <option value='Garamond'>EB Garamond</option>
-            <option value='Spectral'>Spectral</option>
             <option value='IntoneMono Nerd Font'>Intel One Mono</option>
           </select>
         </fieldset>

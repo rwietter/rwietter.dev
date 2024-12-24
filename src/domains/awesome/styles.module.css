@@ -1,17 +1,13 @@
 .container {
-  padding-top: 1.5em;
   position: relative;
 }
 
 .title {
-  font-family: monospace;
-  letter-spacing: 0.03em;
-  color: var(--text-color);
-  font-weight: 400;
-  transition: var(--transition-primary);
-  /* --fluid-type-min: 1.2rem; */
+  padding-top: 1rem;
+  --fluid-type-min: 1.2rem;
   --fluid-type-max: 2rem;
-  --fluid-type-target: 4vw;
+  --fluid-type-target: 10vw;
+  font-weight: 600;
 }
 
 .list {
@@ -35,7 +31,7 @@
   margin: 0;
   color: var(--main-color);
   transition: color 0.3s, filter 0.3s;
-  font-family: monospace;
+  font-family: var(--font-primary);
   line-height: 1.8;
   transition: var(--transition-primary)
 }

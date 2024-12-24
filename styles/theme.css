@@ -10,6 +10,7 @@
   --main-color: rgb(131, 56, 236);
   --sub-color: #c9c9cf;
   --sub-alt-color: #f4f4f6;
+  --border-color: #c9c9cf;
 
   --cb-bg-color: rgba(255, 255, 255, 0.6);
   --cb-box-alt-color: rgba(0, 0, 0, 0.1);
@@ -38,15 +39,16 @@
 
 [data-theme="dark"]:root {
   --bg-color: #121212;
-  --bg-alt-color: #191919;
+  --bg-alt-color: #141414;
   --text-color: #fafafa;
   --text-gray-color: #b1b1b1;
   --text-highlight: #121212;
+  --border-color: #2a2a2a;
 
   --text-alt-color: #ffffff;
   --main-color: rgb(119, 142, 255);
-  --sub-color: #191919;
-  --sub-alt-color: #191919;
+  --sub-color: #141414;
+  --sub-alt-color: #141414;
 
   --select: #617bff;
   --cb-bg-color: rgba(0, 0, 0, 0.6);
@@ -61,6 +63,7 @@
   --text-color: #2d2b27;
   --text-gray-color: #8f8073;
   --text-highlight: #2d2b27;
+  --border-color: #cebcac;
 
   --text-alt-color: #7d7564;
   --main-color: rgb(211, 146, 104);
@@ -80,6 +83,7 @@
   --text-color: #6a7791;
   --text-gray-color: #535e75;
   --text-highlight: #6a7791;
+  --border-color: #c7cdd7;
 
   --text-alt-color: #535e75;
   --main-color: #8fbcbb;
@@ -95,21 +99,42 @@
 
 [data-theme="noveau"]:root {
   --bg-color: #202020;
-  --bg-alt-color: #282828;
+  --bg-alt-color: #222222;
   --text-color: #dddddd;
   --text-gray-color: #bbbbbb;
   --text-highlight: #6a7791;
+  --border-color: #3a4048;
 
   --text-alt-color: #ffffff;
   --main-color: #717171;
-  --sub-color: #38383b;
-  --sub-alt-color: #2f2f33;
+  --sub-color: #222222;
+  --sub-alt-color: #222222;
 
   --select: #444;
   --cb-bg-color: rgba(38, 35, 35, 0.6);
   --cb-box-alt-color: rgba(92, 88, 88, 0.6);
 
   --neutral: #3a4048;
+}
+
+[data-theme="periwinkle"]:root {
+  --bg-color: #ddcdfb;
+  --bg-alt-color: #c7acfa;
+  --text-color: #42004d;
+  --text-gray-color: #5d2367;
+  --text-highlight: #873395;
+  --border-color: #c9b1f7;
+
+  --text-alt-color: #873395;
+  --main-color: #9d49ac;
+  --sub-color: #c7acfa;
+  --sub-alt-color: #c7acfa;
+
+  --select: #873395;
+  --cb-bg-color: rgba(201, 177, 247, 0.6);
+  --cb-box-alt-color: rgba(157, 73, 172, 0.3);
+
+  --neutral: #bd99ff;
 }
 
 body {
