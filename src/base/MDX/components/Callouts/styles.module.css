@@ -54,8 +54,8 @@
 }
 
 /* Override the color of the text to improve contrast */
-html:where([data-theme="light"], [data-theme="desert"], [data-theme="nord-light"]) .warning,
-html:where([data-theme="light"], [data-theme="desert"], [data-theme="nord-light"]) .error {
+html:where([data-theme="light"], [data-theme="dune"], [data-theme="nord-light"]) .warning,
+html:where([data-theme="light"], [data-theme="dune"], [data-theme="nord-light"]) .error {
   color: var(--text-color);
 }
 

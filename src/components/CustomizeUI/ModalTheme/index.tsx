@@ -1,10 +1,10 @@
 import { ModalGroup } from "@/components/Modal";
 import React from "react";
 import { BiMoon } from "react-icons/bi";
-import { GiDesert, GiNightSky, GiRose } from "react-icons/gi";
+import { GiCoolSpices } from "react-icons/gi";
 import { MdSunny } from "react-icons/md";
 import styles from "./modal.module.css";
-import { LiaRaspberryPi } from "react-icons/lia";
+import { PiAcornDuotone, PiBalloonLight, PiPlanetDuotone } from "react-icons/pi";
 
 const propsIfThemeIsActive = (activityTheme: string) => (theme: string) => ({
 	background:
@@ -67,14 +67,14 @@ const ModalTheme = () => {
 
 				<button
 					className={styles.modalItem}
-					style={{ ...themeProps("desert") }}
-					aria-label="Desert theme"
-					aria-pressed={state.activityTheme === "desert"}
-					onClick={() => handleSetTheme("desert")}
-					onKeyDown={(e) => handleKeyDown(e, "desert")}
+					style={{ ...themeProps("dune") }}
+					aria-label="Dune theme"
+					aria-pressed={state.activityTheme === "dune"}
+					onClick={() => handleSetTheme("dune")}
+					onKeyDown={(e) => handleKeyDown(e, "dune")}
 					type="button"
 				>
-					<GiDesert size={22} />
+					<GiCoolSpices size={22} />
 				</button>
 
 				<button
@@ -86,19 +86,19 @@ const ModalTheme = () => {
 					onKeyDown={(e) => handleKeyDown(e, "nord-light")}
 					type="button"
 				>
-					<GiRose size={22} />
+					<PiBalloonLight size={22} />
 				</button>
 
 				<button
 					className={styles.modalItem}
-					style={{ ...themeProps("periwinkle") }}
-					aria-label="Periwinkle theme"
-					aria-pressed={state.activityTheme === "periwinkle"}
-					onClick={() => handleSetTheme("periwinkle")}
-					onKeyDown={(e) => handleKeyDown(e, "periwinkle")}
+					style={{ ...themeProps("slate") }}
+					aria-label="Slate theme"
+					aria-pressed={state.activityTheme === "slate"}
+					onClick={() => handleSetTheme("slate")}
+					onKeyDown={(e) => handleKeyDown(e, "slate")}
 					type="button"
 				>
-					<LiaRaspberryPi size={22} />
+					<PiPlanetDuotone size={22} />
 				</button>
 
 				<button
@@ -110,7 +110,7 @@ const ModalTheme = () => {
 					onKeyDown={(e) => handleKeyDown(e, "noveau")}
 					type="button"
 				>
-					<GiNightSky size={22} />
+					<PiAcornDuotone size={22} />
 				</button>
 
 				<div aria-live="polite" className="sr-only">

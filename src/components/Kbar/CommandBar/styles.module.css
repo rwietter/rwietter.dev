@@ -9,7 +9,7 @@
   padding: 14vh 16px 16px;
   background: var(--cb-bg-color);
   box-sizing: border-box;
-  z-index: 4;
+  z-index: 999;
 }
 
 /* search */
@@ -23,6 +23,10 @@
   margin: 0;
   font-family: var(--font-primary);
   background: var(--sub-alt-color);
+  color: var(--text-color);
+}
+
+.search::placeholder {
   color: var(--text-color);
 }
 

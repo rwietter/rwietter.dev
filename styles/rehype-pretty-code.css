@@ -23,6 +23,18 @@ html code {
   background-color: var(--bg-alt-color);
 }
 
+[data-theme='dune']:root code,
+[data-theme='dune']:root code span {
+  color: var(--shiki-dark);
+  background-color: var(--bg-alt-color);
+}
+
+[data-theme='slate']:root code,
+[data-theme='slate']:root code span {
+  color: var(--shiki-dark);
+  background-color: var(--bg-alt-color);
+}
+
 @media (prefers-color-scheme: dark) {
 
   [data-theme='dark']:root code,

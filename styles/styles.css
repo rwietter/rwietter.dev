@@ -63,6 +63,16 @@ tt {
   font-optical-sizing: 100%;
 }
 
+::-moz-selection {
+  color: var(--bg-color);
+  background: var(--text-color);
+}
+
+::selection {
+  color: var(--bg-color);
+  background: var(--text-color);
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
