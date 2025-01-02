@@ -3,15 +3,13 @@ import Script from 'next/script'
 
 const Header = dynamic(() => import('@/components/Header'))
 const StickyBar = dynamic(() => import('@/components/StickyBar'))
-
-import Providers from './providers'
+const Providers = dynamic(() => import('@/app/[lang]/providers'))
 
 import styles from './styles.module.css'
 
 import { getDictionary } from '@/shared/i18n/dictionaries'
 import type { Langs } from '@/shared/i18n/langs'
 
-import '../../../styles/fonts.css'
 import '../../../styles/styles.css'
 import '../../../styles/theme.css'
 

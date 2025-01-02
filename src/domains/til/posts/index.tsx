@@ -1,7 +1,7 @@
 import type { Post } from '@/types/Post'
 import Link from 'next/link'
 import type { FC } from 'react'
-import { TfiPencil } from 'react-icons/tfi'
+import { PiArticleNyTimesLight } from 'react-icons/pi'
 import { getDate } from 'utils/get-date'
 import styles from './styles.module.css'
 
@@ -15,7 +15,7 @@ const Til: FC<TilPropTypes> = ({ post }) => {
   return (
     <li className={styles.cardContainer}>
       <p className={styles.dateTimeRead}>
-        <TfiPencil size={17} />
+        <PiArticleNyTimesLight size={17} />
         {publishedAt}
       </p>
       <Link

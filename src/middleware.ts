@@ -5,21 +5,18 @@ import { cookies } from 'next/headers'
 import { type NextRequest, NextResponse } from 'next/server'
 
 const locales = ['en', 'pt']
-const defaultLocale = 'pt'
+const defaultLocale = 'en'
 const cookieName = 'i18nlang'
 
 // Get the preferred locale, similar to the above or using a library
 function getLocale(request: NextRequest): string {
-  // Get locale from cookie]
-  const nextCookie = getCookie(cookieName, { cookies })
-  if (request.cookies.has(cookieName))
-    // biome-ignore lint/style/noNonNullAssertion: <explanation>
-    return request.cookies.get(cookieName)!.value
-  // Get accept language from HTTP headers
-  const acceptLang = request.headers.get('Accept-Language')
+  const nextCookie = getCookie(cookieName, { cookies }) // Get locale from cookie]
+  if (request.cookies.has(cookieName)) return request.cookies.get(cookieName)?.value ?? defaultLocale
+
+  const acceptLang = request.headers.get('Accept-Language')  // Get accept language from HTTP headers
   if (!acceptLang) return defaultLocale
-  // Get match locale
-  const headers = { 'accept-language': acceptLang.split(',')[1] }
+
+  const headers = { 'accept-language': acceptLang.split(',')[1] }   // Get match locale
   const languages = new Negotiator({ headers }).languages()
   return match(languages, locales, defaultLocale)
 }

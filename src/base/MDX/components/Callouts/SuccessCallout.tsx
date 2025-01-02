@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react'
-import { IoCheckmarkDone } from 'react-icons/io5'
 import styles from './styles.module.css'
+import { PiChecksThin } from 'react-icons/pi'
 
 type SuccessPropTypes = PropsWithChildren<{
   title?: string
@@ -12,7 +12,7 @@ const SuccessCallout: React.FC<SuccessPropTypes> = ({
 }) => (
   <section className={styles.success}>
     <section className={styles.header}>
-      <IoCheckmarkDone size={45} />
+      <PiChecksThin size={45} />
       <p>{title}</p>
     </section>
     <section className={styles.children}>{children}</section>

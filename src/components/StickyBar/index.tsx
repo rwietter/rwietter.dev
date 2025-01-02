@@ -7,9 +7,12 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
-import { FiList } from 'react-icons/fi'
-import { IoLanguage } from 'react-icons/io5'
-import { VscHome, VscSettings } from 'react-icons/vsc'
+import {
+  PiArticleNyTimesLight,
+  PiTranslateLight,
+  PiHouseSimpleLight,
+  PiGearLight,
+} from 'react-icons/pi'
 import styles from './styles.module.css'
 
 export interface ModalRef {
@@ -65,7 +68,7 @@ const StickyBar = () => {
               aria-label='Go to home'
               title='Go to home'
             >
-              <VscHome size={20} aria-hidden='true' />
+              <PiHouseSimpleLight size={20} aria-hidden='true' />
             </button>
           </Link>
           <Link
@@ -79,7 +82,7 @@ const StickyBar = () => {
               className={styles.menuBarItem}
               aria-label='Go to blog'
             >
-              <FiList size={20} aria-hidden='true' />
+              <PiArticleNyTimesLight size={20} aria-hidden='true' />
             </button>
           </Link>
           <Kbar />
@@ -91,7 +94,7 @@ const StickyBar = () => {
               className={styles.menuBarItem}
               aria-label='Go to blog'
             >
-              <VscSettings
+              <PiGearLight
                 role='button'
                 size={20}
                 style={{ cursor: 'pointer' }}
@@ -106,7 +109,7 @@ const StickyBar = () => {
             aria-label='Change language'
             onClick={handleToggleLanguage}
           >
-            <IoLanguage size={20} aria-hidden='true' />
+            <PiTranslateLight size={20} aria-hidden='true' />
           </button>
         </div>
 

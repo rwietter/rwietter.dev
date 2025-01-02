@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react'
-import { GrInfo } from 'react-icons/gr'
 import styles from './styles.module.css'
+import { PiInfoThin } from 'react-icons/pi'
 
 type InfoPropTypes = PropsWithChildren<{
   title?: string
@@ -12,7 +12,7 @@ const InfoCallout: React.FC<InfoPropTypes> = ({
 }) => (
   <section className={styles.info}>
     <section className={styles.header}>
-      <GrInfo size={45} />
+      <PiInfoThin size={45} />
       <p>{title}</p>
     </section>
     <section className={styles.children}>{children}</section>

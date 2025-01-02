@@ -4,8 +4,7 @@ import { fetcherLastFm } from '@/services/fetcherLastFm'
 import type { LastFmTrackProps, TrackProps } from '@/types/Track'
 import Image from 'next/image'
 import { type FC, useEffect, useState } from 'react'
-import { PiMusicNote, PiStop } from 'react-icons/pi'
-import { RiPauseMiniFill } from 'react-icons/ri'
+import { PiMusicNoteSimpleThin, PiPauseThin, PiStopThin } from 'react-icons/pi'
 import styles from './styles.module.css'
 
 export const LastFMTrack: FC<LastFmTrackProps> = () => {
@@ -43,13 +42,13 @@ export const LastFMTrack: FC<LastFmTrackProps> = () => {
       )}
       <section className={styles.playingArtist}>
         <section className={styles.playingSpot}>
-          <PiMusicNote size={19} color='var(--main-color)' />
+          <PiMusicNoteSimpleThin size={19} color='var(--main-color)' />
           <span className={styles.artist}>{track.artist['#text']}</span>
         </section>
 
         <p className={styles.play}>
           <a href={track.url} target='_blank' rel='noreferrer'>
-            {isPlaying ? <RiPauseMiniFill size={19} /> : <PiStop size={19} />}
+            {isPlaying ? <PiPauseThin size={19} /> : <PiStopThin size={19} />}
             <strong className={styles.song}>{track.name}</strong>
           </a>
         </p>

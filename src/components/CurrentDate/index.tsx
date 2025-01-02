@@ -1,15 +1,15 @@
 'use client'
 
-import { IoIosTimer } from 'react-icons/io'
 import { getDate } from 'utils/get-date'
 import styles from './styles.module.css'
+import { PiClockAfternoonLight } from 'react-icons/pi'
 
 const CurrentDate = () => {
   const currentDate = getDate()
 
   return (
     <div className={styles.date}>
-      <IoIosTimer size={18} />
+      <PiClockAfternoonLight size={18} />
       <time className={styles.dateTime}>
         <span className={styles.current}>
           {currentDate ? currentDate : <div />}

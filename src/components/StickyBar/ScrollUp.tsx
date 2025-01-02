@@ -1,6 +1,6 @@
 'use client'
 
-import { AiOutlineArrowUp } from 'react-icons/ai'
+import { PiArrowUpLight } from 'react-icons/pi'
 
 import styles from './styles.module.css'
 
@@ -22,7 +22,7 @@ const ScrollUp: React.FC = () => {
       title='Navigate to top'
       role='menuitem'
     >
-      <AiOutlineArrowUp onClick={handleToTop} size={20} />
+      <PiArrowUpLight onClick={handleToTop} size={20} />
     </button>
   )
 }

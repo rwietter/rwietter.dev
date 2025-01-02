@@ -2,7 +2,7 @@
 
 import type { ForwardRefRenderFunction, PropsWithChildren } from 'react'
 import React, { forwardRef, useImperativeHandle } from 'react'
-import { GrClose } from 'react-icons/gr'
+import { PiXThin } from 'react-icons/pi'
 import styles from './styles.module.css'
 
 type ModalRef = {
@@ -108,7 +108,7 @@ const Modal: ForwardRefRenderFunction<
                   color: 'var(--color-text)',
                 }}
               >
-                <GrClose size={25} />
+                <PiXThin size={25} />
               </button>
             </section>
             <section id='modal-description' className={styles.content}>
@@ -123,7 +123,7 @@ const Modal: ForwardRefRenderFunction<
 
 interface ModalGroupProps
   extends PropsWithChildren,
-    React.HTMLAttributes<HTMLElement> {
+  React.HTMLAttributes<HTMLElement> {
   title: string
 }
 

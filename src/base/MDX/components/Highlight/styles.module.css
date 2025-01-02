@@ -1,27 +1,48 @@
 .text {
-  background-color: #ffe6c3;
-  color: var(--text-highlight);
-  padding: 0.2em 0.2em;
-  border-radius: 0.3em;
-  font-weight: 500 !important;
+  font-weight: 600 !important;
+  transition: box-shadow 0.2s ease;
+  padding: 0 0.2em;
 }
 
+.text,
 .text[data-color="yellow"] {
-  background-color: rgba(255, 230, 195, 1);
+  box-shadow: inset 0 -0.4em 0 0 var(--highlight-yellow);
+}
+
+.text:hover,
+.text[data-color="yellow"]:hover {
+  box-shadow: inset 0 -1.2em 0 0 var(--highlight-yellow);
 }
 
 .text[data-color="blue"] {
-  background-color: rgba(194, 221, 255, 1);
+  box-shadow: inset 0 -.4em 0 0 var(--highlight-blue);
+}
+
+.text[data-color="blue"]:hover {
+  box-shadow: inset 0 -1.2em 0 0 var(--highlight-blue);
 }
 
 .text[data-color="red"] {
-  background-color: rgba(255, 206, 206, 1);
+  box-shadow: inset 0 -.4em 0 0 var(--highlight-red);
+}
+
+.text[data-color="red"]:hover {
+  box-shadow: inset 0 -1.2em 0 0 var(--highlight-red);
 }
 
 .text[data-color="purple"] {
-  background-color: rgba(221, 194, 255, 1);
+  box-shadow: inset 0 -.4em 0 0 var(--highlight-purple);
+}
+
+.text[data-color="purple"]:hover {
+  box-shadow: inset 0 -1.2em 0 0 var(--highlight-purple);
 }
 
 .text[data-color="green"] {
-  background-color: rgba(194, 255, 206, 1);
+  box-shadow: inset 0 -.4em 0 0 var(--highlight-green);
+}
+
+.text[data-color="green"]:hover {
+  box-shadow: inset 0 -1.2em 0 0 var(--highlight-green);
+  ;
 }

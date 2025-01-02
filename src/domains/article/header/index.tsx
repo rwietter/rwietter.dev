@@ -1,12 +1,9 @@
 import Link from 'next/link'
-import { AiOutlineArrowLeft, AiOutlineCalendar } from 'react-icons/ai'
-import { RiTimer2Line } from 'react-icons/ri'
 
 import type { Post } from '@/types/Post'
 
 import { getDate } from 'utils/get-date'
 import styles from './styles.module.css'
-import { TbTags } from 'react-icons/tb'
 
 interface ArticleHeaderPropTypes extends Post {
   i18n: {
@@ -25,7 +22,9 @@ const ArticleHeader: React.FC<ArticleHeaderPropTypes> = (props) => {
     <section className={styles.articleHeader}>
       <h1 className={styles.articleTitle}>{props.frontmatter?.title}</h1>
       <p className={styles.articleMeta}>
-        {props.i18n.by} <strong>{props.frontmatter?.author}</strong>, {props.i18n.on} {publishedAt}, {props.i18n.with} {props.readingTime} {props.i18n.readingTime}.
+        {props.i18n.by} <strong>{props.frontmatter?.author}</strong>,{' '}
+        {props.i18n.on} {publishedAt}, {props.i18n.with} {props.readingTime}{' '}
+        {props.i18n.readingTime}.
       </p>
       <p className={styles.articleDescription}>
         {props.frontmatter?.description}

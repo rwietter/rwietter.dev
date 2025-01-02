@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react'
 import styles from './styles.module.css'
-import { MdOutlineDangerous } from 'react-icons/md'
+import { PiWarningDiamondThin } from 'react-icons/pi'
 
 type ErrorPropTypes = PropsWithChildren<{
   title?: string
@@ -12,7 +12,7 @@ const ErrorCallout: React.FC<ErrorPropTypes> = ({
 }) => (
   <section className={styles.error}>
     <section className={styles.header}>
-      <MdOutlineDangerous size={45} />
+      <PiWarningDiamondThin size={45} />
       <p>{title}</p>
     </section>
     <section className={styles.children}>{children}</section>

@@ -1,3 +1,5 @@
+'use client'
+
 import { type ReactNode, memo } from 'react'
 import { Kbar } from './Kbar'
 

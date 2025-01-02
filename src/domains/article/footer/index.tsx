@@ -4,8 +4,11 @@ import { SocialIcons } from '@/components/Social'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { type FC, memo } from 'react'
-import { GoCommentDiscussion } from 'react-icons/go'
-import { TbBrandBluesky, TbTags } from 'react-icons/tb'
+import {
+  PiChatsLight,
+  PiShareFatLight,
+  PiHashStraightLight,
+} from 'react-icons/pi'
 import styles from './styles.module.css'
 
 interface PropsTypes {
@@ -34,17 +37,17 @@ const ArticleFooter: FC<PropsTypes> = ({ post, i18n }) => {
       <div className={styles.separator} />
       <nav className={styles.navHeader}>
         <a href={url} target='_blank' rel='noreferrer'>
-          <TbBrandBluesky size={18} />
+          <PiShareFatLight size={20} />
           &nbsp;{i18n.share}
         </a>
         <a href={search} target='_blank' rel='noreferrer'>
-          <GoCommentDiscussion size={18} />
+          <PiChatsLight size={20} />
           &nbsp;{i18n.discuss}
         </a>
         {post.category && (
           <Link href={`/blog/category/${post.category}`}>
-            <TbTags size={18} />
-            &nbsp;{[`#${post.category}`]}
+            <PiHashStraightLight size={20} />
+            &nbsp;{[`${post.category}`]}
           </Link>
         )}
       </nav>

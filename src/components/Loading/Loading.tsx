@@ -1,3 +1,5 @@
+'use client'
+
 import NextTopLoader from 'nextjs-toploader'
 
 const Loading: React.FC = () => {

@@ -1,6 +1,6 @@
 import type { Weather } from '@/types/Weather'
 import type { FC } from 'react'
-import { RiSunCloudyLine } from 'react-icons/ri'
+import { PiFeatherLight } from 'react-icons/pi'
 import styles from './styles.module.css'
 
 interface WeatherPropsTypes {
@@ -17,7 +17,7 @@ export const WeatherConditions: FC<WeatherPropsTypes> = ({ weather }) => {
       {data?.Temperature && (
         <p className={styles.weather}>
           <span className={styles.temperature}>
-            <RiSunCloudyLine size={18} />
+            <PiFeatherLight size={18} />
             <strong>
               &nbsp;
               {data?.Temperature?.Metric?.Value}

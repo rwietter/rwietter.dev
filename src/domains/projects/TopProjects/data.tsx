@@ -1,10 +1,14 @@
 import type { Langs } from '@/shared/i18n/langs'
-import { DiVisualstudio } from 'react-icons/di'
-import { GrSpotify } from 'react-icons/gr'
-import { IoPieChartSharp } from 'react-icons/io5'
-import { SiAwesomelists, SiDuckduckgo, SiPostgresql } from 'react-icons/si'
-import { TbBookmarksFilled } from 'react-icons/tb'
-import { TfiAgenda } from 'react-icons/tfi'
+import {
+  PiGoogleLogoLight,
+  PiSpotifyLogoLight,
+  PiChartDonutLight,
+  PiCalendarBlankLight,
+  PiBookmarksSimpleLight,
+  PiPuzzlePieceLight,
+  PiListLight,
+  PiFileSqlLight,
+} from 'react-icons/pi'
 
 type Project = {
   title: string
@@ -26,7 +30,7 @@ export const projects: Record<Langs, Project[]> = {
       github: 'https://github.com/rwietter/trackrow-monorepo',
       link: 'https://github.com/rwietter/trackrow-monorepo',
       tags: ['React', 'Next', 'TypeScript', 'Postgres', 'Rest API'],
-      icon: <TfiAgenda size={18} />,
+      icon: <PiCalendarBlankLight size={25} />,
     },
     {
       title: 'Illusion Theme',
@@ -36,7 +40,7 @@ export const projects: Record<Langs, Project[]> = {
       github: 'https://github.com/rwietter/illusion-vscode-theme',
       link: 'https://github.com/rwietter/illusion-vscode-theme',
       tags: ['VsCode', 'Theme', 'TypeScript'],
-      icon: <DiVisualstudio size={24} />,
+      icon: <PiPuzzlePieceLight size={25} />,
     },
     {
       title: 'PrettySQL',
@@ -46,7 +50,7 @@ export const projects: Record<Langs, Project[]> = {
       github: 'https://github.com/rwietter/pretty-sql',
       link: 'https://github.com/rwietter/pretty-sql',
       tags: ['Next', 'TypeScript'],
-      icon: <SiPostgresql size={24} />,
+      icon: <PiFileSqlLight size={25} />,
     },
     {
       title: 'My Awesome',
@@ -56,7 +60,7 @@ export const projects: Record<Langs, Project[]> = {
       github: 'https://github.com/rwietter/my-awesome',
       link: 'https://github.com/rwietter/my-awesome',
       tags: ['Next', 'TypeScript', 'Redis', 'Postgres'],
-      icon: <SiAwesomelists size={24} />,
+      icon: <PiListLight size={25} />,
     },
     {
       title: 'Illusion Spicetify',
@@ -65,7 +69,7 @@ export const projects: Record<Langs, Project[]> = {
       github: 'https://github.com/rwietter/illusion-spicetify',
       link: 'https://github.com/rwietter/illusion-spicetify',
       tags: ['Toml', 'CSS', 'Spicetify'],
-      icon: <GrSpotify size={22} />,
+      icon: <PiSpotifyLogoLight size={25} />,
     },
     {
       title: 'Breview',
@@ -75,7 +79,7 @@ export const projects: Record<Langs, Project[]> = {
       github: 'https://github.com/rwietter/breview',
       link: 'https://github.com/rwietter/breview',
       tags: ['Rust', 'Next', 'React', 'SQLite'],
-      icon: <TbBookmarksFilled size={22} />,
+      icon: <PiBookmarksSimpleLight size={25} />,
     },
     {
       title: 'Covid Insights',
@@ -85,7 +89,7 @@ export const projects: Record<Langs, Project[]> = {
       github: 'https://github.com/rwietter/covid-19-insights',
       link: 'https://github.com/rwietter/covid-19-insights',
       tags: ['Next', 'TypeScript', 'GraphQL', 'Mongo', 'Docker'],
-      icon: <IoPieChartSharp size={22} />,
+      icon: <PiChartDonutLight size={25} />,
     },
     {
       title: 'Findit',
@@ -95,7 +99,7 @@ export const projects: Record<Langs, Project[]> = {
       github: 'https://github.com/rwietter/findit',
       link: 'https://github.com/rwietter/findit',
       tags: ['Rust', 'CLI', 'DuckDuckGo'],
-      icon: <SiDuckduckgo size={22} />,
+      icon: <PiGoogleLogoLight size={25} />,
     },
   ],
   pt: [
@@ -107,7 +111,7 @@ export const projects: Record<Langs, Project[]> = {
       github: 'https://github.com/rwietter/trackrow-monorepo',
       link: 'https://github.com/rwietter/trackrow-monorepo',
       tags: ['React', 'Next', 'TypeScript', 'Postgres', 'Rest API'],
-      icon: <TfiAgenda size={18} />,
+      icon: <PiCalendarBlankLight size={25} />,
     },
     {
       title: 'Illusion Theme',
@@ -117,7 +121,7 @@ export const projects: Record<Langs, Project[]> = {
       github: 'https://github.com/rwietter/illusion-vscode-theme',
       link: 'https://github.com/rwietter/illusion-vscode-theme',
       tags: ['VsCode', 'Theme', 'TypeScript'],
-      icon: <DiVisualstudio size={24} />,
+      icon: <PiPuzzlePieceLight size={25} />,
     },
     {
       title: 'PrettySQL',
@@ -127,7 +131,7 @@ export const projects: Record<Langs, Project[]> = {
       github: 'https://github.com/rwietter/pretty-sql',
       link: 'https://github.com/rwietter/pretty-sql',
       tags: ['Next', 'TypeScript'],
-      icon: <SiPostgresql size={24} />,
+      icon: <PiFileSqlLight size={25} />,
     },
     {
       title: 'My Awesome',
@@ -137,7 +141,7 @@ export const projects: Record<Langs, Project[]> = {
       github: 'https://github.com/rwietter/my-awesome',
       link: 'https://github.com/rwietter/my-awesome',
       tags: ['Next', 'TypeScript', 'Redis', 'Postgres'],
-      icon: <SiAwesomelists size={24} />,
+      icon: <PiListLight size={25} />,
     },
     {
       title: 'Illusion Spicetify',
@@ -146,7 +150,7 @@ export const projects: Record<Langs, Project[]> = {
       github: 'https://github.com/rwietter/illusion-spicetify',
       link: 'https://github.com/rwietter/illusion-spicetify',
       tags: ['Toml', 'CSS', 'Spicetify'],
-      icon: <GrSpotify size={22} />,
+      icon: <PiSpotifyLogoLight size={25} />,
     },
     {
       title: 'Breview',
@@ -156,7 +160,7 @@ export const projects: Record<Langs, Project[]> = {
       github: 'https://github.com/rwietter/breview',
       link: 'https://github.com/rwietter/breview',
       tags: ['Rust', 'Next', 'React', 'SQLite'],
-      icon: <TbBookmarksFilled size={22} />,
+      icon: <PiBookmarksSimpleLight size={25} />,
     },
     {
       title: 'Covid Insights',
@@ -165,7 +169,7 @@ export const projects: Record<Langs, Project[]> = {
       github: 'https://github.com/rwietter/covid-19-insights',
       link: 'https://github.com/rwietter/covid-19-insights',
       tags: ['Next', 'TypeScript', 'GraphQL', 'Mongo', 'Docker'],
-      icon: <IoPieChartSharp size={22} />,
+      icon: <PiChartDonutLight size={25} />,
     },
     {
       title: 'Findit',
@@ -175,7 +179,7 @@ export const projects: Record<Langs, Project[]> = {
       github: 'https://github.com/rwietter/findit',
       link: 'https://github.com/rwietter/findit',
       tags: ['Rust', 'CLI', 'DuckDuckGo'],
-      icon: <SiDuckduckgo size={22} />,
+      icon: <PiGoogleLogoLight size={25} />,
     },
   ],
 }

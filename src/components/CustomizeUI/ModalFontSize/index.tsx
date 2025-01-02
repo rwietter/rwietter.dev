@@ -1,7 +1,7 @@
 import { ModalGroup } from '@/components/Modal'
 import React, { useEffect, useState } from 'react'
-import { BiReset } from 'react-icons/bi'
 import styles from './modal.module.css'
+import { PiArrowsClockwiseThin } from 'react-icons/pi'
 
 const RESET_FONT_SIZE = 1
 
@@ -57,7 +57,7 @@ const FontSizeSlider = () => {
             title='Reset font size'
             onClick={reset}
           >
-            <BiReset size={20} />
+            <PiArrowsClockwiseThin size={20} />
           </button>
         </section>
         <div aria-live='polite' className='sr-only'>

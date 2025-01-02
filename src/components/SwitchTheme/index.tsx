@@ -1,6 +1,6 @@
 'use client'
 
-import { MdSunny } from 'react-icons/md'
+import { PiSunLight } from 'react-icons/pi'
 import styles from './styles.module.css'
 
 interface Props {
@@ -11,7 +11,7 @@ const SwitchTheme: React.FC<Props> = ({ visible }) => {
   return (
     // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
     <div className={styles.theme} onClick={switchTheme} data-visible={visible}>
-      <MdSunny />
+      <PiSunLight />
     </div>
   )
 }

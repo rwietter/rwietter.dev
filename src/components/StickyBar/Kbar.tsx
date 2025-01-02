@@ -1,5 +1,5 @@
 'use client'
-import { BsCommand } from 'react-icons/bs'
+import { PiCommandLight } from 'react-icons/pi'
 
 import { useKBar } from 'kbar'
 import styles from './styles.module.css'
@@ -16,7 +16,7 @@ const Kbar: React.FC = () => {
       title='Open command bar'
       aria-label='Open command bar'
     >
-      <BsCommand
+      <PiCommandLight
         size={20}
         onClick={handleOpenCommandBar}
         aria-hidden='true'
