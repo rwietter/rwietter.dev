@@ -1,7 +1,7 @@
 'use client'
 
-import Modal from '@/components/Modal'
-import { Portal } from '@/shared/components/Portal'
+// import Modal from '@/components/Modal'
+// import { Portal } from '@/shared/components/Portal'
 import { setCookie } from 'cookies-next'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
@@ -25,21 +25,21 @@ const SwitchTheme = dynamic(() => import('@/components/SwitchTheme'))
 const Kbar = dynamic(() => import('@/components/StickyBar/Kbar'))
 const ScrollUp = dynamic(() => import('@/components/StickyBar/ScrollUp'))
 
-const ModalTheme = dynamic(() => import('@/components/CustomizeUI/ModalTheme'))
-const ModalFont = dynamic(() => import('@/components/CustomizeUI/ModalFont'))
-const FontSizeSlider = dynamic(
-  () => import('@/components/CustomizeUI/ModalFontSize'),
-)
+// const ModalTheme = dynamic(() => import('@/components/CustomizeUI/ModalTheme'))
+// const ModalFont = dynamic(() => import('@/components/CustomizeUI/ModalFont'))
+// const FontSizeSlider = dynamic(
+//   () => import('@/components/CustomizeUI/ModalFontSize'),
+// )
 
 const StickyBar = () => {
-  const modalRef = React.useRef<ModalRef>(null)
+  // const modalRef = React.useRef<ModalRef>(null)
   const pathname = usePathname()
 
-  const handleToggleModal = () => {
-    if (modalRef.current) {
-      modalRef.current.toggle()
-    }
-  }
+  // const handleToggleModal = () => {
+  //   if (modalRef.current) {
+  //     modalRef.current.toggle()
+  //   }
+  // }
 
   const handleToggleLanguage = () => {
     const lang = pathname.startsWith('/en') ? 'pt' : 'en'
@@ -88,9 +88,10 @@ const StickyBar = () => {
           <Kbar />
 
           <div className={styles.menuBarLink}>
-            <button
+            <Link
+              href='/settings'
+              role='menuitem'
               type='button'
-              onClick={handleToggleModal}
               className={styles.menuBarItem}
               aria-label='Go to blog'
             >
@@ -99,7 +100,7 @@ const StickyBar = () => {
                 size={20}
                 style={{ cursor: 'pointer' }}
               />
-            </button>
+            </Link>
           </div>
           <button
             type='button'
@@ -127,13 +128,13 @@ const StickyBar = () => {
         </div>
       </footer>
 
-      <Portal>
+      {/* <Portal>
         <Modal ref={modalRef} title='Settings'>
           <ModalTheme />
           <ModalFont />
           <FontSizeSlider />
         </Modal>
-      </Portal>
+      </Portal> */}
     </>
   )
 }

@@ -33,8 +33,8 @@
 
   --system-ui: var(--headers-font);
   --font-primary: var(--headers-font);
-  --font-tex: KaTeX_Math;
   --font-secondary: var(--body-font);
+  --font-tex: KaTeX_Math;
   --font-title: var(--font-secondary);
   --font-bolder: var(--headers-font);
   --font-code: "IntoneMono Nerd Font", ui-monospace, monospace;
@@ -44,7 +44,7 @@
 
 [data-theme="dark"]:root {
   --bg-color: #121212;
-  --bg-alt-color: #141414;
+  --bg-alt-color: #191919;
   --text-color: #fafafa;
   --text-gray-color: #b1b1b1;
   --text-highlight: #121212;
@@ -110,7 +110,7 @@
 
 [data-theme="noveau"]:root {
   --bg-color: #202020;
-  --bg-alt-color: #222222;
+  --bg-alt-color: #272727;
   --text-color: #dddddd;
   --text-gray-color: #bbbbbb;
   --text-highlight: #6a7791;
@@ -118,8 +118,8 @@
 
   --text-alt-color: #ffffff;
   --main-color: #717171;
-  --sub-color: #222222;
-  --sub-alt-color: #222222;
+  --sub-color: #272727;
+  --sub-alt-color: #272727;
 
   --select: #444;
   --cb-bg-color: rgba(38, 35, 35, 0.6);

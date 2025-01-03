@@ -16,9 +16,7 @@ export default function Providers({ children }: Props) {
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     addTask(() => {
-      loadStylesheet(
-        '/styles/fonts.css',
-      )
+      loadStylesheet('/styles/fonts.css')
     })
   }, [])
 
