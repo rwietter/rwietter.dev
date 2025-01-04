@@ -3,7 +3,8 @@ import Script from 'next/script'
 
 const Header = dynamic(() => import('@/components/Header'))
 const StickyBar = dynamic(() => import('@/components/StickyBar'))
-const Providers = dynamic(() => import('@/app/[lang]/providers'))
+
+import Providers from './providers'
 
 import styles from './styles.module.css'
 
@@ -97,9 +98,24 @@ function DocumentStuff() {
       <meta name='apple-mobile-web-app-title' content='Maurício Witter' />
       <meta name='format-detection' content='telephone=no' />
       <meta name='mobile-web-app-capable' content='yes' />
-      <link rel="alternate" type="application/atom+xml" title="RSS Atom Feed" href={`${SITE_URL}/rss.atom`} />
-      <link rel="alternate" type="application/rss+xml" title="RSS XML Feed" href={`${SITE_URL}/rss.xml`} />
-      <link rel="alternate" type="application/json" title="RSS JSON Feed" href={`${SITE_URL}/rss.json`} />
+      <link
+        rel='alternate'
+        type='application/atom+xml'
+        title='RSS Atom Feed'
+        href={`${SITE_URL}/rss.atom`}
+      />
+      <link
+        rel='alternate'
+        type='application/rss+xml'
+        title='RSS XML Feed'
+        href={`${SITE_URL}/rss.xml`}
+      />
+      <link
+        rel='alternate'
+        type='application/json'
+        title='RSS JSON Feed'
+        href={`${SITE_URL}/rss.json`}
+      />
       <meta name='theme-color' content='#000000' />
       {/* <link
         rel='alternate'

@@ -83,3 +83,8 @@ tt {
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+
+.fade {
+  opacity: 1;
+  transition: opacity 3s ease;
+}

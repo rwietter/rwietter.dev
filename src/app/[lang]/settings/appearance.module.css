@@ -1,0 +1,65 @@
+.appearance {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition-primary);
+}
+
+.appearance h2 {
+  --fluid-type-min: 1.2rem;
+  color: var(--text-color);
+  transition: inherit;
+  font-family: var(--font-primary);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  transition: var(--transition-primary);
+}
+
+.section_title {
+  font-weight: 600;
+  color: var(--text-color);
+  transition: inherit;
+  font-family: var(--font-primary);
+}
+
+.section_description {
+  font-size: 1rem;
+  color: color-mix(in oklab, var(--text-color) 60%, var(--bg-color) 40%);
+  padding: 0.5rem 0;
+  transition: inherit;
+  font-family: var(--font-secondary);
+}
+
+.section_options {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  width: 100%;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: var(--transition-primary);
+}
+
+.section_options button {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: var(--bg-alt-color);
+  outline: none;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: inherit;
+}
+
+.section_options button:hover {
+  background-color: color-mix(in oklab, var(--bg-alt-color) 60%, var(--bg-color) 40%);
+  transition: inherit;
+}
+
+.section_options button[data-active='true'] {
+  border: 2px solid var(--text-color);
+}
