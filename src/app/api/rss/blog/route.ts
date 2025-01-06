@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import path from 'node:path'
 import fs from 'node:fs/promises'
@@ -32,7 +32,7 @@ async function readPosts(dirPath: string): Promise<Post[]> {
 /**
  * Generate RSS feed for blog posts.
  */
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextRequest, res: NextResponse) {
   const cookieStore = await cookies()
   const i18nCookie = cookieStore.get('i18nlang')
   const lang = i18nCookie?.value || 'en'
