@@ -58,6 +58,21 @@ const nextConfig = {
     ],
     formats: ['image/webp'],
   },
+  async redirects() {
+    return [
+      {
+        source: '/:locale/blog/rss',
+        destination: '/api/rss/blog',
+        permanent: true,
+      },
+
+      {
+        source: '/:locale/til/rss',
+        destination: '/api/rss/til',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 export default withBundleAnalyzer(withPWA(nextConfig))

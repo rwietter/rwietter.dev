@@ -1,10 +1,9 @@
 import type { Post } from '@/types/Post'
 import { Feed } from 'feed'
-import fs from 'node:fs'
 import { remark } from 'remark'
 import remarkHtml from 'remark-html'
 
-export default async function generateRssFeed(posts: Post[]): Promise<void> {
+export async function generateRssFeed(posts: Promise<Post[]>): Promise<string> {
   const url = process.env.SITE_URL || 'https://rwietter.dev'
 
   const feedOptions = {
@@ -37,7 +36,13 @@ export default async function generateRssFeed(posts: Post[]): Promise<void> {
 
   const feed = new Feed(feedOptions)
 
-  for (const post of posts) {
+  const postsResolved = await posts
+
+  // Process all posts concurrently using Promise.all
+  await Promise.all(postsResolved.map(async (post) => {
+    const VFile = await remark().use(remarkHtml).process(post.content)
+    const content = VFile.toString()
+
     feed.addItem({
       title: post.frontmatter.title,
       description: post.frontmatter.description,
@@ -45,7 +50,7 @@ export default async function generateRssFeed(posts: Post[]): Promise<void> {
       guid: post.slug,
       published: new Date(post.frontmatter.publishedAt),
       id: `${url}/blog/${post.slug}`,
-      content: remark().use(remarkHtml).processSync(post.content).toString(),
+      content: content,
       copyright: feedOptions.copyright,
       date: new Date(post.frontmatter.publishedAt),
       author: [
@@ -56,9 +61,8 @@ export default async function generateRssFeed(posts: Post[]): Promise<void> {
         },
       ],
     })
-  }
+  }))
+  const rss = feed.rss2()
 
-  fs.writeFileSync('./public/rss.xml', feed.rss2())
-  fs.writeFileSync('./public/rss.json', feed.json1())
-  fs.writeFileSync('./public/rss.atom', feed.atom1())
+  return rss
 }

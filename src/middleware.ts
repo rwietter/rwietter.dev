@@ -26,7 +26,11 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   // Ignore internal paths
-  if (pathname.startsWith('/_next')) {
+  if (
+    pathname.startsWith('/api') ||
+    pathname.startsWith('/_next') ||
+    pathname.includes('.')
+  ) {
     return NextResponse.next()
   }
 

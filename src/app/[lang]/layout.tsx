@@ -116,6 +116,18 @@ function DocumentStuff() {
         title='RSS JSON Feed'
         href={`${SITE_URL}/rss.json`}
       />
+      <link
+        rel="alternate"
+        type="application/rss+xml"
+        title="Blog Posts RSS Feed (English)"
+        href={`${SITE_URL}/en/blog/rss`}
+      />
+      <link
+        rel="alternate"
+        type="application/rss+xml"
+        title="Feed RSS de Posts do Blog (Português)"
+        href={`${SITE_URL}/pt/blog/rss`}
+      />
       <meta name='theme-color' content='#000000' />
       {/* <link
         rel='alternate'
