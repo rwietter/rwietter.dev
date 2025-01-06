@@ -7,7 +7,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import type React from 'react'
 import { makeSeo } from 'src/components/SEO/makeSeo'
-import generateRssFeed from 'utils/feed-rss'
+// import generateRssFeed from 'utils/feed-rss'
 
 import styles from './styles.module.css'
 
@@ -42,7 +42,7 @@ const getData = async () => {
         -new Date(b.frontmatter?.publishedAt),
     )
 
-    await generateRssFeed(sortedByDate)
+    // await generateRssFeed(sortedByDate)
 
     return {
       tils: sortedByDate,
