@@ -101,59 +101,63 @@ function DocumentStuff() {
       <link
         rel='alternate'
         type='application/atom+xml'
-        title="rwietter's blog posts | Atom Static Feed (English)"
+        title="rwietter's blog posts | Atom (Static) Feed (English)"
         href={`${SITE_URL}/rss.atom`}
       />
       <link
         rel='alternate'
         type='application/rss+xml'
-        title="rwietter's blog posts | XML Static Feed (English)"
+        title="rwietter's blog posts | XML (Static) Feed (English)"
         href={`${SITE_URL}/rss.xml`}
       />
       <link
         rel='alternate'
         type='application/json'
-        title="rwietter's blog posts | JSON Static Feed (English)"
+        title="rwietter's blog posts | JSON (Static) Feed (English)"
         href={`${SITE_URL}/rss.json`}
       />
 
       <link
         rel="alternate"
         type="application/rss+xml"
-        title="rwietter's blog posts | XML Dynamic Feed (English)"
+        title="rwietter's blog posts | XML (Dynamic) Feed (English)"
         href={`${SITE_URL}/en/blog/rss`}
       />
       <link
         rel="alternate"
         type="application/rss+xml"
-        title="rwietter's blog posts | XML Dynamic Feed (Portuguese)"
+        title="rwietter's blog posts | XML (Dynamic) Feed (Portuguese)"
         href={`${SITE_URL}/pt/blog/rss`}
       />
-      <link
-        rel="alternate"
-        type="application/rss+xml"
-        title="rwietter's blog posts | XML Dynamic Feed (Agnostic)"
-        href={`${SITE_URL}/api/rss/blog`}
-      />
       <meta name='theme-color' content='#000000' />
-      {/* <link
-        rel='alternate'
-        type='application/rss+xml'
-        title='XML RSS feed'
-        href='/rss.xml'
-      />
-      <link
-        rel='alternate'
-        type='application/atom+xml'
-        title='Atom RSS feed'
-        href='/rss.atom'
-      />
-      <link
-        rel='alternate'
-        type='application/json'
-        title='JSON RSS feed'
-        href='/rss.json'
-      /> */}
+      <meta name='viewport' content='width=device-width, initial-scale=1' />
+      <meta name='description' content='Maurício Witter personal website' />
+      <meta name='robots' content='index, follow' />
+      <meta name='googlebot' content='index, follow' />
+      <meta name='google' content='notranslate' />
+      <meta name='referrer' content='no-referrer-when-downgrade' />
+      <meta name='author' content='Maurício Witter' />
+      <meta name='keywords' content='Maurício Witter, rwietter, rwietter.dev' />
+      <meta name='rating' content='general' />
+      <meta name='distribution' content='global' />
+      <meta name='revisit-after' content='7 days' />
+      <meta name='language' content='en' />
+      <meta name='generator' content='Next.js' />
+      <meta name='twitter:card' content='summary' />
+      <meta name='twitter:site' content='@rwietter' />
+      <meta name='twitter:creator' content='@rwietter' />
+      <meta name='twitter:title' content='Maurício Witter' />
+      <meta name='twitter:description' content='Maurício Witter personal website' />
+      <meta name='twitter:image' content='/icons/android-chrome-512x512.png' />
+      <meta property='og:type' content='website' />
+      <meta property='og:site_name' content='Maurício Witter' />
+      <meta property='og:title' content='Maurício Witter' />
+      <meta property='og:description' content='Maurício Witter personal website' />
+      <meta property='og:image' content='/icons/android-chrome-512x512.png' />
+      <meta property='og:url' content={SITE_URL} />
+      <meta property='og:locale' content='en' />
+      <meta property='og:locale:alternate' content='pt_BR' />
+      <meta property='og:locale:alternate' content='pt_PT' />
       <meta
         name='google-site-verification'
         content='oQ_XpS8_c5DYamhVCpljtPUmV-CX7D8zVxHbTd_ExNc'

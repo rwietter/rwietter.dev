@@ -14,9 +14,7 @@
 # sitemap
 /public/sitemap.xml
 /public/sitemap-*.xml
-/public/rss.xml
-/public/rss.atom
-/public/rss.json
+/public/feeds/*
 
 .env
 public/sw.js
