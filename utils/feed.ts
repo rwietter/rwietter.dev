@@ -10,7 +10,7 @@ export async function generateRssFeed(posts: Promise<Post[]>): Promise<string> {
     title: "rwietter's blog posts",
     description: 'A blog about computer science, programming, theory, and more.',
     site_url: url,
-    feed_url: `${url}/feeds/rss.xml`,
+    feed_url: `${url}/rss.xml`,
     image_url: `${url}/icons/mstile-310x310.png`,
     pubDate: new Date(),
     copyright: `All rights reserved ${new Date().getFullYear()}, Maurício Witter`,
@@ -22,15 +22,15 @@ export async function generateRssFeed(posts: Promise<Post[]>): Promise<string> {
     },
     favicon: `${url}/favicon.ico`,
     feedLinks: {
-      rss2: `${url}/feeds/rss.xml`,
-      json: `${url}/feeds/rss.json`,
-      atom: `${url}/feeds/rss.atom`,
+      rss2: `${url}/rss.xml`,
+      json: `${url}/rss.json`,
+      atom: `${url}/rss.atom`,
     },
     link: url,
     image: `${url}/icons/mstile-310x310.png`,
     updated: new Date(),
     language: 'pt-BR',
-    feed: 'https://rwietter.dev/feeds/rss.xml',
+    feed: 'https://rwietter.dev/rss.xml',
   }
 
   const feed = new Feed(feedOptions)

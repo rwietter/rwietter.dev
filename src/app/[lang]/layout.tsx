@@ -102,19 +102,19 @@ function DocumentStuff() {
         rel='alternate'
         type='application/atom+xml'
         title="rwietter's blog posts | Atom (Static) Feed (English)"
-        href='/feeds/rss.atom'
+        href={`${SITE_URL}/rss.atom`}
       />
       <link
         rel='alternate'
         type='application/rss+xml'
         title="rwietter's blog posts | XML (Static) Feed (English)"
-        href='/feeds/rss.xml'
+        href={`${SITE_URL}/rss.xml`}
       />
       <link
         rel='alternate'
         type='application/json'
         title="rwietter's blog posts | JSON (Static) Feed (English)"
-        href='/feeds/rss.json'
+        href={`${SITE_URL}/rss.json`}
       />
 
       <link
@@ -131,9 +131,10 @@ function DocumentStuff() {
       />
       <meta name='theme-color' content='#000000' />
       <meta name='viewport' content='width=device-width, initial-scale=1' />
-      <meta name='description' content='Maurício Witter personal website' />
+      <meta name='description' content='Maurício Witter personal website. A place to share thoughts, projects, and ideas. I am a software developer, and I write some ideas about computer science, programming, and software engineering.' />
       <meta name='robots' content='index, follow' />
       <meta name='googlebot' content='index, follow' />
+      <link rel='canonical' href={`${SITE_URL}/en`} />
       <meta name='google' content='notranslate' />
       <meta name='referrer' content='no-referrer-when-downgrade' />
       <meta name='author' content='Maurício Witter' />

@@ -55,7 +55,7 @@ export const makeSeo = ({
     manifest: '/manifest.json',
     classification: 'Software Engineer',
     alternates: {
-      canonical: `https://rwietter.dev${slug}`,
+      canonical: `https://rwietter.dev/en/${slug}`,
     },
     category: 'Software Engineer',
     creator: author,
