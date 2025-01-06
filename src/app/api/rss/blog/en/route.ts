@@ -33,11 +33,7 @@ async function readPosts(dirPath: string): Promise<Post[]> {
  * Generate RSS feed for blog posts.
  */
 export async function GET(req: NextRequest, res: NextResponse) {
-  const cookieStore = await cookies()
-  const i18nCookie = cookieStore.get('i18nlang')
-  const lang = i18nCookie?.value || 'en'
-
-  const dirPath = path.join(process.cwd(), 'public', 'posts', lang)
+  const dirPath = path.join(process.cwd(), 'public', 'posts', 'en')
 
   try {
     const rss = await generateRssFeed(readPosts(dirPath))

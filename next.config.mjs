@@ -61,8 +61,14 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/:locale/blog/rss',
-        destination: '/api/rss/blog',
+        source: '/en/blog/rss',
+        destination: '/api/rss/blog/en',
+        permanent: true,
+      },
+
+      {
+        source: '/pt/blog/rss',
+        destination: '/api/rss/blog/pt',
         permanent: true,
       },
 
