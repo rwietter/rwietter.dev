@@ -102,19 +102,19 @@ function DocumentStuff() {
         rel='alternate'
         type='application/atom+xml'
         title="rwietter's blog posts | Atom (Static) Feed (English)"
-        href={`${SITE_URL}/feeds/rss.atom`}
+        href='/feeds/rss.atom'
       />
       <link
         rel='alternate'
         type='application/rss+xml'
         title="rwietter's blog posts | XML (Static) Feed (English)"
-        href={`${SITE_URL}/feeds/rss.xml`}
+        href='/feeds/rss.xml'
       />
       <link
         rel='alternate'
         type='application/json'
         title="rwietter's blog posts | JSON (Static) Feed (English)"
-        href={`${SITE_URL}/feeds/rss.json`}
+        href='/feeds/rss.json'
       />
 
       <link
