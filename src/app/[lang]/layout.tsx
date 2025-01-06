@@ -101,20 +101,39 @@ function DocumentStuff() {
       <link
         rel='alternate'
         type='application/atom+xml'
-        title='RSS Atom Feed'
+        title="rwietter's blog posts | Atom Static Feed (English)"
         href={`${SITE_URL}/rss.atom`}
       />
       <link
         rel='alternate'
         type='application/rss+xml'
-        title='RSS XML Feed'
+        title="rwietter's blog posts | XML Static Feed (English)"
         href={`${SITE_URL}/rss.xml`}
       />
       <link
         rel='alternate'
         type='application/json'
-        title='RSS JSON Feed'
+        title="rwietter's blog posts | JSON Static Feed (English)"
         href={`${SITE_URL}/rss.json`}
+      />
+
+      <link
+        rel="alternate"
+        type="application/rss+xml"
+        title="rwietter's blog posts | XML Dynamic Feed (English)"
+        href={`${SITE_URL}/en/blog/rss`}
+      />
+      <link
+        rel="alternate"
+        type="application/rss+xml"
+        title="rwietter's blog posts | XML Dynamic Feed (Portuguese)"
+        href={`${SITE_URL}/pt/blog/rss`}
+      />
+      <link
+        rel="alternate"
+        type="application/rss+xml"
+        title="rwietter's blog posts | XML Dynamic Feed (Agnostic)"
+        href={`${SITE_URL}/api/rss/blog`}
       />
       <meta name='theme-color' content='#000000' />
       {/* <link
