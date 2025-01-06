@@ -89,5 +89,11 @@
   },
   "tools": [
     "https://k88hudson.github.io/syntax-highlighting-theme-generator/www/"
-  ]
+  ],
+  "nextBundleAnalysis": {
+    "budget": 358400,
+    "budgetPercentIncreaseRed": 20,
+    "minimumChangeThreshold": 0,
+    "showDetails": true
+  }
 }

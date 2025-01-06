@@ -1,7 +1,6 @@
 .footnotes {
   margin-top: 2em;
-  border-top: 1px solid var(--neutral);
-  --fluid-type-max: 1.05em;
+  --fluid-type-max: 1em;
   /* --fluid-type-min: 0.9em; */
   --fluid-type-target: 4vw;
 }
@@ -21,7 +20,7 @@
   content: "[";
   color: var(--main-color);
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 400;
   margin-right: -1px;
   font-variant-position: super;
 }
@@ -30,13 +29,13 @@
   content: "]";
   color: var(--main-color);
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 400;
   margin-left: -1px;
   font-variant-position: super;
 }
 
 sup a[aria-describedby="footnote-label"] {
-  font-weight: 500;
+  font-weight: 400;
   color: var(--main-color);
   font-size: 14px;
   font-family: var(--font-code);
@@ -49,13 +48,13 @@ sup a[aria-describedby="footnote-label"]:hover {
 }
 
 section[data-footnotes].footnotes ol li::marker {
-  content: "[" counter(list-item) "]: ";
-  color: var(--main-color);
-  font-weight: 500;
+  content: "[" counter(list-item) "] ";
+  color: var(--text-color);
+  font-weight: 400;
 }
 
 .footnotes ol {
-  padding: 1em 0 1em 2px;
+  padding: 1em 0 1em 1em;
 }
 
 .footnotes ol li+li {
@@ -68,6 +67,8 @@ section[data-footnotes].footnotes ol li::marker {
   text-align: left;
   line-height: 1.7;
   width: 100% !important;
+  --fluid-type-min: 0.7rem;
+  --fluid-type-max: 0.9rem;
 }
 
 .footnotes ol li p a {
@@ -78,6 +79,10 @@ section[data-footnotes].footnotes ol li::marker {
 .footnotes ol li p a:hover {
   text-decoration: underline;
   color: var(--main-color);
+}
+
+.footnotes ol li p a:visited {
+  color: color-mix(in oklab, var(--bg-color) 30%, var(--text-color) 70%);
 }
 
 @media (min-width: 720px) {
