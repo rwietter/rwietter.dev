@@ -1,0 +1,25 @@
+---
+title: Promise overhead
+description: 
+slug: promise-overhead
+publishedAt: 2025-01-07
+updatedAt: 2025-01-07
+category: Programming
+author: Maurício Witter
+---
+
+## Today I Learned…
+
+That programming is an activity that requires a lot of attention to detail. <High color="red">We often overlook considerations about simultaneous operations, deterministic and non-deterministic operations, and the complexity of the code we write, as well as how it will be executed</High>.
+
+When we talk about promises, we are referring to a way to handle asynchronous operations. However, **there is a specific scenario where promises are most appropriate: I/O-bound operations**. I/O-bound operations are tasks that involve waiting for an external resource to become available, such as file system access, network requests, or database queries. In these cases, promises are ideal because they are non-blocking and allow the event loop to continue processing other tasks while waiting for the I/O operation to complete.
+
+On the other hand, **when dealing with CPU-bound operations, promises are not the best choice**. CPU-bound operations are tasks that require significant computational effort, such as complex calculations or data processing. For these tasks, Web Workers (or Worker Threads in Node.js) are a better solution because they run in separate threads, enabling true parallelism without blocking the event loop. If promises are used for CPU-bound operations, they introduce unnecessary performance overhead due to the cost of managing promises and the single-threaded nature of JavaScript's event loop.
+
+### Further Reading…
+
+- [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)
+- [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+- [Concurrency model and the event loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop)
+- [Issue 50 - Simulating Async Await](https://dtornow225.substack.com/p/issue-50-simulating-async-await)
+
