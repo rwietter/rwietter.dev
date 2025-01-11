@@ -19,7 +19,7 @@ const Til: FC<TilPropTypes> = ({ post }) => {
         {publishedAt}
       </p>
       <Link
-        href={`/til/${post.slug}`}
+        href={`/tildes/${post.slug}`}
         scroll={false}
         shallow={true}
         prefetch={true}

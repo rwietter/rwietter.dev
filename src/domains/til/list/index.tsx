@@ -3,13 +3,13 @@ import type { FC } from 'react'
 import { Til } from '../posts'
 import styles from './styles.module.css'
 
-type TilPropTypes = {
-  tils: Post[]
+type TilListPropTypes = {
+  tildes: Post[]
 }
 
-const TilList: FC<TilPropTypes> = ({ tils }) => (
+const TilList: FC<TilListPropTypes> = ({ tildes }) => (
   <ul className={styles.articlesContainer}>
-    {tils?.map((post: Post) => (
+    {tildes?.map((post: Post) => (
       <Til post={post} key={post.slug} />
     ))}
   </ul>
