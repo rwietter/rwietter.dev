@@ -1,0 +1,36 @@
+---
+title: "Yarr: Finding the Folder of a Feed"
+description: 
+slug: yarr-folder-from-feed
+publishedAt: 2025-01-11
+updatedAt: 2025-01-11
+category: RSS
+author: Maurício Witter
+---
+
+I use [Yarr (Yet Another RSS Reader)](https://github.com/nkanaev/yarr) to read my feeds. It's a great RSS reader that I can self-host and customize to suit my needs. One of the features I particularly like is the ability to organize feeds into folders. This allows me to group feeds by topic or priority, making it easier to manage them.
+
+However, when I'm reading in "All Feeds" mode, I can't see which folder a specific feed belongs to. Yarr doesn't display this information directly in the post view. To find out, I need to use SQL to query the database.
+
+Here's how you can retrieve the folder of a specific feed in Yarr:
+
+```sql
+SELECT *
+FROM folders AS fds
+WHERE fds.id = (
+    SELECT f.folder_id
+    FROM feeds AS f
+    WHERE f.link = 'https://sitelink.com/'
+    OR f.title = 'Site Title'
+);
+```
+
+You can find the site title in the post view, and there's also an option to follow the link to the site. With this information, you can insert it into the SQL query to determine the folder of the feed.
+
+This simple query will return the folder associated with the feed. You can execute it directly in the Yarr database to get the folder name.
+
+```json
+[{"c0":"10","c1":"Journalism","c2":"0"}]
+```
+
+Once you have the folder information, you can move the feed to another folder, rename the folder, delete the folder, or perform any other actions you need with the folder data.
