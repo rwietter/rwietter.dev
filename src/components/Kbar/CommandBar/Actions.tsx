@@ -17,6 +17,7 @@ import {
   PiBooksLight,
   PiGithubLogoLight,
   PiTelegramLogoLight,
+  PiAtomLight
 } from 'react-icons/pi'
 
 const Actions = () => {
@@ -64,6 +65,15 @@ const Actions = () => {
       icon: <PiArticleNyTimesLight size={20} color='var(--text-color)' />,
     },
     {
+      id: 'Atoms',
+      name: 'Atoms',
+      shortcut: ['a'],
+      keywords: 'atoms',
+      section: 'Pages',
+      perform: () => router.push('/atoms'),
+      icon: <PiAtomLight size={20} color='var(--text-color)' />,
+    },
+    {
       id: 'syllabus',
       name: 'Syllabus',
       shortcut: ['b'],
@@ -75,7 +85,7 @@ const Actions = () => {
     {
       id: 'Awesome',
       name: 'Awesome',
-      shortcut: ['a'],
+      shortcut: ['w'],
       keywords: 'page-awesome',
       section: 'Pages',
       perform: () => router.push('/awesome'),
@@ -105,7 +115,7 @@ const Actions = () => {
       shortcut: ['d'],
       keywords: 'Today I Learned',
       section: 'Pages',
-      perform: () => router.push('/til'),
+      perform: () => router.push('/tildes'),
       icon: <PiTildeLight size={20} color='var(--text-color)' />,
     },
     {
