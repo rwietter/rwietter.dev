@@ -1,3 +1,4 @@
+import { GoogleAnalytics } from '@next/third-parties/google'
 import dynamic from 'next/dynamic'
 import Script from 'next/script'
 
@@ -35,6 +36,7 @@ export default async function RootLayout({
       <head>
         <DocumentStuff />
       </head>
+      <GoogleAnalytics gaId="G-BX714TPPEG" />
       <body>
         <div className={styles.main}>
           <Header />
@@ -48,32 +50,10 @@ export default async function RootLayout({
   )
 }
 
-function Analytics() {
-  return (
-    <>
-      <Script
-        src='https://www.googletagmanager.com/gtag/js?id=G-BX714TPPEG'
-        strategy='afterInteractive'
-        async
-      />
-      <Script id='google-analytics'>
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'G-BX714TPPEG');
-        `}
-      </Script>
-    </>
-  )
-}
-
 function DocumentStuff() {
   const SITE_URL = process.env.PUBLIC_SITE_URL
   return (
     <>
-      <Analytics />
       <Script id='theme-script'>
         {`
           (function() {
