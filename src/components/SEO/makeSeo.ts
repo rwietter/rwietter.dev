@@ -23,7 +23,7 @@ export const makeSeo = ({
     title,
     description,
     openGraph: {
-      url: `https://rwietter.dev${slug}`,
+      url: `https://rwietter.xyz${slug}`,
       type: 'website',
       siteName: 'Mauricio Witter | Software Developer',
       ttl: 60,
@@ -48,18 +48,18 @@ export const makeSeo = ({
     authors: [
       {
         name: author,
-        url: 'https://rwietter.dev',
+        url: 'https://rwietter.xyz',
       },
     ],
     applicationName: 'Mauricio Witter | Software Developer',
     manifest: '/manifest.json',
     classification: 'Software Engineer',
     alternates: {
-      canonical: `https://rwietter.dev/en/${slug}`,
+      canonical: `https://rwietter.xyz/en/${slug}`,
     },
     category: 'Software Engineer',
     creator: author,
-    bookmarks: `https://rwietter.dev${slug}`,
+    bookmarks: `https://rwietter.xyz${slug}`,
     publisher: author,
     twitter: {
       site: '@rwietter',
@@ -67,8 +67,8 @@ export const makeSeo = ({
       card: 'summary_large_image',
       title,
       description,
-      siteId: `https://rwietter.dev${slug}`,
-      creatorId: 'https://rwietter.dev',
+      siteId: `https://rwietter.xyz${slug}`,
+      creatorId: 'https://rwietter.xyz',
       images: [
         {
           url: image,

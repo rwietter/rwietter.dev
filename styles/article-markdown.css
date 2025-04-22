@@ -91,6 +91,7 @@
   .blogpost li {
     text-align: justify;
     hyphens: auto;
+    text-wrap: pretty;
   }
 }
 
@@ -155,7 +156,7 @@
 .blogpost p code,
 .blogpost ol li code,
 .blogpost ul li code {
-  background: var(--neutral) !important;
+  background: var(--bg-alt-color) !important;
   padding: 0.1em 0.3em;
   border-radius: 0.3em;
   font-family: var(--font-code);
@@ -289,4 +290,12 @@
   color: var(--main-color);
   font-weight: 800;
   font-family: var(--font-secondary);
+}
+
+/* Katex inline code */
+
+.katex-html {
+  background-color: var(--bg-alt-color);
+  padding: 0.05em 0.3em;
+  border-radius: 0.3em;
 }

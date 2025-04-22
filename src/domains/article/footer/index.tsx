@@ -6,8 +6,8 @@ import { usePathname } from 'next/navigation'
 import { type FC, memo } from 'react'
 import {
   PiChatsLight,
-  PiShareFatLight,
   PiHashStraightLight,
+  PiShareFatLight,
 } from 'react-icons/pi'
 import styles from './styles.module.css'
 
@@ -29,8 +29,8 @@ const LICENSE = 'CC-BY-SA-4.0'
 const ArticleFooter: FC<PropsTypes> = ({ post, i18n }) => {
   const pathname = usePathname()
 
-  const url = `https://bsky.app/intent/compose?text=I just read "${post.title}" %20 https://rwietter.dev${pathname}%20%23${post.category}`
-  const search = `https://bsky.app/search?q=https://rwietter.dev${pathname}`
+  const url = `https://bsky.app/intent/compose?text=I just read "${post.title}" %20 https://rwietter.xyz${pathname}%20%23${post.category}`
+  const search = `https://bsky.app/search?q=https://rwietter.xyz${pathname}`
 
   return (
     <div className={styles.articleFooterContainer}>

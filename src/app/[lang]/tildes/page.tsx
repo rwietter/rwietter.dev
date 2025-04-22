@@ -8,8 +8,8 @@ import type React from 'react'
 import { makeSeo } from 'src/components/SEO/makeSeo'
 // import generateRssFeed from 'utils/feed-rss'
 
-import styles from './styles.module.css'
 import { TilList } from '@/domains/til/list'
+import styles from './styles.module.css'
 
 const getData = async () => {
   try {
@@ -72,7 +72,7 @@ export const metadata: Metadata = makeSeo({
 const jsonLd = {
   type: 'Blog',
   authorName: 'Maurício Witter',
-  url: 'https://rwietter.dev/til',
+  url: 'https://rwietter.xyz/til',
   title: 'Today I Learned | Maurício Witter | Software Developer',
   description:
     'A collection of small things I learn every day. :)',

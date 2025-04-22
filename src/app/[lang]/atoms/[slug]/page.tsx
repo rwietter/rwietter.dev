@@ -4,7 +4,6 @@ import ArticleHeader from '@/domains/article/header'
 import styles from '@/domains/article/styles.module.css'
 import { getMdxSource } from '@/lib/serializeMdx'
 import { getDictionary } from '@/shared/i18n/dictionaries'
-import type { Langs } from '@/shared/i18n/langs'
 import type { Post, PostFrontMatter } from '@/types/Post'
 import matter from 'gray-matter'
 import type { Metadata } from 'next'
@@ -34,14 +33,14 @@ const Page = async (props: PagePropTypes) => {
     '@type': 'Article',
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id:': 'https://rwietter.dev',
+      '@id:': 'https://rwietter.xyz',
     },
     headline: data.frontmatter.title,
     author: 'Maurício Witter',
     articleBody: content,
     backstory: frontmatter.description,
     license: 'CC-BY-SA-4.0',
-    url: `https://rwietter.dev/blog/article/${slug}`,
+    url: `https://rwietter.xyz/blog/article/${slug}`,
     text: frontmatter.description,
     keywords: 'highlights, blog, rwietter, web development, programming, tech',
     image: frontmatter.image,

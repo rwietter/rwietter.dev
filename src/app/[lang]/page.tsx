@@ -16,7 +16,7 @@ const Page: React.FC<PagePropTypes> = async ({ params }) => {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    url: 'https://rwietter.dev/',
+    url: 'https://rwietter.xyz/',
     name: 'Mauricio Witter | Software Developer',
     description: t.home.metadata.description,
   }

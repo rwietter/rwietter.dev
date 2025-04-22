@@ -3,10 +3,10 @@
 backend:
   name: git-gateway
   branch: main
-  repo: rwietter/rwietter.dev
-  site_domain: https://rwietter.dev 
+  repo: rwietter/rwietter.xyz
+  site_domain: https://rwietter.xyz
   auth_endpoint: api/auth/
-  base_url: https://rwietter.dev
+  base_url: https://rwietter.xyz
 
 media_folder: public/assets/img
 public_folder: /assets/img
@@ -51,7 +51,12 @@ collections:
           widget: "string",
           required: true,
         }
-      - { label: "Caption", name: "caption", "widget": "string"}
+      - { label: "Caption", name: "caption", "widget": "string" }
       - { label: "Title", name: "title", widget: "string", required: true }
-      - { label: "Description", name: "description", widget: "string", required: true }
+      - {
+          label: "Description",
+          name: "description",
+          widget: "string",
+          required: true,
+        }
       - { label: "Body", name: "body", widget: "markdown", required: true }

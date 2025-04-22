@@ -60,7 +60,7 @@ export const metadata: Metadata = makeSeo({
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
-  url: 'https://rwietter.dev/projects',
+  url: 'https://rwietter.xyz/projects',
   name: 'Projects | Mauricio Witter | rwietter',
   description:
     'Here, in this page, you can find some of my favorite projects. I hope you enjoy it. :)',

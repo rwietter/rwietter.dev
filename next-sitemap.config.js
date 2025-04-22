@@ -4,9 +4,11 @@ import path from 'node:path';
 const pth = (target) => path.join(path.resolve(), target)
 const readDir = (path) => fs.readdirSync(path)
 
+const SITE = process.env.PUBLIC_SITE_URL || 'https://rwietter.xyz/';
+
 /** @type {import('next-sitemap').IConfig} */
 const options = {
-  siteUrl: 'https://rwietter.dev/',
+  siteUrl: SITE,
   generateRobotsTxt: true,
   changefreq: 'daily',
   autoLastmod: true,
@@ -15,7 +17,7 @@ const options = {
   exclude: ['/admin/**'],
   robotsTxtOptions: {
     additionalSitemaps: [
-      'https://rwietter.dev/sitemap-0.xml',
+      `${SITE}/sitemap-0.xml`,
     ],
     policies: [
       { userAgent: 'Twitterbot', allow: '/*' },

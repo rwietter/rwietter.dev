@@ -76,7 +76,7 @@ export const metadata: Metadata = makeSeo({
 const jsonLd = {
   type: 'Blog',
   authorName: 'Maurício Witter',
-  url: 'https://rwietter.dev/blog',
+  url: 'https://rwietter.xyz/blog',
   title: 'Blog | Maurício Witter | Software Developer',
   description:
     'My blog, where I write about my experiences, my projects, and my life. :)',

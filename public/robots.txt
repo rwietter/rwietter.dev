@@ -79,8 +79,8 @@ User-agent: YouBot
 Disallow: /
 
 # Host
-Host: https://rwietter.dev/
+Host: https://rwietter.xyz
 
 # Sitemaps
-Sitemap: https://rwietter.dev/sitemap.xml
-Sitemap: https://rwietter.dev/sitemap-0.xml
+Sitemap: https://rwietter.xyz/sitemap.xml
+Sitemap: https://rwietter.xyz/sitemap-0.xml
