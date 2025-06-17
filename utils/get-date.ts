@@ -14,10 +14,9 @@ export function formatDate(date: string) {
 
 export function getDate(date?: string) {
   const options: Intl.DateTimeFormatOptions = {
-    weekday: 'short',
     month: 'short',
-    day: 'numeric',
-    year: 'numeric',
+    day: '2-digit',
+    year: '2-digit',
   }
 
   if (!date) return new Intl.DateTimeFormat('en-US', options).format(new Date())

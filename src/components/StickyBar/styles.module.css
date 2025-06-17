@@ -2,57 +2,37 @@
   display: flex;
   align-items: center;
   flex-direction: row;
-  justify-content: space-between;
   bottom: 20px;
   height: 3.5rem;
   padding: 0 0.3rem;
   position: fixed;
+  width: 100%;
   left: 0;
   right: 0;
   bottom: 0;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid var(--color-zinc-200);
   margin: 0 auto;
   transition:
     var(--transition-primary),
     border-color 200ms ease;
   backdrop-filter: blur(5px);
-  /* background: var(--cb-box-alt-color); */
-  background: var(--bg-color);
+  /* background: var(--color-zinc-200-translucent); */
+  background: var(--color-zinc-50);
   z-index: 10;
 }
 
-@media screen and (min-width: 1100px) {
-  .manuBar {
-    align-items: center;
-    flex-direction: column;
-    height: 100vh;
-    padding: 2rem 0;
-    position: fixed;
-    right: 0;
-    top: 0;
-    width: 3.5rem;
-    transform: translateX(0);
-    left: unset;
-    bottom: unset;
-    border-top: 0;
-    border-left: 1px solid var(--border-color);
-  }
-}
-
-.menuBarGroup {
+.menuBarContainer {
+  width: 100%;
   display: flex;
   flex-direction: row;
-}
-
-@media screen and (min-width: 1100px) {
-  .menuBarGroup {
-    flex-direction: column;
-  }
+  justify-content: space-between;
+  max-width: 37.5rem; /* 600px */
+  margin: 0 auto;
 }
 
 .menuBarLink {
   display: block;
-  color: var(--text-color);
+  color: var(--color-zinc-900);
   transition: var(--transition-primary);
 }
 
@@ -61,7 +41,7 @@
   border: none;
   outline: none;
   margin: 0;
-  color: var(--text-color);
+  color: var(--color-zinc-900);
   cursor: pointer;
   padding: 1.1rem;
   position: relative;

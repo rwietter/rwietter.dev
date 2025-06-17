@@ -31,7 +31,7 @@
   margin: 0;
   color: var(--main-color);
   transition: color 0.3s, filter 0.3s;
-  font-family: var(--font-primary);
+  font-family: var(--font-sans-serif);
   line-height: 1.8;
   transition: var(--transition-primary)
 }

@@ -1,7 +1,7 @@
 .playing {
   display: flex;
   justify-content: flex-start;
-  border: 1px solid var(--sub-alt-color);
+  border: 1px solid var(--color-zinc-200);
   border-radius: 8px;
   margin-top: 0.7rem;
   transition:
@@ -11,7 +11,7 @@
   max-width: 400px;
   overflow: hidden;
   cursor: pointer;
-  font-family: var(--font-primary);
+  font-family: var(--font-sans-serif);
 }
 
 @media screen and (min-width: 480px) {
@@ -26,7 +26,7 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  color: var(--text-color);
+  color: var(--color-zinc-900);
   transition: var(--transition-primary);
 }
 
@@ -35,7 +35,7 @@
   align-items: center;
   position: relative;
   text-decoration: none;
-  color: var(--text-color);
+  color: var(--color-zinc-900);
   transition: var(--transition-primary);
 }
 

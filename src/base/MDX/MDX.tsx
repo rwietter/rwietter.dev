@@ -5,8 +5,6 @@ import dynamic from 'next/dynamic'
 import { headings } from './components/Heading'
 
 // biome-ignore format:
-const High = dynamic(() => import('@/base/MDX/components/Highlight'))
-// biome-ignore format:
 const Success = dynamic(() => import('@/base/MDX/components/Callouts/SuccessCallout'))
 const Warn = dynamic(
   () => import('@/base/MDX/components/Callouts/WarningCallout'),
@@ -24,7 +22,6 @@ interface ArticleData {
 }
 
 const components = {
-  High,
   Success,
   Warn,
   Err,

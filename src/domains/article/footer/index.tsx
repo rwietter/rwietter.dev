@@ -1,6 +1,5 @@
 'use client'
 
-import { SocialIcons } from '@/components/Social'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { type FC, memo } from 'react'
@@ -53,7 +52,6 @@ const ArticleFooter: FC<PropsTypes> = ({ post, i18n }) => {
       </nav>
       <div className={styles.separator} />
       <section className={styles.socialContainer}>
-        <SocialIcons />
         <a
           className={styles.license}
           href='https://github.com/rwietter/rwietter.dev#CC-BY-SA-4.0-2'

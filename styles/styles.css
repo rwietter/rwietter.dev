@@ -2,7 +2,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  scrollbar-color: var(--main-color) var(--bg-alt-color);
+  scrollbar-color: var(--main-color) var(--color-zinc-200);
+  scrollbar-width: 2px;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -10,6 +12,11 @@ body {
   text-rendering: geometricPrecision;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --font-serif: var(--eb-garamond);
+  --font-mono: var(--ibm-plex-mono);
+  --font-sans: var(--atkinson);
+  --font-sans-serif: var(--inter);
 }
 
 @supports (-webkit-font-smoothing: antialiased) {
@@ -64,13 +71,13 @@ tt {
 }
 
 ::-moz-selection {
-  color: var(--bg-color);
-  background: var(--text-color);
+  color: var(--color-zinc-50);
+  background: var(--color-zinc-900);
 }
 
 ::selection {
-  color: var(--bg-color);
-  background: var(--text-color);
+  color: var(--color-zinc-50);
+  background: var(--color-zinc-900);
 }
 
 .sr-only {

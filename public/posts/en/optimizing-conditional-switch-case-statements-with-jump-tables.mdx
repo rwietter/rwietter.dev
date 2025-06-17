@@ -1,5 +1,5 @@
 ---
-title: Optimizing Conditional Switch-Case Statements with Jump Tables
+title: Jump Tables and Branches
 description: This article examines theoretical and empirical aspects of jump tables and branches, highlighting use cases and challenges encountered in their application within various contexts for optimizing conditional instructions in switch-case statements and compilers.
 slug: optimizing-conditional-switch-case-statements-with-jump-tables
 image: https://res.cloudinary.com/ddwnioveu/image/upload/v1720299096/fgqw1b2j7dncrztplfbn.jpg
@@ -85,7 +85,7 @@ Jump tables use the data value or a calculated derivative as an index into an ar
 
 Without delving into excessive detail, modern CPUs are not as efficient at handling conditional branches. CPUs process instructions in pipelines, and the fuller the pipeline, the more efficient the CPU utilization.
 
-<High color="red">Conditional branches pose a challenge to maintaining a full pipeline because when a branch instruction is encountered, the CPU doesn't know which path to take in advance.</High> Depending on the condition associated with the branch, the CPU must decide whether to continue with the subsequent instructions in the current flow or jump to a new instruction stream. While **Branch Predictor** algorithms prefetch instructions and load them into the pipeline, they don't always achieve optimal efficiency. This inefficiency worsens with nested branches, as the inner branches are unknown, making instruction prefetching difficult.
+**Conditional branches pose a challenge to maintaining a full pipeline because when a branch instruction is encountered, the CPU doesn't know which path to take in advance.** Depending on the condition associated with the branch, the CPU must decide whether to continue with the subsequent instructions in the current flow or jump to a new instruction stream. While **Branch Predictor** algorithms prefetch instructions and load them into the pipeline, they don't always achieve optimal efficiency. This inefficiency worsens with nested branches, as the inner branches are unknown, making instruction prefetching difficult.
 
 Furthermore, if the algorithm makes an incorrect prediction about the path a branch will take, it must discard the speculatively loaded instructions (**branch misprediction**). The CPU then fetches the correct instructions and restarts execution from the branch point, causing a performance penalty due to the pipeline flush.
 
@@ -117,11 +117,11 @@ Dictionaries use hash functions, which can have a complexity of $\mathcal{O}(n)$
 
 ## Conditions for Jump Table Usage (gcc)
 
-- **Contiguous Case Range**: Jump tables are more efficient when the values of the <High>cases are contiguous or close together</High>.
+- **Contiguous Case Range**: Jump tables are more efficient when the values of the **cases are contiguous or close together**.
 
-- **Number of Cases**: A jump table is typically justified if there are <High>five or more contiguous cases</High>.
+- **Number of Cases**: A jump table is typically justified if there are **five or more contiguous cases**.
 
-- **Case Labels**: Case labels must be constant — not variables or strings — <High>(1..n, a..z, Enum)</High>.
+- **Case Labels**: Case labels must be constant — not variables or strings — **(1..n, a..z, Enum)**.
 
 ## Multiway Branching
 

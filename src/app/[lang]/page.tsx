@@ -1,24 +1,100 @@
-import { KbarInit } from '@/components/Kbar/KbarInit'
-import { makeSeo } from '@/components/SEO/makeSeo'
-import AuthorContent from '@/domains/home/author-content'
-import AuthorHeader from '@/domains/home/author-header'
-import { getDictionary } from '@/shared/i18n/dictionaries'
 import type { Langs } from '@/shared/i18n/langs'
+import type { PostFrontMatter } from '@/types/Post'
+import matter from 'gray-matter'
 import type { Metadata } from 'next'
+import fs from 'node:fs'
+import path from 'node:path'
+import type React from 'react'
+import { makeSeo } from 'src/components/SEO/makeSeo'
+import { BlogPosts } from 'src/domains/blog'
+import generateRssFeed from 'utils/feed-rss'
+
+import styles from './styles.module.css'
+
+const getData = async ({
+  lang,
+}: {
+  lang: Langs
+}) => {
+  try {
+    const files = fs.readdirSync(
+      path.join(process.cwd(), 'public', 'posts', lang),
+    )
+    const mdxFiles = files.filter((file) =>
+      ['.mdx'].includes(path.extname(file)),
+    )
+
+    const posts = await Promise.all(
+      mdxFiles.map(async (file) => {
+        const source = fs.readFileSync(
+          path.join(process.cwd(), 'public', 'posts', lang, file),
+          'utf8',
+        )
+
+        const { data, content } = matter(source)
+
+        return {
+          frontmatter: data as PostFrontMatter,
+          slug: data?.slug,
+          content,
+        }
+      }),
+    )
+    const sortedByDatePosts = posts.sort(
+      (a, b) =>
+        -new Date(a.frontmatter?.publishedAt) -
+        -new Date(b.frontmatter?.publishedAt),
+    )
+
+    if (lang === 'en') await generateRssFeed(sortedByDatePosts)
+
+    return {
+      posts: sortedByDatePosts,
+    }
+  } catch (error) {
+    console.error(error)
+    return {
+      posts: [],
+    }
+  }
+}
+
+export const metadata: Metadata = makeSeo({
+  title: 'Blog | Maurício Witter | Software Developer',
+  description:
+    'My blog, where I write about my experiences, my projects, and my life. :)',
+  image:
+    'https://res.cloudinary.com/ddwnioveu/image/upload/v1707422678/large_joshua_sortino_71v_Ab1_FXB_6g_unsplash_46a1453603.jpg',
+  slug: '/blog',
+  ogText:
+    'My blog, where I write about my experiences, my projects, and my life. :)',
+  abstract:
+    'My blog, where I write about my experiences, my projects, and my life.',
+  keywords: 'blog, experiences, projects, life',
+})
+
+const jsonLd = {
+  type: 'Blog',
+  authorName: 'Maurício Witter',
+  url: 'https://rwietter.xyz/blog',
+  title: 'Blog | Maurício Witter | Software Developer',
+  description:
+    'My blog, where I write about my experiences, my projects, and my life. :)',
+  image:
+    'https://res.cloudinary.com/ddwnioveu/image/upload/v1707422678/large_joshua_sortino_71v_Ab1_FXB_6g_unsplash_46a1453603.jpg',
+}
 
 type PagePropTypes = {
-  params: { lang: Langs }
+  params: {
+    lang: Langs
+  }
 }
 
 const Page: React.FC<PagePropTypes> = async ({ params }) => {
-  const t = await getDictionary(params.lang)
+  const data = await getData({ lang: params.lang })
 
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    url: 'https://rwietter.xyz/',
-    name: 'Mauricio Witter | Software Developer',
-    description: t.home.metadata.description,
+  if ('error' in data) {
+    return <p>Ops... Something went wrong. Please, try again later.</p>
   }
 
   return (
@@ -28,26 +104,11 @@ const Page: React.FC<PagePropTypes> = async ({ params }) => {
         // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <AuthorHeader bio={t.home.biography} />
-      <AuthorContent />
-      <KbarInit />
+      <h1 className={styles.title}>Maurício Witter</h1>
+      <span className={styles.description}>My Digital Garden. 🌱</span>
+      <BlogPosts posts={data.posts} />
     </>
   )
 }
 
 export default Page
-
-export const revalidate = 300
-
-export const metadata: Metadata = makeSeo({
-  title: 'Mauricio Witter | Software Developer',
-  description:
-    'This blog is about my journey as a Software Developer. Here do you find my thoughts, ideas, and experiences. I hope you enjoy it.',
-  image:
-    'https://res.cloudinary.com/ddwnioveu/image/upload/v1707422678/large_joshua_sortino_71v_Ab1_FXB_6g_unsplash_46a1453603.jpg',
-  slug: '/',
-  ogText:
-    'This blog is about my journey as a Software Developer. Here do you find my thoughts, ideas, and experiences. I hope you enjoy it.',
-  abstract: 'My journey as a Software Developer.',
-  keywords: 'software, developer, blog, journey',
-})

@@ -4,12 +4,12 @@
   height: 100%;
   border-radius: 0.2em;
   transition: var(--transition-primary);
-  background: var(--bg-color);
-  font-family: var(--font-primary);
+  background: var(--color-zinc-50);
+  font-family: var(--font-sans-serif);
 }
 
 .wrapper:hover {
-  background: var(--sub-alt-color);
+  background: var(--color-zinc-500);
 }
 
 .container {
@@ -23,23 +23,23 @@
 }
 
 .container svg {
-  fill: var(--text-color);
-  color: var(--text-color);
+  fill: var(--color-zinc-900);
+  color: var(--color-zinc-900);
   transition: var(--transition-primary);
 }
 
 .title {
-  color: var(--text-color);
+  color: var(--color-zinc-900);
   font-weight: 600;
   padding-top: 0.8rem;
-  font-family: var(--font-primary);
+  font-family: var(--font-sans-serif);
 }
 
 .description {
-  color: var(--text-alt-color);
+  color: var(--color-zinc-950);
   font-weight: 300;
   padding-top: 0.8rem;
   line-height: 1.5;
   text-align: start;
-  font-family: var(--font-secondary);
+  font-family: var(--font-sans);
 }

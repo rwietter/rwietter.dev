@@ -14,10 +14,8 @@ const Til: FC<TilPropTypes> = ({ post }) => {
 
   return (
     <li className={styles.cardContainer}>
-      <p className={styles.dateTimeRead}>
-        <PiArticleNyTimesLight size={17} />
-        {publishedAt}
-      </p>
+      <span className={styles.publishedAt}>[{publishedAt}]:
+      </span>
       <Link
         href={`/tildes/${post.slug}`}
         scroll={false}

@@ -1,1 +1,0 @@
-export { AtomsList } from './list'

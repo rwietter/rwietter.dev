@@ -3,7 +3,7 @@ import React from 'react'
 const Bluesky = ({
   title = 'Bluesky',
   desc = 'A decentralized social network',
-  color = 'var(--text-color)',
+  color = 'var(--color-zinc-900)',
   size = 24,
   ...props
 }) => {

@@ -25,6 +25,9 @@ const Page: React.FC<PagePropTypes> = async ({ params }) => {
   return (
     <article className='microblog'>
       <h1 className={styles.title}>Microblog</h1>
+      <p className={styles.description}>
+        A collection of short posts, thoughts, and updates.
+      </p>
       <Microblog data={data} />
     </article>
   )

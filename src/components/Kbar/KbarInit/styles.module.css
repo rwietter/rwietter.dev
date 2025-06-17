@@ -4,8 +4,8 @@
 
 .kbarButton {
   cursor: pointer;
-  color: var(--text-alt-color);
-  font-family: var(--font-secondary);
+  color: var(--color-zinc-950);
+  font-family: var(--font-sans);
   padding: 2px 8px 4px 8px;
   border-radius: 1em;
   outline: none;
@@ -20,14 +20,14 @@
 }
 
 .kbarButton:hover {
-  background: var(--sub-alt-color);
+  background: var(--color-zinc-500);
 }
 
 .kbarButton code {
   text-align: center;
-  color: var(--text-alt-color);
-  font-family: var(--font-code);
+  color: var(--color-zinc-950);
+  font-family: var(--font-mono);
   border: none;
-  border-bottom: 1px dotted var(--text-alt-color);
+  border-bottom: 1px dotted var(--color-zinc-950);
   font-weight: 600;
 }

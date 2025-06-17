@@ -1,8 +1,10 @@
 import { GoogleAnalytics } from '@next/third-parties/google'
 import dynamic from 'next/dynamic'
 import Script from 'next/script'
+import { IBM_Plex_Mono, Atkinson_Hyperlegible, Inter, Libre_Caslon_Text } from 'next/font/google'
 
-const Header = dynamic(() => import('@/components/Header'))
+
+// const Header = dynamic(() => import('@/components/Header'))
 const StickyBar = dynamic(() => import('@/components/StickyBar'))
 
 import Providers from './providers'
@@ -23,6 +25,44 @@ interface Params {
   lang: Langs
 }
 
+const IBM = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['300', '400'],
+  variable: '--ibm-plex-mono',
+  fallback: ['monospace'],
+  preload: true,
+})
+
+const INTER = Inter({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600'],
+  variable: '--inter',
+  display: 'swap',
+  fallback: ['sans-serif'],
+  preload: true,
+  adjustFontFallback: true,
+})
+
+const ATKINSON = Atkinson_Hyperlegible({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--atkinson',
+  display: 'swap',
+  fallback: ['sans-serif'],
+  preload: true,
+  adjustFontFallback: true,
+})
+
+const GARAMOND = Libre_Caslon_Text({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--eb-garamond',
+  display: 'swap',
+  fallback: ['serif'],
+  preload: true,
+  adjustFontFallback: true,
+})
+
 export default async function RootLayout({
   children,
   params,
@@ -37,9 +77,9 @@ export default async function RootLayout({
         <DocumentStuff />
       </head>
       <GoogleAnalytics gaId="G-BX714TPPEG" />
-      <body>
+      <body className={`${INTER.variable} ${ATKINSON.variable} ${IBM.variable} ${GARAMOND.variable}`}>
         <div className={styles.main}>
-          <Header />
+          {/* <Header /> */}
           <Providers>
             <main className={styles.layout}>{children}</main>
             <StickyBar />
@@ -60,31 +100,6 @@ function DocumentStuff() {
             const userPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             const savedTheme = localStorage.getItem('theme');
             document.documentElement.setAttribute("data-theme", savedTheme || (userPrefersDark ? 'dark' : 'light'));
-          })();
-        `}
-      </Script>
-      <Script>
-        {`
-          (function() {
-            const headersFont = localStorage.getItem('headersFont')
-            const bodyFont = localStorage.getItem('bodyFont')
-            const fontSize = localStorage.getItem('fontSize')
-
-            document.documentElement.style.setProperty(
-              '--headers-font',
-              headersFont || 'Geist Var',
-            )
-            document.documentElement.style.setProperty(
-              '--body-font',
-              bodyFont || 'Geist Var',
-            )
-
-            const size = fontSize ? fontSize + 'rem' : '1rem'
-
-            document.documentElement.style.setProperty(
-              '--fluid-type-min',
-              size,
-            )
           })();
         `}
       </Script>

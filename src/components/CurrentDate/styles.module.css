@@ -15,7 +15,7 @@
 
 .dateTime {
   all: unset;
-  font-family: var(--font-secondary);
+  font-family: var(--font-sans);
 }
 
 .current {

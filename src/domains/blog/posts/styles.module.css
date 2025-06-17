@@ -1,48 +1,37 @@
 /* cardContainer */
 .cardContainer {
   width: 100%;
-}
-
-.cardContainer+.cardContainer {
-  margin-top: 2rem;
-}
-
-/* dateTimeRead */
-.dateTimeRead {
-  align-items: center;
-  font-weight: 200;
-  font-family: var(--font-primary);
-  color: var(--text-gray-color);
+  margin-top: 0.5em;
+  color: var(--color-zinc-700);
   transition: var(--transitonTheme);
 }
 
-.dateTimeRead svg {
-  margin-right: 0.4rem;
-}
-
-.dateTimeRead {
-  --fluid-type-max: 1rem;
+.publishedAt {
+  font-size: 0.8em;
+  display: inline-block;
+  color: var(--color-zinc-700);
+  font-weight: 300;
+  font-family: var(--font-mono) !important;
+  padding-right: 0.5em;
+  min-width: 90px;
 }
 
 /* postTitle */
 .postTitle {
+  display: flex;
+  justify-content: flex-start;
   justify-self: flex-start;
-  line-height: 1.6;
-  padding-top: 0.3em;
   display: inline-block;
   font-weight: 500;
   max-width: fit-content;
-  border-bottom: 1px dotted var(--text-gray-color);
   transition: var(--transitonTheme);
-  font-family: var(--font-secondary), monospace;
-  color: var(--text-color);
+  font-family: var(--font-sans), monospace;
+  color: var(--color-zinc-900);
   overflow-wrap: anywhere;
-}
-
-.postTitle:hover {
-  color: var(--main-color);
-}
-
-.postTitle {
-  --fluid-type-max: 1.1rem;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--color-zinc-400);
+  text-underline-offset: 0.2em;
+  --fluid-type-min: 0.9rem !important;
+  --fluid-type-max: 1rem !important;
 }

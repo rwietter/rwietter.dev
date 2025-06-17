@@ -1,10 +1,10 @@
 ---
-title: Preferir a duplicação sobre a abstração é realmente o melhor caminho ?
+title: Afinal duplicação ou abstração ?
 description: A duplicação de código é algo muito ruim, uma abstração confusa é tão ruim quanto. Então qual seria a melhor abordagem para isso ?
 image: https://res.cloudinary.com/ddwnioveu/image/upload/v1702426733/okeykat_h_S6_V_Qy0ckv_Y_unsplash_bfab162283.jpg
 alternativeText: Imagem monocromática de líquido fluindo sobre um fundo rosa.
-publishedAt: 2023-05-29
-updatedAt: 2024-07-16
+publishedAt: 05-29-2023
+updatedAt: 07-16-2024
 slug: duplication-over-abstraction
 category: código
 author: Maurício Witter
@@ -35,7 +35,7 @@ Então, quando devemos duplicar código e quando devemos abstrair ? Essas pergun
 
 ### Don't Repeat Yourself
 
-DRY surgiu para tentar resolver Os Males da Duplicação (_The Evils of Duplication_).[^1] <High color="red">Se você tem código duplicado, você precisa lembrar-se onde duplicou, mas não é uma questão de saber se você vai se lembrar: é uma questão de quando você vai esquecer</High>, e a surpresa não será nada agradável quando acontecer.
+DRY surgiu para tentar resolver Os Males da Duplicação (_The Evils of Duplication_).[^1] **Se você tem código duplicado, você precisa lembrar-se onde duplicou, mas não é uma questão de saber se você vai se lembrar: é uma questão de quando você vai esquecer**, e a surpresa não será nada agradável quando acontecer.
 
 Em outras palavras, quando você precisa alterar alguma coisa e o código está repetido por N vezes na sua base de código, então você terá que alterar em N lugares e isso nos leva ao problema descrito na seção 1.
 
@@ -47,7 +47,7 @@ Bem, mas o que isso significa ? Significa que dois códigos duplicados podem ser
 
 O DRY não específica quando é a hora de abstrair uma duplicação ou quando não abstrair, você simplesmente não deve repetir o mesmo conhecimento. Muitos desenvolvedores fazem abstrações precipitadas e acabam tendo uma abstração complexa que tem muitas responsabilidades, tornando o código pouco legível, manutenível e testável.
 
-<High color="yellow">Isso nos leva ao Rule of Three…</High>
+**Isso nos leva ao Rule of Three…**
 
 ### Rule of Three
 

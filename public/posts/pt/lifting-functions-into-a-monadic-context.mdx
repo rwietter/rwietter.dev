@@ -1,12 +1,12 @@
 ---
-title: Notas sobre Lifting Functions para um Contexto Monádico
+title: Notas sobre Mônadas
 description: Este artigo explora os aspectos teóricos e práticos das mônadas em Haskell, investigando seus fundamentos na teoria das categorias e focando nos conceitos centrais de _unit_ e _bind_. Através de uma abordagem prática, o artigo conecta a teoria à implementação em Haskell, explicando como as mônadas são usadas para estruturar e gerenciar computações.
 slug: lifting-functions-into-a-monadic-context
 image: https://res.cloudinary.com/ddwnioveu/image/upload/fl_preserve_transparency/v1724385218/aditya-patil.jpg?_s=public-apps
 alternativeText: Imagem de um túnel geométrico dourado, simbolizando a composição de funções dentro de uma mônada, com camadas transformando valores em direção a uma profundidade abstrata.
 caption: Aditya Patil / Unsplash
-publishedAt: 2024-08-22
-updatedAt: 2024-08-22
+publishedAt: 08-22-2024
+updatedAt: 08-22-2024
 category: teoria
 author: Maurício Witter
 keywords: monads, haskell, bind, unit
@@ -14,7 +14,7 @@ keywords: monads, haskell, bind, unit
 
 # Introdução
 
-Este artigo é <High color="yellow">baseado em meus estudos sobre Mônadas em Haskell</High>. Descreverei o que aprendi usando referências e uma teoria simples voltada para aplicações práticas em Haskell. <High color="red">Mônadas têm suas raízes na teoria das categorias, pois envolvem conceitos como funtores, morfismos, endofuntores e muito mais</High>.
+Este artigo é **baseado em meus estudos sobre Mônadas em Haskell**. Descreverei o que aprendi usando referências e uma teoria simples voltada para aplicações práticas em Haskell. **Mônadas têm suas raízes na teoria das categorias, pois envolvem conceitos como funtores, morfismos, endofuntores e muito mais**.
 
 # Fundamentação Teórica
 
@@ -22,7 +22,7 @@ Este artigo é <High color="yellow">baseado em meus estudos sobre Mônadas em Ha
 
 “As mônadas foram introduzidas pela primeira vez na ciência da computação por Moggi[^2] e posteriormente expandidas por Wadler[^3] para expressar a semântica de programas com efeitos computacionais. Inferência de tipo e efeito também foram introduzidos para levar em conta esses efeitos[^1].”
 
-“É sabido que programas puramente funcionais são mais fáceis de raciocinar do que os imperativos, e um dos primeiros conselhos em *A Prática da Programação* de **Kernighan e Pike** é '<High>Cuidado com os efeitos colaterais</High>'[^1].”
+“É sabido que programas puramente funcionais são mais fáceis de raciocinar do que os imperativos, e um dos primeiros conselhos em *A Prática da Programação* de **Kernighan e Pike** é '**Cuidado com os efeitos colaterais**'[^1].”
 
 “Existem muitas maneiras equivalentes de definir uma mônada[^5]”, “uma mônada introduz um operador de tipo $(\mu)$, onde $(\mu\tau)$ representa computações retornando valores do tipo $(\tau)$. O tipo $(\mu\tau)$ pode ser interpretado como um tipo de dados abstrato que encapsula computações retornando valores do tipo $(\tau)$. Essas computações são acessadas e manipuladas usando duas operações fundamentais: **unit** e **bind**[^1].”
 

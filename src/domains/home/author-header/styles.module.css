@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  color: var(--text-color);
+  color: var(--color-zinc-900);
   max-width: 45rem;
   padding: 1.2rem 0;
   transition: var(--transition-primary);
@@ -12,28 +12,26 @@
 .name {
   font-weight: 800;
   line-height: 1.2;
-  color: var(--text-color);
-  font-family: var(--font-primary);
+  color: var(--color-zinc-900);
+  font-family: var(--font-sans-serif);
   transition: var(--transition-primary);
-  font-feature-settings: "calt" 0, "dlig" 0, "ss02" 1;
   letter-spacing: -0.02em;
   font-optical-sizing: auto;
-  --fluid-type-max: 4rem;
+  font-family: var(--font-serif);
+  --fluid-type-max: 3rem;
   --fluid-type-target: 8vw;
 }
 
 .biography {
-  color: var(--text-color);
-  color: color-mix(in srgb, var(--text-color), var(--bg-color) 15%);
+  color: var(--color-zinc-600);
   line-height: 1.5;
   padding-top: 0.4rem;
-  font-family: var(--font-secondary);
+  font-family: var(--font-sans);
   font-weight: 300;
   hyphens: auto;
   text-align: justify;
   transition: var(--transition-primary);
-  /* --fluid-type-min: 0.7rem; */
-  --fluid-type-max: 1.1rem;
+  --fluid-type-max: 1rem;
 }
 
 @media (min-width: 768px) {
@@ -43,8 +41,8 @@
 }
 
 .username {
-  color: var(--text-color);
-  font-family: var(--font-primary);
+  color: var(--color-zinc-900);
+  font-family: var(--font-sans-serif);
   font-weight: 200;
   padding: 0.2rem 0;
   transition: var(--transition-primary);

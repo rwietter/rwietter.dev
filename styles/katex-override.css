@@ -13,6 +13,9 @@
   margin: 1.3em 0 !important;
   padding: 1em;
   font-display: swap;
+  background-color: var(--color-zinc-100);
+  border: 1px solid var(--color-zinc-200);
+  border-radius: 0.6em;
 }
 
 .katex-display .text span {
@@ -23,4 +26,14 @@
   --fluid-type-max: 1.1rem;
   --fluid-type-min: 1rem;
   --fluid-type-target: 2.5vw;
+}
+
+.katex-html {
+  padding: 0.05em 0.3em;
+  border-radius: 0.3em;
+}
+
+.katex {
+  background-color: var(--color-zinc-100);
+  color: var(--color-foreground-subtle);
 }

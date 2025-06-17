@@ -1,12 +1,12 @@
 ---
-title: Alinhamento Estrutural de Dados e Otimização de Código para Localidade Espacial-Temporal
+title: Data Alignment
 description: Compreendendo alinhamento de dados, como ele é aplicado na prática, quais são as implicações de não alinhar os dados e como isso se relaciona com localidade espacial-temporal.
 slug: data-structure-alignment-and-code-optimization-for-spatial-temporal-locality
 image: /assets/blog/pt/edz-norton-ofja_9Ud9i0-unsplash.jpg
 alternativeText: Peças de Scrabble formando a palavra "ALINHAMENTO" sobre um fundo branco.
 caption: Foto de Edz Norton em Unsplash
-publishedAt: 2024-12-01
-updatedAt: 2024-12-01
+publishedAt: 12-01-2024
+updatedAt: 12-01-2024
 category: theory
 author: Maurício Witter
 keywords: go, golang, memory, alignment, padding, cache, spatial-temporal coherence, optimization
@@ -208,7 +208,7 @@ As rotinas de biblioteca que alocam memória, como `malloc`, devem ser projetada
 
 ### 3.4.1 Garbage Collection
 
-O [Garbage Collector](https://tip.golang.org/doc/gc-guide) — GC — fica, dentre outras coisas, varrendo a memória, em busca de ponteiros para objetos que não estão mais sendo usados ou referenciados para, então, desaloca-los da memória. <High>Dependendo de como o layout de memória está, o GC pode precisar varrer mais bytes do que o necessário, causando um overhead</High>.
+O [Garbage Collector](https://tip.golang.org/doc/gc-guide) — GC — fica, dentre outras coisas, varrendo a memória, em busca de ponteiros para objetos que não estão mais sendo usados ou referenciados para, então, desaloca-los da memória. **Dependendo de como o layout de memória está, o GC pode precisar varrer mais bytes do que o necessário, causando um overhead**.
 
 ```go showLineNumbers
 type Token struct {
@@ -219,11 +219,11 @@ type Token struct {
 }
 ```
 
-Então qual é a ideia aqui 🤔 ? <High color="red">A indicação é para que se **adicione pointer bytes por primeiro** na struct</High>.
+Então qual é a ideia aqui 🤔 ? **A indicação é para que se **adicione pointer bytes por primeiro** na struct**.
 
 ## 3.5 Implicações
 
-Você deve estar se perguntando: **"Por que uma struct com menos bytes (mesmo que desalinhada) possa ser menos eficiente que uma struct com mais bytes (alinhada)?"**. <High color="purple">Pois é, essa foi a pergunta que me fez escrever este post</High>.
+Você deve estar se perguntando: **"Por que uma struct com menos bytes (mesmo que desalinhada) possa ser menos eficiente que uma struct com mais bytes (alinhada)?"**. **Pois é, essa foi a pergunta que me fez escrever este post**.
 
 A principal razão para isso é a memória cache da CPU. A memória cache armazena dados em linhas de cache, que são blocos de memória de tamanho fixo. Quando a CPU precisa acessar um dado, primeiro verifica se ele está na memória cache. Se estiver, é uma "**cache hit**"[^5] e o dado é recuperado rapidamente. Se não estiver, é um "**cache miss**"[^5] e a CPU precisa acessar a memória principal, que é muito mais lenta.
 

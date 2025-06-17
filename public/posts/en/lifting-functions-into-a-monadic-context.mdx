@@ -1,5 +1,5 @@
 ---
-title: Notes on Lifting Functions into a Monadic Context
+title: Notes on Monads in Haskell
 description: This article dives into the theoretical and practical aspects of monads in Haskell, exploring their foundations in category theory, focusing on the core concepts of unit and bind. While providing a hands-on approach, the article bridges theory with Haskell implementation, explaining how monads are used to structure and manage computations.
 slug: lifting-functions-into-a-monadic-context
 image: https://res.cloudinary.com/ddwnioveu/image/upload/fl_preserve_transparency/v1724385218/aditya-patil.jpg?_s=public-apps
@@ -14,7 +14,7 @@ keywords: monads, haskell, bind, unit
 
 # Introduction
 
-This article is <High color="yellow">based on my studies of Monads in Haskell</High>. I will describe what I’ve learned using references and a simple theory aimed at practical applications in Haskell. <High color="red">Monads are rooted in category theory, as they involve concepts such as functors, morphisms, endofunctors, and more</High>.
+This article is **based on my studies of Monads in Haskell**. I will describe what I’ve learned using references and a simple theory aimed at practical applications in Haskell. **Monads are rooted in category theory, as they involve concepts such as functors, morphisms, endofunctors, and more**.
 
 # Background
 
@@ -22,7 +22,7 @@ This article is <High color="yellow">based on my studies of Monads in Haskell</H
 
 “Monads were first introduced to computer science by Moggi[^2] and later expanded by Wadler[^3] to express the semantics of programs with computational effects. Type and effect inference were also introduced to account for these effects[^1].”
 
-“It is well known that purely functional programs are easier to reason about than imperative ones, and one of the first pieces of advice in **Kernighan and Pike's** *The Practice of Programming* is '<High>Be careful with side effects</High>'[^1].”
+“It is well known that purely functional programs are easier to reason about than imperative ones, and one of the first pieces of advice in **Kernighan and Pike's** *The Practice of Programming* is '**Be careful with side effects**'[^1].”
 
 “There are many equivalent ways of defining a monad[^5]”,  “a monad introduces a type operator $(\mu)$, where $(\mu\tau)$ represents computations returning values of type $(\tau)$. The type $(\mu\tau)$ can be interpreted as an abstract datatype that encapsulates computations returning values of type $(\tau)$. These computations are accessed and manipulated using two fundamental operations: **unit** and **bind**[^1].”
 

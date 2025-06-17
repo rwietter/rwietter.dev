@@ -3,7 +3,7 @@ import React from 'react'
 const Orcid = ({
   title = 'Orcid',
   desc = 'A organization that provides a persistent digital identifier that distinguishes you from every other researcher and, through integration in key research workflows such as manuscript and grant submission, supports automated linkages between you and your professional activities ensuring that your work is recognized.',
-  color = 'var(--text-color)',
+  color = 'var(--color-zinc-900)',
   size = 24,
   ...props
 }) => {

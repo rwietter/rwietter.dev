@@ -7,7 +7,7 @@
   margin-top: 2.8rem;
   display: block;
   position: relative;
-  border: 1px solid var(--cb-box-alt-color);
+  border: 1px solid var(--color-zinc-200-translucent);
 }
 
 .terminal button {
@@ -15,23 +15,23 @@
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
   outline: none;
-  font-family: var(--font-secondary), monospace;
+  font-family: var(--font-sans), monospace;
   position: absolute;
   right: 0;
   background: transparent;
   cursor: pointer;
   top: -33px;
-  border-top: 1px solid var(--cb-box-alt-color);
-  border-left: 1px solid var(--cb-box-alt-color);
-  border-right: 1px solid var(--cb-box-alt-color);
+  border-top: 1px solid var(--color-zinc-200-translucent);
+  border-left: 1px solid var(--color-zinc-200-translucent);
+  border-right: 1px solid var(--color-zinc-200-translucent);
   border-bottom: none;
-  color: var(--text-color);
+  color: var(--color-zinc-900);
   transition: var(--transition-primary);
 }
 
 .code {
-  color: var(--text-color);
-  font-family: var(--font-code);
+  color: var(--color-zinc-900);
+  font-family: var(--font-mono);
   line-height: 1.5;
   font-weight: 200;
 

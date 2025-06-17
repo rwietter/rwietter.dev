@@ -3,7 +3,7 @@ import React from 'react'
 const Substack = ({
   title = 'Substack',
   desc = 'A newsletter platform',
-  color = 'var(--text-color)',
+  color = 'var(--color-zinc-900)',
   size = 24,
   ...props
 }) => {

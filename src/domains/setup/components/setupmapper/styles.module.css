@@ -4,8 +4,8 @@
 }
 
 .setupMapperContainer h2 {
-  color: var(--text-color);
-  font-family: var(--font-primary);
+  color: var(--color-zinc-900);
+  font-family: var(--font-sans-serif);
   font-weight: 600;
   font-size: 1.5rem;
 }
@@ -16,23 +16,23 @@
 }
 
 .setupMapperContainer ul li {
-  color: var(--text-color);
-  font-family: var(--font-primary);
+  color: var(--color-zinc-900);
+  font-family: var(--font-sans-serif);
   line-height: 2;
 
   --fluid-type-max: 1em;
 }
 
 .setupMapperContainer ul li span {
-  color: var(--text-color);
+  color: var(--color-zinc-900);
   font-weight: 300;
-  font-family: var(--font-primary);
+  font-family: var(--font-sans-serif);
 }
 
 /* softwareLink */
 .softwareLink {
-  color: var(--text-color);
-  font-family: var(--font-primary);
+  color: var(--color-zinc-900);
+  font-family: var(--font-sans-serif);
   line-height: 1.8;
   font-weight: 500;
   transition: var(--transition-primary);

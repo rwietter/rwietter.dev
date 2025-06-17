@@ -14,10 +14,8 @@ const Posts: FC<PostsPropTypes> = ({ post }) => {
 
   return (
     <li className={styles.cardContainer}>
-      <p className={styles.dateTimeRead}>
-        <PiArticleNyTimesThin size={17} />
-        {publishedAt}
-      </p>
+      <span className={styles.publishedAt}>[{publishedAt}]:  
+      </span>
       <Link
         href={`/blog/${post.slug}`}
         scroll={false}

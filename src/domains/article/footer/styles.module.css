@@ -1,9 +1,9 @@
 .articleFooterContainer {
   padding: 1.4rem 0 0.8rem 0;
-  color: var(--text-alt-color);
+  color: var(--color-zinc-950);
   max-width: 60rem;
   margin: 0 auto;
-  font-family: var(--font-primary), monospace;
+  font-family: var(--font-sans-serif), monospace;
 }
 
 .navHeader {
@@ -16,13 +16,14 @@
 }
 
 .navHeader a {
-  color: var(--text-color);
+  color: var(--color-zinc-900);
   text-decoration: none;
   transition: var(--transition-primary);
   display: flex;
   align-items: center;
 
-  --fluid-type-max: 1.2rem;
+  --fluid-type-min: 1rem;
+  --fluid-type-max: 1.1rem;
 }
 
 .navHeader a:hover {
@@ -51,7 +52,7 @@
   position: absolute;
   left: 0;
   height: 1px;
-  background: var(--border-color);
+  background: var(--color-zinc-200);
   transition: var(--transition-primary);
 }
 
@@ -78,19 +79,19 @@
 }
 
 .socialContainer .author {
-  /* --fluid-type-min: 1.2rem; */
-  --fluid-type-max: 1.2rem;
-  --fluid-type-target: 2vw;
+  --fluid-type-min: 1rem;
+  --fluid-type-max: 1.1rem;
 }
 
 .license {
-  color: var(--text-color);
+  color: var(--color-zinc-900);
   text-decoration: none;
   transition: var(--transition-primary);
   padding-right: 1rem;
   line-height: 2;
 
-  --fluid-type-max: 1.2rem;
+  --fluid-type-min: 1rem;
+  --fluid-type-max: 1.1rem;
 }
 
 .license:hover {

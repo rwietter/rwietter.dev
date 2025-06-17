@@ -101,6 +101,7 @@ const Page: React.FC<PagePropTypes> = async () => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <h1 className={styles.title}>Today I Learned</h1>
+      <span className={styles.description}>Every day is a new opportunity to learn something new 📚.</span>
       <TilList tildes={data.tildes} />
     </>
   )

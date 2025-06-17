@@ -5,8 +5,8 @@
 }
 
 .articlesContainer h1 {
-  font-family: var(--font-secondary);
-  color: var(--text-color);
+  font-family: var(--font-sans);
+  color: var(--color-zinc-900);
   font-weight: 500;
   /* --fluid-type-min: 1.1rem; */
   --fluid-type-max: 2rem;

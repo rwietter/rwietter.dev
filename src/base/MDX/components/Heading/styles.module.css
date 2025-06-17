@@ -2,7 +2,7 @@
   display: flex;
   /* Override article css */
   text-decoration: none !important;
-  color: var(--text-color) !important;
+  color: var(--color-zinc-900) !important;
   align-items: center;
   justify-content: flex-start;
   width: 100%;

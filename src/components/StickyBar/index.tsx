@@ -1,7 +1,5 @@
 'use client'
 
-// import Modal from '@/components/Modal'
-// import { Portal } from '@/shared/components/Portal'
 import { setCookie } from 'cookies-next'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
@@ -12,6 +10,7 @@ import {
   PiTranslateLight,
   PiHouseSimpleLight,
   PiGearLight,
+  PiInfoLight,
 } from 'react-icons/pi'
 import styles from './styles.module.css'
 
@@ -25,21 +24,8 @@ const SwitchTheme = dynamic(() => import('@/components/SwitchTheme'))
 const Kbar = dynamic(() => import('@/components/StickyBar/Kbar'))
 const ScrollUp = dynamic(() => import('@/components/StickyBar/ScrollUp'))
 
-// const ModalTheme = dynamic(() => import('@/components/CustomizeUI/ModalTheme'))
-// const ModalFont = dynamic(() => import('@/components/CustomizeUI/ModalFont'))
-// const FontSizeSlider = dynamic(
-//   () => import('@/components/CustomizeUI/ModalFontSize'),
-// )
-
 const StickyBar = () => {
-  // const modalRef = React.useRef<ModalRef>(null)
   const pathname = usePathname()
-
-  // const handleToggleModal = () => {
-  //   if (modalRef.current) {
-  //     modalRef.current.toggle()
-  //   }
-  // }
 
   const handleToggleLanguage = () => {
     const lang = pathname.startsWith('/en') ? 'pt' : 'en'
@@ -55,53 +41,25 @@ const StickyBar = () => {
   return (
     <>
       <footer className={styles.manuBar}>
-        <div className={styles.menuBarGroup} role='menubar'>
+        <section className={styles.menuBarContainer} role='menubar'>
           <Link
             className={styles.menuBarLink}
             href='/'
-            title='go to home page'
+            title='blog'
             role='menuitem'
           >
             <button
               type='button'
               className={styles.menuBarItem}
-              aria-label='Go to home'
-              title='Go to home'
+              aria-label='Blog'
+              title='Blog'
             >
               <PiHouseSimpleLight size={20} aria-hidden='true' />
             </button>
           </Link>
-          <Link
-            className={styles.menuBarLink}
-            href='/blog'
-            title='Go to blog'
-            role='menuitem'
-          >
-            <button
-              type='button'
-              className={styles.menuBarItem}
-              aria-label='Go to blog'
-            >
-              <PiArticleNyTimesLight size={20} aria-hidden='true' />
-            </button>
-          </Link>
+
           <Kbar />
 
-          <div className={styles.menuBarLink}>
-            <Link
-              href='/settings'
-              role='menuitem'
-              type='button'
-              className={styles.menuBarItem}
-              aria-label='Go to blog'
-            >
-              <PiGearLight
-                role='button'
-                size={20}
-                style={{ cursor: 'pointer' }}
-              />
-            </Link>
-          </div>
           <button
             type='button'
             className={styles.menuBarItem}
@@ -112,9 +70,7 @@ const StickyBar = () => {
           >
             <PiTranslateLight size={20} aria-hidden='true' />
           </button>
-        </div>
 
-        <div className={styles.menuBarGroup} role='menubar'>
           <button
             type='button'
             className={styles.menuBarItem}
@@ -124,17 +80,25 @@ const StickyBar = () => {
           >
             <SwitchTheme visible='sticky' />
           </button>
-          <ScrollUp />
-        </div>
-      </footer>
 
-      {/* <Portal>
-        <Modal ref={modalRef} title='Settings'>
-          <ModalTheme />
-          <ModalFont />
-          <FontSizeSlider />
-        </Modal>
-      </Portal> */}
+          <ScrollUp />
+
+          <Link
+            className={styles.menuBarLink}
+            href='/about'
+            title='About'
+            role='menuitem'
+          >
+            <button
+              type='button'
+              className={styles.menuBarItem}
+              aria-label='About'
+            >
+              <PiInfoLight size={20} aria-hidden='true' />
+            </button>
+          </Link>
+        </section>
+      </footer>
     </>
   )
 }

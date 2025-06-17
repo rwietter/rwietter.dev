@@ -2,6 +2,6 @@
   width: 100%;
   padding-top: 1.2rem;
   margin: 0 auto;
-  background: var(--bg-color);
+  background: var(--color-zinc-50);
   transition: var(--transition-primary);
 }

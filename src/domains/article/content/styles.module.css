@@ -1,5 +1,5 @@
 .articleContainer {
-  font-family: var(--font-secondary);
+  font-family: var(--font-sans);
   max-width: 60rem;
   margin: 0 auto;
 }
@@ -7,7 +7,7 @@
 .articleMarkdown {
   /* --fluid-type-min: 1rem; */
   padding: 1rem 0;
-  color: var(--text-color);
+  color: var(--color-foreground-subtler);
   --fluid-type-max: 1.05em;
   --fluid-type-min: 1.05em;
 }

@@ -12,12 +12,11 @@ import {
   PiCopySimpleThin,
   PiBookmarksSimpleLight,
   PiAtLight,
-  PiArticleNyTimesLight,
   PiHouseSimpleLight,
   PiBooksLight,
   PiGithubLogoLight,
   PiTelegramLogoLight,
-  PiAtomLight
+  PiInfoLight,
 } from 'react-icons/pi'
 
 const Actions = () => {
@@ -35,7 +34,7 @@ const Actions = () => {
       keywords: 'copy-link',
       section: 'General',
       perform: copyLink,
-      icon: <PiCopySimpleThin size={20} color='var(--text-color)' />,
+      icon: <PiCopySimpleThin size={20} color='var(--color-zinc-900)' />,
     },
     {
       id: 'Contact',
@@ -44,7 +43,7 @@ const Actions = () => {
       keywords: 'contact',
       section: 'General',
       perform: () => router.push('/contact'),
-      icon: <PiAtLight size={20} color='var(--text-color)' />,
+      icon: <PiAtLight size={20} color='var(--color-zinc-900)' />,
     },
     {
       id: 'Home',
@@ -53,25 +52,16 @@ const Actions = () => {
       keywords: 'page-home',
       section: 'Pages',
       perform: () => router.push('/'),
-      icon: <PiHouseSimpleLight size={20} color='var(--text-color)' />,
+      icon: <PiHouseSimpleLight size={20} color='var(--color-zinc-900)' />,
     },
     {
-      id: 'Blog',
-      name: 'Blog',
-      shortcut: ['b'],
-      keywords: 'go-blog',
-      section: 'Pages',
-      perform: () => router.push('/blog'),
-      icon: <PiArticleNyTimesLight size={20} color='var(--text-color)' />,
-    },
-    {
-      id: 'Atoms',
-      name: 'Atoms',
+      id: 'About',
+      name: 'About',
       shortcut: ['a'],
-      keywords: 'atoms',
+      keywords: 'page-about',
       section: 'Pages',
-      perform: () => router.push('/atoms'),
-      icon: <PiAtomLight size={20} color='var(--text-color)' />,
+      perform: () => router.push('/about'),
+      icon: <PiInfoLight size={20} color='var(--color-zinc-900)' />,
     },
     {
       id: 'syllabus',
@@ -80,7 +70,7 @@ const Actions = () => {
       keywords: 'go-syllabus',
       section: 'Pages',
       perform: () => router.push('/syllabus'),
-      icon: <PiBooksLight size={20} color='var(--text-color)' />,
+      icon: <PiBooksLight size={20} color='var(--color-zinc-900)' />,
     },
     {
       id: 'Awesome',
@@ -89,7 +79,7 @@ const Actions = () => {
       keywords: 'page-awesome',
       section: 'Pages',
       perform: () => router.push('/awesome'),
-      icon: <PiBookmarksSimpleLight size={20} color='var(--text-color)' />,
+      icon: <PiBookmarksSimpleLight size={20} color='var(--color-zinc-900)' />,
     },
     {
       id: 'Microblog',
@@ -98,7 +88,7 @@ const Actions = () => {
       keywords: 'microblog',
       section: 'Pages',
       perform: () => router.push('/microblog'),
-      icon: <PiArticleMediumLight size={20} color='var(--text-color)' />,
+      icon: <PiArticleMediumLight size={20} color='var(--color-zinc-900)' />,
     },
     {
       id: 'Projects',
@@ -107,7 +97,7 @@ const Actions = () => {
       keywords: 'page-projects',
       section: 'Pages',
       perform: () => router.push('/projects'),
-      icon: <PiFolderSimpleStarLight size={20} color='var(--text-color)' />,
+      icon: <PiFolderSimpleStarLight size={20} color='var(--color-zinc-900)' />,
     },
     {
       id: 'Today I Learned',
@@ -116,7 +106,7 @@ const Actions = () => {
       keywords: 'Today I Learned',
       section: 'Pages',
       perform: () => router.push('/tildes'),
-      icon: <PiTildeLight size={20} color='var(--text-color)' />,
+      icon: <PiTildeLight size={20} color='var(--color-zinc-900)' />,
     },
     {
       id: 'GitHub',
@@ -125,7 +115,7 @@ const Actions = () => {
       keywords: 'github',
       section: 'Social',
       perform: () => window.open('https://github.com/rwietter', '_blank'),
-      icon: <PiGithubLogoLight size={20} color='var(--text-color)' />,
+      icon: <PiGithubLogoLight size={20} color='var(--color-zinc-900)' />,
     },
     {
       id: 'Substack',
@@ -134,7 +124,7 @@ const Actions = () => {
       keywords: 'substack',
       section: 'Social',
       perform: () => window.open('https://rwietter.substack.com/', '_blank'),
-      icon: <Substack size={20} color='var(--text-color)' />,
+      icon: <Substack size={20} color='var(--color-zinc-900)' />,
     },
     {
       id: 'Bluesky',
@@ -147,7 +137,7 @@ const Actions = () => {
           'https://bsky.app/profile/did:plc:l4rdag2x2gkyq5zkgb46pbzl',
           '_blank',
         ),
-      icon: <Bluesky size={20} color='var(--text-color)' />,
+      icon: <Bluesky size={20} color='var(--color-zinc-900)' />,
     },
     {
       id: 'Telegram',
@@ -156,7 +146,7 @@ const Actions = () => {
       keywords: 'telegram',
       section: 'Social',
       perform: () => window.open('https://t.me/rwietter', '_blank'),
-      icon: <PiTelegramLogoLight size={20} color='var(--text-color)' />,
+      icon: <PiTelegramLogoLight size={20} color='var(--color-zinc-900)' />,
     },
   ]
   return { actions }

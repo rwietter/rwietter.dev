@@ -2,7 +2,7 @@
 .theme {
   background: none;
   border-radius: 60rem;
-  color: var(--text-color);
+  color: var(--color-zinc-900);
   outline: none;
   border: none;
   cursor: pointer;
@@ -10,11 +10,11 @@
     var(--transitonTheme),
     transform 500ms ease,
     rotate 500ms ease;
-  font-family: var(--font-primary), monospace;
+  font-family: var(--font-sans-serif), monospace;
 }
 
 .theme:hover {
-  color: var(--text-gray-color);
+  color: var(--color-zinc-700);
   background: transparent;
 }
 

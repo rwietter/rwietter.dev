@@ -52,7 +52,7 @@
 
 .caption {
   text-align: center;
-  color: color-mix(in srgb, var(--neutral) 40%, var(--text-color) 60%);
+  color: color-mix(in srgb, var(--neutral) 40%, var(--color-zinc-900) 60%);
   line-height: 1.5;
   --fluid-type-min: 0.75em;
   --fluid-type-max: 1em;

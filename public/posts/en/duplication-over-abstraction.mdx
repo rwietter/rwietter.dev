@@ -1,5 +1,5 @@
 ---
-title: Is Favoring Duplication Over Abstraction Really the Best Approach?
+title: After all, Duplication or Abstraction?
 description: Code duplication is generally considered bad practice, but a confusing abstraction can be just as detrimental. So, what's the best approach?
 image: https://res.cloudinary.com/ddwnioveu/image/upload/v1702426733/okeykat_h_S6_V_Qy0ckv_Y_unsplash_bfab162283.jpg
 alternativeText: Monochromatic image of liquid flowing over a pink background.
@@ -35,7 +35,7 @@ When should we duplicate code, and when should we abstract? These questions have
 
 ### Don't Repeat Yourself (DRY)
 
-DRY emerged to address the "Evils of Duplication." [^1] <High color="red">If you have duplicated code, you need to remember where you duplicated it. It’s not a matter of if you’ll forget, but when—and the surprise will not be a pleasant one.</High>
+DRY emerged to address the "Evils of Duplication." [^1] **If you have duplicated code, you need to remember where you duplicated it. It’s not a matter of if you’ll forget, but when—and the surprise will not be a pleasant one.**
 
 In other words, if you need to change something and the code is repeated N times in your codebase, you'll have to make the change in N places, leading to the problem described in Section 1.
 
@@ -47,7 +47,7 @@ What does this mean? Two duplicated code segments might be identical initially b
 
 DRY doesn't dictate when to abstract or not to abstract a duplication. You simply shouldn't repeat the same knowledge. Many developers create hasty abstractions, resulting in complex abstractions with numerous responsibilities, making the code less readable, maintainable, and testable.
 
-<High color="yellow">This leads us to the Rule of Three…</High>
+**This leads us to the Rule of Three…**
 
 ### Rule of Three
 

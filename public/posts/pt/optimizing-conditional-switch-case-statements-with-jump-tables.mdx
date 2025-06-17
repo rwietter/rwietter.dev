@@ -1,12 +1,12 @@
 ---
-title: Otimização de instruções condicionais Switch-Case Statements por meio de Jump Tables
+title: Jump Tables e Branches
 description: Este artigo examina aspectos teóricos e empíricos, destacando casos de uso e desafios encontrados na aplicação de jump tables e branchs em diferentes contextos para otimização de instruções condicionais em switch-case statements e compiladores.
 slug: optimizing-conditional-switch-case-statements-with-jump-tables
 image: https://res.cloudinary.com/ddwnioveu/image/upload/v1720299096/fgqw1b2j7dncrztplfbn.jpg
 alternativeText: galhos e branchs de árvores caídos submersos em um corpo de água calmo e escuro com folhagem verde exuberante ao fundo criam uma cena serena e pitoresca.
 caption: Michael Held / Unsplash
-publishedAt: 2024-07-05
-updatedAt: 2024-07-06
+publishedAt: 07-06-2024
+updatedAt: 07-06-2024
 category: código, teoria
 author: Maurício Witter
 keywords: jump table, branch table, indexed table lookup, dispatch table, multiway branch, switch-case, select, match, optimization, compilers, gcc, assembly, c, rust, go, python, javascript, programming, computer science
@@ -85,7 +85,7 @@ Jump tables utilizam o valor dos dados ou uma derivada calculada como o índice 
 
 Não quero entrar muito em detalhes neste artigo para não ficar extenso, mas em suma, as CPUs modernas ainda não são tão eficientes em lidar com desvios condicionais. Acontece que, as CPUs processam instruções em pipelines e quanto mais cheio esse pipeline fica, mais eficiente é o uso da CPU.
 
-Ocorre que, <High color="red">o desvio condicional torna-se um desafio para manter o pipeline cheio, uma que vez que, quando uma instrução de branch é encontrada, a CPU não sabe antecipadamente qual caminho seguir</High>. Dependendo da condição associada ao branch, a CPU deve decidir se deve continuar com as instruções subsequentes no fluxo atual ou se deve pular para um novo fluxo de instruções. Atualmente existem algoritmos de **Branch Predictor** para pré-buscar essas instruções e colocar antecipadamente no pipeline, mas ainda assim não é obtido a melhor eficiência. E isso piora quando você tem branchs aninhadas, pois as branchs internas sequer são conhecidas para que se possa pré-buscar as instruções.
+Ocorre que, **o desvio condicional torna-se um desafio para manter o pipeline cheio, uma que vez que, quando uma instrução de branch é encontrada, a CPU não sabe antecipadamente qual caminho seguir**. Dependendo da condição associada ao branch, a CPU deve decidir se deve continuar com as instruções subsequentes no fluxo atual ou se deve pular para um novo fluxo de instruções. Atualmente existem algoritmos de **Branch Predictor** para pré-buscar essas instruções e colocar antecipadamente no pipeline, mas ainda assim não é obtido a melhor eficiência. E isso piora quando você tem branchs aninhadas, pois as branchs internas sequer são conhecidas para que se possa pré-buscar as instruções.
 
 E além disso, se o algoritmo faz uma predição incorreta sobre qual caminho um desvio condicional (branch) tomará, será necessário descartar as instruções especulativas que foram carregadas no pipeline (**branch misprediction**). Então, a CPU deve buscar as instruções corretas e reiniciar a execução a partir do ponto do branch, causando uma penalidade de desempenho devido ao pipeline ter que ser "limpo" (flush).
 
@@ -117,11 +117,11 @@ Os dicionários utilizam funções hash, que em casos de colisão de hash vem a 
 
 ## Condições para uso de Jump Table (gcc)
 
-- **Intervalo Contíguo de Casos**: se os valores dos <High>casos são contíguos ou próximos</High>, é mais eficiente usar uma jump table.
+- **Intervalo Contíguo de Casos**: se os valores dos **casos são contíguos ou próximos**, é mais eficiente usar uma jump table.
 
-- **Número de Casos**: se o número de casos é suficiente para justificar a tabela, normalmente <High>5 ou mais casos contíguos</High>.
+- **Número de Casos**: se o número de casos é suficiente para justificar a tabela, normalmente **5 ou mais casos contíguos**.
 
-- **Case labels**: os rótulos dos casos devem ser constantes — não variáveis ou strings — <High>(1..n, a..z, Enum)</High>.
+- **Case labels**: os rótulos dos casos devem ser constantes — não variáveis ou strings — **(1..n, a..z, Enum)**.
 
 ## Multiway branch
 
