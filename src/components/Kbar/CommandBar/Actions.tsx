@@ -37,15 +37,6 @@ const Actions = () => {
       icon: <PiCopySimpleThin size={20} color='var(--color-zinc-900)' />,
     },
     {
-      id: 'Contact',
-      name: 'Contact',
-      shortcut: ['e'],
-      keywords: 'contact',
-      section: 'General',
-      perform: () => router.push('/contact'),
-      icon: <PiAtLight size={20} color='var(--color-zinc-900)' />,
-    },
-    {
       id: 'Home',
       name: 'Home',
       shortcut: ['h'],
@@ -102,7 +93,7 @@ const Actions = () => {
     {
       id: 'Today I Learned',
       name: 'Today I Learned',
-      shortcut: ['d'],
+      shortcut: ['t'],
       keywords: 'Today I Learned',
       section: 'Pages',
       perform: () => router.push('/tildes'),
@@ -129,7 +120,7 @@ const Actions = () => {
     {
       id: 'Bluesky',
       name: 'Bluesky',
-      shortcut: ['t'],
+      shortcut: ['y'],
       keywords: 'Bluesky',
       section: 'Social',
       perform: () =>

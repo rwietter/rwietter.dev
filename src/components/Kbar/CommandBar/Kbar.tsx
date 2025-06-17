@@ -23,6 +23,10 @@ const Kbar = ({ children }: Props) => {
       options={{
         toggleShortcut: 'Control+Space',
         enableHistory: true,
+        animations: {
+          enterMs: 500,
+          exitMs: 500,
+        }
       }}
     >
       <KBarPortal>
@@ -30,6 +34,7 @@ const Kbar = ({ children }: Props) => {
           <KBarAnimator className={styles.animator}>
             <KBarSearch
               className={styles.search}
+              autoFocus={false}
               placeholder='Type a command or search…'
             />
             <RenderResults />

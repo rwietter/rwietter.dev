@@ -94,7 +94,7 @@
   margin: 2em 0;
   padding: 0 1em;
   color: var(--text-gray-color);
-  background: var(--sub-alt-color);
+  background: var(--color-zinc-100);
   transition: var(--transition-primary);
   border-radius: 4px;
   position: relative;
@@ -193,10 +193,14 @@
   max-width: 100%;
   width: 100%;
   table-layout: fixed;
-  overflow: auto;
   padding: 1em 0;
   color: var(--color-zinc-900);
   background: var(--color-zinc-50);
+
+ display: block; /* Permitir overflow na própria tabela */
+  overflow-x: auto; /* Habilita o scroll horizontal */
+  -webkit-overflow-scrolling: touch; /* Melhoria de scroll para iOS */
+  text-wrap: nowrap; /* Impede quebra de linha automática */
 }
 
 .blogpost table thead {
@@ -217,17 +221,22 @@
   font-family: var(--font-sans);
   color: var(--color-zinc-900);
   transition: var(--transition-primary);
-  border: 1px solid var(--sub-alt-color);
+  border: 1px solid var(--color-zinc-100);
 }
 
 .blogpost table tr {
   background: var(--color-zinc-50);
   transition: var(--transition-primary);
-  border-top: 1px solid var(--sub-alt-color);
+  border-top: 1px solid var(--color-zinc-100);
 }
 
 .blogpost table tr:nth-child(2n) {
   background: var(--color-zinc-200);
+}
+
+.blogpost table .katex {
+  background-color: transparent;
+  color: var(--color-foreground-subtle);
 }
 
 .blogpost pre code {

@@ -1,7 +1,7 @@
 import { GoogleAnalytics } from '@next/third-parties/google'
 import dynamic from 'next/dynamic'
 import Script from 'next/script'
-import { IBM_Plex_Mono, Atkinson_Hyperlegible, Inter, Libre_Caslon_Text } from 'next/font/google'
+import { IBM_Plex_Mono, Atkinson_Hyperlegible, Inter, Spectral } from 'next/font/google'
 
 
 // const Header = dynamic(() => import('@/components/Header'))
@@ -53,9 +53,9 @@ const ATKINSON = Atkinson_Hyperlegible({
   adjustFontFallback: true,
 })
 
-const GARAMOND = Libre_Caslon_Text({
+const DMSERIF = Spectral({
   subsets: ['latin'],
-  weight: ['400', '700'],
+  weight: ['400', '500', '700'],
   variable: '--eb-garamond',
   display: 'swap',
   fallback: ['serif'],
@@ -77,7 +77,7 @@ export default async function RootLayout({
         <DocumentStuff />
       </head>
       <GoogleAnalytics gaId="G-BX714TPPEG" />
-      <body className={`${INTER.variable} ${ATKINSON.variable} ${IBM.variable} ${GARAMOND.variable}`}>
+      <body className={`${INTER.variable} ${ATKINSON.variable} ${IBM.variable} ${DMSERIF.variable}`}>
         <div className={styles.main}>
           {/* <Header /> */}
           <Providers>
