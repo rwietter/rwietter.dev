@@ -28,7 +28,7 @@
 
   --transition-primary: color 200ms ease, background 200ms ease,
     border-color 200ms ease, box-shadow 200ms ease, fill 200ms ease,
-    stroke 200ms ease;
+    stroke 200ms ease, text-decoration-color 200ms ease;
 
   --font-tex: KaTeX_Math;
 }

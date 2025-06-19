@@ -15,8 +15,8 @@
   transition:
     var(--transition-primary),
     border-color 200ms ease;
-  backdrop-filter: blur(10px);
-  background: var(--color-zinc-200-translucent);
+  /* backdrop-filter: blur(10px); */
+  background: var(--color-zinc-100);
   /* background: var(--color-zinc-50); */
   z-index: 10;
 }

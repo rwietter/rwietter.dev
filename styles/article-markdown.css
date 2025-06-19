@@ -296,3 +296,30 @@
   font-family: var(--font-sans);
 }
 
+/* Styling article content anchors */
+a[href="#contents"] h1 {
+  --fluid-type-max: 1.6rem;
+  --fluid-type-min: 1rem;
+  display: inline-block;
+  font-family: var(--font-sans);
+}
+
+a[href="#contents"] + ul {
+  --fluid-type-max: 0.9rem;
+  --fluid-type-min: 0.8rem;
+    font-family: var(--font-mono);
+}
+
+a[href="#contents"] + ul li a {
+  text-decoration-style: dotted;
+  text-decoration-color: var(--color-zinc-300);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+  color: var(--color-zinc-600);
+  transition: var(--transition-primary);
+}
+
+a[href="#contents"] + ul li a:hover {
+  color: var(--color-zinc-900);
+  text-decoration-color: var(--color-zinc-500);
+}

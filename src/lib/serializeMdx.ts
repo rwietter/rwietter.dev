@@ -33,7 +33,7 @@ export async function getMdxSource(article: string): Promise<MDXSerialized> {
       remarkPlugins: [
         remarkGfm,
         remarkMath,
-        [remarkToc, { heading: 'Contents', tight: false, ordered: false }],
+        [remarkToc, { heading: 'Contents', tight: true, ordered: false, inline: true }],
       ],
       useDynamicImport: true,
     },
