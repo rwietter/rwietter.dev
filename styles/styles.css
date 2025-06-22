@@ -17,7 +17,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-zinc-500); 
+  background: var(--color-zinc-500);
   border-radius: 0.6em;
 }
 
