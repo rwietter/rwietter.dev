@@ -295,8 +295,8 @@ betteralign --help
 I hope this post has been helpful.  Feel free to leave a comment or suggestion on [GitHub](https://github.com/rwietter/rwietter.dev). Thank you for reading!
 
 [^1]: R. E. Bryant and D. R. O’Hallaron, Computer systems: a programmer’s perspective, Third edition. Boston.
-[^2]: Barramentos de Dados — Trafega dados entre memória, processador e I/O; costuma ter a mesma largura que a word-size para transferências de dados; Barramento de Endereços — A largura do barramento de endereço determina a quantidade de memória máxima endereçável; trafega endereços de memória. Barramento de Controle — trafega sinais para gerenciar todas as operações realizadas pelo sistema computacional..
-[^3]: Uma CPU de 32 bits pode utilizar barramentos de 64 bits, ela pode solicitar dois blocos de 32 bits por ciclo, mas só continua limitada a processar 1 bloco de 32 bits por ciclo ainda.
+[^2]: Data Bus — Transfers data between memory, processor, and I/O devices. It typically has the same width as the system’s word size to optimize data throughput. Address Bus — The width of the address bus determines the maximum addressable memory space; it carries memory addresses used to access data. Control Bus — Transmits control signals necessary for coordinating and managing all operations within the computing system.
+[^3]: A 32-bit CPU can interface with 64-bit buses. While it can request and receive two 32-bit blocks per clock cycle due to the wider bus, it remains architecturally constrained to processing only a single 32-bit block per cycle.
 [^4]: [Intel® FPGA SDK for OpenCL™ Standard Edition: Best Practices Guide — 3.5. Aligning a Struct with or without Padding](https://www.intel.com/content/www/us/en/docs/programmable/683176/18-1/aligning-a-struct-with-or-without-padding.html)
 [^5]: [Cache (computing)](https://www.wikiwand.com/en/articles/Cache_(computing))
 [^6]: [Pointers Are Complicated, or: What's in a Byte?](https://www.ralfj.de/blog/2018/07/24/pointers-and-bytes.html)
