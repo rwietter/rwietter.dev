@@ -16,6 +16,7 @@ const Cite = dynamic(() => import('@/base/MDX/components/Callouts/CiteCallout'))
 const Chunk = dynamic(() => import('@/base/MDX/components/Chunk'))
 const Micro = dynamic(() => import('@/base/MDX/components/MicroPost'))
 const Figure = dynamic(() => import('@/base/MDX/components/Figure'))
+const Highlight = dynamic(() => import('@/base/MDX/components/Highlight'))
 
 interface ArticleData {
   mdxSource: MDXRemoteSerializeResult
@@ -30,6 +31,7 @@ const components = {
   Chunk,
   Micro,
   Figure,
+  Highlight,
   ...headings,
 }
 
